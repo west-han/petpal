@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<!-- 구조 정의 -->
+	<definition name=".mainLayout" template="/WEB-INF/views/layout/layout3.jsp">
+	    <put-attribute name="title" value="petpal" />
+	  	<put-attribute name="header" value="/WEB-INF/views/layout/header2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+	</definition>
+	
+	<definition name=".adminLayout" template="/WEB-INF/views/admin/layout/layout2.jsp">
+	    <put-attribute name="title" value="petpal" />
+	  	<put-attribute name="left" value="/WEB-INF/views/admin/layout/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
+	</definition>
+	
+	<!-- 상속: body를 main.jsp에서 전달한 view name으로 대체 -->
+	<definition name=".admin.*.*.*" extends=".adminLayout">
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".admin.*.*" extends=".adminLayout">
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".admin.*" extends=".adminLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
+	</definition>
+	
+	<definition name=".*.*.*" extends=".mainLayout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".*.*" extends=".mainLayout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".*" extends=".mainLayout">
+    	  <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+	</definition>
+
+</tiles-definitions>

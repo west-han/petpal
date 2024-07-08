@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.mapper.MemberMapper">
+	<!-- 받아올 정보: 로그인에 필요한 정보와 세션에 저장해야 할 정보 -->
+	<!-- 회원번호, 이메일, 패스워드, 로그인실패횟수 / 이름, 닉네임, 회원등급, 가입일 -->
+	<select id="loginMember" parameterType="String" resultType="com.shop.petpal.domain.Member">
+		SELECT m1.memberNum, email, password, failureCount, lastLogin,
+			userName, nickname, membershipNum, regDate
+		FROM member1 m1
+		JOIN member2 m2 ON m1.memberNum = m2.memberNum
+		WHERE email = #{email} AND enabled != 0
+	</select>
+	
+	<update id="updateLastLogin" parameterType="String">
+		UPDATE member1
+		SET lastLogin = SYSDATE, failureCount = 0
+		WHERE email = #{email}
+	</update>
+	
+	<update id="updateFailureCount" parameterType="String">
+		UPDATE member1
+		SET failureCount = failureCount + 1
+		WHERE email = #{email}
+	</update>
+</mapper>
