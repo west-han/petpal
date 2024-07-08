@@ -74,6 +74,11 @@ public class MemberController {
 		model.addAttribute("mode", "member");
 		return "/member/member";
 	}
+	@GetMapping("pet")
+	public String petForm(Model model) {
+		model.addAttribute("mode", "member");
+		return "/member/pet";
+	}
 	
 	@GetMapping("join")
 	public String joinForm(Model model) {
