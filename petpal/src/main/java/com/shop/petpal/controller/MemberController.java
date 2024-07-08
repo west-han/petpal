@@ -22,7 +22,7 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public String login() {
-		return ".member.login";
+		return "/member/login";
 	}
 	
 	@PostMapping("login")
@@ -36,7 +36,7 @@ public class MemberController {
 		if (member == null || !password.equals(member.getPassword())) {
 			model.addAttribute("message", "아이디 또는 패스워드가 일치하지 않습니다.");
 			service.updateFailureCount(email);
-			return ".member.login";
+			return "/member/login";
 		}
 		
 		SessionInfo info = new SessionInfo();
@@ -67,6 +67,12 @@ public class MemberController {
 		session.invalidate();
 		
 		return "redirect:/";
+	}
+	
+	@GetMapping("member")
+	public String memberForm(Model model) {
+		model.addAttribute("mode", "member");
+		return "/member/member";
 	}
 	
 	@GetMapping("join")
