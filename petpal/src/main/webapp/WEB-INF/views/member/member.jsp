@@ -7,11 +7,8 @@
     <title>회원가입</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
-        /* 기존 CSS 스타일 그대로 유지 */
+     
         * {
             box-sizing: border-box;
             font-family: "Noto Sans CJK KR";
@@ -100,9 +97,10 @@
         }
 
         button#next-btn, button#next-btn2 {
-            margin-left: auto; /* 오른쪽으로 이동시키기 위한 속성 */
+            margin-left: auto; 
         }
     </style>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
 </head>
 <body>
     <div class="container" id="app">
