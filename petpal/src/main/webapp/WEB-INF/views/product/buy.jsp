@@ -11,7 +11,6 @@
 	margin: 40px auto;
 	margin-bottom: 60px;
 	color: #434347;
-	
 }
 
 .body-sep {
