@@ -168,7 +168,6 @@ input[type=checkbox] {
 			<h3>장바구니 </h3>
 		</div>
 		
-		
 		<div class="body-main">
 			
 			<form name="cartForm" method="post">

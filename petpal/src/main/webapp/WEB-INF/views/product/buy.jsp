@@ -313,7 +313,7 @@ select, button {
 						
 						
 							<div class="option">
-								옵션 선택
+								옵션 선택 
 							</div>
 						
 						
