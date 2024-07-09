@@ -7,7 +7,7 @@
 * { padding: 0; margin: 0; }
 *, *::after, *::before { box-sizing: border-box; }
 
-.body-container {
+.body-container2 {
 	max-width: 800px;
 	margin: 0 auto;
 }
@@ -15,6 +15,7 @@
 .done-box {
 	margin-top: 60px;
 	border: 2px solid #E4B075;
+	border-radius: 6px;
 	padding: 30px 20px; 
 }
 
@@ -38,7 +39,6 @@ hr {
 	display: flex;
 	align-items: center;
 	margin-bottom: 30px;
-	margin-left: 90px;
 }
 
 .done-box .main-btn {
@@ -57,8 +57,6 @@ hr {
 	border-radius: 10px;
 }
 
-
-
 img {
 	height: 100px;
 	width: 100px;
@@ -68,29 +66,25 @@ img {
 
 <div class="container">
 	<div class="body-container">	
-
-        <div class="body-">
+        <div class="body-container2">
             <div>
                 <div class="done-box">
-                    <h4 class="done-title">상품 결제 완료</h4>
+                    <h4 class="done-title">결제 완료</h4>
                     <hr>
                        
 	                <div class="msg-box">
 						<p class="done-msg">
-							결제가 완료되었습니다.
+							상품 결제가 완료되었습니다.
 						</p>
-						<img src="${pageContext.request.contextPath}/resources/images/foot.png">
+						
 	                </div>
-	                
-
-                       
+ 
                     <div class="main-btn">
                        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">메인화면</button>
                     </div>
                 </div>
 
             </div>
-        </div>
-	        
+        </div>        
 	</div>
 </div>

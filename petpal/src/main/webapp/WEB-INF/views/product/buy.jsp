@@ -6,9 +6,9 @@
 * { padding: 0; margin: 0; }
 *, *::after, *::before { box-sizing: border-box; }
 
-.body-container {
+.body-container2 {
 	max-width: 1000px;
-	margin: 40px auto;
+	margin: 20px auto;
 	margin-bottom: 60px;
 	color: #434347;
 }
@@ -132,9 +132,9 @@ img {
 }
 
 hr {
-	height: 3px;
+	border-bottom: 1px solid #A6A6A6;
 	margin-top: 33px;
-	color: #BDBDBD;
+	width: 400px;
 }
 
 .total-text {
@@ -152,8 +152,9 @@ hr {
 }
 
 .buttons .btn {
-	font-size: 20px;	
-	padding: 8px 45px;
+	font-size: 15px;	
+	font-weight: bold;
+	padding: 8px 50px;
 }
 
 .buttons .btnbtn-productCart {
@@ -239,274 +240,276 @@ select, button {
 </style>
 
 <div class="container">
-	<div class="body-container">	
-		<div class="body-main">
-			<div class="row mt-4 body-sep">
-				<div class="body-left">
-					<div>
-						<div class="lg-img">
-							<img class="" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+	<div class="body-container">
+		<div class="body-container2">
+			<div class="body-main">
+				<div class="row mt-4 body-sep">
+					<div class="body-left">
+						<div>
+							<div class="lg-img">
+								<img class="" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+							</div>
 						</div>
-					</div>
-					<div class="imgs">
-						
-							<div class="sm-img">
-								<img src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
-							</div>
-						
-					</div>
-				</div>
-				
-				<div class="body-right">
-					<form name="buyForm">
-							<!-- 
-							<div class="stock">
-								<label class="stock-msg">상품 재고가 없습니다.</label>
-							</div>
-							 -->
-					
-							<!-- 
-							<div class="border rounded bg-light mt-2 p-2">
-								<label class="fs-6 fw-semibold text-primary pe-2">${dto.classify == 200 ? "오늘의 특가" : "기획전"}</label>
-								<label class="fs-6 fw-semibold pe-2 time-remaining">1일 10시간 남음</label>
-								<label class="text-black-50"><fmt:formatNumber value="${dto.saleCount}"/>개 구매</label>
-							</div>
-							 -->
-						<div class="category">
-							<div>강아지 > 이동장/유모차</div>
-						</div>					
-						
-						<div class="productName">
-							<div>이츠독 올 뉴 투웨이 카시트</div>
-						</div>
-						
-						<div class="price">
-							<div>20%</div>
+						<div class="imgs">
 							
-							<div>
-								<label class="discounted-price">
-									<fmt:formatNumber value=""/>39,900원
-								</label>
-
-								<label class="original-price">
-									<fmt:formatNumber value=""/>59,900원
-								</label>
-								
-							</div>
-						</div>
-						
-						<div class="delivery">
-							<div>배송비 </div> 
-							<div>
-								<label>
-								 	<fmt:formatNumber value=""/>3,000원
-								</label>
-								<label>(20,000원 이상 주문 시 무료배송)</label>
-							</div>
-						</div>
-						
-						<div class="point">
-							<div>적립포인트</div>
-							<div>0.5% (199P)</div>
-						</div>
-						
-						
-						
-							<div class="option">
-								옵션 선택 
-							</div>
-						
-						
-						
-							<div class="option-tab">
-								<select class="form-select requiredOption option-tab1">
-									<option> 그레이</option>
-								</select>
-							</div>
-						
-	
-						
-							<div class="option-tab">
-								<select class="form-select requiredOption2 option-tab2">
-									<option> S</option>
-								</select>
-							</div>
-						
-						
-						
-						<div class="order-area">
-						</div>
-						
-						<hr>
-						<div class="total-price">
-							<div class="total-text">총상품금액</div>
-							<div class="total-detail">
-								<label>총수량 <span class="product-totalQty">1</span>개 | </label>
-								<label><span class="product-totalAmount">42,900</span>원</label>
-							</div>
-						</div>
-						
-						
-						
-						<div class="buttons">
-							<div class="button-wish">
-								<button type="button" class="wish btn-productBlind"><i class="bi bi-heart"></i></button>
-							</div>
-							<div class="button-buy">
-								<div>
-									<button type="button" class="btnbtn-productCart btn" onclick="sendOk('cart');">장바구니</button>
+								<div class="sm-img">
+									<img src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
 								</div>
-								<div>
-									<input type="hidden" name="mode" value="buy">
-									<button type="button" class="btn btn-buySend" onclick="sendOk('buy');">구매하기</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		
-			<ul class="nav nav-tabs mt-5 pt-5" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="true">상세정보</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false">리뷰 <span class="title-reviewCount">(3)</span></button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false">문의사항 <span class="title-qnaCount">(3)</span></button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-4" data-bs-toggle="tab" data-bs-target="#tab-pane-4" type="button" role="tab" aria-controls="4" aria-selected="false">배송 및 환불정책</button>
-				</li>
-			</ul>
-			
-			<div class="tab-content pt-2" id="myTabContent">
-				<div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
-					<div class="mt-5 product-content">
-						<img src="${pageContext.request.contextPath}/uploads/product/product_detail2.png">
-					</div>
-				</div>
-				<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
-					<div class="mt-3 pt-3 border-bottom">
-						<p class="fs-4 fw-semibold">상품 리뷰</p> 
-					</div>
-
-					<div class="row border-bottom">
-						<div class="col p-3 text-center">
-							<div class="fs-6 fw-semibold">상품만족도</div>
-							<div class="score-star review-score-star">
-								<c:forEach var="n" begin="1" end="5">
-									<c:set var="score" value=""/>
-									<span class="item fs-2 on"><i class="bi bi-star-fill"></i></span>
-								</c:forEach>
-							</div>
-							<div class="fs-2">
-								<label class="review-score">4 / 5</label> 
-							</div>
-						</div>
-						
-						<div class="col p-3 text-center">
-							<div class="fs-6 fw-semibold">리뷰수</div>
-							<div class="fs-2"><i class="bi bi-chat-right-text"></i></div>
-							<div class="fs-2 review-reviewCount">3</div>
-						</div> 
-						
-						<div class="col p-3 text-center review-rate">
-							<div class="fs-6 fw-semibold">평점비율</div>
-							<div class="p-1 score-5">
-								<span class="graph-title">5점</span>
-								<span class="graph">
-									<c:forEach var="n" begin="1" end="10">
-										<label class="one-space"></label>
-									</c:forEach>
-								</span>
-								<span class="graph-rate">0%</span>
-							</div>
-							<div class="p-1 score-4">
-								<span class="graph-title">4점</span>
-								<span class="graph">
-									<c:forEach var="n" begin="1" end="10">
-										<label class="one-space"></label>
-									</c:forEach>
-								</span>
-								<span class="graph-rate">0%</span>
-							</div>
-							<div class="p-1 score-3">
-								<span class="graph-title">3점</span>
-								<span class="graph">
-									<c:forEach var="n" begin="1" end="10">
-										<label class="one-space"></label>
-									</c:forEach>
-								</span>
-								<span class="graph-rate">0%</span>
-							</div>
-							<div class="p-1 score-2">
-								<span class="graph-title">2점</span>
-								<span class="graph">
-									<c:forEach var="n" begin="1" end="10">
-										<label class="one-space"></label>
-									</c:forEach>
-								</span>
-								<span class="graph-rate">0%</span>
-							</div>
-							<div class="p-1 score-1">
-								<span class="graph-title">1점</span>
-								<span class="graph">
-									<c:forEach var="n" begin="1" end="10">
-										<label class="one-space"></label>
-									</c:forEach>
-								</span>
-								<span class="graph-rate">0%</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mt-3 reviewSort-area">
-						<div class="col">&nbsp;</div>
-						<div class="col-auto text-end">
-							<select class="form-select reviewSortNo">
-								<option value="0"> 출력 순서 </option>
-								<option value="1"> 최신 글 </option>
-								<option value="2"> 평점 높은순 </option>
-								<option value="3"> 평점 낮은순 </option>
-							</select>
+							
 						</div>
 					</div>
 					
-					<div class="mt-2 list-review"></div>
-				</div>
-				
-				<div class="tab-pane fade" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
-					<div class="mt-3 pt-3 border-bottom">
-						<p class="fs-4 fw-semibold">상품 문의 사항</p> 
+					<div class="body-right">
+						<form name="buyForm">
+								<!-- 
+								<div class="stock">
+									<label class="stock-msg">상품 재고가 없습니다.</label>
+								</div>
+								 -->
+						
+								<!-- 
+								<div class="border rounded bg-light mt-2 p-2">
+									<label class="fs-6 fw-semibold text-primary pe-2">${dto.classify == 200 ? "오늘의 특가" : "기획전"}</label>
+									<label class="fs-6 fw-semibold pe-2 time-remaining">1일 10시간 남음</label>
+									<label class="text-black-50"><fmt:formatNumber value="${dto.saleCount}"/>개 구매</label>
+								</div>
+								 -->
+							<div class="category">
+								<div>강아지 > 이동장/유모차</div>
+							</div>					
+							
+							<div class="productName">
+								<div>이츠독 올 뉴 투웨이 카시트</div>
+							</div>
+							
+							<div class="price">
+								<div>20%</div>
+								
+								<div>
+									<label class="discounted-price">
+										<fmt:formatNumber value=""/>39,900원
+									</label>
+	
+									<label class="original-price">
+										<fmt:formatNumber value=""/>59,900원
+									</label>
+									
+								</div>
+							</div>
+							
+							<div class="delivery">
+								<div>배송비 </div> 
+								<div>
+									<label>
+									 	<fmt:formatNumber value=""/>3,000원
+									</label>
+									<label>(20,000원 이상 주문 시 무료배송)</label>
+								</div>
+							</div>
+							
+							<div class="point">
+								<div>적립포인트</div>
+								<div>0.5% (199P)</div>
+							</div>
+							
+							
+							
+								<div class="option">
+									옵션 선택 
+								</div>
+							
+							
+							
+								<div class="option-tab">
+									<select class="form-select requiredOption option-tab1">
+										<option> 그레이</option>
+									</select>
+								</div>
+							
+		
+							
+								<div class="option-tab">
+									<select class="form-select requiredOption2 option-tab2">
+										<option> S</option>
+									</select>
+								</div>
+							
+							
+							
+							<div class="order-area">
+							</div>
+							
+							<hr>
+							<div class="total-price">
+								<div class="total-text">총상품금액</div>
+								<div class="total-detail">
+									<label>총수량 <span class="product-totalQty">1</span>개 | </label>
+									<label><span class="product-totalAmount">42,900</span>원</label>
+								</div>
+							</div>
+							
+							
+							
+							<div class="buttons">
+								<div class="button-wish">
+									<button type="button" class="wish btn-productBlind"><i class="bi bi-heart"></i></button>
+								</div>
+								<div class="button-buy">
+									<div>
+										<button type="button" class="btnbtn-productCart btn" onclick="sendOk('cart');">장바구니</button>
+									</div>
+									<div>
+										<input type="hidden" name="mode" value="buy">
+										<button type="button" class="btn btn-buySend" onclick="sendOk('buy');">구매하기</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
+				</div>
 			
-					<div class="mt-3 p-2 text-end">
-						<button type="button" class="btnMyQuestion btn btn-dark"> 내 Q&amp;A 보기  </button>
-						<button type="button" class="btnQuestion btn btn-dark"> 상품 Q&amp;A 작성 </button>
-					</div>
-					<div class="mt-1 p-2 list-question"></div>
-										
-				</div>
+				<ul class="nav nav-tabs mt-3 pt-5" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="true">상세정보</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false">리뷰 <span class="title-reviewCount">(3)</span></button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false">문의사항 <span class="title-qnaCount">(3)</span></button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-4" data-bs-toggle="tab" data-bs-target="#tab-pane-4" type="button" role="tab" aria-controls="4" aria-selected="false">배송 및 환불정책</button>
+					</li>
+				</ul>
 				
-				<div class="tab-pane fade" id="tab-pane-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
-					<div class="mt-3 pt-3 border-bottom">
-						<p class="fs-4 fw-semibold">배송 및 환불정책</p> 
+				<div class="tab-content pt-2" id="myTabContent">
+					<div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+						<div class="mt-4 product-content">
+							<img src="${pageContext.request.contextPath}/uploads/product/product_detail2.png">
+						</div>
 					</div>
-					<div class="mt-3">
-						<p> 배송 및 환불 정책 입니다. </p>
-					</div>				
-				</div>
-			</div>
-
-			<div>
-				<div class="fs-5 fw-bold">비슷한 상품</div>
-				<hr>
+					<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+						<div class="mt-3 pt-3 border-bottom">
+							<p class="fs-4 fw-semibold">상품 리뷰</p> 
+						</div>
+	
+						<div class="row border-bottom">
+							<div class="col p-3 text-center">
+								<div class="fs-6 fw-semibold">상품만족도</div>
+								<div class="score-star review-score-star">
+									<c:forEach var="n" begin="1" end="5">
+										<c:set var="score" value=""/>
+										<span class="item fs-2 on"><i class="bi bi-star-fill"></i></span>
+									</c:forEach>
+								</div>
+								<div class="fs-2">
+									<label class="review-score">4 / 5</label> 
+								</div>
+							</div>
+							
+							<div class="col p-3 text-center">
+								<div class="fs-6 fw-semibold">리뷰수</div>
+								<div class="fs-2"><i class="bi bi-chat-right-text"></i></div>
+								<div class="fs-2 review-reviewCount">3</div>
+							</div> 
+							
+							<div class="col p-3 text-center review-rate">
+								<div class="fs-6 fw-semibold">평점비율</div>
+								<div class="p-1 score-5">
+									<span class="graph-title">5점</span>
+									<span class="graph">
+										<c:forEach var="n" begin="1" end="10">
+											<label class="one-space"></label>
+										</c:forEach>
+									</span>
+									<span class="graph-rate">0%</span>
+								</div>
+								<div class="p-1 score-4">
+									<span class="graph-title">4점</span>
+									<span class="graph">
+										<c:forEach var="n" begin="1" end="10">
+											<label class="one-space"></label>
+										</c:forEach>
+									</span>
+									<span class="graph-rate">0%</span>
+								</div>
+								<div class="p-1 score-3">
+									<span class="graph-title">3점</span>
+									<span class="graph">
+										<c:forEach var="n" begin="1" end="10">
+											<label class="one-space"></label>
+										</c:forEach>
+									</span>
+									<span class="graph-rate">0%</span>
+								</div>
+								<div class="p-1 score-2">
+									<span class="graph-title">2점</span>
+									<span class="graph">
+										<c:forEach var="n" begin="1" end="10">
+											<label class="one-space"></label>
+										</c:forEach>
+									</span>
+									<span class="graph-rate">0%</span>
+								</div>
+								<div class="p-1 score-1">
+									<span class="graph-title">1점</span>
+									<span class="graph">
+										<c:forEach var="n" begin="1" end="10">
+											<label class="one-space"></label>
+										</c:forEach>
+									</span>
+									<span class="graph-rate">0%</span>
+								</div>
+							</div>
+						</div>
+	
+						<div class="row mt-3 reviewSort-area">
+							<div class="col">&nbsp;</div>
+							<div class="col-auto text-end">
+								<select class="form-select reviewSortNo">
+									<option value="0"> 출력 순서 </option>
+									<option value="1"> 최신 글 </option>
+									<option value="2"> 평점 높은순 </option>
+									<option value="3"> 평점 낮은순 </option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="mt-2 list-review"></div>
+					</div>
+					
+					<div class="tab-pane fade" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
+						<div class="mt-3 pt-3 border-bottom">
+							<p class="fs-4 fw-semibold">상품 문의 사항</p> 
+						</div>
 				
+						<div class="mt-3 p-2 text-end">
+							<button type="button" class="btnMyQuestion btn btn-dark"> 내 Q&amp;A 보기  </button>
+							<button type="button" class="btnQuestion btn btn-dark"> 상품 Q&amp;A 작성 </button>
+						</div>
+						<div class="mt-1 p-2 list-question"></div>
+											
+					</div>
+					
+					<div class="tab-pane fade" id="tab-pane-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
+						<div class="mt-3 pt-3 border-bottom">
+							<p class="fs-4 fw-semibold">배송 및 환불정책</p> 
+						</div>
+						<div class="mt-3">
+							<p> 배송 및 환불 정책 입니다. </p>
+						</div>				
+					</div>
+				</div>
+	
+				<div>
+					<div class="fs-5 fw-bold">비슷한 상품</div>
+					<hr>
+					
+				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 </div>
 
 

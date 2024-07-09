@@ -6,24 +6,31 @@
 * { padding: 0; margin: 0; }
 *, *::after, *::before { box-sizing: border-box; }
 
-.body-container {
+.body-container2 {
 	max-width: 1000px;
 	margin: 0 auto;
 	font-size: 15px;
+	color: #434347;
 }
 
 .body-title {
-	margin-top: 60px;
+	margin-top: 20px;
 	margin-bottom: 50px;
 	font-size: 25px;
+	border: none;
 }
 
-.destinaion, .point, .price, .saving-point .buttons {
-	margin-top: 20px;
+.body-title .title-text {
+	border-bottom: 3px solid #E4B075;
+	padding-bottom: 10px;
+}
+
+.destination-info, .point, .price, .saving-point .buttons {
+	margin-top: 30px;
 }
 
 .md-img {
-	width: 75px; height: 75px;
+	width: 70px; height: 70px;
 }
 
 .order-product {
@@ -72,23 +79,23 @@
 
 .destination-info .btn {
 	padding: 0 15px;
-	height: 40px;
-	margin-left: 30px;
+	height: 30px;
+	margin-left: 80px;
 	background: white;
 	border: 1px solid #A6A6A6;
 	border-radius: 5px;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-
 }
 
 .order-title th {
-	color: #BDBDBD;
-	font-size: 18px;
+	color: #A6A6A6;
+	font-size: 16px;
+	padding-bottom: 15px;
 }
 
 .order-content img {
@@ -107,7 +114,7 @@ table {
 }
 
 .content-point {
-	padding-left: 20px;
+	padding-left: 30px;
 }
 
 .content-qty {
@@ -121,6 +128,7 @@ table {
 .product-price .original-price {
 	text-decoration: line-through;
 	color: #A6A6A6;
+	margin-top: 3px;
 }
 
 .point-title, .price-title {
@@ -131,8 +139,12 @@ table {
 	margin-top: 50px;
 }
 
+.destinaion {
+	margin-top: 18px !important;
+}
+
 .destinaion .destination-name {
-	margin-bottom: 10px;
+	margin-left: 30px;
 }
 
 .destination-name .mem-name, .destination-name .mem-tel {
@@ -144,16 +156,16 @@ table {
 }
 
 .destinaion .mem-name, .destination-addr div:first-child  {
-	margin-right: 50px;
+	margin-right: 100px;
 }
 
 .destinaion .mem-name, .destination-addr, .destination-memo  {
-	padding-top: 10px;
+	padding-top: 18px;
 
 }
 
 .destination-memo div:first-child {
-	margin-right: 35px;
+	margin-right: 85px;
 }
 
 .memo-input {
@@ -168,7 +180,7 @@ table {
 
 .point-content {
 	display: flex;
-	margin-top: 10px;
+	margin-top: 18px;
 }
 
 .point-content div {
@@ -177,249 +189,316 @@ table {
 }
 
 .point-detail {
-	margin-right: 50px;
+	margin-right: 100px;
 }
 
 .point-input {
 	margin-right: 20px;
-	border: none;
 }
 
 .point-btn {
-	margin-right: 30px;
+	margin-right: 20px;
 	background: white;
 	padding: 5px 10px;
 	border-radius: 5px;
+	border: 1px solid #A6A6A6;	
 }
 
-.price .price-content {
-	margin-top: 10px; 
+.price-content {
+	margin-top: 18px;
+	margin-right: 30px; 
+	display: flex;
+	justify-content: space-between;	
+}
+
+.price-totalMain {
+	margin-bottom: 25px;
+}
+
+.product-totalAmount {
+	padding-top: 7px;
+	color: #E4B075;
+	font-weight: bold;
+	font-size: 18px;
 }
 
 .price .price-usingPoint {
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
-.price .price-total {
-	margin-top: 10px; 
-	margin-right: 32px;
+.price-total {
+	margin-top: 5px; 
+	margin-right: 65px;
+	color: #E4B075 !important;
+	font-size: 18px;
 }
 
-.price .price-product {
-	margin-right: 50px;
+.saving-point {
+	margin-bottom: 60px;
 }
 
-.price .price-delFee {
-	margin-right: 68px;
+.title-gray {
+	margin-left: 30px;
+	color: #A6A6A6;
+	font-weight: bold;
 }
 
-.price .price-usePoint {
-	margin-right: 25px;
+.memo-input {
+	width: 300px;
+    border: none; 
+    border-bottom: 1px solid #BDBDBD !important;
+    padding-bottom: 5px;
+    padding-top: 3px;
+    outline: none;
 }
 
-.price .price-pointSave {
-	margin-right: 30px;
+.point-input {
+	width: 100px;
+    border: none; 
+    border-bottom: 1px solid #BDBDBD;
+    outline: none;
 }
 
-.price-pointSave {
-	margin-bottom: 10px;
+input::placeholder {
+  color: #A6A6A6;
+  padding-left: 3px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.buttons {
+	margin-bottom: 60px;
+	display: flex;
+	justify-content: center;
+}
+
+.buttons .cancel-btn, .buttons .complete-btn {
+	width: 980px;
+	height: 40px;
+	border-radius: 8px;
+	font-weight: bold;
+
+}
+
+.buttons .cancel-btn {
+	background: white;
+	border: 2px solid #BDBDBD;
+}
+
+.buttons .complete-btn {
+	background: #E4B075;
+	border: none;
+	color: white;
+	margin-left: 5px;
+}
+
+button:hover {
+	cursor: pointer;
+}
 
 </style>
 
 <div>
 	<div class="body-container">	
-		<div class="body-title">
-			<h3> 주문하기 </h3>
-		</div>
-		
-		<div>
-			<div class="order-product">주문 상품</div>
-			<hr class="order-product-top">
-		</div>
-		
-		<div class="body-main">
-			<form name="paymentForm" method="post">
-				<table class="table">
-					<tr class="order-title">
-						<th width="120">&nbsp;</th>
-						<th width="200">상품정보</th>
-						<th width="90">구매적립</th>
-						<th width="90">수량</th>
-						<th width="120">할인금액</th>
-						<th width="120">상품금액</th>
-						<th width="120">총금액</th>
-					</tr>
-					
-					
-						<tr class="order-content" valign="middle">
-							<td width="120">
-								<img class="md-img" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
-							</td>
-							<td class="product-info" width="200">
-								<div class="content-title">이츠독 올 뉴 투웨이 카시트</div>
-								<div class="content-option">
+		<div class="body-container2">
+			<div class="body-title">
+				<h3 class="title-text"> 주문하기 </h3>
+			</div>
+			
+			<div>
+				<div class="order-product">주문 상품</div>
+				<hr class="order-product-top">
+			</div>
+			
+			<div class="body-main">
+				<form name="paymentForm" method="post">
+					<table class="table">
+						<tr class="order-title">
+							<th width="120">&nbsp;</th>
+							<th width="200">상품정보</th>
+							<th width="90">구매적립</th>
+							<th width="90">수량</th>
+							<th width="120">할인금액</th>
+							<th width="120">상품금액</th>
+							<th width="120">총금액</th>
+						</tr>
+						
+						
+							<tr class="order-content" valign="middle">
+								<td width="120">
+									<img class="md-img" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+								</td>
+								<td class="product-info" width="200">
+									<div class="content-title">이츠독 올 뉴 투웨이 카시트</div>
+									<div class="content-option">
+										<!-- 
+										<c:if test="${dto.optionCount==1}">
+											${dto.optionName} : ${dto.optionValue}
+										</c:if>
+										 -->
+										 
+										 <!-- 
+										 <c:if test="${dto.optionCount==2}">
+											${dto.optionName} : ${dto.optionValue} / 
+											${dto.optionName2} : ${dto.optionValue2}
+										</c:if>
+										  -->
+										
+											색상 : 그레이 / 
+											사이즈 : M
+										
+									</div>
+									
 									<!-- 
-									<c:if test="${dto.optionCount==1}">
-										${dto.optionName} : ${dto.optionValue}
-									</c:if>
+									<input type="hidden" name="productNums" value="${dto.productNum}">
+									<input type="hidden" name="detailNums" value="${empty dto.detailNum ? 0 : dto.detailNum}">
+									<input type="hidden" name="detailNums2" value="${empty dto.detailNum2 ? 0 : dto.detailNum2}">
+									<input type="hidden" name="stockNums" value="${dto.stockNum}">
+									<input type="hidden" name="buyQtys" value="${dto.qty}">
+									<input type="hidden" name="productMoneys" value="${dto.productMoney}">
+									<input type="hidden" name="prices" value="${dto.price}">
+									<input type="hidden" name="salePrices" value="${dto.salePrice}">
+									<input type="hidden" name="savedMoneys" value="${dto.savedMoney}">
 									 -->
-									 
-									 <!-- 
-									 <c:if test="${dto.optionCount==2}">
-										${dto.optionName} : ${dto.optionValue} / 
-										${dto.optionName2} : ${dto.optionValue2}
-									</c:if>
-									  -->
-									
-										색상 : 그레이 / 
-										사이즈 : M
-									
-								</div>
-								
-								<!-- 
-								<input type="hidden" name="productNums" value="${dto.productNum}">
-								<input type="hidden" name="detailNums" value="${empty dto.detailNum ? 0 : dto.detailNum}">
-								<input type="hidden" name="detailNums2" value="${empty dto.detailNum2 ? 0 : dto.detailNum2}">
-								<input type="hidden" name="stockNums" value="${dto.stockNum}">
-								<input type="hidden" name="buyQtys" value="${dto.qty}">
-								<input type="hidden" name="productMoneys" value="${dto.productMoney}">
-								<input type="hidden" name="prices" value="${dto.price}">
-								<input type="hidden" name="salePrices" value="${dto.salePrice}">
-								<input type="hidden" name="savedMoneys" value="${dto.savedMoney}">
-								 -->
-							</td>
-							<td class="content-point" width="90" >
-								<fmt:formatNumber value=""/>2,000원
-							</td>
-							<td class="content-qty" width="90">
-								1
-							</td>
-							<td class="discount-price" width="110">
-								<fmt:formatNumber value=""/>20,000원
-							</td>
-							<td class="product-price" width="110">
-								<div class="discounted-price">
+								</td>
+								<td class="content-point " width="90" >
+									<fmt:formatNumber value=""/>2,000원
+								</td>
+								<td class="content-qty" width="90">
+									1
+								</td>
+								<td class="discount-price" width="110">
+									<fmt:formatNumber value=""/>20,000원
+								</td>
+								<td class="product-price" width="110">
+									<div class="discounted-price">
+										<label>
+											<fmt:formatNumber value=""/>39,900원
+										</label>
+									</div>
+									<div class="original-price">
+										<label>
+											<fmt:formatNumber value=""/>59,900원
+										</label>								
+									</div>
+								</td>
+								<td class="total-price" width="110">
 									<label>
 										<fmt:formatNumber value=""/>39,900원
 									</label>
-								</div>
-								<div class="original-price">
-									<label>
-										<fmt:formatNumber value=""/>59,900원
-									</label>								
-								</div>
-							</td>
-							<td class="total-price" width="110">
-								<label>
-									<fmt:formatNumber value=""/>39,900원
-								</label>
-							</td>
-						</tr>
+								</td>
+							</tr>
+						
+					</table>
+					<hr class="order-product-bottom">
 					
-				</table>
-				<hr class="order-product-bottom">
-				
-				<!-- 
-				<input type="hidden" name="orderNum" value="${productOrderNumber}">
-				<input type="hidden" name="totalMoney" value="${totalMoney}">
-				<input type="hidden" name="deliveryCharge" value="${deliveryCharge}">
-				<input type="hidden" name="payment" value="${totalPayment}">
-
-				<input type="hidden" name="mode" value="${mode}">
-
-				<input type="hidden" name="payMethod" value="">
-				<input type="hidden" name="cardName" value="">
-				<input type="hidden" name="authNumber" value="">
-				<input type="hidden" name="authDate" value="">
-				 -->
-				 
-				
-				<div class="destination-info">
-					<div class="destination-title">배송지 정보</div>
-					<button type="button" class="btn"> 배송지변경 </button>
-				</div>
-				<hr class="destination-info-top">
-				<div class="destinaion">
-					<div class="destination-name">
-						<div>
-							<label class="mem-name">김자바</label>
-							<label class="pt-2 mem-tel">010-1111-1111</label>
+					<!-- 
+					<input type="hidden" name="orderNum" value="${productOrderNumber}">
+					<input type="hidden" name="totalMoney" value="${totalMoney}">
+					<input type="hidden" name="deliveryCharge" value="${deliveryCharge}">
+					<input type="hidden" name="payment" value="${totalPayment}">
+	
+					<input type="hidden" name="mode" value="${mode}">
+	
+					<input type="hidden" name="payMethod" value="">
+					<input type="hidden" name="cardName" value="">
+					<input type="hidden" name="authNumber" value="">
+					<input type="hidden" name="authDate" value="">
+					 -->
+					 
+					
+					<div class="destination-info">
+						<div class="destination-title">배송지 정보</div>
+						<button type="button" class="btn"> 배송지변경 </button>
+					</div>
+					<hr class="destination-info-top">
+					<div class="destinaion">
+						<div class="destination-name">
+							<div>
+								<label class="mem-name">김자바</label>
+								<label class="mem-tel">010-1111-1111</label>
+							</div>
+							
+						</div>
+						<div class="destination-addr">
+							<div class="title-gray">배송지</div>
+							<div>서울특별시 마포구 월드컵북로 21 풍성빌딩 2층</div>
+						</div>
+						<div class="destination-memo">
+							<div class="title-gray">요청사항</div>
+							<div>
+								<input type="hidden" name="recipientName" value="김자바">
+								<input type="hidden" name="tel" value="010-1111-2222">
+								<input type="hidden" name="zip" value="111-111">
+								<input type="hidden" name="addr1" value="서울특별시 마포구 월드컵북로">
+								<input type="hidden" name="addr2" value="21 풍성빌딩 2층">
+								<input type="text" name="destMeno" class="form-control memo-input" style="border:none" placeholder="요청사항을 입력하세요.">
+							</div>
 						</div>
 						
 					</div>
-					<div class="ps-2 pt-2 mt-2 destination-addr">
-						<div>배송지</div>
-						<div class="pt-2">서울특별시 마포구 월드컵북로 21 풍성빌딩 2층</div>
-					</div>
-					<div class="destination-memo">
-						<div>요청사항</div>
-						<div class="pt-2">
-							<input type="hidden" name="recipientName" value="김자바">
-							<input type="hidden" name="tel" value="010-1111-2222">
-							<input type="hidden" name="zip" value="111-111">
-							<input type="hidden" name="addr1" value="서울특별시 마포구 월드컵북로">
-							<input type="hidden" name="addr2" value="21 풍성빌딩 2층">
-							<input type="text" name="destMeno" class="form-control memo-input" style="border:none" placeholder="요청사항을 입력합니다.">
+					
+					<div class="point">
+						<div class="point-title">포인트</div>
+						<div class="point-content">
+							<div class="point-detail title-gray">포인트</div>
+							<input type="number" class="form-control point-input" name="usedSaved" min="0" max="0" placeholder="0">
+							<button type="button" class="input-group-text btn-usedSaved point-btn" data-balance="0">전액사용</button>
+							<div class="point-own">(보유 <fmt:formatNumber value=""/>0원)</div>
+						</div>
+						
+					</div>				
+					
+					<div class="price">
+						<div class="price-title">결제금액</div>
+						<div class="price-content price-totalMain">
+							<label class="price-total title-gray">총 결제금액 </label>
+							<label class="product-totalAmount">
+								<fmt:formatNumber value=""/>42,900원
+							</label>
+						</div>
+						<div class="price-content">
+							<label class="price-product title-gray">상품금액 </label>
+							<label>
+								<fmt:formatNumber value=""/>39,900원
+							</label>
+						</div>
+						<div class="price-content">
+							<label class="price-delFee title-gray">배송비 </label>
+							<label>
+								<fmt:formatNumber value=""/>3,000원
+							</label>
+						</div>
+						<div class="price-content price-usingPoint">
+							<label class="price-usePoint title-gray">포인트사용액 </label>
+							<label class="point-usedSaved">
+								0원
+							</label>
 						</div>
 					</div>
 					
-				</div>
-				
-				<div class="point">
-					<div class="fs-6 fw-semibold border-bottom pb-1 point-title">포인트</div>
-					<div class="ps-2 pt-2 point-content">
-						<div class="point-detail">포인트</div>
-						<input type="number" class="form-control point-input" name="usedSaved" value="0" min="0" max="0">
-						<button type="button" class="input-group-text btn-usedSaved point-btn" data-balance="0">전액사용</button>
-						<div class="point-own">( 보유 <fmt:formatNumber value=""/>0원 )</div>
+					<div class="saving-point">
+						<div class="price-content">
+							<label class=" price-pointSave title-gray">포인트 적립 </label>
+							<label class="">
+								<fmt:formatNumber value=""/>2,000원
+							</label>
+						</div>
 					</div>
 					
-				</div>				
-				
-				<div class="price">
-					<div class="price-title">결제금액</div>
-					<div>
-						<label class="price-content price-total">총 결제금액 </label>
-						<label class="product-totalAmount">
-							<fmt:formatNumber value=""/>42,900원
-						</label>
+					<div class="buttons">
+						
+						<div>
+							
+							<button type="button" class="buttons-btn complete-btn" onclick="sendOk()">결제하기</button>
+						</div>
 					</div>
-					<div class="price-content">
-						<label class="price-product">상품금액 </label>
-						<label>
-							<fmt:formatNumber value=""/>39,900원
-						</label>
-					</div>
-					<div class="price-content">
-						<label class="price-delFee">배송비 </label>
-						<label>
-							<fmt:formatNumber value=""/>3,000원
-						</label>
-					</div>
-					<div class="price-content price-usingPoint">
-						<label class="price-usePoint">포인트사용액 </label>
-						<label class="point-usedSaved">
-							0원
-						</label>
-					</div>
-				</div>
-				
-				<div class="saving-point">
-					<div>
-						<label class="price-content price-pointSave">포인트 적립 </label>
-						<label class="price-content">
-							<fmt:formatNumber value=""/>2,000원
-						</label>
-					</div>
-				</div>
-				
-				<div class="buttons">
-					<button type="button" class="btn btn-primary btn-lg" style="width: 250px;" onclick="sendOk()">결제하기</button>
-					<button type="button" class="btn btn-light btn-lg" style="width: 250px;" onclick="location.href='${pageContext.request.contextPath}/';">결제취소</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
