@@ -10,6 +10,7 @@
 .body-container {
 	max-width: 1000px;
 	margin: 40px auto;
+	margin-bottom: 60px;
 }
 
 .body-title {
@@ -76,7 +77,7 @@ input[type=checkbox] {
 .content-info .product-options {
 	margin-bottom: 15px;
 	font-size: 11px;
-	color: #BDBDBD;
+	color: #A6A6A6;
 }
 
 .product-title, .product-options {
@@ -101,16 +102,17 @@ input[type=checkbox] {
 
 .buttons {
 	text-align: center;
-	padding-top: 35px;
+	padding: 35px 0;
 }
 
 .go-main {
+	padding: 10px;
 	border: 1px solid #BDBDBD;
 }
 
 .select-buy-btn {
 	background-color: #E4B075;
-	padding: 8px 10px;
+	padding: 10px;
 	border: none;
 	border-radius: 5px;
 	margin-left: 5px;
@@ -237,27 +239,10 @@ input[type=checkbox] {
 									<button type="button" class="btn cart-delete" onclick="deleteCartItem()">x</button>
 								</td>
 							</tr>
+							
 					</tbody>
 				</table>
 				
-				
-				<!-- 
-				<c:choose>
-					<c:when test="${list.size() == 0}">
-						<div class="">
-							등록된 상품이 없습니다.
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="">
-							<input type="hidden" name="mode" value="cart">
-							<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
-						</div>
-					</c:otherwise>
-				</c:choose>
-				 -->
-				 
-				 
 				 <div>
 				 	<div class="order-price">주문예정금액</div>
 				 	<div class="cal-title">
@@ -276,6 +261,22 @@ input[type=checkbox] {
 				 		<div class="total-price">39,900원</div>
 				 	</div>
 				 </div>
+				 
+				 <!-- 
+				<c:choose>
+					<c:when test="${list.size() == 0}">
+						<div class="">
+							등록된 상품이 없습니다.
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="">
+							<input type="hidden" name="mode" value="cart">
+							<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				 -->
 				 
 				<div class="buttons">
 					<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/';"> 쇼핑 계속하기 </button>

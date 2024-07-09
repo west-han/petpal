@@ -9,6 +9,7 @@
 .body-container {
 	max-width: 1000px;
 	margin: 0 auto;
+	font-size: 15px;
 }
 
 .body-title {
@@ -29,43 +30,80 @@
 	margin-top: 20px;
 	font-size: 18px;
 	font-weight: bold;
+
 }
 
 .order-product-top {
 	margin-top: 10px;
 	margin-bottom: 15px;
-	height: 2px;
+	height: 3px;
 	background-color: #A6A6A6;
 	border: none;
 }
 
 .order-product-bottom {
-	margin: 20px 0;
-	height: 2px;
-	background-color: #A6A6A6;
+	margin: 15px 0;
+	height: 1px;
+	background-color: #BDBDBD;
 	border: none;
 }
 
-.destination-info {
+.destination .destination-name {
+	font-weight: bold;
+}
+
+.destination-title {
 	margin-top: 50px;
 	font-size: 18px;
 	font-weight: bold;
 }
 
+.destination-info {
+	display: flex;
+	align-items: baseline;
+}
+
 .destination-info-top {
 	margin: 10px 0;
-	height: 2px;
+	height: 3px;
 	background-color: #A6A6A6;
 	border: none;
+}
+
+.destination-info .btn {
+	padding: 0 15px;
+	height: 40px;
+	margin-left: 30px;
+	background: white;
+	border: 1px solid #A6A6A6;
+	border-radius: 5px;
+	font-size: 14px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+
+}
+
+.order-title th {
+	color: #BDBDBD;
+	font-size: 18px;
 }
 
 .order-content img {
 	margin-left: 20px;
+}
+
+.content-title {
+	text-align: center;
+}
+
+.content-option {
+	font-size: 13px;
+	text-align: center;
+	margin-top: 5px;
+	color: #A6A6A6;
 }
 
 .content-point {
@@ -85,27 +123,106 @@ table {
 	color: #A6A6A6;
 }
 
+.point-title, .price-title {
+	border-bottom: 3px solid #A6A6A6;
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 10px;
+	margin-top: 50px;
+}
+
 .destinaion .destination-name {
+	margin-bottom: 10px;
+}
+
+.destination-name .mem-name, .destination-name .mem-tel {
+	font-weight: bold;
+}
+
+.destinaion .destination-name, .destinaion .destination-addr, .destination-memo {
 	display: flex;
 }
 
-.destinaion .mem-name, .def-destination, .btn {
-	margin-left: 10px;
+.destinaion .mem-name, .destination-addr div:first-child  {
+	margin-right: 50px;
 }
 
-.destinaion .mem-name {
+.destinaion .mem-name, .destination-addr, .destination-memo  {
 	padding-top: 10px;
 
 }
 
-.destinaion .def-destination {
-	color: #E4B075;
-	padding-top: 10px;
+.destination-memo div:first-child {
+	margin-right: 35px;
+}
+
+.memo-input {
+	border: none;
+	border-bottom: 1px solid #BDBDBD;
 }
 
 .destinaion .btn {
 	padding: 5px 10px;
 	background-color: white;
+}
+
+.point-content {
+	display: flex;
+	margin-top: 10px;
+}
+
+.point-content div {
+	display: flex;
+	align-items: center;
+}
+
+.point-detail {
+	margin-right: 50px;
+}
+
+.point-input {
+	margin-right: 20px;
+	border: none;
+}
+
+.point-btn {
+	margin-right: 30px;
+	background: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+}
+
+.price .price-content {
+	margin-top: 10px; 
+}
+
+.price .price-usingPoint {
+	margin-bottom: 10px;
+}
+
+.price .price-total {
+	margin-top: 10px; 
+	margin-right: 32px;
+}
+
+.price .price-product {
+	margin-right: 50px;
+}
+
+.price .price-delFee {
+	margin-right: 68px;
+}
+
+.price .price-usePoint {
+	margin-right: 25px;
+}
+
+.price .price-pointSave {
+	margin-right: 30px;
+}
+
+.price-pointSave {
+	margin-bottom: 10px;
 }
 
 
@@ -218,68 +335,71 @@ table {
 				<input type="hidden" name="authDate" value="">
 				 -->
 				 
-				<div class="destination-info">배송지 정보</div>
+				
+				<div class="destination-info">
+					<div class="destination-title">배송지 정보</div>
+					<button type="button" class="btn"> 배송지변경 </button>
+				</div>
 				<hr class="destination-info-top">
 				<div class="destinaion">
 					<div class="destination-name">
 						<div>
 							<label class="mem-name">김자바</label>
-							<label class="def-destination">기본배송지</label>
+							<label class="pt-2 mem-tel">010-1111-1111</label>
 						</div>
-						<div>
-							<button type="button" class="btn"> 배송지변경 </button>
-						</div>
+						
 					</div>
-					<div class="ps-2 pt-2 mt-2">
+					<div class="ps-2 pt-2 mt-2 destination-addr">
+						<div>배송지</div>
 						<div class="pt-2">서울특별시 마포구 월드컵북로 21 풍성빌딩 2층</div>
-						<div class="pt-2">010-1111-1111</div>
-						<div class="pt-2 w-50">
+					</div>
+					<div class="destination-memo">
+						<div>요청사항</div>
+						<div class="pt-2">
 							<input type="hidden" name="recipientName" value="김자바">
 							<input type="hidden" name="tel" value="010-1111-2222">
 							<input type="hidden" name="zip" value="111-111">
 							<input type="hidden" name="addr1" value="서울특별시 마포구 월드컵북로">
 							<input type="hidden" name="addr2" value="21 풍성빌딩 2층">
-							<input type="text" name="destMeno" class="form-control" placeholder="요청사항을 입력합니다.">
+							<input type="text" name="destMeno" class="form-control memo-input" style="border:none" placeholder="요청사항을 입력합니다.">
 						</div>
 					</div>
+					
 				</div>
 				
 				<div class="point">
-					<div class="fs-6 fw-semibold border-bottom pb-1">포인트</div>
-					<div class="ps-2 pt-2">
-						<div class="pt-2 fw-semibold">보유 <fmt:formatNumber value=""/>0원</div>
+					<div class="fs-6 fw-semibold border-bottom pb-1 point-title">포인트</div>
+					<div class="ps-2 pt-2 point-content">
+						<div class="point-detail">포인트</div>
+						<input type="number" class="form-control point-input" name="usedSaved" value="0" min="0" max="0">
+						<button type="button" class="input-group-text btn-usedSaved point-btn" data-balance="0">전액사용</button>
+						<div class="point-own">( 보유 <fmt:formatNumber value=""/>0원 )</div>
 					</div>
-					<div class="row ps-2 pt-2">
-						<div class="col-6">
-							<div class="input-group">
-								<input type="number" class="form-control" name="usedSaved" value="0" min="0" max="0">
-								<button type="button" class="input-group-text btn-usedSaved" data-balance="0">전액사용</button>
-							</div>
-						</div>
-					</div>
+					
 				</div>				
 				
 				<div class="price">
-					<div class="text-end">
-						<label class="fs-6 fw-semibold">총 결제금액 : </label>
-						<label class="product-totalAmount fs-4 fw-bold text-primary">
+					<div class="price-title">결제금액</div>
+					<div>
+						<label class="price-content price-total">총 결제금액 </label>
+						<label class="product-totalAmount">
 							<fmt:formatNumber value=""/>42,900원
 						</label>
 					</div>
-					<div class="ps-2 pt-2 text-end">
-						<label>상품금액 : </label>
+					<div class="price-content">
+						<label class="price-product">상품금액 </label>
 						<label>
 							<fmt:formatNumber value=""/>39,900원
 						</label>
 					</div>
-					<div class="ps-2 pt-1 text-end">
-						<label>배송비 : </label>
+					<div class="price-content">
+						<label class="price-delFee">배송비 </label>
 						<label>
 							<fmt:formatNumber value=""/>3,000원
 						</label>
 					</div>
-					<div class="ps-2 pt-1 text-end">
-						<label>포인트사용액 : </label>
+					<div class="price-content price-usingPoint">
+						<label class="price-usePoint">포인트사용액 </label>
 						<label class="point-usedSaved">
 							0원
 						</label>
@@ -287,9 +407,9 @@ table {
 				</div>
 				
 				<div class="saving-point">
-					<div class="text-end">
-						<label class="fs-6">포인트 적립 : </label>
-						<label class="fs-5">
+					<div>
+						<label class="price-content price-pointSave">포인트 적립 </label>
+						<label class="price-content">
 							<fmt:formatNumber value=""/>2,000원
 						</label>
 					</div>
