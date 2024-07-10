@@ -23,4 +23,43 @@
 		SET failureCount = failureCount + 1
 		WHERE email = #{email}
 	</update>
+	
+	<select id="findById" parameterType="String">
+		SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled, 
+			failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
+			nickname, userName,	postalCode, area, membershipNum
+		FROM member1 m1
+		JOIN member2 m2 ON m1.memberNum = m2.memberNum
+		WHERE email = #{email}
+	</select>
+	
+	<select id="findByMemberNum" parameterType="Long" resultType="com.shop.petpal.domain.Member">
+		SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled, 
+			failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
+			nickname, userName,	postalCode, area, membershipNum
+		FROM member1 m1
+		JOIN member2 m2 ON m1.memberNum = m2.memberNum
+		WHERE memberNum = #{memberNum}
+	</select>
+	
+	<select id="checkFailureCount" parameterType="String" resultType="Integer">
+		SELECT failureCount
+		FROM member1
+		WHERE email = #{email}
+	</select>
+	
+	<sql id="set-stateCode">
+		, state = #{stateCode}
+	</sql>
+	
+	<select id="updateMemberEnabled" parameterType="map">
+		UPDATE member1
+		SET enabled = #{enabled}
+		
+		<if test="stateCode != null">
+			<include refid="set-stateCode"/>
+		</if>
+		
+		WHERE email = #{email}
+	</select>
 </mapper>

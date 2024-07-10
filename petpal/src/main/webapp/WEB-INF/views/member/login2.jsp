@@ -126,9 +126,9 @@ body {
 		const f = document.loginForm;
 		let str;
 
-		str = f.userId.value.trim();
+		str = f.email.value.trim();
 		if (!str) {
-			f.userId.focus();
+			f.email.focus();
 			return;
 		}
 
@@ -148,7 +148,7 @@ body {
 	<div class="login-page">
 		<div class="form">
 			<form name="loginForm" action="" method="post">
-				<input type="text" name="userId" class="form-control"
+				<input type="text" name="email" class="form-control"
 					placeholder="아이디"> <input type="password" name="userPwd"
 					class="form-control" autocomplete="off" placeholder="패스워드">
 				<button type="button" class="btn btn-primary float-end"
