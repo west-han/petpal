@@ -186,35 +186,52 @@ select, button {
 .qty-plus:hover, .qty-minus:hover, .qty-remove:hover { color: #0b83e6; }
 
 .nav-tabs .nav-link {
-	min-width: 170px;
-	background: #f3f5f7;
-	border-radius: 0;
-	border-right: 1px solid #dbdddf;
-	color: #333;
-	font-weight: 600;
+	min-width: 333px;
+	color: #BDBDBD;
+	font-weight: bold;
+	border: none;
+	font-size: 18px;
+	padding-bottom: 15px;
+	text-align: center;
 }
+
 .nav-tabs .nav-link.active {
-	background: #3d3d4f;
-	color: #fff;
+	border-bottom: 3px solid #E4B075;
+	color: #E4B075;
+	
 }
+
+.tab-content {
+	border: none;
+}
+
 .tab-pane { min-height: 300px; }
+
+.star-box {
+	display: flex;
+	align-items: center;
+	margin-left: 30px;
+	padding: 60px 0;
+}
 
 .score-star { font-size: 0; letter-spacing: -4px; }
 .score-star .item {
-	font-size: 22px; letter-spacing: 1px; display: inline-block;
-	color: #ccc; text-decoration: none; vertical-align: middle;
+	font-size: 22px; 
+	letter-spacing: 1px; 
+	display: inline-block;
+	text-decoration: none; 
+	vertical-align: middle;
 }
 .score-star .item:first-child{ margin-left: 0; }
-.score-star .on { color: #f54a4c; }
+.score-star .on { color: #E4B075; }
 
-.graph { font-size: 0;  letter-spacing: 0; word-spacing: 0; }
-.graph-title { padding-right: 3px; }
-.graph .one-space { font-size:13px; background:#eee;}
-.graph .one-space:after { content: ''; display: inline-block; width:17px; }
-.graph .one-space.on{ background:  #f54a4c; }
-.graph .one-space:first-child{ border-top-left-radius:5px;  border-bottom-left-radius:5px; }
-.graph .one-space:last-child{ border-top-right-radius:5px; border-bottom-right-radius:5px; }
-.graph-rate { padding-left: 5px; display: inline-block; width: 60px; text-align: left; }
+.reviewSort-area .reviewSortNo {
+	border: none;
+}
+
+.reviewSort-area .reviewSortNo option {
+	font-weight: bold;
+}
 
 .deleteReview, .notifyReview { cursor: pointer; padding-left: 5px; }
 .deleteReview:hover, .notifyReview:hover { font-weight: 500; color: #2478FF; }
@@ -236,7 +253,32 @@ select, button {
 .deleteQuestion, .notifyQuestion { cursor: pointer; padding-left: 5px; }
 .deleteQuestion:hover, .notifyQuestion:hover { font-weight: 500; color: #2478FF; }
 
-.product-content img { max-width: 1000px; }
+.product-content {
+	text-align: center;
+}
+
+.product-content img { 
+	max-width: 1000px; 
+}
+
+.recomm-product .recomm-imgs {
+	margin-top: 20px;
+	margin-bottom: 60px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.recomm-product .recomm-img img {
+	width: 200px; 
+	height: 250px; 
+	cursor: pointer; 
+	object-fit: cover;
+}
+
+.recomm-img > div {
+	 width: 200px;
+}
+
 </style>
 
 <div class="container">
@@ -247,13 +289,15 @@ select, button {
 					<div class="body-left">
 						<div>
 							<div class="lg-img">
-								<img class="" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+								<img class="" 
+								src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
 							</div>
 						</div>
 						<div class="imgs">
 							
 								<div class="sm-img">
-									<img src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+									<img 
+									src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
 								</div>
 							
 						</div>
@@ -352,165 +396,145 @@ select, button {
 							
 							<div class="buttons">
 								<div class="button-wish">
-									<button type="button" class="wish btn-productBlind"><i class="bi bi-heart"></i></button>
+									<button type="button" class="wish btn-productBlind">
+										<i class="bi bi-heart"></i></button>
 								</div>
 								<div class="button-buy">
 									<div>
-										<button type="button" class="btnbtn-productCart btn" onclick="sendOk('cart');">장바구니</button>
+										<button type="button" class="btnbtn-productCart btn" 
+											onclick="sendOk('cart');">장바구니</button>
 									</div>
 									<div>
 										<input type="hidden" name="mode" value="buy">
-										<button type="button" class="btn btn-buySend" onclick="sendOk('buy');">구매하기</button>
+										<button type="button" class="btn btn-buySend" 
+											onclick="sendOk('buy');">구매하기</button>
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-			
-				<ul class="nav nav-tabs mt-3 pt-5" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="true">상세정보</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false">리뷰 <span class="title-reviewCount">(3)</span></button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false">문의사항 <span class="title-qnaCount">(3)</span></button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="tab-4" data-bs-toggle="tab" data-bs-target="#tab-pane-4" type="button" role="tab" aria-controls="4" aria-selected="false">배송 및 환불정책</button>
-					</li>
-				</ul>
+				<nav id="navbar-example2">
+					<ul class="nav nav-tabs mt-3 pt-5" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active" id="tab-1" data-bs-toggle="tab" 
+								data-bs-target="#tab-pane-1" role="tab" aria-controls="1" 
+								aria-selected="true">상세정보</a>
+						</li>
+
+						<li class="nav-tabs" role="presentation">
+							<a class="nav-link active" href="#scrollspyHeading1">리뷰 
+								<span class="title-reviewCount">(3)</span></a>
+						</li>
+						<li class="nav-tabs" role="presentation">
+							<a class="nav-link active" href="#scrollspyHeading2">문의하기 
+								<span class="title-qnaCount">(3)</span></a>
+						</li>
+					</ul>
+				</nav>
 				
-				<div class="tab-content pt-2" id="myTabContent">
-					<div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+				<div class="tab-content pt-3" id="myTabContent" data-bs-spy="scroll" 
+						data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" 
+						data-bs-smooth-scroll="true" class="scrollspy-example">
+					<div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel" 
+							aria-labelledby="tab-1" tabindex="0">
 						<div class="mt-4 product-content">
-							<img src="${pageContext.request.contextPath}/uploads/product/product_detail2.png">
+							<img 
+							src="${pageContext.request.contextPath}/uploads/product/product_detail2.png">
 						</div>
-					</div>
-					<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
-						<div class="mt-3 pt-3 border-bottom">
+						<div class="recomm-product">
+							<div class="fs-5 fw-bold">비슷한 상품</div>
+							<div class="recomm-imgs" >
+								<div class="recomm-img">
+									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+									<div class="d-flex">
+										<span>68%</span>
+										<span>39,000원</span>
+									</div>
+								</div>
+								<div class="recomm-img">
+									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+									<div class="d-flex">
+										<span>68%</span>
+										<span>39,000원</span>
+									</div>
+								</div>
+								<div class="recomm-img">
+									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+									<div class="d-flex">
+										<span>68%</span>
+										<span>39,000원</span>
+									</div>
+								</div>
+								<div class="recomm-img">
+									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+									<div class="d-flex">
+										<span>68%</span>
+										<span>39,000원</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="mt-3 pt-3 border-bottom" id="scrollspyHeading1">
 							<p class="fs-4 fw-semibold">상품 리뷰</p> 
 						</div>
-	
+						
 						<div class="row border-bottom">
-							<div class="col p-3 text-center">
-								<div class="fs-6 fw-semibold">상품만족도</div>
+							<div class="col p-3 star-box">
 								<div class="score-star review-score-star">
 									<c:forEach var="n" begin="1" end="5">
 										<c:set var="score" value=""/>
-										<span class="item fs-2 on"><i class="bi bi-star-fill"></i></span>
+										<span class="item fs-2 on">
+											<i class="bi bi-star-fill"></i></span>
 									</c:forEach>
 								</div>
-								<div class="fs-2">
-									<label class="review-score">4 / 5</label> 
-								</div>
-							</div>
-							
-							<div class="col p-3 text-center">
-								<div class="fs-6 fw-semibold">리뷰수</div>
-								<div class="fs-2"><i class="bi bi-chat-right-text"></i></div>
-								<div class="fs-2 review-reviewCount">3</div>
-							</div> 
-							
-							<div class="col p-3 text-center review-rate">
-								<div class="fs-6 fw-semibold">평점비율</div>
-								<div class="p-1 score-5">
-									<span class="graph-title">5점</span>
-									<span class="graph">
-										<c:forEach var="n" begin="1" end="10">
-											<label class="one-space"></label>
-										</c:forEach>
-									</span>
-									<span class="graph-rate">0%</span>
-								</div>
-								<div class="p-1 score-4">
-									<span class="graph-title">4점</span>
-									<span class="graph">
-										<c:forEach var="n" begin="1" end="10">
-											<label class="one-space"></label>
-										</c:forEach>
-									</span>
-									<span class="graph-rate">0%</span>
-								</div>
-								<div class="p-1 score-3">
-									<span class="graph-title">3점</span>
-									<span class="graph">
-										<c:forEach var="n" begin="1" end="10">
-											<label class="one-space"></label>
-										</c:forEach>
-									</span>
-									<span class="graph-rate">0%</span>
-								</div>
-								<div class="p-1 score-2">
-									<span class="graph-title">2점</span>
-									<span class="graph">
-										<c:forEach var="n" begin="1" end="10">
-											<label class="one-space"></label>
-										</c:forEach>
-									</span>
-									<span class="graph-rate">0%</span>
-								</div>
-								<div class="p-1 score-1">
-									<span class="graph-title">1점</span>
-									<span class="graph">
-										<c:forEach var="n" begin="1" end="10">
-											<label class="one-space"></label>
-										</c:forEach>
-									</span>
-									<span class="graph-rate">0%</span>
+								<div class="fs-2 ms-4 fw-bold">
+									<label class="review-score">4.5</label> 
 								</div>
 							</div>
 						</div>
-	
+						
 						<div class="row mt-3 reviewSort-area">
 							<div class="col">&nbsp;</div>
 							<div class="col-auto text-end">
 								<select class="form-select reviewSortNo">
-									<option value="0"> 출력 순서 </option>
-									<option value="1"> 최신 글 </option>
-									<option value="2"> 평점 높은순 </option>
-									<option value="3"> 평점 낮은순 </option>
+									<option value="1"> 평점 높은순 </option>
+									<option value="2"> 평점 낮은순 </option>
+									<option value="3"> 최신순 </option>
 								</select>
 							</div>
 						</div>
-						
 						<div class="mt-2 list-review"></div>
-					</div>
-					
-					<div class="tab-pane fade" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
-						<div class="mt-3 pt-3 border-bottom">
-							<p class="fs-4 fw-semibold">상품 문의 사항</p> 
+						
+						
+						<div class="mt-3 pt-3 border-bottom" id="scrollspyHeading2">
+							<p class="fs-4 fw-semibold">문의 사항</p> 
 						</div>
 				
 						<div class="mt-3 p-2 text-end">
-							<button type="button" class="btnMyQuestion btn btn-dark"> 내 Q&amp;A 보기  </button>
-							<button type="button" class="btnQuestion btn btn-dark"> 상품 Q&amp;A 작성 </button>
+							<button type="button" class="btnMyQuestion btn btn-dark"> 
+								내 Q&amp;A 보기  </button>
+							<button type="button" class="btnQuestion btn btn-dark"> 
+								상품 Q&amp;A 작성 </button>
 						</div>
 						<div class="mt-1 p-2 list-question"></div>
-											
-					</div>
-					
-					<div class="tab-pane fade" id="tab-pane-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
-						<div class="mt-3 pt-3 border-bottom">
-							<p class="fs-4 fw-semibold">배송 및 환불정책</p> 
-						</div>
-						<div class="mt-3">
-							<p> 배송 및 환불 정책 입니다. </p>
-						</div>				
+						
 					</div>
 				</div>
 	
-				<div>
-					<div class="fs-5 fw-bold">비슷한 상품</div>
-					<hr>
-					
-				</div>
+
 			</div>
 		</div>
 	</div>	
 </div>
+
+
+
 
 
 

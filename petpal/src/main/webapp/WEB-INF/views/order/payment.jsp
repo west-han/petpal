@@ -13,18 +13,6 @@
 	color: #434347;
 }
 
-.body-title {
-	margin-top: 20px;
-	margin-bottom: 50px;
-	font-size: 25px;
-	border: none;
-}
-
-.body-title .title-text {
-	border-bottom: 3px solid #E4B075;
-	padding-bottom: 10px;
-}
-
 .destination-info, .point, .price, .saving-point .buttons {
 	margin-top: 30px;
 }
@@ -35,23 +23,17 @@
 
 .order-product {
 	margin-top: 20px;
+	padding-bottom: 15px;
 	font-size: 18px;
 	font-weight: bold;
+	border-bottom: 3px solid #BDBDBD;
 
-}
-
-.order-product-top {
-	margin-top: 10px;
-	margin-bottom: 15px;
-	height: 3px;
-	background-color: #A6A6A6;
-	border: none;
 }
 
 .order-product-bottom {
 	margin: 15px 0;
 	height: 1px;
-	background-color: #BDBDBD;
+	background-color: #434347;
 	border: none;
 }
 
@@ -70,12 +52,6 @@
 	align-items: baseline;
 }
 
-.destination-info-top {
-	margin: 10px 0;
-	height: 3px;
-	background-color: #A6A6A6;
-	border: none;
-}
 
 .destination-info .btn {
 	padding: 0 15px;
@@ -90,12 +66,18 @@
 table {
     width: 100%;
     border-collapse: collapse;
+
 }
 
 .order-title th {
-	color: #A6A6A6;
+	color: #BDBDBD;
 	font-size: 16px;
 	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+.order-content {
+	margin-bottom: none;
 }
 
 .order-content img {
@@ -132,7 +114,7 @@ table {
 }
 
 .point-title, .price-title {
-	border-bottom: 3px solid #A6A6A6;
+	border-bottom: 3px solid #BDBDBD;
 	font-size: 18px;
 	font-weight: bold;
 	padding-bottom: 10px;
@@ -140,7 +122,8 @@ table {
 }
 
 .destinaion {
-	margin-top: 18px !important;
+	margin-top: 15px !important;
+	border-top: 3px solid #BDBDBD;
 }
 
 .destinaion .destination-name {
@@ -166,11 +149,6 @@ table {
 
 .destination-memo div:first-child {
 	margin-right: 85px;
-}
-
-.memo-input {
-	border: none;
-	border-bottom: 1px solid #BDBDBD;
 }
 
 .destinaion .btn {
@@ -244,7 +222,7 @@ table {
 }
 
 .memo-input {
-	width: 300px;
+	width: 450px;
     border: none; 
     border-bottom: 1px solid #BDBDBD !important;
     padding-bottom: 5px;
@@ -253,7 +231,7 @@ table {
 }
 
 .point-input {
-	width: 100px;
+	width: 150px;
     border: none; 
     border-bottom: 1px solid #BDBDBD;
     outline: none;
@@ -276,20 +254,11 @@ input::-webkit-inner-spin-button {
 	justify-content: center;
 }
 
-.buttons .cancel-btn, .buttons .complete-btn {
+.buttons .complete-btn {
 	width: 980px;
-	height: 40px;
+	height: 50px;
 	border-radius: 8px;
 	font-weight: bold;
-
-}
-
-.buttons .cancel-btn {
-	background: white;
-	border: 2px solid #BDBDBD;
-}
-
-.buttons .complete-btn {
 	background: #E4B075;
 	border: none;
 	color: white;
@@ -305,13 +274,9 @@ button:hover {
 <div>
 	<div class="body-container">	
 		<div class="body-container2">
-			<div class="body-title">
-				<h3 class="title-text"> 주문하기 </h3>
-			</div>
 			
 			<div>
 				<div class="order-product">주문 상품</div>
-				<hr class="order-product-top">
 			</div>
 			
 			<div class="body-main">
@@ -394,7 +359,7 @@ button:hover {
 							</tr>
 						
 					</table>
-					<hr class="order-product-bottom">
+					
 					
 					<!-- 
 					<input type="hidden" name="orderNum" value="${productOrderNumber}">
@@ -415,7 +380,7 @@ button:hover {
 						<div class="destination-title">배송지 정보</div>
 						<button type="button" class="btn"> 배송지변경 </button>
 					</div>
-					<hr class="destination-info-top">
+					
 					<div class="destinaion">
 						<div class="destination-name">
 							<div>
