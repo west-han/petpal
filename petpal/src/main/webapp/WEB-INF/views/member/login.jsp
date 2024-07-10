@@ -65,6 +65,10 @@
 	text-decoration: none;
 }
 
+.from .message2{
+	color: blue;
+}
+
 .form .register-form {
 	display: none;
 }
@@ -141,7 +145,18 @@ body {
 		f.action = "${pageContext.request.contextPath}/member/login";
 		f.submit();
 	}
+	
+	function googleLogin() {
+		const f = document.loginForm;
+	
+		f.action = "${pageContext.request.contextPath}/member/googlemember";
+		f.submit();
+	}
+	
+	
+	
 </script>
+
 
 </head>
 <body>
@@ -153,7 +168,7 @@ body {
 					class="form-control" autocomplete="off" placeholder="패스워드">
 				<button type="button" class="btn btn-primary float-end"
 					onclick="sendLogin();">
-					&nbsp;Login&nbsp;<i class="bi bi-check2"></i>
+					&nbsp;Login&nbsp;
 				</button>
 				<p class="message">
 					아직 회원이 아니신가요?
@@ -163,7 +178,11 @@ body {
 					비밀번호를 잊어버리셨나요? 
 					<a href="${pageContext.request.contextPath}/member/member">비밀번호 찾기</a>
 				</p>
-				<p>${message}</p>
+				<button type="button" class="btn btn-primary"
+					onclick="googleLogin();">
+					&nbsp;구글로 로그인&nbsp;
+				</button>
+				<p class="message2">${message}</p>
 			</form>
 		</div>
 	</div>

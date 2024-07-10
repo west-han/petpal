@@ -90,4 +90,9 @@ public class MemberController {
 	public String notAuthorized(Model model) {
 		return ".member.notAuthorized";
 	}
+	
+	@GetMapping("mypage")
+	public String mypageForm(Model model) {
+		return ".member.mypage";
+	}
 }
