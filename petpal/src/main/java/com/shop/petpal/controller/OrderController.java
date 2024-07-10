@@ -11,7 +11,7 @@ public class OrderController {
 	@GetMapping("payment")
 	public String paymentForm() throws Exception {
 		
-		return "order/payment";
+		return ".order.payment";
 	}
 	
 	@GetMapping("done")

@@ -7,7 +7,7 @@
 * { padding: 0; margin: 0; }
 *, *::after, *::before { box-sizing: border-box; }
 
-.body-container {
+.body-container2 {
 	max-width: 800px;
 	margin: 0 auto;
 }
@@ -15,6 +15,7 @@
 .done-box {
 	margin-top: 60px;
 	border: 2px solid #E4B075;
+	border-radius: 6px;
 	padding: 30px 20px; 
 }
 
@@ -29,13 +30,19 @@ hr {
 	margin: 25px 20px 50px 20px;
 }
 
+.msg-box {
+	display: flex;
+	justify-content: center;
+}
+
 .done-box .done-msg {
 	display: flex;
-	justify-content: center;	
+	align-items: center;
+	margin-bottom: 30px;
 }
 
 .done-box .main-btn {
-	margin-top: 50px;
+	margin-top: 40px;
 	display: flex;
 	justify-content: center;
 }
@@ -50,30 +57,34 @@ hr {
 	border-radius: 10px;
 }
 
+img {
+	height: 100px;
+	width: 100px;
+}
+
 </style>
 
 <div class="container">
 	<div class="body-container">	
-
-        <div>
+        <div class="body-container2">
             <div>
                 <div class="done-box">
-                    <h4 class="done-title">상품 결제 완료</h4>
+                    <h4 class="done-title">결제 완료</h4>
                     <hr>
                        
-	                <div>
+	                <div class="msg-box">
 						<p class="done-msg">
-							결제가 완료되었습니다.
+							상품 결제가 완료되었습니다.
 						</p>
+						
 	                </div>
-                       
-                       <div class="main-btn">
-                           <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">메인화면 <i class="bi bi-check2"></i> </button>
-                       </div>
+ 
+                    <div class="main-btn">
+                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">메인화면</button>
+                    </div>
                 </div>
 
             </div>
-        </div>
-	        
+        </div>        
 	</div>
 </div>
