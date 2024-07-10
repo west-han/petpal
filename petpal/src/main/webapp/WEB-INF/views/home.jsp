@@ -5,5 +5,6 @@
 <div class="container body-container">
     <div class="inner-page">
 		홈 화면 입니다.
+		${ not empty sessionScope.member ? "로그인 됨" : "로그인 안 됨" }
     </div>
 </div>
