@@ -207,10 +207,21 @@ select, button {
 
 .tab-pane { min-height: 300px; }
 
+.recomm-product .recomm-title {
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 3px solid #434347;
+	padding-bottom: 16px;
+}
+
 .recomm-product .recomm-imgs {
-	margin: 25px 20px 60px 20px;
+	margin: 25px 20px 100px 20px;
 	display: flex;
 	justify-content: space-between;
+}
+
+.recomm-product .recomm-img:hover {
+	cursor: pointer;
 }
 
 .recomm-product .recomm-img img {
@@ -235,6 +246,9 @@ select, button {
 
 }
 
+.review {
+	margin-bottom: 100px;
+}
 
 .review-title p {
 	font-size: 20px;
@@ -250,8 +264,6 @@ select, button {
 .star-box {
 	display: flex;
 	align-items: center;
-	margin-left: 30px;
-	padding: 60px 0;
 	border-bottom: none;
 }
 
@@ -282,7 +294,6 @@ select, button {
 	padding-bottom: 20px;
 }
 
-
 .review-content .review-top {
 	margin-top: 18px;
 	display: flex;
@@ -294,9 +305,21 @@ select, button {
 	font-size: 18px;
 }
 
+.review-content .review-top div:last-child {
+	margin-right: 15px;
+}
+
 .review-content .review-top-left label:last-child, .review-top div:last-child {
 	color: #BDBDBD;
 	font-weight: bold;
+}
+
+.review-content .review-top-left i {
+	letter-spacing: -5px;
+}
+
+.review-content .review-top-left i:last-child {
+	margin-right: 15px;
 }
 
 .review-content .review-option {
@@ -319,8 +342,31 @@ select, button {
 	margin-right: 20px;
 }
 
+.qna .qna-title {
+	border-bottom: 3px solid #434347;
+}
+
+.qna .qna-title p {
+	font-size: 20px;
+	font-weight: bold;
+}
+
 .deleteReview, .notifyReview { cursor: pointer; padding-left: 5px; }
 .deleteReview:hover, .notifyReview:hover { font-weight: 500; color: #2478FF; }
+
+.product-content {
+	text-align: center;
+}
+
+.product-content img { 
+	max-width: 1000px; 
+}
+
+.btnQuestion {
+	background: #E4B075;
+	color: white;
+	font-weight: bold;
+}
 
 .qna-form textarea { width: 100%; height: 75px; resize: none; }
 .qna-form .img-grid {
@@ -338,14 +384,6 @@ select, button {
 
 .deleteQuestion, .notifyQuestion { cursor: pointer; padding-left: 5px; }
 .deleteQuestion:hover, .notifyQuestion:hover { font-weight: 500; color: #2478FF; }
-
-.product-content {
-	text-align: center;
-}
-
-.product-content img { 
-	max-width: 1000px; 
-}
 
 
 </style>
@@ -511,8 +549,9 @@ select, button {
 							<img 
 							src="${pageContext.request.contextPath}/uploads/product/product_detail2.png">
 						</div>
+						
 						<div class="recomm-product">
-							<div class="fs-5 fw-bold">비슷한 상품</div>
+							<div class="recomm-title">비슷한 상품</div>
 							<div class="recomm-imgs" >
 								<div class="recomm-img">
 									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
@@ -557,88 +596,97 @@ select, button {
 							</div>
 						</div>
 						
-						<div class="mt-3 fw-bold review-title" id="scrollspyHeading1">
-							<p>구매후기(3)</p> 
+						<div class="review">
+							<div class="mt-3 fw-bold review-title">
+								<p>구매후기(3)</p> 
+							</div>
+							
+							<div class="star-sort ms-3">
+								<div class="col pt-3 pb-3 star-box">
+									<div class="score-star review-score-star">
+										<c:forEach var="n" begin="1" end="5">
+											<c:set var="score" value=""/>
+											<span class="item fs-2 on">
+												<i class="bi bi-star-fill"></i></span>
+										</c:forEach>
+									</div>
+									<div class="fs-2 ms-4 fw-bold">
+										<label class="review-score">4.5</label> 
+									</div>
+								</div>
+								<div class="reviewSort-area">
+									<div>
+										<select class="form-select reviewSortNo">
+											<option value="1"> 평점 높은순 </option>
+											<option value="2"> 평점 낮은순 </option>
+											<option value="3"> 최신순 </option>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="review-con">
+								<div class="review-content border-top">
+									<div class="review-top ms-3">
+										<div class="review-top-left">
+											<label>
+												<c:forEach var="n" begin="1" end="5">
+													<i class="bi bi-star-fill"></i>
+												</c:forEach>
+											</label>
+											<label> 캔따개 </label>							
+										</div>
+										<div>2024.07.10</div>
+									</div>
+									<div class="review-option ms-3">
+										옵션: [색상]그레이 [사이즈]S
+									</div>
+									<div class="review-img-content ms-3">
+										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+										<div>
+											재질도 좋고 설치도 간편하고 견고한 것 같아요
+										</div>
+									</div>
+								</div>
+								
+								<div class="review-content border-top">
+									<div class="review-top ms-3">
+										<div class="review-top-left">
+											<label>
+												<c:forEach var="n" begin="1" end="5">
+													<i class="bi bi-star-fill"></i>
+												</c:forEach>					
+											</label>
+											<label> 캔따개 </label>							
+										</div>
+										<div>2024.07.10</div>
+									</div>
+									<div class="review-option ms-3">
+										옵션: [색상]그레이 [사이즈]S
+									</div>
+									<div class="review-img-content ms-3">
+										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+										<div>
+											재질도 좋고 설치도 간편하고 견고한 것 같아요
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="list-review"></div>
+						
+						<div class="qna" id="scrollspyHeading1">
+							<div class="qna-title">
+								<p>문의</p> 
+							</div>
+					
+							<div class="mt-3 p-2 text-end">
+								<button type="button" class="btnQuestion btn"> 
+									문의 작성하기 </button>
+							</div>
 						</div>
 						
-						<div class="star-sort">
-							<div class="col p-3 star-box">
-								<div class="score-star review-score-star">
-									<c:forEach var="n" begin="1" end="5">
-										<c:set var="score" value=""/>
-										<span class="item fs-2 on">
-											<i class="bi bi-star-fill"></i></span>
-									</c:forEach>
-								</div>
-								<div class="fs-2 ms-4 fw-bold">
-									<label class="review-score">4.5</label> 
-								</div>
-							</div>
-							<div class="reviewSort-area">
-								<div>
-									<select class="form-select reviewSortNo">
-										<option value="1"> 평점 높은순 </option>
-										<option value="2"> 평점 낮은순 </option>
-										<option value="3"> 최신순 </option>
-									</select>
-								</div>
-							</div>
-						</div>
-						
-						<div class="review-content border-top">
-							<div class="review-top">
-								<div class="review-top-left">
-									<label><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></label>
-									<label> 캔따개 </label>							
-								</div>
-								<div>2024.07.10</div>
-							</div>
-							<div class="review-option">
-								옵션: [색상]그레이 [사이즈]S
-							</div>
-							<div class="review-img-content">
-								<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-								<div>
-									재질도 좋고 설치도 간편하고 견고한 것 같아요
-								</div>
-							</div>
-						</div>
-						
-						<div class="review-content border-top">
-							<div class="review-top">
-								<div class="review-top-left">
-									<label><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></label>
-									<label> 캔따개 </label>							
-								</div>
-								<div>2024.07.10</div>
-							</div>
-							<div class="review-option">
-								옵션: [색상]그레이 [사이즈]S
-							</div>
-							<div class="review-img-content">
-								<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-								<div>
-									재질도 좋고 설치도 간편하고 견고한 것 같아요
-								</div>
-							</div>
-						</div>
-						
-						
-						<div class="mt-2 list-review"></div>
-						
-						
-						<div class="mt-3 pt-3 border-bottom" id="scrollspyHeading2">
-							<p>문의 사항</p> 
-						</div>
-				
-						<div class="mt-3 p-2 text-end">
-							<button type="button" class="btnMyQuestion btn btn-dark"> 
-								내 Q&amp;A 보기  </button>
-							<button type="button" class="btnQuestion btn btn-dark"> 
-								상품 Q&amp;A 작성 </button>
-						</div>
-						<div class="mt-1 p-2 list-question"></div>
-						
+						<div class="mt-1 p-2 list-question" id="scrollspyHeading2" ></div>
 					</div>
 				</div>
 	
