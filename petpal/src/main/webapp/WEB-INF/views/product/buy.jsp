@@ -207,14 +207,56 @@ select, button {
 
 .tab-pane { min-height: 300px; }
 
+.recomm-product .recomm-imgs {
+	margin: 25px 20px 60px 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.recomm-product .recomm-img img {
+	width: 150px; 
+	height: 180px; 
+	cursor: pointer; 
+	object-fit: cover;
+}
+
+.recomm-img div {
+	 width: 150px;
+	 margin-top: 17px;
+}
+
+.recomm-img .recomm-price span {
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.recomm-img .recomm-price span:first-child {
+	color: #EBB078;
+
+}
+
+
+.review-title p {
+	font-size: 20px;
+	border-bottom: 3px solid #434347;
+	padding-bottom: 18px;
+	margin-bottom: 0;
+}
+
+.star-sort {
+	display: flex;
+}
+
 .star-box {
 	display: flex;
 	align-items: center;
 	margin-left: 30px;
 	padding: 60px 0;
+	border-bottom: none;
 }
 
 .score-star { font-size: 0; letter-spacing: -4px; }
+
 .score-star .item {
 	font-size: 22px; 
 	letter-spacing: 1px; 
@@ -223,14 +265,58 @@ select, button {
 	vertical-align: middle;
 }
 .score-star .item:first-child{ margin-left: 0; }
+
 .score-star .on { color: #E4B075; }
 
 .reviewSort-area .reviewSortNo {
 	border: none;
+	font-size: 18px;
 }
 
-.reviewSort-area .reviewSortNo option {
+.reviewSort-area {
+	display: flex;
+	align-items: center;
+}
+
+.review-content {
+	padding-bottom: 20px;
+}
+
+
+.review-content .review-top {
+	margin-top: 18px;
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+}
+
+.review-content .review-top div:first-child {
+	font-size: 18px;
+}
+
+.review-content .review-top-left label:last-child, .review-top div:last-child {
+	color: #BDBDBD;
 	font-weight: bold;
+}
+
+.review-content .review-option {
+	margin: 10px 0 18px 0;
+	font-size: 18px;
+	color: #BDBDBD;
+	font-weight: bold;
+}
+
+.review-content .review-img-content {
+	display: flex;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.review-content .review-img-content img {
+	width: 50px; 
+	height: 50px; 
+	object-fit: cover; 
+	margin-right: 20px;
 }
 
 .deleteReview, .notifyReview { cursor: pointer; padding-left: 5px; }
@@ -261,23 +347,6 @@ select, button {
 	max-width: 1000px; 
 }
 
-.recomm-product .recomm-imgs {
-	margin-top: 20px;
-	margin-bottom: 60px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.recomm-product .recomm-img img {
-	width: 200px; 
-	height: 250px; 
-	cursor: pointer; 
-	object-fit: cover;
-}
-
-.recomm-img > div {
-	 width: 200px;
-}
 
 </style>
 
@@ -423,7 +492,7 @@ select, button {
 						</li>
 
 						<li class="nav-tabs" role="presentation">
-							<a class="nav-link active" href="#scrollspyHeading1">리뷰 
+							<a class="nav-link active" href="#scrollspyHeading1">구매후기 
 								<span class="title-reviewCount">(3)</span></a>
 						</li>
 						<li class="nav-tabs" role="presentation">
@@ -448,7 +517,7 @@ select, button {
 								<div class="recomm-img">
 									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
 									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex">
+									<div class="d-flex recomm-price">
 										<span>68%</span>
 										<span>39,000원</span>
 									</div>
@@ -456,7 +525,7 @@ select, button {
 								<div class="recomm-img">
 									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
 									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex">
+									<div class="d-flex recomm-price">
 										<span>68%</span>
 										<span>39,000원</span>
 									</div>
@@ -464,7 +533,7 @@ select, button {
 								<div class="recomm-img">
 									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
 									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex">
+									<div class="d-flex recomm-price">
 										<span>68%</span>
 										<span>39,000원</span>
 									</div>
@@ -472,7 +541,15 @@ select, button {
 								<div class="recomm-img">
 									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
 									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex">
+									<div class="d-flex recomm-price">
+										<span>68%</span>
+										<span>39,000원</span>
+									</div>
+								</div>
+								<div class="recomm-img">
+									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+									<div class="d-flex recomm-price">
 										<span>68%</span>
 										<span>39,000원</span>
 									</div>
@@ -480,11 +557,11 @@ select, button {
 							</div>
 						</div>
 						
-						<div class="mt-3 pt-3 border-bottom" id="scrollspyHeading1">
-							<p class="fs-4 fw-semibold">상품 리뷰</p> 
+						<div class="mt-3 fw-bold review-title" id="scrollspyHeading1">
+							<p>구매후기(3)</p> 
 						</div>
 						
-						<div class="row border-bottom">
+						<div class="star-sort">
 							<div class="col p-3 star-box">
 								<div class="score-star review-score-star">
 									<c:forEach var="n" begin="1" end="5">
@@ -497,23 +574,61 @@ select, button {
 									<label class="review-score">4.5</label> 
 								</div>
 							</div>
-						</div>
-						
-						<div class="row mt-3 reviewSort-area">
-							<div class="col">&nbsp;</div>
-							<div class="col-auto text-end">
-								<select class="form-select reviewSortNo">
-									<option value="1"> 평점 높은순 </option>
-									<option value="2"> 평점 낮은순 </option>
-									<option value="3"> 최신순 </option>
-								</select>
+							<div class="reviewSort-area">
+								<div>
+									<select class="form-select reviewSortNo">
+										<option value="1"> 평점 높은순 </option>
+										<option value="2"> 평점 낮은순 </option>
+										<option value="3"> 최신순 </option>
+									</select>
+								</div>
 							</div>
 						</div>
+						
+						<div class="review-content border-top">
+							<div class="review-top">
+								<div class="review-top-left">
+									<label><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></label>
+									<label> 캔따개 </label>							
+								</div>
+								<div>2024.07.10</div>
+							</div>
+							<div class="review-option">
+								옵션: [색상]그레이 [사이즈]S
+							</div>
+							<div class="review-img-content">
+								<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+								<div>
+									재질도 좋고 설치도 간편하고 견고한 것 같아요
+								</div>
+							</div>
+						</div>
+						
+						<div class="review-content border-top">
+							<div class="review-top">
+								<div class="review-top-left">
+									<label><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></label>
+									<label> 캔따개 </label>							
+								</div>
+								<div>2024.07.10</div>
+							</div>
+							<div class="review-option">
+								옵션: [색상]그레이 [사이즈]S
+							</div>
+							<div class="review-img-content">
+								<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+								<div>
+									재질도 좋고 설치도 간편하고 견고한 것 같아요
+								</div>
+							</div>
+						</div>
+						
+						
 						<div class="mt-2 list-review"></div>
 						
 						
 						<div class="mt-3 pt-3 border-bottom" id="scrollspyHeading2">
-							<p class="fs-4 fw-semibold">문의 사항</p> 
+							<p>문의 사항</p> 
 						</div>
 				
 						<div class="mt-3 p-2 text-end">
