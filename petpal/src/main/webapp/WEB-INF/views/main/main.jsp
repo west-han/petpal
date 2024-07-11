@@ -49,6 +49,10 @@
         
     </script>
     <script>
+    $(function() {
+    	$('.btn_gotop').hide();
+    });
+    
 	$(window).scroll(function(){
 		if ($(this).scrollTop() > 300){
 			$('.btn_gotop').show();
