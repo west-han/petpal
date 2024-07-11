@@ -7,7 +7,7 @@
 *, *::after, *::before { box-sizing: border-box; }
 
 .body-container2 {
-	max-width: 1000px;
+	max-width: 1300px;
 	margin: 0 auto;
 	font-size: 15px;
 	color: #434347;
@@ -74,15 +74,18 @@ table {
 	font-size: 16px;
 	padding-bottom: 15px;
 	padding-top: 15px;
+	text-align: center;
 }
 
 .order-content {
 	margin-bottom: none;
 }
 
-.order-content img {
-	margin-left: 20px;
+.order-content td {
+	text-align: center;
 }
+
+
 
 .content-title {
 	text-align: center;
@@ -226,8 +229,9 @@ table {
     border: none; 
     border-bottom: 1px solid #BDBDBD !important;
     padding-bottom: 5px;
-    padding-top: 3px;
+
     outline: none;
+    border-radius: 0;
 }
 
 .point-input {
@@ -235,11 +239,12 @@ table {
     border: none; 
     border-bottom: 1px solid #BDBDBD;
     outline: none;
+    border-radius: 0;
 }
 
 input::placeholder {
   color: #A6A6A6;
-  padding-left: 3px;
+
 }
 
 input::-webkit-outer-spin-button,
@@ -255,7 +260,7 @@ input::-webkit-inner-spin-button {
 }
 
 .buttons .complete-btn {
-	width: 980px;
+	width: 1250px;
 	height: 50px;
 	border-radius: 8px;
 	font-weight: bold;
@@ -401,7 +406,7 @@ button:hover {
 								<input type="hidden" name="zip" value="111-111">
 								<input type="hidden" name="addr1" value="서울특별시 마포구 월드컵북로">
 								<input type="hidden" name="addr2" value="21 풍성빌딩 2층">
-								<input type="text" name="destMeno" class="form-control memo-input" style="border:none" placeholder="요청사항을 입력하세요.">
+								<input type="text" name="destMeno" class="form-control memo-input" placeholder="요청사항을 입력하세요.">
 							</div>
 						</div>
 						
