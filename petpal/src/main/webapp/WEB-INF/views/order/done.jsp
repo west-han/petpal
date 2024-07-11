@@ -13,7 +13,7 @@
 }
 
 .done-box {
-	margin-top: 60px;
+	margin-top: 120px;
 	border: 2px solid #E4B075;
 	border-radius: 6px;
 	padding: 30px 20px; 
@@ -33,6 +33,7 @@ hr {
 .msg-box {
 	display: flex;
 	justify-content: center;
+	width: 600px;
 }
 
 .done-box .done-msg {
@@ -57,24 +58,20 @@ hr {
 	border-radius: 10px;
 }
 
-img {
-	height: 100px;
-	width: 100px;
-}
 
 </style>
 
 <div class="container">
 	<div class="body-container">	
         <div class="body-container2">
-            <div>
+            
                 <div class="done-box">
-                    <h4 class="done-title">결제 완료</h4>
+                    <h4 class="done-title">주문 완료</h4>
                     <hr>
                        
 	                <div class="msg-box">
 						<p class="done-msg">
-							상품 결제가 완료되었습니다.
+							상품 주문이 완료되었습니다.
 						</p>
 						
 	                </div>
@@ -84,7 +81,7 @@ img {
                     </div>
                 </div>
 
-            </div>
+            
         </div>        
 	</div>
 </div>

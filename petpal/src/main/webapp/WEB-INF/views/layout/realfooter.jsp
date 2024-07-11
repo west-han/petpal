@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dog.css" />
+ <link rel="stylesheet" href="./css/dog.css" />
 
 <footer class="footer-distributed">
             <div class="footer-left">
-                <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="PETPAL 로고"></a>
+                <a href="#"> <img src="img/logo.png" alt="PETPAL 로고"></a>
                 <p class="name"><a href="#"><span class="highlight">PET</span>PAL</a></p>
             </div>
             <div class="footer-center">
@@ -40,10 +40,10 @@
             </div>
             <div class="footer-right">
                 <div class="footer-icons">
-                    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/f_face_logo.png" alt="페이스북 로고"></a>
-                    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/f_insta_logo.png" alt="인스타그램 로고"></a>
-                    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/f_kakao_logo.png" alt="카카오 로고"></a>
-                    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/f_ytb_logo.png" alt="유튜브 로고"></a>
+                    <a href="#"><img src="./img/f_face_logo.png" alt="페이스북 로고"></a>
+                    <a href="#"><img src="./img/f_insta_logo.png" alt="인스타그램 로고"></a>
+                    <a href="#"><img src="./img/f_kakao_logo.png" alt="카카오 로고"></a>
+                    <a href="#"><img src="./img/f_ytb_logo.png" alt="유튜브 로고"></a>
                 </div>
             </div>
         </footer>
