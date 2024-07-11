@@ -452,7 +452,7 @@ main {
     display:none;
     position:fixed;
     bottom:30px;
-    right:30px;
+    right:90px;
     z-index:999;
     border:1px solid #ccc;
     outline:none;
@@ -461,8 +461,8 @@ main {
     cursor:pointer;
     padding:15px 20px;
     border-radius:100%;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
