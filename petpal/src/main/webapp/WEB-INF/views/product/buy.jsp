@@ -54,6 +54,11 @@
 .imgs {
 	margin-top: 15px;
 	margin-left: 10px;
+	display: flex;
+}
+
+.imgs .imgs-detail {
+	margin-right: 12px;
 }
 
 .body-right .stock {
@@ -157,6 +162,7 @@ hr {
 
 .total-detail {
 	margin-top: 20px;
+	font-size: 15px;
 }
 
 .total-detail .product-totalAmount {
@@ -210,6 +216,7 @@ select, button {
 	font-size: 18px;
 	padding-bottom: 15px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .nav-tabs .nav-link.active {
@@ -218,6 +225,13 @@ select, button {
 	outline: none;
 	
 }
+
+nav-tabs .nav-link:focus {
+	border-bottom: 3px solid #E4B075;
+	color: #E4B075;
+	outline: none;
+}
+
 
 .tab-content {
 	border: none;
@@ -304,8 +318,6 @@ select, button {
 	font-size: 18px;
 	
 }
-
-
 
 .reviewSort-area {
 	display: flex;
@@ -428,6 +440,10 @@ select, button {
 	color: #E4B075;
 }
 
+#btnMore:hover {
+	text-decoration: none;
+}
+
 .detailMore{position: relative;}
 
 .detailMore:before {
@@ -491,12 +507,12 @@ select, button {
 							</div>
 						</div>
 						<div class="imgs">
-							
-								<div class="sm-img">
+							<c:forEach var="n" begin="1" end="3">
+								<div class="sm-img imgs-detail">
 									<img 
 									src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg" class="img-buy">
 								</div>
-							
+							</c:forEach>
 						</div>
 					</div>
 					
@@ -614,17 +630,21 @@ select, button {
 				<nav id="navbar-example2">
 					<ul class="nav nav-tabs mt-3 pt-5" id="myTab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="tab-1" data-bs-toggle="tab" 
+							<a class="nav-link active" id="tab-1"
 								data-bs-target="#tab-pane-1" role="tab" aria-controls="1" 
-								aria-selected="true">상세정보</a>
+								aria-selected="true" href="#scrolld">상세정보</a>
 						</li>
 
-						<li class="nav-tabs" role="presentation">
-							<a class="nav-link active" href="#scrollr">구매후기 
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="tab-2"
+								data-bs-target="#tab-pane-2" role="tab" 
+								aria-controls="2" aria-selected="false" href="#scrollr">구매후기 
 								<span class="title-reviewCount">(3)</span></a>
 						</li>
-						<li class="nav-tabs" role="presentation">
-							<a class="nav-link active" href="#scrollq">문의하기 
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="tab-3 scrolld"
+								data-bs-target="#tab-pane-3" type="button" role="tab" 
+								aria-controls="3" aria-selected="false" href="#scrollq">문의하기 
 								<span class="title-qnaCount">(3)</span></a>
 						</li>
 					</ul>
@@ -640,7 +660,7 @@ select, button {
 								<img 
 								src="${pageContext.request.contextPath}/uploads/product/product_detail2.png" class="img-buy">
 							</div>
-							<div class="detailMore">
+							<div class="detailMore" id="scrolld"> 
 								<a id="btnMore" href="javascript:moreDetail();">상세 정보 더보기</a>
 							</div>
 						</div>
@@ -767,6 +787,31 @@ select, button {
 </div>
 
 <script>
+$(window).scroll(function(){
+    if ($(this).scrollTop() > 300){
+        $('.btn_gotop').show();
+    } else{
+        $('.btn_gotop').hide();
+    }
+});
+
+$('.btn_gotop').click(function(){
+    $('html, body').animate({scrollTop:0},400);
+    return false;
+});
+
+function moreDetail(){
+    $('#detail').removeClass('hidden');
+    $('.detailMore').remove();
+}
+
+$(document).ready(function() {
+    $('.nav-link').click(function() {
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+
 $(window).scroll(function(){
     if ($(this).scrollTop() > 300){
         $('.btn_gotop').show();
