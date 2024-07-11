@@ -16,18 +16,18 @@
             <div id="head1">
                 <div style="width: 200px;"></div>
                 <div class="logo-container">
-                   <a href="#"> <img src="img/logo.png"></a>
+                   <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
                     <p class="name"><a href="#"><span class="highlight">PET</span>PAL</a></p>
                 </div>
                 <div class="search">
                     <input type="text" placeholder="어떤 상품을 찾고있개 ?">
-                    <img src="./img/search.png" >
+                    <img src="${pageContext.request.contextPath}/resources/images/search.png" >
                 </div>
                 <div class="more">
-                    <img src="img/heart.png" alt="찜하기">
-                    <img src="img/bell.png" alt="알림">
-                    <img src="img/person.png" alt="사용자">
-                    <img src="img/cart.png" alt="장바구니">
+                    <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기">
+                    <img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림">
+                    <img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자">
+                    <img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니">
                 </div>
                 <div style="width:200px;"></div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="menu">
                     <div class="dropdown">
                         <button class="dropbtn">
-                            <img src="img/menu.png" ><p style="padding-left: 5px;">카테고리</p>
+                            <img src="${pageContext.request.contextPath}/resources/images/menu.png" ><p style="padding-left: 5px;">카테고리</p>
                         </button>
                         <div class="dropdown-content">
                             <a href="#">사료</a>
@@ -52,12 +52,12 @@
                     </div>
                     <div class="line"></div>
                     <div class="menu2">
-                        <span><a href="#"><img src="img/new.png" ><p>신상품</p></a></span>
-                        <span><a href="#"><img src="img/best.png"><p>베스트</p></a></span>
-                        <span><a href="#"><img src="img/present.png"><p>이벤트</p></a></span>
-                        <span><a href="#"><img src="img/saleTag.png"><p>특가 상품</p></a></span>
-                        <span><a href="#"><img src="img/clock.png"><p>타임 세일</p></a></span>
-                        <span><a href="#"><img src="img/love.png"><p>맞춤 상품</p></a></span>
+                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/new.png" ><p>신상품</p></a></span>
+                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
+                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
+                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>특가 상품</p></a></span>
+                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/clock.png"><p>타임 세일</p></a></span>
+                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/love.png"><p>맞춤 상품</p></a></span>
                     </div>
                 </div>
                 <div class="pet-dropdown">
