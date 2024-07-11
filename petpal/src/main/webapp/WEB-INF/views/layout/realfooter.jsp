@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dog.css" />
+ <link rel="stylesheet" href="./css/dog.css" />
 
 <footer class="footer-distributed">
             <div class="footer-left">

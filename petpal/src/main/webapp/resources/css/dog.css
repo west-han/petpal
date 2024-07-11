@@ -1,0 +1,572 @@
+﻿@charset "UTF-8";
+
+body {
+	
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'MangoDdobak-B';
+    font-weight: 400;
+}
+@font-face {
+    /*굵기 : 300 400 700*/
+    font-family: 'MangoDdobak-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-W-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+ul {
+    display: block;
+    list-style-type: none;
+}
+ul::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+}
+
+.evtpreview {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.event-left {
+    background-color: #ADD8E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    color: #000;
+    font-weight: bold;
+}
+
+.event-right {
+    background-color: #FFC0CB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    color: #000;
+    font-weight: bold;
+
+}
+.event-right p {
+    margin: 0 10px;
+    
+}
+.event-right a{
+    
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 이미지와 텍스트 사이의 간격 */
+}
+.event-right p:last-child {
+    font-size: 12px;
+    color: gray;
+}
+#head1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+#head1 a{
+    font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+}
+
+#head1 .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+#head1 .logo-container img {
+    width: 50px;
+    height: 50px;
+}
+
+#head1 .name {
+    margin-left: 10px;
+    font-size: 24px;
+    display: inline-block;
+}
+.logo-container .name .highlight {
+    color: #E4B075;
+}
+
+.search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search input {
+    width: 900px;
+    height: 55px;
+    padding: 10px 50px 5px 10px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.search img {
+    position: absolute;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+}
+
+.more img {
+    width: 30px;
+    height: 30px;
+}
+
+.head2 {
+    display: flex;
+    padding: 10px 60px 10px 260px;
+    align-items: center;
+    font-family: 'MangoDdobak-B';
+    font-weight: 700;
+}
+
+.head2 .menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.head2 .menu2 {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 각 항목 사이의 간격 */
+}
+
+.head2 .menu2 span {
+    display: flex;
+    align-items: center;
+}
+
+.head2 .menu2 a {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 이미지와 텍스트 사이의 간격 */
+    text-decoration: none;
+    color: black;
+}
+
+.head2 .menu2 img {
+    width: 30px;
+    height: 30px;
+}
+
+.head2 p {
+    margin: 0; /* 텍스트 주변의 여백 제거 */
+}
+
+
+/*카테고리 드롭다운*/
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'MangoDdobak-B';
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: "Do Hyeon", sans-serif;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn p {
+    color: #E4B075;
+}
+
+.line {
+    border: 1px solid #C1C1C1;
+    width: 1px;
+    height: 20px;
+}
+
+.pet-dropdown {
+    margin-left: auto;
+    font-family: 'MangoDdobak-B';
+}
+
+#pet-selector {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+main {
+    flex: 1;
+}
+
+/* Carousel Styles */
+.carousel {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+}
+
+.slides {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 580px;
+}
+
+.slide {
+    min-width: 100%;
+    height: 580px;
+    background-size: cover;
+    background-position: center;
+    transition: 0.5s ease-in-out;
+}
+
+.dots {
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot.active {
+    background-color: #E4B075;
+}
+
+/*메인 컨텐츠*/
+#timecontainer {
+    padding: 60px 260px 40px;
+    display: flex;
+    flex-direction: column; /* 상단의 타임 세일 정보와 카드를 분리하여 세로 정렬 */
+    align-items: center;
+}
+
+#timecontainer .time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#timecontainer .time .left {
+    display: flex;
+    align-items: center;
+}
+#timecontainer .time .left p{
+    font-size: 38px;
+}
+
+#timecontainer .time p,
+#rankcontainer .rank p {
+    margin: 0;
+}
+
+#timecontainer .time img,
+#rankcontainer .rank img {
+    margin-left: 10px;
+}
+
+#timecontainer .time span {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+#timecontainer .time-sale-divider {
+    width: 100%;
+    height: 3px;
+    background-color: #E4B075;
+    margin-bottom: 20px;
+}
+
+.product {
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    flex-wrap: wrap; /* 필요 시 줄 바꿈 */
+    justify-content: center; /* 가운데 정렬 */
+    gap: 30px; /* 카드 사이의 간격 */
+}
+
+.property-card {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    height: 34em;
+    width: 320px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.property-image {
+    height: 26em; /* 초기 상태에서 부모인 .property-card의 일부 높이에 맞춤 */
+    width: 100%;
+    transition: height 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.property-description {
+    background-color: #dfdaef;
+    height: 10em; /* 초기 상태에서 .property-card의 일부 높이에 맞춤 */
+    width: 100%;
+    position: absolute;
+    bottom: 0em;
+    transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 0.5em 1em;
+    text-align: center;
+    transform: translateY(0);
+}
+
+.property-card:hover .property-description {
+    transform: translateY(100%); /* 설명을 아래로 사라지게 */
+}
+
+.property-card:hover .property-image {
+    height: 40em;
+}
+
+#rankcontainer {
+    height: 600px;
+    margin-top: 50px; /* timecontainer와의 간격 조정 */
+    padding: 20px 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rankcontainer .rank {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#rankcontainer .progress-bar-container {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#rankcontainer .progress-bar {
+    width: 50%;
+    height: 30px;
+    background-color: #E4B075;
+    border-radius: 20px;
+    position: absolute;
+}
+
+#rankcontainer .rankproduct {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#rankcontainer .rankproduct .item {
+    width: 22%;
+    height: 290px;
+    background-color: olive;
+}
+
+/* Footer Styles */
+
+.footer-distributed {
+    background: #f6f6f6;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    padding: 40px 100px 40px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'MangoDdobak-B';
+    font-size: 16px;
+    color: #333;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 수정: 왼쪽 정렬 */
+}
+
+.footer-distributed .footer-left {
+    width: 30%;
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.footer-distributed .footer-left img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; /* 텍스트와 간격 추가 */
+}
+
+.footer-distributed .footer-left p {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+    color: #333;
+    margin: 0; /* 텍스트 주변 여백 제거 */
+}
+
+.footer-distributed .footer-left p .highlight {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+    color: #E4B075;
+}
+
+.footer-distributed .footer-center {
+    width: 40%;
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.footer-distributed .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0; /* 수정: 하단 여백 추가 */
+}
+
+.footer-distributed .footer-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.footer-distributed .footer-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: normal;
+}
+
+.footer-distributed .footer-links a:hover {
+    color: #E4B075;
+}
+
+.footer-distributed .footer-info {
+    text-align: left;
+    width: 100%;
+    line-height: 25px;
+    margin-top: 0; /* 상단 여백 제거 */
+}
+
+.footer-distributed .footer-info p {
+    margin: 5px 0;
+}
+
+.footer-distributed .footer-info a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-distributed .footer-info a:hover {
+    color: #E4B075;
+}
+
+.footer-distributed .footer-right {
+    width: 30%;
+    text-align: center;
+}
+
+.footer-distributed .footer-icons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer-distributed .footer-icons a {
+    display: inline-block;
+    width: 50px; /* 아이콘 크기 증가 */
+    height: 50px; /* 아이콘 크기 증가 */
+    margin: 0 10px; /* 간격 증가 */
+}
+
+.footer-distributed .footer-icons img {
+    width: 100%;
+    height: auto;
+}
