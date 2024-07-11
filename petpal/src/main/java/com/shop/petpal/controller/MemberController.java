@@ -23,9 +23,7 @@ public class MemberController {
 	
 	@RequestMapping("login")
 	public String loginForm(HttpServletRequest req) {
-		String password = enc.encode("password1");
 		
-		System.out.println(password);
 		
 		return "member/login2";
 	}
