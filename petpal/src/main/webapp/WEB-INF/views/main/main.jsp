@@ -46,13 +46,31 @@
         }
 
         document.addEventListener("DOMContentLoaded", showSlides);
+        
     </script>
+    <script>
+    $(function() {
+    	$('.btn_gotop').hide();
+    });
+    
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 300){
+			$('.btn_gotop').show();
+		} else{
+			$('.btn_gotop').hide();
+		}
+	});
+	$('.btn_gotop').click(function(){
+		$('html, body').animate({scrollTop:0},400);
+		return false;
+	});
+	</script>
 <main>
             <div class="carousel">
                 <div class="slides">
                     <div class="slide" style="background-image: url('${pageContext.request.contextPath}/resources/images/banner1.jpg')"></div>
-                    <div class="slide" style="background-image: url('${pageContext.request.contextPath}/resources/images/banner2.jpg');"></div>
-                    <div class="slide" style="background-image: url('${pageContext.request.contextPath}/resources/images/banner3.jpg');"></div>
+                    <div class="slide" style="background-image: url('${pageContext.request.contextPath}/resources/images/banner2.png');"></div>
+                    <div class="slide" style="background-image: url('${pageContext.request.contextPath}/resources/images/banner3.png');"></div>
                 </div>
                 <div class="dots">
                     <span class="dot" onclick="currentSlide(0)"></span>
@@ -131,7 +149,7 @@
                 <div class="rank">
                     <div class="left">
                         <p>랭킹 차트</p>
-                        <img src="${pageContext.request.contextPath}/images/best.png" alt="">
+                        <img src="${pageContext.request.contextPath}/resources/images/best.png" alt="">
                     </div>
                 </div>
                 <div class="progress-bar-container">
@@ -147,5 +165,10 @@
                     <div class="item"></div>
                 </div>
             </div>
+            <!-- 상단 이동하기 버튼 -->
+            <a href="#" class="btn_gotop">
+			    <img src="${pageContext.request.contextPath}/resources/images/toparrow.png" class="top_arrow">
+			    <span class="glyphicon glyphicon-chevron-up"></span>
+			</a>
             
         </main>
