@@ -41,6 +41,12 @@ public class MemberController {
 		return "/member/pet";
 	}
 	
+	@GetMapping("mypage")
+	public String mypageForm(Model model) {
+		model.addAttribute("mode", "member");
+		return ".member.mypage";
+	}
+	
 	@GetMapping("join")
 	public String joinForm(Model model) {
 		// TODO: 회원 가입 페이지를 마이페이지 회원 정보 수정 페이지로 재활용할 거면 mode 추가하기
