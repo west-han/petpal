@@ -17,7 +17,7 @@
                 <div style="width: 200px;"></div>
                 <div class="logo-container">
                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
-                    <p class="name"><a href="#"><span class="highlight">PET</span>PAL</a></p>
+                    <p class="name"><a href="${pageContext.request.contextPath}/main/main"><span class="highlight">PET</span>PAL</a></p>
                 </div>
                 <div class="search">
                     <input type="text" placeholder="어떤 상품을 찾고있개 ?">
@@ -27,7 +27,7 @@
                     <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기">
                     <img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림">
                     <img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자">
-                    <img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니">
+                    <a href="${pageContext.request.contextPath}/myPage/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
                 </div>
                 <div style="width:200px;"></div>
             </div>
