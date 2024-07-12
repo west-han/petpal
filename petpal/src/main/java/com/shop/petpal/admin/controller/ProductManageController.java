@@ -197,4 +197,6 @@ public class ProductManageController {
 	public String writeForm() {
 		return ".admin.product.write";
 	}
+	
+	
 }

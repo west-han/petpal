@@ -82,17 +82,33 @@ $(function(){
 		<li class="menu--item">
 			<a href="${pageContext.request.contextPath}/admin" class="menu--link" title="Home">
 				<i class="menu--icon  fa-fw fa-solid fa-house"></i>
-				<span class="menu--label">Home</span>
+				<span class="menu--label">ADMIN</span>
 			</a>
 		</li>
 
 		<li class="menu--item">
-	        <a href="#" class="menu--link" title="회원 관리">
+	        <a href="#" class="menu--link" title="주문관리">
 				<i class="menu--icon  fa-fw fa-solid fa-user-group"></i>
-				<span class="menu--label">회원 관리</span>
+				<span class="menu--label">주문관리</span>
 			</a>
 		</li>
 	
+		<li class="menu--item menu--item__has_sub_menu">
+			<label class="menu--link" title="상품관리">
+				<i class="menu--icon  fa-fw fa-solid fa-graduation-cap"></i>
+				<span class="menu--label">상품관리</span>
+			</label>
+
+			<ul class="sub_menu">
+				<li class="sub_menu--item">
+					<a href="#" class="sub_menu--link">상품관리</a>
+				</li>
+				<li class="sub_menu--item">
+					<a href="#" class="sub_menu--link">기획전</a>
+				</li>
+			</ul>
+		</li>
+		
 		<li class="menu--item menu--item__has_sub_menu">
 			<label class="menu--link" title="고객센터관리">
 				<i class="menu--icon  fa-fw fa-solid fa-person-circle-question"></i>
@@ -118,24 +134,6 @@ $(function(){
 			</ul>
 		</li>
 
-		<li class="menu--item menu--item__has_sub_menu">
-			<label class="menu--link" title="강좌관리">
-				<i class="menu--icon  fa-fw fa-solid fa-graduation-cap"></i>
-				<span class="menu--label">강좌관리</span>
-			</label>
-
-			<ul class="sub_menu">
-				<li class="sub_menu--item">
-					<a href="#" class="sub_menu--link">카테고리</a>
-				</li>
-				<li class="sub_menu--item">
-					<a href="#" class="sub_menu--link">강좌</a>
-				</li>
-				<li class="sub_menu--item">
-					<a href="#" class="sub_menu--link">강사</a>
-				</li>
-			</ul>
-		</li>
 
 		<li class="menu--item">
 			<a href="#" class="menu--link" title="일정관리">
