@@ -87,4 +87,45 @@ public class MemberServiceImpl implements MemberService {
 			throw e;
 		}
 	}
+
+	@Override
+	public void updateMember(Member dto) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkFailureCountReset(String email) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void MemberAuthority(String email) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertMember1(Member dto) throws SQLException {		
+		// TODO 회원가입
+		
+		try {
+			long memberNum;
+			
+			memberNum = mapper.memberSeq();
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	@Override
+	public void insertMember2(Member dto) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }

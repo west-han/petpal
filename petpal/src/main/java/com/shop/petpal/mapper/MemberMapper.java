@@ -13,4 +13,5 @@ public interface MemberMapper {
 	public Member findByMemberNum(long memberNum);
 	public Integer checkFailureCount(String email);
 	public void updateMemberEnabled(Map<String, Object> map) throws SQLException;
+	public long memberSeq();
 }

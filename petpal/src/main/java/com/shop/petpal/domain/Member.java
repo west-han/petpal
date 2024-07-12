@@ -17,7 +17,17 @@ public class Member {
 	private long baseAmount;
 	private int failureCount;
 	private String lastLogin;
+	private String authority;
 	
+	
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
 	public long getMemberNum() {
 		return memberNum;
 	}
