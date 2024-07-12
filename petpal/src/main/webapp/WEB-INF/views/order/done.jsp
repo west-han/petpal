@@ -77,7 +77,7 @@ hr {
 	                </div>
  
                     <div class="main-btn">
-                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">메인화면</button>
+                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/main/main';">메인화면</button>
                     </div>
                 </div>
 

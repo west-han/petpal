@@ -8,7 +8,6 @@ $(function(){
     var url = window.location.pathname;
     var urlRegExp = new RegExp(url.replace(/\/$/, '') + "$");
     
-    
     try {
     	$('nav ul>li>a').each(function() {
     		if ( urlRegExp.test(this.href.replace(/\/$/, '')) ) {

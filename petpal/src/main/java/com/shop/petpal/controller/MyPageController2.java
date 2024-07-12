@@ -8,21 +8,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/myPage2/*")
 public class MyPageController2 {
 	
-	@GetMapping("myreview")
-	public String myReview() throws Exception {
+	@GetMapping("orderlist")
+	public String orderlistForm() throws Exception {
 		
-		return ".myPage2.myreview";
+		return ".myPage2.orderlist";
+	}
+	@GetMapping("cancel-return-change")
+	public String ancelreturnchangeForm() throws Exception {
+		
+		return ".myPage2.cancel-return-change";
+	}
+	@GetMapping("mycoupon")
+	public String mycouponForm() throws Exception {
+		
+		return ".myPage2.mycoupon";
+	}
+	@GetMapping("mypoint")
+	public String mypointFrom() throws Exception {
+		
+		return ".myPage2.mypoint";
 	}
 	
+	
+	@GetMapping("mypet")
+	public String mypetFrom() throws Exception {
+		
+		return ".myPage2.mypet";
+	}
+	@GetMapping("mymodify")
+	public String mymodifyFrom() throws Exception {
+		
+		return ".myPage2.mymodify";
+	}
 	@GetMapping("likelist")
-	public String likelist() throws Exception {
+	public String likelistFrom() throws Exception {
 		
 		return ".myPage2.likelist";
 	}
 	
-	@GetMapping("mymodify")
-	public String mymodify() throws Exception {
+	
+	@GetMapping("myreview")
+	public String myreviewForm() throws Exception {
 		
-		return ".myPage2.mymodify";
+		return ".myPage2.myreview";
 	}
+	
+	
+	
+	
+	
+	
 }

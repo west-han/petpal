@@ -280,7 +280,7 @@ input[type=checkbox]:hover {
 					 -->
 					 
 					<div class="buttons">
-						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/';"> 쇼핑 계속하기 </button>
+						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/main/main';"> 쇼핑 계속하기 </button>
 						<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
 					</div>
 				</form>

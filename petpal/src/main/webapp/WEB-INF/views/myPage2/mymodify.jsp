@@ -49,7 +49,7 @@ a {
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/orderlist">주문 내역/배송 조회</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/ancel-return-change">취소/반품/교환/환불 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불 내역</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
@@ -62,7 +62,7 @@ a {
 				</ul>
 			</div>
             
-            <div class="col-md-9">
+            <div class="col-md-9 ms-5">
                 <h2>내 정보</h2>
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">

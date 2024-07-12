@@ -28,7 +28,6 @@ h2, h3 {
 
 a {
 	text-decoration: none;
-	display: block;
 }
 
 .review-item {
@@ -66,13 +65,13 @@ a {
 </head>
 <body>
     <div class="container mt-5">
-		<div class="row">
-			<div class="col-md-2">
+        <div class="row">
+            <div class="col-md-2">
 				<h3 class="mypage">마이페이지</h3>
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/orderlist">주문 내역/배송 조회</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/ancel-return-change">취소/반품/교환/환불 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불 내역</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
@@ -84,29 +83,33 @@ a {
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
 				</ul>
 			</div>
-
-			<div class="col-md-9 ms-5">
-				<h2>리뷰 관리</h2>
-				<div class="review-item">
-					<img src="https://via.placeholder.com/100" alt="상품 이미지">
-					<div class="item-details">
-						<div class="star-rating">★★★★☆</div>
-						<p class="review-content">이 상품은 정말 좋았습니다. 품질이 뛰어나고 배송도 빠릅니다.</p>
-						<p class="review-date">2024-07-10</p>
-					</div>
-				</div>
-				<div class="review-item">
-					<img src="https://via.placeholder.com/100" alt="상품 이미지">
-					<div class="item-details">
-						<div class="star-rating">★★★☆☆</div>
-						<p class="review-content">상품이 괜찮았지만, 포장이 조금 아쉬웠습니다.</p>
-						<p class="review-date">2024-06-15</p>
-					</div>
-				</div>
-				<!-- 추가적인 리뷰 항목 -->
-			</div>
-		</div>
-	</div>
+            
+            <div class="col-md-9 ms-5">
+                <h2>리뷰 관리</h2>
+                <div class="review-item">
+                    <img src="https://via.placeholder.com/100" alt="상품 이미지">
+                    <div class="item-details">
+                        <div class="star-rating">
+                            ★★★★☆
+                        </div>
+                        <p class="review-content">이 상품은 정말 좋았습니다. 품질이 뛰어나고 배송도 빠릅니다.</p>
+                        <p class="review-date">2024-07-10</p>
+                    </div>
+                </div>
+                <div class="review-item">
+                    <img src="https://via.placeholder.com/100" alt="상품 이미지">
+                    <div class="item-details">
+                        <div class="star-rating">
+                            ★★★☆☆
+                        </div>
+                        <p class="review-content">상품이 괜찮았지만, 포장이 조금 아쉬웠습니다.</p>
+                        <p class="review-date">2024-06-15</p>
+                    </div>
+                </div>
+                <!-- 추가적인 리뷰 항목 -->
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

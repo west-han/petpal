@@ -31,6 +31,7 @@
         <intercept-url pattern="/member/complete" access="permitAll"/>
         <intercept-url pattern="/member/pwdFind" access="permitAll"/>
         <intercept-url pattern="/member/expired" access="permitAll"/>
+        <intercept-url pattern="/main/main" access="permitAll"/>
         
         <intercept-url pattern="/resources/**" access="permitAll"/>
         <intercept-url pattern="/uploads/photo/**" access="permitAll"/>
@@ -45,6 +46,7 @@
         <form-login
         	login-page="/member/login"
         	login-processing-url="/member/login"
+        	
         	username-parameter="email"
         	password-parameter="userPwd"
         	default-target-url="/"
