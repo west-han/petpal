@@ -8,12 +8,13 @@
 *, *::after, *::before { box-sizing: border-box; }
 
 .body-container2 {
-	max-width: 1000px;
+	max-width: 1300px;
 	margin: 20px auto;
 	margin-bottom: 60px;
 }
 
 .body-title {
+	width: 1300px;
 	margin-bottom: 15px;
 	border: none;
 }
@@ -279,7 +280,7 @@ input[type=checkbox]:hover {
 					 -->
 					 
 					<div class="buttons">
-						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/';"> 쇼핑 계속하기 </button>
+						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/main/main';"> 쇼핑 계속하기 </button>
 						<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
 					</div>
 				</form>

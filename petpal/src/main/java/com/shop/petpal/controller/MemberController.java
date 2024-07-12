@@ -23,9 +23,7 @@ public class MemberController {
 	
 	@RequestMapping("login")
 	public String loginForm(HttpServletRequest req) {
-		String password = enc.encode("password1");
 		
-		System.out.println(password);
 		
 		return "member/login2";
 	}
@@ -39,6 +37,12 @@ public class MemberController {
 	public String petForm(Model model) {
 		model.addAttribute("mode", "member");
 		return "/member/pet";
+	}
+	
+	@GetMapping("mypage")
+	public String mypageForm(Model model) {
+		model.addAttribute("mode", "member");
+		return ".member.mypage";
 	}
 	
 	@GetMapping("join")

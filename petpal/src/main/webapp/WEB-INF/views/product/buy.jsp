@@ -7,14 +7,19 @@
 *, *::after, *::before { box-sizing: border-box; }
 
 .body-container2 {
-	max-width: 1000px;
+	width: 1300px;
 	margin: 20px auto;
 	margin-bottom: 60px;
 	color: #434347;
 }
 
+.body-main {
+	width: 100%;
+}
+
 .body-sep {
 	display: flex;
+	justify-content: space-between;
 	width: 100%;
 }
 
@@ -24,23 +29,36 @@
 
 .body-left {
 	padding-left: 30px;
+	width: 50%;
 }
+
 .body-right {
-	padding-left: 30px;
 	padding-right: 30px;
+	display: flex;
+	justify-content: center;
 }
 
-.lg-img img { height: 420px; width: 420px; object-fit: cover;}
-.md-img img { width: 200px; height: 200px; cursor: pointer; object-fit: cover; }
-.sm-img img { width: 50px; height: 50px; cursor: pointer; object-fit: cover; }
+.body-right form {
+	width: 500px;
+}
 
-img {
+.lg-img img { height: 530px; width: 580px; object-fit: cover;}
+.md-img img { width: 200px; height: 200px; cursor: pointer; object-fit: cover; }
+.sm-img img { width: 80px; height: 80px; cursor: pointer; object-fit: cover; }
+
+.img-buy img {
 	border-radius: 10px;
+	width: 
 }
 
 .imgs {
-	margin-top: 30px;
+	margin-top: 15px;
 	margin-left: 10px;
+	display: flex;
+}
+
+.imgs .imgs-detail {
+	margin-right: 12px;
 }
 
 .body-right .stock {
@@ -56,7 +74,7 @@ img {
 }
 
 .price, .point, .delivery, .option, .total-price, .buttons {
-	margin-top: 20px;
+	margin-top: 30px;
 	color: #434347;
 }
 
@@ -101,7 +119,7 @@ img {
 .point div:first-child {
 	font-size: 15px;
 	font-weight: bold;
-	margin-right: 20px;
+	margin-right: 140px;
 }
 
 .delivery {
@@ -112,7 +130,7 @@ img {
 .delivery div:first-child {
 	font-size: 15px;
 	font-weight: bold;
-	margin-right: 50px;
+	margin-right: 170px;
 }
 
 .option {
@@ -133,17 +151,18 @@ img {
 
 hr {
 	border-bottom: 1px solid #A6A6A6;
-	margin-top: 33px;
-	width: 400px;
+	margin-top: 40px;
+	width: 500px;
 }
 
 .total-text {
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 18px;
 }
 
 .total-detail {
-	margin-top: 10px;
+	margin-top: 20px;
+	font-size: 15px;
 }
 
 .total-detail .product-totalAmount {
@@ -154,13 +173,17 @@ hr {
 .buttons .btn {
 	font-size: 15px;	
 	font-weight: bold;
-	padding: 8px 50px;
+	padding: 10px 75px;
+}
+
+.buttons .button-wish {
+	margin-left: 5px;
 }
 
 .buttons .btnbtn-productCart {
 	border: 1px solid #BDBDBD;
 	background-color: white;
-	margin: 0 15px;
+	margin: 0 20px;
 }
 
 .buttons .btn-buySend {
@@ -186,20 +209,29 @@ select, button {
 .qty-plus:hover, .qty-minus:hover, .qty-remove:hover { color: #0b83e6; }
 
 .nav-tabs .nav-link {
-	min-width: 333px;
+	min-width: 433px;
 	color: #BDBDBD;
 	font-weight: bold;
 	border: none;
 	font-size: 18px;
 	padding-bottom: 15px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .nav-tabs .nav-link.active {
 	border-bottom: 3px solid #E4B075;
 	color: #E4B075;
+	outline: none;
 	
 }
+
+nav-tabs .nav-link:focus {
+	border-bottom: 3px solid #E4B075;
+	color: #E4B075;
+	outline: none;
+}
+
 
 .tab-content {
 	border: none;
@@ -225,14 +257,15 @@ select, button {
 }
 
 .recomm-product .recomm-img img {
-	width: 150px; 
-	height: 180px; 
+	width: 180px; 
+	height: 200px; 
 	cursor: pointer; 
 	object-fit: cover;
+	border-radius: 5px;
 }
 
 .recomm-img div {
-	 width: 150px;
+	 width: 180px;
 	 margin-top: 17px;
 }
 
@@ -283,6 +316,7 @@ select, button {
 .reviewSort-area .reviewSortNo {
 	border: none;
 	font-size: 18px;
+	
 }
 
 .reviewSort-area {
@@ -385,6 +419,78 @@ select, button {
 .deleteQuestion, .notifyQuestion { cursor: pointer; padding-left: 5px; }
 .deleteQuestion:hover, .notifyQuestion:hover { font-weight: 500; color: #2478FF; }
 
+.img-more {
+	width: 1300px;
+}
+
+#detail.hidden {
+	height: 1300px; 
+	overflow: hidden;
+}
+
+#btnMore {
+	font-size: 20px;
+	border-radius: 10px;
+	padding: 30px 30px;
+	background: white;
+	display: flex;
+	justify-content: center;
+	width: 1300px;
+	margin-bottom: 50px;
+	color: #E4B075;
+}
+
+#btnMore:hover {
+	text-decoration: none;
+}
+
+.detailMore{position: relative;}
+
+.detailMore:before {
+    content: '';
+    position: absolute;
+    top: -90px; //맞게 조절
+	left: 120px;
+    display: block;
+    width: 1300px;
+    height: 96px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8) 66%, rgba(255, 255, 255, 0.94) 83%, rgba(255, 255, 255, 0.98) 91%, #ffffff);
+}
+
+
+
+
+
+
+
+.btn_gotop {
+    display:none;
+    position:fixed;
+    bottom:30px;
+    right:90px;
+    z-index:999;
+    border:1px solid #ccc;
+    outline:none;
+    background-color:white;
+    color:#333;
+    cursor:pointer;
+    padding:15px 20px;
+    border-radius:100%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top_arrow {
+    width: 50px; 
+    height: auto;
+}
+
+.glyphicon-chevron-up {
+    display: none; 
+}
 
 </style>
 
@@ -397,16 +503,16 @@ select, button {
 						<div>
 							<div class="lg-img">
 								<img class="" 
-								src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+								src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg" class="img-buy">
 							</div>
 						</div>
 						<div class="imgs">
-							
-								<div class="sm-img">
+							<c:forEach var="n" begin="1" end="3">
+								<div class="sm-img imgs-detail">
 									<img 
-									src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+									src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg" class="img-buy">
 								</div>
-							
+							</c:forEach>
 						</div>
 					</div>
 					
@@ -524,17 +630,21 @@ select, button {
 				<nav id="navbar-example2">
 					<ul class="nav nav-tabs mt-3 pt-5" id="myTab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="tab-1" data-bs-toggle="tab" 
+							<a class="nav-link active" id="tab-1"
 								data-bs-target="#tab-pane-1" role="tab" aria-controls="1" 
-								aria-selected="true">상세정보</a>
+								aria-selected="true" href="#scrolld">상세정보</a>
 						</li>
 
-						<li class="nav-tabs" role="presentation">
-							<a class="nav-link active" href="#scrollspyHeading1">구매후기 
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="tab-2"
+								data-bs-target="#tab-pane-2" role="tab" 
+								aria-controls="2" aria-selected="false" href="#scrollr">구매후기 
 								<span class="title-reviewCount">(3)</span></a>
 						</li>
-						<li class="nav-tabs" role="presentation">
-							<a class="nav-link active" href="#scrollspyHeading2">문의하기 
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="tab-3 scrolld"
+								data-bs-target="#tab-pane-3" type="button" role="tab" 
+								aria-controls="3" aria-selected="false" href="#scrollq">문의하기 
 								<span class="title-qnaCount">(3)</span></a>
 						</li>
 					</ul>
@@ -545,54 +655,30 @@ select, button {
 						data-bs-smooth-scroll="true" class="scrollspy-example">
 					<div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel" 
 							aria-labelledby="tab-1" tabindex="0">
-						<div class="mt-4 product-content">
-							<img 
-							src="${pageContext.request.contextPath}/uploads/product/product_detail2.png">
+						<div class="img-more">
+							<div class="mt-4 product-content hidden" id="detail">
+								<img 
+								src="${pageContext.request.contextPath}/uploads/product/product_detail2.png" class="img-buy">
+							</div>
+							<div class="detailMore" id="scrolld"> 
+								<a id="btnMore" href="javascript:moreDetail();">상세 정보 더보기</a>
+							</div>
 						</div>
 						
 						<div class="recomm-product">
 							<div class="recomm-title">비슷한 상품</div>
 							<div class="recomm-imgs" >
-								<div class="recomm-img">
-									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex recomm-price">
-										<span>68%</span>
-										<span>39,000원</span>
+								<c:forEach var="n" begin="1" end="6">
+									<div class="recomm-img">
+										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg" class="img-buy">
+										<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+										<div class="d-flex recomm-price">
+											<span>68%</span>
+											<span>39,000원</span>
+										</div>
 									</div>
-								</div>
-								<div class="recomm-img">
-									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex recomm-price">
-										<span>68%</span>
-										<span>39,000원</span>
-									</div>
-								</div>
-								<div class="recomm-img">
-									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex recomm-price">
-										<span>68%</span>
-										<span>39,000원</span>
-									</div>
-								</div>
-								<div class="recomm-img">
-									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex recomm-price">
-										<span>68%</span>
-										<span>39,000원</span>
-									</div>
-								</div>
-								<div class="recomm-img">
-									<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
-									<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
-									<div class="d-flex recomm-price">
-										<span>68%</span>
-										<span>39,000원</span>
-									</div>
-								</div>
+										
+								</c:forEach>
 							</div>
 						</div>
 						
@@ -617,7 +703,7 @@ select, button {
 								<div class="reviewSort-area">
 									<div>
 										<select class="form-select reviewSortNo">
-											<option value="1"> 평점 높은순 </option>
+											<option selected value="1"> 평점 높은순 </option>
 											<option value="2"> 평점 낮은순 </option>
 											<option value="3"> 최신순 </option>
 										</select>
@@ -642,7 +728,7 @@ select, button {
 										옵션: [색상]그레이 [사이즈]S
 									</div>
 									<div class="review-img-content ms-3">
-										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg" class="img-buy">
 										<div>
 											재질도 좋고 설치도 간편하고 견고한 것 같아요
 										</div>
@@ -665,7 +751,7 @@ select, button {
 										옵션: [색상]그레이 [사이즈]S
 									</div>
 									<div class="review-img-content ms-3">
-										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg">
+										<img src="${pageContext.request.contextPath}/uploads/product/10.jpg" class="img-buy">
 										<div>
 											재질도 좋고 설치도 간편하고 견고한 것 같아요
 										</div>
@@ -675,7 +761,7 @@ select, button {
 						</div>
 						<div class="list-review"></div>
 						
-						<div class="qna" id="scrollspyHeading1">
+						<div class="qna" id="scrollr">
 							<div class="qna-title">
 								<p>문의</p> 
 							</div>
@@ -686,16 +772,64 @@ select, button {
 							</div>
 						</div>
 						
-						<div class="mt-1 p-2 list-question" id="scrollspyHeading2" ></div>
+						<div class="mt-1 p-2 list-question" id="scrollq" ></div>
 					</div>
 				</div>
 	
+				<a href="#" class="btn_gotop">
+	                <img src="${pageContext.request.contextPath}/resources/images/toparrow.png" class="top_arrow">
+	                <span class="glyphicon glyphicon-chevron-up"></span>
+           		 </a>
 
 			</div>
 		</div>
 	</div>	
 </div>
 
+<script>
+$(window).scroll(function(){
+    if ($(this).scrollTop() > 300){
+        $('.btn_gotop').show();
+    } else{
+        $('.btn_gotop').hide();
+    }
+});
+
+$('.btn_gotop').click(function(){
+    $('html, body').animate({scrollTop:0},400);
+    return false;
+});
+
+function moreDetail(){
+    $('#detail').removeClass('hidden');
+    $('.detailMore').remove();
+}
+
+$(document).ready(function() {
+    $('.nav-link').click(function() {
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+
+$(window).scroll(function(){
+    if ($(this).scrollTop() > 300){
+        $('.btn_gotop').show();
+    } else{
+        $('.btn_gotop').hide();
+    }
+});
+
+$('.btn_gotop').click(function(){
+    $('html, body').animate({scrollTop:0},400);
+    return false;
+});
+
+function moreDetail(){
+    $('#detail').removeClass('hidden');
+    $('.detailMore').remove();
+}
+</script> 
 
 
 
