@@ -10,13 +10,11 @@
 	<title><tiles:insertAttribute name="title"/></title>
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 	
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/images/logo.png" type="image/x-icon">
+	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/icon/bootstrap-icons.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core.css" type="text/css">
-	
-	<c:forEach varStatus="status" items="css-list" var="path">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/${path}">
-	</c:forEach>
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
 	
