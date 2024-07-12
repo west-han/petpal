@@ -396,13 +396,59 @@ $(function(){
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 상품관리 </h3>
+			<h3><i class="bi bi-app"></i> 상품 등록 </h3>
 		</div>
 		
 		<div class="body-main">
 		
+		</div>
+		
 			<form name="productForm" method="post" enctype="multipart/form-data">
+				
 				<table class="table mt-5 table-form">
+				<tr>
+					<td class="target">대상</td>
+					<td>
+						<div class="row">
+							<div class="col-6 pe-1">
+							<div class="form-check">
+								  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+								  <label class="form-check-label" for="flexRadioDefault2">
+								   	강아지
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+								  <label class="form-check-label" for="flexRadioDefault1">
+								   	고양이
+								  </label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="productClass">구분</td>
+					<td>
+						<div class="row">
+							<div class="col-6 pe-1">
+							<div class="check">
+								  <input class="form-check-input" type="radio" name="productClassradio" id="productClassradio1" checked>
+								  <label class="form-check-label" for="productClassradio1">
+								   	일반
+								  </label>
+								</div>
+								<div class="check">
+								  <input class="form-check-input" type="radio" name="productClassradio" id="productClassradio2">
+								  <label class="form-check-label" for="productClassradio2">
+								   	특가
+								  </label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				
 					<tr>
 						<td class="table-light col-sm-2">카테고리</td>
 						<td>
@@ -435,6 +481,107 @@ $(function(){
 							</div>
 						</td>
 					</tr>
+					
+					<tr>
+						<td class="table-light col-sm-2">속성</td>
+						<td>
+						<small class="form-detailCategory help-block">[사료] 카테고리와 적합한 속성을 선택하세요</small>
+						<table>
+							<tr>
+							<td>급여대상</td>
+							<td>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								  <label class="form-check-label" for="flexCheckDefault">
+								    전연령
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    퍼피
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    어덜트
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    시니어
+								  </label>
+								</div>
+							</td>	
+								
+							</tr>
+							<tr>
+							<td>주원료</td>
+							<td>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								  <label class="form-check-label" for="flexCheckDefault">
+								    소
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    돼지
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    닭
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    오리
+								  </label>
+								</div>
+							</td>	
+								
+							</tr>
+							<tr>
+							<td>기능</td>
+							<td>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								  <label class="form-check-label" for="flexCheckDefault">
+								    치석
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    눈물
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    알러지
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+								  <label class="form-check-label" for="flexCheckDefault">
+								    관절
+								  </label>
+								</div>
+							</td>	
+								
+							</tr>
+							
+						</table>
+						</td>
+						</tr>
+						
 					<tr>
 						<td class="table-light col-sm-2">상품명</td>
 						<td>
@@ -442,17 +589,21 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
-						<td class="table-light col-sm-2">상품구분</td>
+						<td class="table-light col-sm-2">브랜드</td>
 						<td>
-							<div class="row">
-								<div class="col-6">
-									<select name="classify" class="form-select">
-										<option value="100" selected>일반상품</option>
-										<option value="200" >특가상품</option>
-										<option value="300" >기획상품</option>
-									</select>
-								</div>
-							</div>
+							<input type="text" name="brand" class="form-control" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="table-light col-sm-2">제조사</td>
+						<td>
+							<input type="text" name="manufacturer" class="form-control" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="table-light col-sm-2">원산지</td>
+						<td>
+							<input type="text" name="origin" class="form-control" value="">
 						</td>
 					</tr>
 					<tr>
@@ -466,12 +617,6 @@ $(function(){
 						<td>
 							<input type="text" name="discountRate" class="form-control" value="">
 							<small class="form-control-plaintext help-block">할인율이 0인 경우 상품가격이 판매가격입니다.</small>
-						</td>
-					</tr>
-					<tr>
-						<td class="table-light col-sm-2">적립금</td>
-						<td>
-							<input type="text" name="savedMoney" class="form-control" value="">
 						</td>
 					</tr>
 					<tr>
@@ -540,12 +685,16 @@ $(function(){
 					</tr>
 					
 					<tr>
-						<td class="table-light col-sm-2">상품 진열</td>
+						<td class="table-light col-sm-2">상품 상태</td>
 						<td>
 							<div class="pt-2 pb-2">
-								<input type="radio" name="productShow" class="form-check-input" id="productShow1" value="1" checked> <label class="form-check-label" for="productShow1">판매전</label>
+								<input type="radio" name="productShow" class="form-check-input" id="productShow0" value="0" checked> <label class="form-check-label" for="productShow0">판매 준비</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="productShow" class="form-check-input" id="productShow0" value="0" > <label class="form-check-label" for="productShow0">판매중</label>
+								<input type="radio" name="productShow" class="form-check-input" id="productShow1" value="1" > <label class="form-check-label" for="productShow1">판매중</label>
+								&nbsp;&nbsp;
+								<input type="radio" name="productShow" class="form-check-input" id="productShow2" value="2" > <label class="form-check-label" for="productShow2">품절</label>
+								&nbsp;&nbsp;
+								<input type="radio" name="productShow" class="form-check-input" id="productShow3" value="3" > <label class="form-check-label" for="productShow3">판매 중단</label>
 							</div>
 						</td>
 					</tr>
