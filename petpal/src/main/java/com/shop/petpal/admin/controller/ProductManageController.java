@@ -189,7 +189,10 @@ public class ProductManageController {
 //		
 //		return url;
 //	}
-	
+	@GetMapping("list")
+	public String listForm() {
+		return ".admin.product.list";
+	}
 	@GetMapping("write")
 	public String writeForm() {
 		return ".admin.product.write";
