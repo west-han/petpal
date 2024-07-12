@@ -24,6 +24,12 @@
 		WHERE email = #{email}
 	</update>
 	
+	<update id="updateFailureCountReset" parameterType="String">
+		UPDATE member1 
+		SET failureCount = 0
+		WHERE email = #{email}
+	</update>
+	
 	<select id="findById" parameterType="String">
 		SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled, 
 			failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
@@ -62,4 +68,27 @@
 		
 		WHERE email = #{email}
 	</select>
+	
+	
+	<select id="memberSeq" resultType="Long">
+		SELECT member1_seq.NEXTVAL FROM dual
+	</select>
+	
+	<!-- 회원가입1 -->
+	<insert id="insertMember1" parameterType="com.shop.petpal.domain.Member">
+		INSERT INTO member1(memberNum,email,socialLogin,password,regDate,notificationConsent,
+			enabled,lastLogin,failureCount,state)
+		VALUES (member1_seq.CURRVAL, #{email}, 0, #{password}, SYSDATE, 1, 1, SYSDATE, 0, 0) 
+    </insert>
+    
+    <!-- 회원가입2 -->
+	<insert id="insertMember2" parameterType="com.shop.petpal.domain.Member">
+		INSERT INTO member2(memberNum,birth,address1,address2,tel,
+			nickName,userName,postalCode,membershipNum)
+		VALUES (member1_seq.CURRVAL, #{birth}, #{address1}, #{address2},
+			 #{tel}, #{nickName}, #{userName}, #{postalCode}, 1) 
+    </insert>
+    
+    
+    
 </mapper>
