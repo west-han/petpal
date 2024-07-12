@@ -74,10 +74,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	color: inherit;
-	text-decoration: none;
-}
+
 
 .category-header {
 	list-style-type: none;
