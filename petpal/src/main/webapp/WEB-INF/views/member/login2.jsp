@@ -157,7 +157,7 @@ body {
 				</button>
 				<p class="message">
 					아직 회원이 아니신가요?
-					<a href="${pageContext.request.contextPath}/member/member"> 회원가입</a>
+					<a href="${pageContext.request.contextPath}/member/join"> 회원가입</a>
 				</p>
 				<p class="message">
 					비밀번호를 잊어버리셨나요? 

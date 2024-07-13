@@ -106,26 +106,30 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+
 	@Override
-	public void insertMember1(Member dto) throws SQLException {		
+	public void insertMember(Member dto) throws Exception {
 		// TODO 회원가입
 		
 		try {
-			long memberNum;
+			String encPwd = bcryptEncoder.encode(dto.getPassword());
+			dto.setPassword(encPwd);
 			
-			memberNum = mapper.memberSeq();
+			long memberSeq = mapper.memberSeq();
+			dto.setMemberNum(memberSeq);
+			
+			mapper.insertMember1(dto);
+			mapper.insertMember2(dto);
 			
 			
+			// 권한 저장
+			dto.setAuthority("USER");
+			mapper.insertMemberAuthority(dto);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
 		}
-		
-	}
-
-	@Override
-	public void insertMember2(Member dto) throws SQLException {
-		// TODO Auto-generated method stub
 		
 	}
 }

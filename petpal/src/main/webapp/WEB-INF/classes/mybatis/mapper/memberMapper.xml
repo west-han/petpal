@@ -68,11 +68,14 @@
 		
 		WHERE email = #{email}
 	</select>
+
 	
-	
+	<!-- 회원가입 할때마다 시퀀스 증가 -->
 	<select id="memberSeq" resultType="Long">
 		SELECT member1_seq.NEXTVAL FROM dual
 	</select>
+	
+	
 	
 	<!-- 회원가입1 -->
 	<insert id="insertMember1" parameterType="com.shop.petpal.domain.Member">
@@ -86,9 +89,16 @@
 		INSERT INTO member2(memberNum,birth,address1,address2,tel,
 			nickName,userName,postalCode,membershipNum)
 		VALUES (member1_seq.CURRVAL, #{birth}, #{address1}, #{address2},
-			 #{tel}, #{nickName}, #{userName}, #{postalCode}, 1) 
+			 #{tel}, #{nickname}, #{userName}, #{postalCode}, 1) 
     </insert>
     
-    
+    <!-- 회원가입 권한 부여 -->
+    <insert id="insertMemberAuthority" parameterType="com.shop.petpal.domain.Member">
+		INSERT INTO MemberAuthority(authority,email)
+		VALUES(#{authority}, #{email})
+	</insert>
+	
+	
+	
     
 </mapper>
