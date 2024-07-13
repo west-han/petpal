@@ -213,7 +213,8 @@ $(function() {
 		
 		$("form select[name=parentCategory]").find("option").remove().end()
 			.append("<option value='' selected>:: 상위 카테고리 선택 ::</option>");
-
+		$("#attr").children("td:eq(1)").remove().end().append('<td><p style="color: red;">⚠️ 카테고리를 먼저 선택해 주세요.</p></td>');
+		
 		let url = "${pageContext.request.contextPath}/admin/product/listCategory";
 		let query = "species=" + species;
 		
@@ -242,6 +243,7 @@ $(function(){
 			.append("<option value=''>:: 하위 카테고리 선택 ::</option>");	
 		
 		if(! parentCategory) {
+			$("#attr").children("td:eq(1)").remove().end().append('<p style="color: red;">⚠️ 카테고리를 먼저 선택해 주세요.</p>');
 			return false;
 		}
 		
