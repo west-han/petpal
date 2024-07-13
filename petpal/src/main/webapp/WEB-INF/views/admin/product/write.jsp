@@ -56,15 +56,15 @@ function check() {
 	let str, b;
 	let mode = "${mode}";
 	
-	if(! f.parentNum.value) {
-		alert("카테고리를 선택하세요.");
-		f.parentNum.focus();
+	if(! f.parentCategory.value) {
+		alert("상위 카테고리를 선택하세요.");
+		f.parentCategory.focus();
 		return false;
 	}
 
-	if(! f.categoryNum.value) {
-		alert("카테고리를 선택하세요.");
-		f.categoryNum.focus();
+	if(! f.subCategory.value) {
+		alert("하위 카테고리를 선택하세요.");
+		f.subCategory.focus();
 		return false;
 	}
 	
@@ -75,7 +75,7 @@ function check() {
 	}
 	
 	if(!/^(\d){1,8}$/.test(f.price.value)) {
-		alert("상품가격을 입력 하세요.");
+		alert("상품가격을 양의 정수로 입력 하세요.");
 		f.price.focus();
 		return false;
 	}
@@ -85,16 +85,10 @@ function check() {
 		f.discountRate.focus();
 		return false;
 	}
-
-	if(!/^(\d){1,7}$/.test(f.savedMoney.value)) {
-		alert("적립금을 입력 하세요.");
-		f.savedMoney.focus();
-		return false;
-	}
 	
-	if(!/^(\d){1,8}$/.test(f.delivery.value)) {
-		alert("배송비를 입력 하세요.");
-		f.delivery.focus();
+	if(!/^(\d){1,8}$/.test(f.deliveryCharge.value)) {
+		alert("배송비를 양의 정수로 입력 하세요.");
+		f.deliveryCharge.focus();
 		return false;
 	}
 	
@@ -102,7 +96,7 @@ function check() {
 	
 	if(optionCount > 0) {
 		if(! f.optionName.value.trim()) {
-			alert("옵션명 입력 하세요.");
+			alert("옵션명을 입력 하세요.");
 			f.optionName.focus();
 			return false;
 		}
@@ -142,19 +136,19 @@ function check() {
 	}
 	
 	b = false;
-	for(let ps of f.productShow) {
+	for(let ps of f.productStatus) {
 		if( ps.checked ) {
 			b = true;
 			break;
 		}
 	}
 	if( ! b ) {
-		alert("상품진열 여부를 선택하세요.");
-		f.productShow[0].focus();
+		alert("상품 상태를 선택하세요.");
+		f.productStatus[0].focus();
 		return false;
 	}
 	
-	str = f.content.value.trim();
+	str = f.productDesc.value.trim();
 	if( !str || str === "<p><br></p>" ) {
 		alert("상품 설명을 입력하세요.");
 		f.content.focus();
@@ -167,7 +161,9 @@ function check() {
 		return false;
 	}
 	
-	f.action = "${pageContext.request.contextPath}/admin/product/${classify}/${mode}";
+	// TODO: classify 구현 이후에 링크 변경
+	// f.action = "${pageContext.request.contextPath}/admin/product/${classify}/${mode}";
+	f.action = "${pageContext.request.contextPath}/admin/product/${mode}";
 	return true;
 }
 </script>
@@ -211,30 +207,97 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
+$(function() {
+	$("form input[name=speciesRadio]").change(function() {
+		const species = $("input[name=speciesRadio]:checked").val();
+		
+		$("form select[name=parentCategory]").find("option").remove().end()
+			.append("<option value='' selected>:: 상위 카테고리 선택 ::</option>");
+
+		let url = "${pageContext.request.contextPath}/admin/product/listCategory";
+		let query = "species=" + species;
+		
+		const fn = function(data) {
+			for (let item of data.categories) {
+				const categoryNum = item.CATEGORYNUM;
+				const categoryName = item.CATEGORYNAME;
+				
+				let s = '<option value="' + categoryNum + '">' + categoryName + '</option>';
+				$("form select[name=parentCategory]").append(s);
+			}
+		};
+		
+		ajaxFun(url, "get", query, "json", fn);
+	});
+});
+
 $(function(){
-	$("form select[name=parentNum]").change(function(){
-		let parentNum = $(this).val();
+	$("form select[name=parentCategory]").change(function(){
+		let parentCategory = $(this).val();
 		
-		$("form select[name=categoryNum]").find('option').remove().end()
-			.append("<option value=''>:: 카테고리 선택 ::</option>");	
+		// NOTE: jQuery의 end() 메소드: 선택한 요소가 선택되기 이전의 요소 선택
+		// form 태그의 하위 subCategory select 요소 선택 -> 그 하위의 option 태그 선택해서 삭제한 뒤
+		// end() 메소드로 다시 select 요소를 선택, append() 메소드로 select의 마지막 하위 요소로 option 추가
+		$("form select[name=subCategory]").find('option').remove().end()
+			.append("<option value=''>:: 하위 카테고리 선택 ::</option>");	
 		
-		if(! parentNum) {
+		if(! parentCategory) {
 			return false;
 		}
 		
 		let url = "${pageContext.request.contextPath}/admin/product/listSubCategory";
-		let query = "parentNum="+parentNum;
+		let query = "parentCategory="+parentCategory;
 		
-		const fn = function(data) {
-			$.each(data.listSubCategory, function(index, item){
-				let categoryNum = item.categoryNum;
-				let categoryName = item.categoryName;
+		const printSubCategories = function(data) {
+			$.each(data.subCategories, function(index, item){
+				let categoryNum = item.CATEGORYNUM;
+				let categoryName = item.CATEGORYNAME;
 				let s = "<option value='"+categoryNum+"'>"+categoryName+"</option>";
-				$("form select[name=categoryNum]").append(s);
+				$("form select[name=subCategory]").append(s);
 			});
 		};
-		ajaxFun(url, "get", query, "json", fn);
+		ajaxFun(url, "get", query, "json", printSubCategories);
 		
+		url = "${pageContext.request.contextPath}/admin/product/listAttribute";
+		
+		const printAttributes = function(data) {
+			
+			let s = '<td>';
+			s += '		<small class="form-detailCategory help-block">[사료] 카테고리와 적합한 속성을 선택하세요</small>';
+			s += '		<table>';
+			const attributes = data.attributes.filter(
+				    (attribute, idx, callback) => 
+				        idx === callback.findIndex(
+				            (attribute2) => attribute2.attributeNum === attribute.attributeNum
+				        )
+				    ).map(item => { return {'attributeNum': item.attributeNum, 'attributeName': item.attributeName} } );
+			
+			for (let attribute of attributes) {
+				const attributeDetails = data.attributes.filter(
+					(attribute2, idx) => attribute2.attributeNum === attribute.attributeNum
+				)
+				
+				s += '			<tr>';
+				s += '				<td>' + attribute.attributeName + '</td>';
+				s += '				<td>';
+				s += '					<div class="form-check">';
+				
+				for (let attributeDetail of attributeDetails) {
+					let id = 'attrDtl-' + attributeDetail.attrDtlNum;
+					let value = attributeDetail.attrDtlNum;
+					s += '					  <span class="attrDtl">';
+					s += '					  <input class="form-check-input" type="checkbox" value="' + value +'" id="' + id + '">';
+					s += '					  <label class="form-check-label" for="' + id + '">' + attributeDetail.attrDtlName;
+					s += '					  </label>';
+					s += '					  </span>';
+				}
+				s += '					</div>';
+				s += '</td></tr>';
+			}
+			s += '</table></td>';
+			$("#attr").children("td:eq(1)").remove().end().append(s);
+		};
+		ajaxFun(url, "get", query, "json", printAttributes);
 	});
 });
 </script>
@@ -407,19 +470,19 @@ $(function(){
 				
 				<table class="table mt-5 table-form">
 				<tr>
-					<td class="target">대상</td>
+					<td class="table-light col-sm-2">대상</td>
 					<td>
 						<div class="row">
 							<div class="col-6 pe-1">
 							<div class="form-check">
-								  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-								  <label class="form-check-label" for="flexRadioDefault2">
+								  <input class="form-check-input" type="radio" name="speciesRadio" id="speciesRadio1" value="1" checked>
+								  <label class="form-check-label" for="speciesRadio1">
 								   	강아지
 								  </label>
 								</div>
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-								  <label class="form-check-label" for="flexRadioDefault1">
+								  <input class="form-check-input" type="radio" name="speciesRadio" id="speciesRadio2" value="2">
+								  <label class="form-check-label" for="speciesRadio2">
 								   	고양이
 								  </label>
 								</div>
@@ -428,20 +491,20 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<td class="productClass">구분</td>
+					<td class="table-light col-sm-2">구분</td>
 					<td>
 						<div class="row">
 							<div class="col-6 pe-1">
 							<div class="check">
-								  <input class="form-check-input" type="radio" name="productClassradio" id="productClassradio1" checked>
-								  <label class="form-check-label" for="productClassradio1">
-								   	일반
+								  <input class="form-check-input" type="radio" name="productClassRadio" id="productClassRadio1" checked>
+								  <label class="form-check-label" for="productClassRadio1">
+								   	일반상품
 								  </label>
 								</div>
 								<div class="check">
-								  <input class="form-check-input" type="radio" name="productClassradio" id="productClassradio2">
-								  <label class="form-check-label" for="productClassradio2">
-								   	특가
+								  <input class="form-check-input" type="radio" name="productClassRadio" id="productClassRadio2">
+								  <label class="form-check-label" for="productClassRadio2">
+								   	특가상품
 								  </label>
 								</div>
 							</div>
@@ -454,131 +517,133 @@ $(function(){
 						<td>
 							<div class="row">
 								<div class="col-6 pe-1">
-									<select name="parentNum" class="form-select">
-										<option value="">:: 메인 카테고리 선택 ::</option>
-										
-										<option value="">카테고리 1</option>
-										<option value="">카테고리 2</option>
-										<option value="">카테고리 3</option>
-										<option value="">카테고리 4</option>
-										<option value="">카테고리 5</option>
-										<option value="">카테고리 6</option>
-										<option value="">카테고리 7</option>
+									<select name="parentCategory" class="form-select">
+										<option value="">:: 상위 카테고리 선택 ::</option>
+										<c:forEach items="${categories}" var="category">
+											<option value="${category.CATEGORYNUM}">${category.CATEGORYNAME}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div class="col-6 ps-1">
-									<select name="categoryNum" class="form-select">
-										<option value="">:: 카테고리 선택 ::</option>
-										
-										<option value="">하위카테고리</option>
-										<option value="">하위카테고리</option>
-										<option value="">하위카테고리</option>
-										<option value="">하위카테고리</option>
-										<option value="">하위카테고리</option>
-										<option value="">하위카테고리</option>
+									<select name="subCategory" class="form-select">
+										<option value="">:: 하위 카테고리 선택 ::</option>
+										<c:if test="${empty subCategory}">
+											<option value="">상위 카테고리를 먼저 선택하세요</option>
+										</c:if>
+										<c:if test="${not empty subCategory}">
+											<c:forEach items="${subCategories}" var="subCategory">
+												<option value="${subCategory.CATEGORYNUM}">${subCategory.CATEGORYNAME}</option>
+											</c:forEach>
+										</c:if>
 									</select>
 								</div>
 							</div>
 						</td>
 					</tr>
 					
-					<tr>
+					<tr id="attr">
 						<td class="table-light col-sm-2">속성</td>
 						<td>
-						<small class="form-detailCategory help-block">[사료] 카테고리와 적합한 속성을 선택하세요</small>
-						<table>
-							<tr>
-							<td>급여대상</td>
-							<td>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								  <label class="form-check-label" for="flexCheckDefault">
-								    전연령
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    퍼피
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    어덜트
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    시니어
-								  </label>
-								</div>
-							</td>	
-								
-							</tr>
-							<tr>
-							<td>주원료</td>
-							<td>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								  <label class="form-check-label" for="flexCheckDefault">
-								    소
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    돼지
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    닭
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    오리
-								  </label>
-								</div>
-							</td>	
-								
-							</tr>
-							<tr>
-							<td>기능</td>
-							<td>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								  <label class="form-check-label" for="flexCheckDefault">
-								    치석
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    눈물
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    알러지
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-								  <label class="form-check-label" for="flexCheckDefault">
-								    관절
-								  </label>
-								</div>
-							</td>	
-								
-							</tr>
-							
-						</table>
+							<!-- TODO: 디자인 할 때 아이콘 적당한 걸로 변경 -->
+							<c:if test="${mode == 'write'}">
+								<p style="color: red;">⚠️ 카테고리를 먼저 선택해 주세요.</p>
+							</c:if>
+						
+							<!-- TODO: c:if 태그 써서 mode가 update인 경우에는 c:foreach 태그로 속성 출력 -->
+							<c:if test="${mode == 'update'}">
+								<small class="form-detailCategory help-block">[사료] 카테고리와 적합한 속성을 선택하세요</small>
+								<table>
+									<tr>
+										<td>급여대상</td>
+										<td>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											  <label class="form-check-label" for="flexCheckDefault">
+											    전연령
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    퍼피
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    어덜트
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    시니어
+											  </label>
+											</div>
+										</td>	
+										
+									</tr>
+									<tr>
+										<td>주원료</td>
+										<td>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											  <label class="form-check-label" for="flexCheckDefault">
+											    소
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    돼지
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    닭
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    오리
+											  </label>
+											</div>
+										</td>	
+										
+									</tr>
+									<tr>
+										<td>기능</td>
+										<td>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											  <label class="form-check-label" for="flexCheckDefault">
+											    치석
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    눈물
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    알러지
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+											  <label class="form-check-label" for="flexCheckDefault">
+											    관절
+											  </label>
+											</div>
+										</td>	
+									</tr>
+								</table>
+							</c:if>
 						</td>
 						</tr>
 						
@@ -688,13 +753,14 @@ $(function(){
 						<td class="table-light col-sm-2">상품 상태</td>
 						<td>
 							<div class="pt-2 pb-2">
-								<input type="radio" name="productShow" class="form-check-input" id="productShow0" value="0" checked> <label class="form-check-label" for="productShow0">판매 준비</label>
+							<!-- NOTE: 판매 준비(0) / 판매중(1) / 품절(2) / 판매 중단(3) -->
+								<input type="radio" name="productStatus" class="form-check-input" id="productStatus0" value="0" checked> <label class="form-check-label" for="productStatus0">판매 준비</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="productShow" class="form-check-input" id="productShow1" value="1" > <label class="form-check-label" for="productShow1">판매중</label>
+								<input type="radio" name="productStatus" class="form-check-input" id="productStatus1" value="1" > <label class="form-check-label" for="productStatus1">판매중</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="productShow" class="form-check-input" id="productShow2" value="2" > <label class="form-check-label" for="productShow2">품절</label>
+								<input type="radio" name="productStatus" class="form-check-input" id="productStatus2" value="2" > <label class="form-check-label" for="productStatus2">품절</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="productShow" class="form-check-input" id="productShow3" value="3" > <label class="form-check-label" for="productShow3">판매 중단</label>
+								<input type="radio" name="productStatus" class="form-check-input" id="productStatus3" value="3" > <label class="form-check-label" for="productStatus3">판매 중단</label>
 							</div>
 						</td>
 					</tr>

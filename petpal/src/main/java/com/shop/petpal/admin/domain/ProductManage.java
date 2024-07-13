@@ -7,26 +7,32 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductManage {
 	private long productNum;
 	private String productName;
-	private int productClass;
+	private int productClass; // NOTE: 일반(0) 특가(1)
 	private int price;
 	private int discountRate;
 	private int deliveryCharge;
+	// NOTE: 상품 소개 글
 	private String productDesc;
 	private String thumbnail;
+	// NOTE: 판매준비(0), 판매중(1), 품절(2), 판매중단(3)
 	private int productStatus;
 	private String regDate;
 	private String modifyDate;
+	// NOTE: 종류 - 강아지(1), 고양이(2)
 	private int species;
+	// NOTE: 원산지
 	private String origin;
 	private String brand;
 	private String manufacturer;
 
+	// NOTE: 클라이언트가 전송한 파일을 컨트롤러에서 받기 위한 필드
 	private MultipartFile thumbnailFile;
 
-	private long categoryNum;
+	private int categoryNum;
 	private String categoryName;
-	private long parentNum;
+	private int parentCategory;
 
+	// NOTE: 상품 상세 이미지
 	private long imageNum;
 	private String imageName;
 	private List<MultipartFile> addImages;
@@ -47,138 +53,8 @@ public class ProductManage {
 	private String optionValue2;
 	private List<Long> detailNums2;
 	private List<String> optionValues2;
-	private List<MultipartFile> addFiles;
+
 	private int optionCount;
-
-	public int getOptionCount() {
-		return optionCount;
-	}
-
-	public void setOptionCount(int optionCount) {
-		this.optionCount = optionCount;
-	}
-
-	public List<MultipartFile> getAddFiles() {
-		return addFiles;
-	}
-
-	public void setAddFiles(List<MultipartFile> addFiles) {
-		this.addFiles = addFiles;
-	}
-
-	public Long getOptionNum() {
-		return optionNum;
-	}
-
-	public void setOptionNum(Long optionNum) {
-		this.optionNum = optionNum;
-	}
-
-	public String getOptionName() {
-		return optionName;
-	}
-
-	public void setOptionName(String optionName) {
-		this.optionName = optionName;
-	}
-
-	public Long getParentOption() {
-		return parentOption;
-	}
-
-	public void setParentOption(Long parentOption) {
-		this.parentOption = parentOption;
-	}
-
-	public Long getOptionNum2() {
-		return optionNum2;
-	}
-
-	public void setOptionNum2(Long optionNum2) {
-		this.optionNum2 = optionNum2;
-	}
-
-	public String getOptionName2() {
-		return optionName2;
-	}
-
-	public void setOptionName2(String optionName2) {
-		this.optionName2 = optionName2;
-	}
-
-	public Long getDetailNum() {
-		return detailNum;
-	}
-
-	public void setDetailNum(Long detailNum) {
-		this.detailNum = detailNum;
-	}
-
-	public String getOptionValue() {
-		return optionValue;
-	}
-
-	public void setOptionValue(String optionValue) {
-		this.optionValue = optionValue;
-	}
-
-	public List<Long> getDetailNums() {
-		return detailNums;
-	}
-
-	public void setDetailNums(List<Long> detailNums) {
-		this.detailNums = detailNums;
-	}
-
-	public List<String> getOptionValues() {
-		return optionValues;
-	}
-
-	public void setOptionValues(List<String> optionValues) {
-		this.optionValues = optionValues;
-	}
-
-	public Long getDetailNum2() {
-		return detailNum2;
-	}
-
-	public void setDetailNum2(Long detailNum2) {
-		this.detailNum2 = detailNum2;
-	}
-
-	public String getOptionValue2() {
-		return optionValue2;
-	}
-
-	public void setOptionValue2(String optionValue2) {
-		this.optionValue2 = optionValue2;
-	}
-
-	public List<Long> getDetailNums2() {
-		return detailNums2;
-	}
-
-	public void setDetailNums2(List<Long> detailNums2) {
-		this.detailNums2 = detailNums2;
-	}
-
-	public List<String> getOptionValues2() {
-		return optionValues2;
-	}
-
-	public void setOptionValues2(List<String> optionValues2) {
-		this.optionValues2 = optionValues2;
-	}
-
-	private int totalStock;
-
-	public int getTotalStock() {
-		return totalStock;
-	}
-
-	public void setTotalStock(int totalStock) {
-		this.totalStock = totalStock;
-	}
 
 	public long getProductNum() {
 		return productNum;
@@ -300,11 +176,19 @@ public class ProductManage {
 		this.manufacturer = manufacturer;
 	}
 
-	public long getCategoryNum() {
+	public MultipartFile getThumbnailFile() {
+		return thumbnailFile;
+	}
+
+	public void setThumbnailFile(MultipartFile thumbnailFile) {
+		this.thumbnailFile = thumbnailFile;
+	}
+
+	public int getCategoryNum() {
 		return categoryNum;
 	}
 
-	public void setCategoryNum(long categoryNum) {
+	public void setCategoryNum(int categoryNum) {
 		this.categoryNum = categoryNum;
 	}
 
@@ -316,12 +200,12 @@ public class ProductManage {
 		this.categoryName = categoryName;
 	}
 
-	public long getParentNum() {
-		return parentNum;
+	public int getParentCategory() {
+		return parentCategory;
 	}
 
-	public void setParentNum(long parentNum) {
-		this.parentNum = parentNum;
+	public void setParentCategory(int parentCategory) {
+		this.parentCategory = parentCategory;
 	}
 
 	public long getImageNum() {
@@ -340,14 +224,6 @@ public class ProductManage {
 		this.imageName = imageName;
 	}
 
-	public MultipartFile getThumbnailFile() {
-		return thumbnailFile;
-	}
-
-	public void setThumbnailFile(MultipartFile thumbnailFile) {
-		this.thumbnailFile = thumbnailFile;
-	}
-
 	public List<MultipartFile> getAddImages() {
 		return addImages;
 	}
@@ -356,5 +232,116 @@ public class ProductManage {
 		this.addImages = addImages;
 	}
 
-	
+	public Long getOptionNum() {
+		return optionNum;
+	}
+
+	public void setOptionNum(Long optionNum) {
+		this.optionNum = optionNum;
+	}
+
+	public String getOptionName() {
+		return optionName;
+	}
+
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
+	}
+
+	public Long getParentOption() {
+		return parentOption;
+	}
+
+	public void setParentOption(Long parentOption) {
+		this.parentOption = parentOption;
+	}
+
+	public Long getOptionNum2() {
+		return optionNum2;
+	}
+
+	public void setOptionNum2(Long optionNum2) {
+		this.optionNum2 = optionNum2;
+	}
+
+	public String getOptionName2() {
+		return optionName2;
+	}
+
+	public void setOptionName2(String optionName2) {
+		this.optionName2 = optionName2;
+	}
+
+	public Long getDetailNum() {
+		return detailNum;
+	}
+
+	public void setDetailNum(Long detailNum) {
+		this.detailNum = detailNum;
+	}
+
+	public String getOptionValue() {
+		return optionValue;
+	}
+
+	public void setOptionValue(String optionValue) {
+		this.optionValue = optionValue;
+	}
+
+	public List<Long> getDetailNums() {
+		return detailNums;
+	}
+
+	public void setDetailNums(List<Long> detailNums) {
+		this.detailNums = detailNums;
+	}
+
+	public List<String> getOptionValues() {
+		return optionValues;
+	}
+
+	public void setOptionValues(List<String> optionValues) {
+		this.optionValues = optionValues;
+	}
+
+	public Long getDetailNum2() {
+		return detailNum2;
+	}
+
+	public void setDetailNum2(Long detailNum2) {
+		this.detailNum2 = detailNum2;
+	}
+
+	public String getOptionValue2() {
+		return optionValue2;
+	}
+
+	public void setOptionValue2(String optionValue2) {
+		this.optionValue2 = optionValue2;
+	}
+
+	public List<Long> getDetailNums2() {
+		return detailNums2;
+	}
+
+	public void setDetailNums2(List<Long> detailNums2) {
+		this.detailNums2 = detailNums2;
+	}
+
+	public List<String> getOptionValues2() {
+		return optionValues2;
+	}
+
+	public void setOptionValues2(List<String> optionValues2) {
+		this.optionValues2 = optionValues2;
+	}
+
+	public int getOptionCount() {
+		return optionCount;
+	}
+
+	public void setOptionCount(int optionCount) {
+		this.optionCount = optionCount;
+	}
+
 }

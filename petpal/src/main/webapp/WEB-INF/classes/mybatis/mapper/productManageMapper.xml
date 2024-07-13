@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.admin.mapper.ProductManageMapper">
+	<select id="listCategory" parameterType="Integer" resultType="map">
+		SELECT categoryNum, categoryName, sortOrder
+		FROM category
+		WHERE parentCategory IS NULL AND species = #{species}
+		ORDER BY sortOrder
+	</select>
+	
+	<select id="listSubCategory" parameterType="Integer" resultType="map">
+		SELECT categoryNum, categoryName, parentCategory, sortOrder, species
+		FROM category
+		WHERE parentCategory = #{parentCategory}
+		ORDER BY sortOrder
+	</select>
+	
+	<!-- NOTE: 속성값이 존재하지 않으면 나오지 않도록 작성, 필요하면 LEFT OUTER JOIN으로 변경하면 됨 -->
+	<select id="listAttribute" parameterType="Integer"
+	 		resultType="com.shop.petpal.admin.domain.Attribute">
+        SELECT  a.attributeNum, attributeName, categoryNum, attrDtlNum, attrDtlName
+		FROM attribute a
+		JOIN attributeDetail d
+			ON a.attributeNum = d.attributeNum
+		WHERE categoryNum = #{categoryNum}
+		ORDER BY attributeNum, attrDtlNum
+	</select>
+
+	<select id="productSeq" resultType="Long">
+		SELECT product_seq.NEXTVAL FROM dual;
+	</select>
+
+	<insert id="insertProduct" parameterType="com.shop.petpal.admin.domain.ProductManage">
+		INSERT INTO product (productNum, productName, productClass, species, price, discountRate,
+			deliveryCharge, productDesc, thumbnail, productStatus, regDate, modifyDate, origin,
+			brand, manufacturer, categoryNum)
+		VALUES (product_seq.NEXTVAL, #{productName}, #{productClass}, #{species}, #{price},
+			#{discountRate}, #{deliveryCharge}, #{productDesc}, #{thumbnail}, #{productStatus},
+			SYSDATE, SYSDATE, #{origin}, #{brand}, #{manufacturer}, #{categoryNum})
+	</insert>
+	
+	<insert id="insertProductImages" parameterType="com.shop.petpal.admin.domain.ProductManage">
+		INSERT INTO productImage (imageNum, productNum, imageName)
+		VALUES (productImage_seq.NEXTVAL, #{productNum}, #{imageName})
+	</insert>
+	
+	<!-- 
+	<insert id="insertProductOption" parameterType="com.shop.petpal.domain.ProductManage">
+	
+	</insert>
+	<insert id="insertProductOptionDetail" parameterType="com.shop.petpal.domain.ProductManage">
+	
+	</insert>
+	<insert id="insertProductAttribute" parameterType="map">
+	
+	</insert>
+	 -->
+
+</mapper>
