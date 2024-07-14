@@ -41,9 +41,9 @@
     	const f = document.memberForm;
     	let str;
     	
-    	str = f.email.value;
-        if( !str ) {
-            alert("이메일을 입력하세요. ");
+    	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(str)) {
+            alert("유효한 이메일을 입력해주세요.");
             f.email.focus();
             return;
         }
@@ -56,6 +56,14 @@
         
         if ($('#userNicknameValid').val() !== 'true') {
             alert("닉네임 중복 체크를 해주세요");
+            f.nickname.focus();
+            return;
+        }
+        
+        str = f.nickname.value;
+        const nicknamePattern = /^[a-zA-Z가-힣0-9]{2,6}$/;
+        if (!nicknamePattern.test(str)) {
+            alert("닉네임은 2글자 이상 6자 이하의 영어, 한글, 숫자만 가능합니다.");
             f.nickname.focus();
             return;
         }
@@ -170,13 +178,13 @@
         // 닉네임 중복 검사
         let nickname = $('#nickname').val();
 
-        if (!nickname) {
-            let str = '닉네임을 입력해주세요.';
+        const nicknamePattern = /^[a-zA-Z가-힣0-9]{2,6}$/;
+        if (!nicknamePattern.test(nickname)) {
+            let str = '닉네임은 2글자 이상 6자 이하의 영어, 한글, 숫자만 가능합니다.';
             $('#nickname').focus();
             $('.userNickname-box').find('.help-block').html(str);
             return;
         }
-
         let url = '${pageContext.request.contextPath}/member/userNicknameCheck';
 
         // AJAX:POST-JSON
