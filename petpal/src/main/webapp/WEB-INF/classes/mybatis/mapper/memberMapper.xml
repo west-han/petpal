@@ -24,6 +24,7 @@
 		WHERE email = #{email}
 	</update>
 	
+	<!-- 로그인에 성공하면 failureCount 초기화 -->
 	<update id="updateFailureCountReset" parameterType="String">
 		UPDATE member1 
 		SET failureCount = 0
@@ -109,11 +110,20 @@
 		where email=#{email}
 	</select>	
 	
+	<!-- 이메일 중복검사(회원탈퇴계정) -->
+	<select id="findByEmail2" parameterType="String" resultType="com.shop.petpal.domain.Member">
+		SELECT * FROM member1
+		where email=#{email} and state = 2
+	</select>	
+	
+	
+	
 	
 	<select id="findByNickName" parameterType="String" resultType="com.shop.petpal.domain.Member">
     	SELECT * FROM member2
     	WHERE nickname = #{nickname}
 	</select>
+	
 	
 	
     

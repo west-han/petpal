@@ -26,8 +26,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateLastLogin(String email) throws SQLException {
+		// 마지막로그인과 FailCount 초기화
 		try {
 			mapper.updateLastLogin(email);
+			mapper.updateFailureCountReset(email);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

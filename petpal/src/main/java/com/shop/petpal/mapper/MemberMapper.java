@@ -22,6 +22,7 @@ public interface MemberMapper {
 	public void updateArea(Map<String, Object> map) throws SQLException; // 지역 업데이트
 	public Member findByEmail(String email); // 이메일 중복 체크
 	public Member findByNickName(String nickname); // 이메일 중복 체크
+	public void updateFailureCountReset(String email) throws SQLException;
 	
 	
 	

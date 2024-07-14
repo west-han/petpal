@@ -20,6 +20,7 @@ public interface MemberService {
 	public Member findByEmail(String email) throws Exception;// 이메일중복 체크
 	public Member findByNickName(String nickname) throws Exception;// 닉네임중복 체크
 	
+	
 
 	
 } 
