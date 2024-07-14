@@ -12,7 +12,7 @@ public class ProductManage {
 	private int discountRate;
 	private int deliveryCharge;
 	// NOTE: 상품 소개 글
-	private String productDesc;
+	private String content;
 	private String thumbnail;
 	// NOTE: 판매준비(0), 판매중(1), 품절(2), 판매중단(3)
 	private int productStatus;
@@ -25,6 +25,7 @@ public class ProductManage {
 	private String brand;
 	private String manufacturer;
 
+	
 	// NOTE: 클라이언트가 전송한 파일을 컨트롤러에서 받기 위한 필드
 	private MultipartFile thumbnailFile;
 
@@ -33,9 +34,11 @@ public class ProductManage {
 	private int parentCategory;
 
 	// NOTE: 상품 상세 이미지
-	private long imageNum;
-	private String imageName;
-	private List<MultipartFile> addImages;
+	private long fileNum;
+	private String filename;
+	private List<MultipartFile> addFiles;
+
+	private int optionCount;
 
 	private Long optionNum;
 	private String optionName;
@@ -53,8 +56,8 @@ public class ProductManage {
 	private String optionValue2;
 	private List<Long> detailNums2;
 	private List<String> optionValues2;
-
-	private int optionCount;
+	
+	List<Long> attrDtlNums;
 
 	public long getProductNum() {
 		return productNum;
@@ -104,12 +107,12 @@ public class ProductManage {
 		this.deliveryCharge = deliveryCharge;
 	}
 
-	public String getProductDesc() {
-		return productDesc;
+	public String getContent() {
+		return content;
 	}
 
-	public void setProductDesc(String productDesc) {
-		this.productDesc = productDesc;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getThumbnail() {
@@ -208,28 +211,36 @@ public class ProductManage {
 		this.parentCategory = parentCategory;
 	}
 
-	public long getImageNum() {
-		return imageNum;
+	public long getFileNum() {
+		return fileNum;
 	}
 
-	public void setImageNum(long imageNum) {
-		this.imageNum = imageNum;
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
 	}
 
-	public String getImageName() {
-		return imageName;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
-	public List<MultipartFile> getAddImages() {
-		return addImages;
+	public List<MultipartFile> getAddFiles() {
+		return addFiles;
 	}
 
-	public void setAddImages(List<MultipartFile> addImages) {
-		this.addImages = addImages;
+	public void setAddFiles(List<MultipartFile> addFiles) {
+		this.addFiles = addFiles;
+	}
+
+	public int getOptionCount() {
+		return optionCount;
+	}
+
+	public void setOptionCount(int optionCount) {
+		this.optionCount = optionCount;
 	}
 
 	public Long getOptionNum() {
@@ -336,12 +347,12 @@ public class ProductManage {
 		this.optionValues2 = optionValues2;
 	}
 
-	public int getOptionCount() {
-		return optionCount;
+	public List<Long> getAttrDtlNums() {
+		return attrDtlNums;
 	}
 
-	public void setOptionCount(int optionCount) {
-		this.optionCount = optionCount;
+	public void setAttrDtlNums(List<Long> attrDtlNums) {
+		this.attrDtlNums = attrDtlNums;
 	}
-
+	
 }

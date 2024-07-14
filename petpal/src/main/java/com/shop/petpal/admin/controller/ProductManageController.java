@@ -1,19 +1,24 @@
 package com.shop.petpal.admin.controller;
 
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.petpal.admin.domain.Attribute;
+import com.shop.petpal.admin.domain.ProductManage;
 import com.shop.petpal.admin.service.ProductManageService;
 import com.shop.petpal.common.MyUtil;
 
@@ -51,6 +56,27 @@ public class ProductManageController {
 		return ".admin.product.write";
 	}
 	
+	/**
+	 * @param productManage
+	 * @param attrDtlNums
+	 * @return
+	 */
+	@PostMapping("write")
+	public String writeSubmit(ProductManage productManage, HttpSession session) {
+		// NOTE: 필요한 파라미터 - 상품 정보를 담는 DTO
+		
+		String path = session.getServletContext().getRealPath("/")
+				+ "uploads" + File.separator + "product";
+		
+		try {
+			 service.insertProduct(productManage, path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/admin/product/write";
+	}
+	
 	@GetMapping("listCategory")
 	@ResponseBody
 	public Map<String, Object> listCategory(@RequestParam int species) {
@@ -81,8 +107,6 @@ public class ProductManageController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		List<Attribute> attributes = service.listAttribute(parentCategory);
-		
-		System.out.println(attributes);
 		
 		model.put("attributes", attributes);
 		

@@ -43,12 +43,13 @@
 <script type="text/javascript">
 $(function(){
 	let mode = "${mode}";
-	if(mode === "write") {
-		let classify = "${classify}";
-		$("select[name=classify]").val(classify);
-		
-		$("#productShow1").prop("checked", true);
-	}
+
+//	if(mode === "write") {
+//		let classify = "${classify}";
+//		$("select[name=classify]").val(classify);
+//		
+//		$("#productShow1").prop("checked", true);
+//	}
 });
 
 function check() {
@@ -62,9 +63,9 @@ function check() {
 		return false;
 	}
 
-	if(! f.subCategory.value) {
+	if(! f.categoryNum.value) {
 		alert("하위 카테고리를 선택하세요.");
-		f.subCategory.focus();
+		f.categoryNum.focus();
 		return false;
 	}
 	
@@ -148,7 +149,7 @@ function check() {
 		return false;
 	}
 	
-	str = f.productDesc.value.trim();
+	str = f.content.value.trim();
 	if( !str || str === "<p><br></p>" ) {
 		alert("상품 설명을 입력하세요.");
 		f.content.focus();
@@ -163,6 +164,7 @@ function check() {
 	
 	// TODO: classify 구현 이후에 링크 변경
 	// f.action = "${pageContext.request.contextPath}/admin/product/${classify}/${mode}";
+	
 	f.action = "${pageContext.request.contextPath}/admin/product/${mode}";
 	return true;
 }
@@ -208,8 +210,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 }
 
 $(function() {
-	$("form input[name=speciesRadio]").change(function() {
-		const species = $("input[name=speciesRadio]:checked").val();
+	$("form input[name=species]").change(function() {
+		const species = $("input[name=species]:checked").val();
 		
 		$("form select[name=parentCategory]").find("option").remove().end()
 			.append("<option value='' selected>:: 상위 카테고리 선택 ::</option>");
@@ -237,9 +239,9 @@ $(function(){
 		let parentCategory = $(this).val();
 		
 		// NOTE: jQuery의 end() 메소드: 선택한 요소가 선택되기 이전의 요소 선택
-		// form 태그의 하위 subCategory select 요소 선택 -> 그 하위의 option 태그 선택해서 삭제한 뒤
+		// form 태그의 하위 categoryNum select 요소 선택 -> 그 하위의 option 태그 선택해서 삭제한 뒤
 		// end() 메소드로 다시 select 요소를 선택, append() 메소드로 select의 마지막 하위 요소로 option 추가
-		$("form select[name=subCategory]").find('option').remove().end()
+		$("form select[name=categoryNum]").find('option').remove().end()
 			.append("<option value=''>:: 하위 카테고리 선택 ::</option>");	
 		
 		if(! parentCategory) {
@@ -255,7 +257,7 @@ $(function(){
 				let categoryNum = item.CATEGORYNUM;
 				let categoryName = item.CATEGORYNAME;
 				let s = "<option value='"+categoryNum+"'>"+categoryName+"</option>";
-				$("form select[name=subCategory]").append(s);
+				$("form select[name=categoryNum]").append(s);
 			});
 		};
 		ajaxFun(url, "get", query, "json", printSubCategories);
@@ -284,11 +286,12 @@ $(function(){
 				s += '				<td>';
 				s += '					<div class="form-check">';
 				
-				for (let attributeDetail of attributeDetails) {
+				for (let i in attributeDetails) {
+					let attributeDetail = attributeDetails[i];
 					let id = 'attrDtl-' + attributeDetail.attrDtlNum;
 					let value = attributeDetail.attrDtlNum;
 					s += '					  <span class="attrDtl">';
-					s += '					  <input class="form-check-input" type="checkbox" value="' + value +'" id="' + id + '">';
+					s += '					  <input class="form-check-input" name="attrDtlNums" type="checkbox" value="' + value +'" id="' + id + '">';
 					s += '					  <label class="form-check-label" for="' + id + '">' + attributeDetail.attrDtlName;
 					s += '					  </label>';
 					s += '					  </span>';
@@ -477,13 +480,13 @@ $(function(){
 						<div class="row">
 							<div class="col-6 pe-1">
 							<div class="form-check">
-								  <input class="form-check-input" type="radio" name="speciesRadio" id="speciesRadio1" value="1" checked>
+								  <input class="form-check-input" type="radio" name="species" id="speciesRadio1" value="1" checked>
 								  <label class="form-check-label" for="speciesRadio1">
 								   	강아지
 								  </label>
 								</div>
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="speciesRadio" id="speciesRadio2" value="2">
+								  <input class="form-check-input" type="radio" name="species" id="speciesRadio2" value="2">
 								  <label class="form-check-label" for="speciesRadio2">
 								   	고양이
 								  </label>
@@ -498,13 +501,13 @@ $(function(){
 						<div class="row">
 							<div class="col-6 pe-1">
 							<div class="check">
-								  <input class="form-check-input" type="radio" name="productClassRadio" id="productClassRadio1" checked>
+								  <input class="form-check-input" type="radio" name="productClass" id="productClassRadio1" value="0" checked>
 								  <label class="form-check-label" for="productClassRadio1">
 								   	일반상품
 								  </label>
 								</div>
 								<div class="check">
-								  <input class="form-check-input" type="radio" name="productClassRadio" id="productClassRadio2">
+								  <input class="form-check-input" type="radio" name="productClass" id="productClassRadio2" value="1">
 								  <label class="form-check-label" for="productClassRadio2">
 								   	특가상품
 								  </label>
@@ -527,12 +530,12 @@ $(function(){
 									</select>
 								</div>
 								<div class="col-6 ps-1">
-									<select name="subCategory" class="form-select">
+									<select name="categoryNum" class="form-select">
 										<option value="">:: 하위 카테고리 선택 ::</option>
-										<c:if test="${empty subCategory}">
+										<c:if test="${empty categoryNum}">
 											<option value="">상위 카테고리를 먼저 선택하세요</option>
 										</c:if>
-										<c:if test="${not empty subCategory}">
+										<c:if test="${not empty categoryNum}">
 											<c:forEach items="${subCategories}" var="subCategory">
 												<option value="${subCategory.CATEGORYNUM}">${subCategory.CATEGORYNAME}</option>
 											</c:forEach>
@@ -689,7 +692,7 @@ $(function(){
 					<tr>
 						<td class="table-light col-sm-2">배송비</td>
 						<td>
-							<input type="text" name="delivery" class="form-control" value="">
+							<input type="text" name="deliveryCharge" class="form-control" value="">
 							<small class="form-control-plaintext help-block">배송비가 0인 경우 무료 배송입니다.</small>
 						</td>
 					</tr>
@@ -701,7 +704,7 @@ $(function(){
 									<select name="optionCount" class="form-select">
 										<option value="2" selected>옵션 둘</option>
 										<option value="1" >옵션 하나</option>
-										<option value="0" >옵션 없음</option>
+										<option value="0">옵션 없음</option>
 									</select>
 								</div>
 							</div>
@@ -717,11 +720,19 @@ $(function(){
 							</div>
 							<div class="row option-area">
 								<div class="col-auto pe-0 d-flex flex-row optionValue-area">
-									
-									<div class='input-group pe-1'>
-										<input type='text' name='optionValues' class='form-control' style='flex:none; width: 90px;' placeholder='옵션값' value="">
+									<c:forEach var="vo" items="${listOptionDetail2}">
+										<div class="input-group pe-1">
+											<input type='text' name='optionValues' class='form-control' style='flex:none; width: 90px;' placeholder='옵션값' value="">
+											<input type="hidden" name="detailNums" value="${vo.detailNum}">
+											<i class='bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus2'></i>									
+										</div>
+									</c:forEach>
+									<c:if test="${empty listOptionDetail || listOptionDetail.size() < 1}">
+										<div class='input-group pe-1'>
+											<input type='text' name='optionValues' class='form-control' style='flex:none; width: 90px;' placeholder='옵션값'>
 											<i class='bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus'></i>
-									</div>
+										</div>
+									</c:if>
 								</div>
 								<div class="col-auto">
 									<button type="button" class="btn btn-light btnOptionAdd">추가</button>
@@ -738,10 +749,19 @@ $(function(){
 							</div>
 							<div class="row option-area2">
 								<div class="col-auto pe-0 d-flex flex-row optionValue-area2">
-									<div class="input-group pe-1">
-										<input type='text' name='optionValues2' class='form-control' style='flex:none; width: 90px;' placeholder='옵션값' value="">
-										<i class='bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus2'></i>									
-									</div>
+									<c:forEach var="vo" items="${listOptionDetail2}">
+										<div class="input-group pe-1">
+											<input type='text' name='optionValues2' class='form-control' style='flex:none; width: 90px;' placeholder='옵션값' value="">
+											<input type="hidden" name="detailNums2" value="${vo.detailNum}">
+											<i class='bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus2'></i>									
+										</div>
+									</c:forEach>
+									<c:if test="${empty listOptionDetail || listOptionDetail.size() < 1}">
+										<div class='input-group pe-1'>
+											<input type='text' name='optionValues2' class='form-control' style='flex:none; width: 90px;' placeholder='옵션값'>
+											<i class='bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus'></i>
+										</div>
+									</c:if>
 								</div>
 								<div class="col-auto">
 									<button type="button" class="btn btn-light btnOptionAdd2">추가</button>
@@ -811,12 +831,18 @@ $(function(){
 							<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">등록완료</button>
 							<button type="reset" class="btn btn-light">다시입력</button>
 							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/';">등록취소</button>
+							<c:if test="${mode=='update'}">
+								<input type="hidden" name="productNum" value="${dto.productNum}">
+								<input type="hidden" name="thumbnail" value="${dto.thumbnail}">
+								<input type="hidden" name="page" value="${page}">
+								
+								<input type="hidden" name="prevOptionNum" value="${empty dto.optionNum ? 0 : dto.optionNum}">
+								<input type="hidden" name="prevOptionNum2" value="${empty dto.optionNum2 ? 0 : dto.optionNum2}">
+							</c:if>
 						</td>
 					</tr>
 				</table>
 			</form>
-		
-		</div>
 	</div>
 </div>
 
@@ -958,6 +984,7 @@ nhn.husky.EZCreator.createInIFrame({
 
 function submitContents(elClickedObj) {
 	 oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+	 
 	 try {
 		if(! check()) {
 			return;
@@ -966,6 +993,7 @@ function submitContents(elClickedObj) {
 		elClickedObj.submit();
 		
 	} catch(e) {
+		console.log(e);
 	}
 }
 

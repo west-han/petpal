@@ -28,33 +28,44 @@
 	</select>
 
 	<select id="productSeq" resultType="Long">
-		SELECT product_seq.NEXTVAL FROM dual;
+		SELECT product_seq.NEXTVAL FROM dual
+	</select>
+	
+	<select id="optionSeq" resultType="Long">
+		SELECT productOption_seq.NEXTVAL FROM dual
+	</select>
+	
+	<select id="attrDtlSeq" resultType="Long">
+		SELECT attributeDetail.NEXTVAL FROM dual
 	</select>
 
 	<insert id="insertProduct" parameterType="com.shop.petpal.admin.domain.ProductManage">
 		INSERT INTO product (productNum, productName, productClass, species, price, discountRate,
-			deliveryCharge, productDesc, thumbnail, productStatus, regDate, modifyDate, origin,
+			deliveryCharge, content, thumbnail, productStatus, regDate, modifyDate, origin,
 			brand, manufacturer, categoryNum)
-		VALUES (product_seq.NEXTVAL, #{productName}, #{productClass}, #{species}, #{price},
-			#{discountRate}, #{deliveryCharge}, #{productDesc}, #{thumbnail}, #{productStatus},
+		VALUES (#{productNum}, #{productName}, #{productClass}, #{species}, #{price},
+			#{discountRate}, #{deliveryCharge}, #{content}, #{thumbnail}, #{productStatus},
 			SYSDATE, SYSDATE, #{origin}, #{brand}, #{manufacturer}, #{categoryNum})
 	</insert>
 	
-	<insert id="insertProductImages" parameterType="com.shop.petpal.admin.domain.ProductManage">
-		INSERT INTO productImage (imageNum, productNum, imageName)
-		VALUES (productImage_seq.NEXTVAL, #{productNum}, #{imageName})
+	<insert id="insertProductImage" parameterType="com.shop.petpal.admin.domain.ProductManage">
+		INSERT INTO productImage (fileNum, productNum, filename)
+		VALUES (productImage_seq.NEXTVAL, #{productNum}, #{filename})
 	</insert>
 	
-	<!-- 
-	<insert id="insertProductOption" parameterType="com.shop.petpal.domain.ProductManage">
-	
+	<insert id="insertProductOption" parameterType="com.shop.petpal.admin.domain.ProductManage">
+		INSERT INTO productOption (optionNum, optionName, productNum, parentOption)
+		VALUES (#{optionNum}, #{optionName}, #{productNum}, #{parentOption, jdbcType=INTEGER})
 	</insert>
-	<insert id="insertProductOptionDetail" parameterType="com.shop.petpal.domain.ProductManage">
 	
+	<insert id="insertProductOptionDetail" parameterType="com.shop.petpal.admin.domain.ProductManage">
+		INSERT INTO optionDetail (detailNum, optionValue, optionNum)
+		VALUES (optionDetail_seq.NEXTVAL, #{optionValue}, #{optionNum})
 	</insert>
-	<insert id="insertProductAttribute" parameterType="map">
 	
+	<insert id="insertProductAttribute" parameterType="Long">
+			INSERT INTO productAttribute (productNum, attrDtlNum)
+			VALUES (#{productNum}, #{attrDtlNum})
 	</insert>
-	 -->
 
 </mapper>
