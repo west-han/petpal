@@ -13,5 +13,18 @@ public interface MemberMapper {
 	public Member findByMemberNum(long memberNum);
 	public Integer checkFailureCount(String email);
 	public void updateMemberEnabled(Map<String, Object> map) throws SQLException;
-	public long memberSeq();
+	
+	// 회원가입
+	public long memberSeq(); // 시퀀스 증가
+	public void insertMember1(Member dto) throws SQLException; // member1 회원가입
+	public void insertMember2(Member dto) throws SQLException;// member2 회원가입
+	public void insertMemberAuthority(Member dto) throws SQLException; // USER 권한 부여
+	public void updateArea(Map<String, Object> map) throws SQLException; // 지역 업데이트
+	public Member findByEmail(String email); // 이메일 중복 체크
+	public Member findByNickName(String nickname); // 이메일 중복 체크
+	public void updateFailureCountReset(String email) throws SQLException;
+	
+	
+	
+	
 }

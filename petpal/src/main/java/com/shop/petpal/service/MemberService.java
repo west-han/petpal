@@ -15,8 +15,12 @@ public interface MemberService {
 	public void checkFailureCountReset(String email) throws Exception; //비밀번호 틀린 횟수 초기화
 	public void updateMemberEnabled(Map<String, Object> map) throws SQLException; // 로그인가능여부
 	
-	public void MemberAuthority(String email) throws SQLException; // 권한 부여
-	public void insertMember1(Member dto) throws SQLException; // 회원가입 필수정보
-	public void insertMember2(Member dto) throws SQLException; // 회원가입 상세정보
+	public void MemberAuthority(String email) throws Exception; // 권한 부여
+	public void insertMember(Member dto) throws Exception; // 회원가입
+	public Member findByEmail(String email) throws Exception;// 이메일중복 체크
+	public Member findByNickName(String nickname) throws Exception;// 닉네임중복 체크
+	
+	
+
 	
 } 

@@ -1,8 +1,11 @@
 package com.shop.petpal.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,9 @@ import com.shop.petpal.mapper.MemberMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
+	
+	
 	@Autowired
 	private MemberMapper mapper;
 	
@@ -20,8 +26,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateLastLogin(String email) throws SQLException {
+		// 마지막로그인과 FailCount 초기화
 		try {
 			mapper.updateLastLogin(email);
+			mapper.updateFailureCountReset(email);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -43,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
 		Member member = null;
 		
 		try {
-			member = mapper.findById(email);
+			member = mapper.findByEmail(email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,26 +114,65 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+
 	@Override
-	public void insertMember1(Member dto) throws SQLException {		
-		// TODO 회원가입
-		
-		try {
-			long memberNum;
-			
-			memberNum = mapper.memberSeq();
-			
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+	public void insertMember(Member dto) throws Exception {
+	    try {
+	        // 패스워드 암호화
+	        String encPwd = bcryptEncoder.encode(dto.getPassword());
+	        dto.setPassword(encPwd);
+
+	        // 회원 시퀀스 증가 및 설정
+	        long memberSeq = mapper.memberSeq();
+	        dto.setMemberNum(memberSeq);
+	        
+	        
+	        logger.info("Generated memberNum for member2: {}", memberSeq);
+	        // 회원 정보 삽입
+	        mapper.insertMember1(dto);
+	        mapper.insertMember2(dto);
+	        
+	        Map<String, Object> map = new HashMap<String, Object>();
+	        map.put("memberNum", dto.getMemberNum());
+	        mapper.updateArea(map);
+	        
+	        // 권한 저장
+	        dto.setAuthority("USER");
+	        mapper.insertMemberAuthority(dto);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
 	}
 
 	@Override
-	public void insertMember2(Member dto) throws SQLException {
-		// TODO Auto-generated method stub
+	public Member findByEmail(String email) throws Exception {
+		// TODO 이메일 중복 체크
 		
+		Member dto = null;
+		
+		try {
+			dto = mapper.findByEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
+
+	@Override
+	public Member findByNickName(String nickname) throws Exception {
+		// TODO 닉네임 중복체크
+		
+		Member dto = null;
+		
+		try {
+			dto = mapper.findByNickName(nickname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		return dto;
+	}
+	
+	
 }
