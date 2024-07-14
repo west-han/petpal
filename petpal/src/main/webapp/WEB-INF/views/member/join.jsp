@@ -5,6 +5,7 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
     <title>회원가입 폼</title>
     <style type="text/css">
         body {
@@ -39,6 +40,25 @@
     function memberOk() {
     	const f = document.memberForm;
     	let str;
+    	
+    	str = f.email.value;
+        if( !str ) {
+            alert("이메일을 입력하세요. ");
+            f.email.focus();
+            return;
+        }
+        
+        if ($('#userEmailValid').val() !== 'true') {
+            alert("이메일 중복 체크를 해주세요");
+            f.email.focus();
+            return;
+        }
+        
+        if ($('#userNicknameValid').val() !== 'true') {
+            alert("닉네임 중복 체크를 해주세요");
+            f.nickname.focus();
+            return;
+        }
     	
     	str = f.password.value;
     	if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) { 
@@ -87,11 +107,98 @@
             f.tel3.focus();
             return;
         }
+        str = f.postalCode.value;
+        if( ! str ) {
+        	alert("우편번호를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+        str = f.address1.value;
+        if( ! str ) {
+        	alert("기본주소를 입력해주세요 ");
+            f.address1.focus();
+            return;
+        }
+        str = f.address2.value;
+        if( ! str ) {
+        	alert("상세주소를 입력해주세요 ");
+            f.address2.focus();
+            return;
+        }
         
         
 
        	f.action = "${pageContext.request.contextPath}/member/join";
         f.submit();
+    }
+    function userEmailCheck() {
+        // 이메일 중복 검사
+        let email = $('#email').val();
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            let str = '유효한 이메일을 입력해주세요.';
+            $('#email').focus();
+            $('.userEmail-box').find('.help-block').html(str);
+            return;
+        }
+
+        let url = '${pageContext.request.contextPath}/member/userEmailCheck';
+
+        // AJAX:POST-JSON
+        $.post(url, { email: email }, function(data) {
+            let passed = data.passed;
+
+            console.log("AJAX Response:", data); // 응답 확인
+
+            if (passed === 'true') {
+                let str = '<span style="color:blue; font-weight: bold;">' + email + '</span> 이메일은 사용 가능합니다.';
+                $('.userEmail-box').find('.help-block').html(str);
+                $('#userEmailValid').val('true');
+            } else {
+                let str = '<span style="color:red; font-weight: bold;">' + email + '</span> 이메일은 사용할 수 없습니다.';
+                $('.userEmail-box').find('.help-block').html(str);
+                $('#email').val('');
+                $('#userEmailValid').val('false');
+                $('#email').focus();
+            }
+        }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown); // 오류 확인
+        });
+    }
+    
+    function userNicknameCheck() {
+        // 닉네임 중복 검사
+        let nickname = $('#nickname').val();
+
+        if (!nickname) {
+            let str = '닉네임을 입력해주세요.';
+            $('#nickname').focus();
+            $('.userNickname-box').find('.help-block').html(str);
+            return;
+        }
+
+        let url = '${pageContext.request.contextPath}/member/userNicknameCheck';
+
+        // AJAX:POST-JSON
+        $.post(url, { nickname: nickname }, function(data) {
+            let passed = data.passed;
+
+            console.log("AJAX Response:", data); // 응답 확인
+
+            if (passed === 'true') {
+                let str = '<span style="color:blue; font-weight: bold;">' + nickname + '</span> 닉네임은 사용 가능합니다.';
+                $('.userNickname-box').find('.help-block').html(str);
+                $('#userNicknameValid').val('true');
+            } else {
+                let str = '<span style="color:red; font-weight: bold;">' + nickname + '</span> 닉네임은 사용할 수 없습니다.';
+                $('.userNickname-box').find('.help-block').html(str);
+                $('#nickname').val('');
+                $('#userNicknameValid').val('false');
+                $('#nickname').focus();
+            }
+        }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown); // 오류 확인
+        });
     }
 
         
@@ -104,11 +211,12 @@
             <form name="memberForm" method="post">
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="email">이메일</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 userEmail-box">
                         <div class="input-group">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요">
-                            <button class="btn btn-outline-secondary" type="button" id="email-check">중복 체크</button>
-                        </div>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요">                           
+                            <button class="btn btn-outline-secondary" type="button" id="email-check" onclick="userEmailCheck();">중복 체크</button>                           
+                            <small class="form-control-plaintext help-block">이메일을 입력해주세요.</small>
+                        </div>                       
                     </div>
                 </div>
 
@@ -136,8 +244,12 @@
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="nickname">닉네임</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="닉네임">
+                    <div class="col-sm-10 userNickname-box">
+                        <div class="input-group">
+                            <input type="text" name="nickname" id="nickname" class="form-control" placeholder="닉네임">
+                            <button class="btn btn-outline-secondary" type="button" id="nickname-check" onclick="userNicknameCheck();">중복 체크</button>
+                            <small class="form-control-plaintext help-block">닉네임을 입력해주세요.</small>
+                        </div>
                     </div>
                 </div>
 
@@ -190,6 +302,8 @@
                 </div>
 
                 <button type="button" class="btn btn-primary w-100" onclick="memberOk();">회원가입</button>
+                <input type="hidden" name="userEmailValid" id="userEmailValid" value="false">
+                <input type="hidden" name="userNicknameValid" id="userNicknameValid" value="false">
                 
                 <div class="row">
 					<p class="form-control-plaintext text-center">${message}</p>

@@ -74,21 +74,19 @@
 	<select id="memberSeq" resultType="Long">
 		SELECT member1_seq.NEXTVAL FROM dual
 	</select>
-	
-	
-	
+
 	<!-- 회원가입1 -->
 	<insert id="insertMember1" parameterType="com.shop.petpal.domain.Member">
 		INSERT INTO member1(memberNum,email,socialLogin,password,regDate,notificationConsent,
 			enabled,lastLogin,failureCount,state)
-		VALUES (member1_seq.CURRVAL, #{email}, 0, #{password}, SYSDATE, 1, 1, SYSDATE, 0, 0) 
+		VALUES (#{memberNum}, #{email}, 0, #{password}, SYSDATE, 1, 1, SYSDATE, 0, 0) 
     </insert>
     
     <!-- 회원가입2 -->
 	<insert id="insertMember2" parameterType="com.shop.petpal.domain.Member">
 		INSERT INTO member2(memberNum,birth,address1,address2,tel,
-			nickName,userName,postalCode,membershipNum)
-		VALUES (member1_seq.CURRVAL, #{birth}, #{address1}, #{address2},
+			nickname,userName,postalCode,membershipNum)
+		VALUES (#{memberNum}, #{birth}, #{address1}, #{address2},
 			 #{tel}, #{nickname}, #{userName}, #{postalCode}, 1) 
     </insert>
     
@@ -98,6 +96,24 @@
 		VALUES(#{authority}, #{email})
 	</insert>
 	
+	<!-- 주소에서 지역 가져오기 -->
+	<update id="updateArea" parameterType="map">
+		UPDATE member2
+        SET area = REGEXP_SUBSTR(address1, '[^ ]*구', 1, 1)
+        WHERE memberNum = #{memberNum}
+	</update>
+	
+	<!-- 이메일 중복검사 -->
+	<select id="findByEmail" parameterType="String" resultType="com.shop.petpal.domain.Member">
+		SELECT * FROM member1
+		where email=#{email}
+	</select>	
+	
+	
+	<select id="findByNickName" parameterType="String" resultType="com.shop.petpal.domain.Member">
+    	SELECT * FROM member2
+    	WHERE nickname = #{nickname}
+	</select>
 	
 	
     

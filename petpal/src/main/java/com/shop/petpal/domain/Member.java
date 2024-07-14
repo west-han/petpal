@@ -24,9 +24,18 @@ public class Member {
 	private String tel1;
 	private String tel2;
 	private String tel3;
+	private String area;
 	
 	
 	
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
 	public String getBirth() {
 		return birth;
 	}

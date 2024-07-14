@@ -17,6 +17,9 @@ public interface MemberService {
 	
 	public void MemberAuthority(String email) throws Exception; // 권한 부여
 	public void insertMember(Member dto) throws Exception; // 회원가입
+	public Member findByEmail(String email) throws Exception;// 이메일중복 체크
+	public Member findByNickName(String nickname) throws Exception;// 닉네임중복 체크
+	
 
 	
 } 
