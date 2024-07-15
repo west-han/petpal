@@ -36,7 +36,8 @@
         <intercept-url pattern="/member/userNicknameCheck" access="permitAll"/>
         
         <intercept-url pattern="/resources/**" access="permitAll"/>
-        <intercept-url pattern="/uploads/photo/**" access="permitAll"/>
+        <intercept-url pattern="/uploads/image/**" access="permitAll"/>
+        
         
         <!-- admin 페이지 -->
         <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN' , 'ROLE_EMP')"/>
@@ -71,6 +72,11 @@
         	<concurrency-control max-sessions="1"
         		expired-url="/member/expired"/>
         </session-management>
+        
+        		<!-- AJAX 로그인 검사 필터 -->
+		<custom-filter ref="ajaxSessionTimeoutFilter"
+			after="EXCEPTION_TRANSLATION_FILTER"/>
+			
 	</http>
 
 	<beans:bean id="LoginSuccessHandler" class="com.shop.petpal.security.LoginSuccessHandler">
@@ -97,4 +103,9 @@
 		</authentication-provider>
 	</authentication-manager>
 
+	<!-- AJAX 작업에서 로그인이 안 된 경우 실행할 필터 -->
+	<beans:bean id="ajaxSessionTimeoutFilter" 
+			class="com.shop.petpal.security.AjaxSessionTimeoutFilter">
+		<beans:property name="ajaxHeader" value="AJAX"/>
+	</beans:bean>
 </beans:beans>
