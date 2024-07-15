@@ -1,12 +1,21 @@
 package com.shop.petpal.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.shop.petpal.domain.SessionInfo;
+import com.shop.petpal.service.Mypage2Service;
+
 @Controller
 @RequestMapping("/myPage2/*")
 public class MyPageController2 {
+	
+	@Autowired
+	private Mypage2Service service;
 	
 	@GetMapping("orderlist")
 	public String orderlistForm() throws Exception {
@@ -23,8 +32,11 @@ public class MyPageController2 {
 		
 		return ".myPage2.mycoupon";
 	}
+	
 	@GetMapping("mypoint")
 	public String mypointFrom() throws Exception {
+		// 마이페이지 포인트리스트
+		
 		
 		return ".myPage2.mypoint";
 	}
@@ -48,7 +60,11 @@ public class MyPageController2 {
 	
 	
 	@GetMapping("myreview")
-	public String myreviewForm() throws Exception {
+	public String myreviewForm(HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		service.myPointList(info.getMemberNum());
+		
 		
 		return ".myPage2.myreview";
 	}
