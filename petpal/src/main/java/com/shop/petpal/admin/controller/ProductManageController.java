@@ -115,7 +115,11 @@ public class ProductManageController {
 
 
 	@GetMapping("list")
-	public String listForm() {
-		return ".admin.product.list";
-	}
+    public String listProducts(Model model) {
+		/*
+        List<ProductManage> products = ProductManageService.getAllProducts();  
+        model.addAttribute("products", products);
+        */
+        return ".admin.product.list";
+    }
 }

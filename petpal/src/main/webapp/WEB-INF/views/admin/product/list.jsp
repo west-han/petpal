@@ -175,7 +175,7 @@ $(function(){
 							</td>					
 							<td width="150" align="right">
 								<c:url var="url" value="/admin/product"/>
-								<button type="button" class="btn btn-light" onclick="location.href='#';">상품등록</button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/product/write';">상품등록</button>
 							</td>
 						</tr>
 					</table>

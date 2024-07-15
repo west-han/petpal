@@ -101,7 +101,7 @@ $(function(){
 
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="#" class="sub_menu--link">상품관리</a>
+					<a href="${pageContext.request.contextPath}/admin/product/list" class="sub_menu--link">상품관리</a>
 				</li>
 				<li class="sub_menu--item">
 					<a href="#" class="sub_menu--link">기획전</a>
