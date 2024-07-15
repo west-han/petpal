@@ -21,6 +21,7 @@ public class Product {
 	
 	private String startDate;
 	private String endDate;
+	private int showSpecial;
 	
 	private long categoryNum;
 	private String categoryName;
@@ -149,6 +150,12 @@ public class Product {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public int getShowSpecial() {
+		return showSpecial;
+	}
+	public void setShowSpecial(int showSpecial) {
+		this.showSpecial = showSpecial;
 	}
 	public long getCategoryNum() {
 		return categoryNum;

@@ -3,8 +3,11 @@ package com.shop.petpal.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.shop.petpal.domain.Product;
 
+@Mapper
 public interface ProductMapper {
 	public Product findById(long productNum);
 	public List<Product> listProductFile(long productNum);
