@@ -10,6 +10,7 @@ public class ProductManage {
 	private int productClass; // NOTE: 일반(0) 특가(1)
 	private int price;
 	private int discountRate;
+	private int discountAmount;
 	private int deliveryCharge;
 	// NOTE: 상품 소개 글
 	private String content;
@@ -97,6 +98,14 @@ public class ProductManage {
 
 	public void setDiscountRate(int discountRate) {
 		this.discountRate = discountRate;
+	}
+	
+	public int getDiscountAmount() {
+		return discountAmount;
+	}
+	
+	public void setDiscountAmount(int discountAmount) {
+		this.discountAmount = discountAmount;
 	}
 
 	public int getDeliveryCharge() {

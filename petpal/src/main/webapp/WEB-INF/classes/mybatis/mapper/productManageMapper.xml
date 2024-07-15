@@ -42,10 +42,10 @@
 	<insert id="insertProduct" parameterType="com.shop.petpal.admin.domain.ProductManage">
 		INSERT INTO product (productNum, productName, productClass, species, price, discountRate,
 			deliveryCharge, content, thumbnail, productStatus, regDate, modifyDate, origin,
-			brand, manufacturer, categoryNum)
+			brand, manufacturer, categoryNum, discountAmount)
 		VALUES (#{productNum}, #{productName}, #{productClass}, #{species}, #{price},
 			#{discountRate}, #{deliveryCharge}, #{content}, #{thumbnail}, #{productStatus},
-			SYSDATE, SYSDATE, #{origin}, #{brand}, #{manufacturer}, #{categoryNum})
+			SYSDATE, SYSDATE, #{origin}, #{brand}, #{manufacturer}, #{categoryNum}, #{discountAmount})
 	</insert>
 	
 	<insert id="insertProductImage" parameterType="com.shop.petpal.admin.domain.ProductManage">

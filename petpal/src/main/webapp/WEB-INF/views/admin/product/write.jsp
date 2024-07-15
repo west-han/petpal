@@ -458,6 +458,42 @@ $(function(){
 		$minus.closest(".input-group").remove();
 	});
 });
+
+$(function() {
+	$('input[name=discountAmount]').change(function() {
+		if (! $('input[name=price]').val() || ! $(this).val()
+				|| isNaN($('input[name=price]').val()) || isNaN($(this).val())) {
+			return;
+		}
+		
+		let price = parseInt($('input[name=price]').val());
+		
+		if (price == 0) {
+			return;
+		}
+		
+		let discountAmount = parseInt($(this).val());
+		const discountRate = Math.round((1 - (price - discountAmount) / price) * 100);
+		$('input[name=discountRate]').val(discountRate);
+	});
+	
+	$('input[name=price]').change(function() {
+		if (! $('input[name=discountAmount]').val() || ! $(this).val()
+				|| isNaN($('input[name=discountAmount]').val()) || isNaN($(this).val())) {
+			return;
+		}
+		
+		let discountAmount = parseInt($('input[name=price]').val());
+		let price = parseInt($(this).val());
+		
+		if (price == 0) {
+			return;
+		}
+		
+		const discountRate = Math.round((1 - (price - discountAmount) / price) * 100);
+		$('input[name=discountRate]').val(discountRate);
+	});
+});
 </script>
 
 
@@ -685,8 +721,15 @@ $(function(){
 					<tr>
 						<td class="table-light col-sm-2">할인율</td>
 						<td>
-							<input type="text" name="discountRate" class="form-control" value="">
+							<input type="text" name="discountRate" class="form-control" value="" readonly>
 							<small class="form-control-plaintext help-block">할인율이 0인 경우 상품가격이 판매가격입니다.</small>
+						</td>
+					</tr>
+					<tr>
+						<td class="table-light col-sm-2">할인액</td>
+						<td>
+							<input type="text" name="discountAmount" class="form-control" value="">
+							<small class="form-control-plaintext help-block">할인액이 0인 경우 상품가격이 판매가격입니다.</small>
 						</td>
 					</tr>
 					<tr>
