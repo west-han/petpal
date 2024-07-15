@@ -60,7 +60,7 @@
 		ORDER BY sortOrder
 	</select>
 	
-	<select id="listProductOption" parameterType="Long" resultType="com.shop.petpal.domain.Produt">
+	<select id="listProductOption" parameterType="Long" resultType="com.shop.petpal.domain.Product">
 		SELECT optionNum, optionName, productNum, parentOption
 		FROM productOption
 		WHERE productNum = #{productNum}
