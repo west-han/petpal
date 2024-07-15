@@ -93,6 +93,10 @@ public class ProductManageServiceImpl implements ProductManageService {
 				insertProductOption(productManage);
 			}
 
+			if (productManage.getAttrDtlNums() == null) {
+				return;
+			}
+			
 			for (Long attrDtlNum : productManage.getAttrDtlNums()) {
 				if (attrDtlNum != null) {
 					mapper.insertProductAttribute(productNum, attrDtlNum);
