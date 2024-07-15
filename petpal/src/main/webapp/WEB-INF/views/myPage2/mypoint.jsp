@@ -99,24 +99,24 @@ a {
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach var="dto" items="${list}">
 								<tr>
-									<td>2024.07.01</td>
-									<td>구매 적립</td>
-									<td>10,000원</td>
+									<td>${dto.regDate }</td>
+									<td>${dto.classify }</td>
+									<td>${dto.point }</td>
 									<td>2025.07.01</td>
 								</tr>
-								<tr>
-									<td>2024.07.05</td>
-									<td>이벤트 적립</td>
-									<td>5,000원</td>
-									<td>2025.07.05</td>
-								</tr>
-								<!-- 추가적인 적립금 항목 -->
+							</c:forEach>
+								
 							</tbody>
 						</table>
+						
+						<div class="page-navigation">
+							${dataCount == 0 ? "포인트내역이 없습니다." : paging}
+						</div>
 					</div>
 				</div>
-				<!-- 추가적인 적립금 내역 카드 -->
+				
 			</div>
 		</div>
 	</div>

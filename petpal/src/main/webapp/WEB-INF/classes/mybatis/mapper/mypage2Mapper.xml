@@ -3,10 +3,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.petpal.mapper.MypageMapper2">
 
-	<select id="myPointList" parameterType="Long" resultType="com.shop.petpal.domain.Mypage2">
-		SELECT memberNum,regDate,classify,point,balance
-		FROM userPoint
-		WHERE memberNum=#{memberNum};
+	<!-- 포인트 리스트 -->
+	<select id="myPointList" parameterType="long"
+		resultType="com.shop.petpal.domain.Mypage2">
+		SELECT memberNum, regDate, classify, point, balance
+		FROM
+		userPoint
+		WHERE memberNum = #{memberNum}
 	</select>
+
+
+
+	<!-- 페이징처리를 위한 데이터 갯수 -->
+	<select id="pointDataCount" parameterType="long"
+		resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM userPoint
+		WHERE memberNum = #{memberNum}
+	</select>
+
+	<!-- 포인트 리스트 날짜 검색 -->
+	<select id="myPointListPaged" parameterType="map"
+		resultType="com.shop.petpal.domain.Mypage2">
+		SELECT memberNum, regDate, classify, point, balance
+		FROM userPoint
+		WHERE memberNum = #{memberNum}
+		<if test="startDate != null and endDate != null">
+			AND regDate BETWEEN #{startDate} AND #{endDate}
+		</if>
+		ORDER BY regDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+
 
 </mapper>
