@@ -1,0 +1,237 @@
+@charset "UTF-8";
+
+body {
+	
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'MangoDdobak-B';
+    font-weight: 400;
+}
+@font-face {
+    /*굵기 : 300 400 700*/
+    font-family: 'MangoDdobak-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-W-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+header {
+    width: 100%;
+}
+
+.evtpreview {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.event-left {
+    background-color: #ADD8E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    color: #000;
+    font-weight: bold;
+}
+
+.event-right {
+    background-color: #FFC0CB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    color: #000;
+    font-weight: bold;
+
+}
+.event-right p {
+    margin: 0 10px;
+    
+}
+.event-right a{
+    
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 이미지와 텍스트 사이의 간격 */
+}
+.event-right p:last-child {
+    font-size: 12px;
+    color: gray;
+}
+#head1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+#head1 a{
+    font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+}
+
+#head1 .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+#head1 .logo-container img {
+    width: 50px;
+    height: 50px;
+}
+
+#head1 .name {
+    margin-left: 10px;
+    font-size: 24px;
+    display: inline-block;
+}
+.logo-container .name .highlight {
+    color: #E4B075;
+}
+
+.search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search input {
+    width: 900px;
+    height: 55px;
+    padding: 10px 50px 5px 10px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.search img {
+    position: absolute;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+}
+
+.more img {
+    width: 30px;
+    height: 30px;
+}
+
+.head2 {
+    display: flex;
+    padding: 10px 60px 10px 260px;
+    align-items: center;
+    font-family: 'MangoDdobak-B';
+    font-weight: 700;
+}
+
+.head2 .menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.head2 .menu2 {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 각 항목 사이의 간격 */
+}
+
+.head2 .menu2 span {
+    display: flex;
+    align-items: center;
+}
+
+.head2 .menu2 a {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 이미지와 텍스트 사이의 간격 */
+    text-decoration: none;
+    color: black;
+}
+
+.head2 .menu2 img {
+    width: 30px;
+    height: 30px;
+}
+
+.head2 p {
+    margin: 0; /* 텍스트 주변의 여백 제거 */
+}
+
+
+/*카테고리 드롭다운*/
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'MangoDdobak-B';
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: "Do Hyeon", sans-serif;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn p {
+    color: #E4B075;
+}
+
+.line {
+    border: 1px solid #C1C1C1;
+    width: 1px;
+    height: 20px;
+}
+
+.pet-dropdown {
+    margin-left: auto;
+    font-family: 'MangoDdobak-B';
+}
+
+#pet-selector {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}

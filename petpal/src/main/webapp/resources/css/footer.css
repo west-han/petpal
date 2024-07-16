@@ -1,0 +1,175 @@
+@charset "UTF-8";
+
+body {
+	
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'MangoDdobak-B';
+    font-weight: 400;
+}
+@font-face {
+    /*굵기 : 300 400 700*/
+    font-family: 'MangoDdobak-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-W-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+ul {
+    display: block;
+    list-style-type: none;
+}
+ul::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* Footer Styles */
+
+.footer-distributed {
+    background: #f6f6f6;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    padding: 40px 100px 40px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'MangoDdobak-B';
+    font-size: 16px;
+    color: #333;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 수정: 왼쪽 정렬 */
+}
+
+.footer-distributed .footer-left {
+    width: 30%;
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.footer-distributed .footer-left img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; /* 텍스트와 간격 추가 */
+}
+
+.footer-distributed .footer-left p {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+    color: #333;
+    margin: 0; /* 텍스트 주변 여백 제거 */
+}
+
+.footer-distributed .footer-left p .highlight {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+    color: #E4B075;
+}
+
+.footer-distributed .footer-center {
+    width: 40%;
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.footer-distributed .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0; /* 수정: 하단 여백 추가 */
+}
+
+.footer-distributed .footer-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.footer-distributed .footer-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: normal;
+}
+
+.footer-distributed .footer-links a:hover {
+    color: #E4B075;
+}
+
+.footer-distributed .footer-info {
+    text-align: left;
+    width: 100%;
+    line-height: 25px;
+    margin-top: 0; /* 상단 여백 제거 */
+}
+
+.footer-distributed .footer-info p {
+    margin: 5px 0;
+}
+
+.footer-distributed .footer-info a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-distributed .footer-info a:hover {
+    color: #E4B075;
+}
+
+.footer-distributed .footer-right {
+    width: 30%;
+    text-align: center;
+}
+
+.footer-distributed .footer-icons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer-distributed .footer-icons a {
+    display: inline-block;
+    width: 50px; /* 아이콘 크기 증가 */
+    height: 50px; /* 아이콘 크기 증가 */
+    margin: 0 10px; /* 간격 증가 */
+}
+
+.footer-distributed .footer-icons img {
+    width: 100%;
+    height: auto;
+}
