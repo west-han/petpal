@@ -24,22 +24,20 @@
 		</c:if>
 
         <div class="list-container list-h">
-
             <h2>
             	<c:if test="${mode == 'recent'}"> 신상품 </c:if>
             	<c:if test="${mode == 'best'}"> 베스트 상품 </c:if>	
             </h2>
             <div class="category-box">
                 <ul class="list-h category-list">
+                	<li><a href="${pageContext.request.contextPath}/products/recent/${species}/0">전체</a></li>
                     <c:forEach items="${categories}" var="category">
-                    	<li><a href="${pageContext.request.contextPath}/">${category.CATEGORYNAME}</a></li>
-                    	
+                    	<li><a href="${pageContext.request.contextPath}/products/recent/${species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
                     </c:forEach>
                 </ul>
             </div>
             
             <div class="display-box list-h">
-            
             	<c:forEach items="${products}" var="product">
 	                <div class="product-box" onClick="location.href='${pageContext.request.contextPath}/product/'">
 	                    <div class="product-img-box">
@@ -64,7 +62,11 @@
 			                        </strong>
 		                        </p>
 	                        </c:if>
-	                        <p class="text-rate">${product.rating}</p>
+	                        <!-- 평점은 별에 색 채워서 표시 -->
+	                        <p class="text-rate">
+	                        	<span>${product.rating}</span>
+	                        	<span>(${product.reviewCount})</span>
+	                        </p>
 	                    </div>
 	                </div>
             	</c:forEach>

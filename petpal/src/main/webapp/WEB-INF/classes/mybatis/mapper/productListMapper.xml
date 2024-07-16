@@ -22,7 +22,7 @@
 	<!-- 신상품 -->
 	<select id="listRecentProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
 		SELECT p.productNum, productName, productClass, price, discountRate, discountAmount,
-			thumbnail, species, brand, regDate, AVG(rating)
+			thumbnail, species, brand, regDate, NVL(COUNT(rating), 0) reviewCount, NVL(AVG(rating), 0) rating
 		FROM (
 		    SELECT *
 		            FROM (SELECT inner.*, ROWNUM rnum

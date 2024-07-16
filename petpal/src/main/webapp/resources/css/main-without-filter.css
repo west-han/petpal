@@ -9,12 +9,15 @@ main .page-description {
 main .list-h {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
 }
 
 main .list-container {
     width: 80%;
     margin: 0 auto;
+}
+
+main .display-box {
+	width: 100%;
 }
 
 main .list-h > h2 {
@@ -29,6 +32,7 @@ main .category-box {
 }
 
 main .category-list {
+	justify-content: space-around;
     margin: 0;
 }
 

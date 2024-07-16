@@ -21,15 +21,19 @@ public class ProductListController {
 	@Autowired
 	private ProductListService service;
 	
-	@GetMapping("recent/{species}")
+	@GetMapping(value = {"recent/{species}/{categoryNum}", "recent", "recent/{species}"})
 	public String listRecentProducts(
 			@PathVariable(required = false) Integer species,
-			@RequestParam(defaultValue = "0") int categoryNum,
+			@PathVariable(required = false) Integer categoryNum,
 			@RequestParam(defaultValue = "1") int currentPage,
 			Model model) {
 
 		if (species == null) {
 			species = 1;
+		}
+		
+		if (categoryNum == null) {
+			categoryNum = 0;
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -41,6 +45,7 @@ public class ProductListController {
 			List<Map<String, Object>> categories = service.listCategory(species);
 			List<Product> recentProducts = service.listRecentProducts(map);
 			
+			model.addAttribute("species", species);
 			model.addAttribute("categories", categories);
 			model.addAttribute("products", recentProducts);
 		} catch (Exception e) {
