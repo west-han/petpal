@@ -21,21 +21,35 @@
 	
 	<!-- 신상품 -->
 	<select id="listRecentProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
-		SELECT productNum, productName, productClass, price, discountRate, 
-				discountAmount, thumbnail, species, brand, regDate
-		FROM (SELECT inner.*, ROWNUM rnum
-			FROM (
-				SELECT *
-				FROM product
-				WHERE TO_CHAR(regDate, 'YYYYMMDD') &gt;= #{baseDate}
-				<if test="categoryNum != 0">
-					AND categoryNum = #{categoryNum}
-				</if>
-				ORDER BY regDate DESC
-			) inner
-			WHERE ROWNUM &lt;= #{endNum}
-		)
-		WHERE rnum &gt;= #{startNum}
+		SELECT p.productNum, productName, productClass, price, discountRate, discountAmount,
+			thumbnail, species, brand, regDate, AVG(rating)
+		FROM (
+		    SELECT *
+		            FROM (SELECT inner.*, ROWNUM rnum
+		                FROM (
+		                    SELECT p.*
+		                    FROM product p
+		                    <if test="categoryNum != 0">
+								LEFT OUTER JOIN category c
+		                        	ON p.categoryNum = c.categoryNum
+							</if>
+		                    WHERE TO_CHAR(regDate, 'YYYYMMDD') &gt;= ${baseDate}
+		                        AND p.species = #{species}
+		                        <if test="categoryNum != 0">
+									AND c.parentCategory = #{categoryNum}
+								</if>
+		                    ORDER BY regDate DESC
+		                ) inner
+	               WHERE ROWNUM &lt;= #{endNum}
+	           )
+	           WHERE rnum &gt;= #{startNum}
+		    ) p
+		LEFT OUTER JOIN orderDetail od
+		    ON p.productNum = od.productNum
+		LEFT OUTER JOIN review r
+		    ON od.orderDetailNum = r.orderDetailNum
+		GROUP BY (p.productNum, productName, productClass, price, discountRate, discountAmount,
+			thumbnail, species, brand, regDate)
 	</select>
 	
 </mapper>

@@ -36,6 +36,8 @@ public class ProductListServiceImpl implements ProductListService {
 			map.put("endNum", 30);
 			
 			recentProducts = mapper.listRecentProducts(map);
+			
+			System.out.println("size: " + recentProducts.size());
 			for (Product product : recentProducts) {
 				product.setRegDate(product.getRegDate().substring(0, 10));
 			}

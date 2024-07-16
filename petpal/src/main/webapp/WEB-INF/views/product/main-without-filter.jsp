@@ -64,7 +64,7 @@
 			                        </strong>
 		                        </p>
 	                        </c:if>
-	                        <p class="text-rate">평점</p>
+	                        <p class="text-rate">${product.rating}</p>
 	                    </div>
 	                </div>
             	</c:forEach>
