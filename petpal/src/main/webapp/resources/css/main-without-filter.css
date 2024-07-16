@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+main .page-description {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+main .list-h {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+main .list-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+main .list-h > h2 {
+    margin-bottom: 20px;
+}
+
+main .category-box {
+    width: 100%;
+    min-height: 40px;
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+main .category-list {
+    margin: 0;
+}
+
+main .category-list > li {
+    padding: 10px 0;
+}
+
+main .product-box {
+    width: calc(20% - 10px);
+    margin-bottom: 15px;
+}
+
+main .product-img-box {
+    width: 100%;
+}
+
+main .product-img-box > img {
+    width: 100%;
+}
+
+main .product-box:nth-child(5n) {
+    margin-right: 0;
+}
+
+main .page-box {
+    text-align: center;
+}
+
+main .page-box > span, .page-box > a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+main .page-box > a, a:link, a:visited {
+    text-decoration: none;
+}
+
+main .dropdown {
+    position: relative;
+    width: 100px;
+}
+
+main .dropdown-menu-han {
+    position: absolute;
+    text-align: center;
+    width: 80%;
+    padding: 0;
+    border: 1px solid #434347;
+}
+
+main .menu-hidden {
+    border: none;
+}
+
+main .menu-shown {
+    border: 1px solid #434347;
+}
+
+main .menu-hidden > .menu-item {
+    display: none;
+}
+
+main .menu-shown > .menu-item {
+    display: block;
+}
+
+main .dropdown-button, .menu-item {
+    background: white;
+    padding: 5px;
+}
+
+main .dropdown-button {
+    border: 1px solid #434347;
+    width: 80%;
+    border-radius: 5px;
+}
+
+main .menu-item:hover {
+    filter:brightness(0.5);
+}
+
+main ul.list-h > li:hover {
+    color: #E4B075;
+    cursor: pointer;
+}
+
+p {
+	margin: 0;
+}
+
+.text-brand {
+	font-size: 13px;
+	font-weight: 900;
+}
+
+p.text-name {
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+
+.text-price {
+	font-size: 13px;
+	color: #A1A1A1;
+	text-decoration: line-through;
+}
+
+.text-discountRate {
+	color: #EA333E;
+	margin-right: 4px;
+}
+.text-discountRate::after {
+	content: '%';
+}
+
+.text-discountedPrice {
+	font-weight: 900;
+}
+
+.text-discountedPrice::after {
+	content: '원';
+}
+
+.text-rate {
+	font-size: 12px;
+	color: #A1A1A1;
+}

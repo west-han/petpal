@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/icon/bootstrap-icons.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" type="text/css">
 		
 	<link rel="stylesheet" href="${pageContext.request.contextPath}<tiles:getAsString name="dynamic-css"/>"/>
 	

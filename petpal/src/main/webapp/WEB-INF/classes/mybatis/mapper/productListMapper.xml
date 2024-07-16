@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.mapper.ProductListMapper">
+	
+	<select id="listCategory" parameterType="Integer" resultType="map">
+		SELECT categoryNum, categoryName, sortOrder, species
+		FROM category
+		WHERE parentCategory IS NULL
+			AND species = #{species}
+		ORDER BY sortOrder ASC
+	</select>
+	
+	<select id="listSubCategory" parameterType="map" resultType="map">
+		SELECT categoryNum, categoryName, parentCategory, sortOrder, species
+		FROM category
+		WHERE parentCategory = #{categoryNum}
+        	AND species = #{species}
+    	ORDER BY sortOrder ASC
+	</select>
+	
+	<!-- 신상품 -->
+	<select id="listRecentProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
+		SELECT productNum, productName, productClass, price, discountRate, 
+				discountAmount, thumbnail, species, brand, regDate
+		FROM (SELECT inner.*, ROWNUM rnum
+			FROM (
+				SELECT *
+				FROM product
+				WHERE TO_CHAR(regDate, 'YYYYMMDD') &gt;= #{baseDate}
+				<if test="categoryNum != 0">
+					AND categoryNum = #{categoryNum}
+				</if>
+				ORDER BY regDate DESC
+			) inner
+			WHERE ROWNUM &lt;= #{endNum}
+		)
+		WHERE rnum &gt;= #{startNum}
+	</select>
+	
+</mapper>
