@@ -33,7 +33,6 @@ a {
 	text-decoration: none;
 }
 
-
 .category-header {
 	list-style-type: none;
 	text-align: center;
@@ -45,7 +44,18 @@ a {
 .mypage {
 	text-align: center;
 }
+
+.text-center {
+	text-align: center;
+}
 </style>
+
+<script type="text/javascript">
+	function searchList() {
+		const f = document.searchForm;
+		f.submit();
+	}
+</script>
 </head>
 <body>
 	<div class="container mt-5">
@@ -84,13 +94,20 @@ a {
 			<div class="col-md-9 ms-5">
 				<h2>적립금</h2>
 				<div class="total-points">
-					<h3>적립금 총액: 100,000원</h3>
+					<h3>적립금 총액: ${totalPoint}</h3>					
 				</div>
+				<form action="${pageContext.request.contextPath}/myPage2/mypoint" method="get" name="searchForm">
+					<div class="input-group mb-3">
+  						<input type="date" class="form-control" name="startDate" value="${startDate}"  placeholder="start">
+  						<button type="button" class="input-group-text" onclick="searchList();">검색</button>
+ 						<input type="date" class="form-control" name="endDate" value="${endDate}" placeholder="end">
+					</div>
+				</form>
 				<div class="card mb-3">
 					<div class="card-header">적립금 내역</div>
 					<div class="card-body">
 						<table class="table table-striped">
-							<thead>
+							<thead class="thead text-center">
 								<tr>
 									<th>적립일</th>
 									<th>구분</th>
@@ -98,25 +115,60 @@ a {
 									<th>소멸일</th>
 								</tr>
 							</thead>
-							<tbody>
-							<c:forEach var="dto" items="${list}">
-								<tr>
-									<td>${dto.regDate }</td>
-									<td>${dto.classify }</td>
-									<td>${dto.point }</td>
-									<td>2025.07.01</td>
-								</tr>
-							</c:forEach>
-								
+							<tbody class="tbody text-center">
+								<c:forEach var="dto" items="${list}">
+									<tr>
+										<td>${dto.regDate }</td>
+										<td>
+										<c:choose>
+											<c:when test="${dto.classify == 0}">
+                    							구매적립
+                							</c:when>
+											<c:when test="${dto.classify == 1}">
+                    							이벤트적립
+                							</c:when>
+											<c:when test="${dto.classify == 2}">
+                    							사용
+                							</c:when>
+											<c:when test="${dto.classify == 3}">
+                    							소멸
+                							</c:when>
+											<c:otherwise>
+                    							어떻게 얻었니?
+                							</c:otherwise>
+										</c:choose>
+										</td>
+										<td>
+											<c:choose>
+											<c:when test="${dto.classify == 0}">
+                    							+ ${dto.point }
+                							</c:when>
+											<c:when test="${dto.classify == 1}">
+                    							+ ${dto.point }
+                							</c:when>
+											<c:when test="${dto.classify == 2}">
+                    							- ${dto.point }
+                							</c:when>
+											<c:when test="${dto.classify == 3}">
+                    							- ${dto.point }
+                							</c:when>
+											<c:otherwise>
+                    							오류
+                							</c:otherwise>
+                							</c:choose>
+										</td>
+										<td>2025.07.01</td>
+									</tr>
+								</c:forEach>
+
 							</tbody>
 						</table>
-						
-						<div class="page-navigation">
-							${dataCount == 0 ? "포인트내역이 없습니다." : paging}
+
+						<div class="page-navigation">${dataCount == 0 ? "포인트내역이 없습니다." : paging}
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

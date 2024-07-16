@@ -10,5 +10,6 @@ public interface MypageMapper2 {
 	public List<Mypage2> myPointList(long memberNum) throws SQLException;
 	public int pointDataCount(long memberNum) throws SQLException;
 	public List<Mypage2> myPointListPaged(Map<String, Object> params) throws SQLException;
+	public int myTotalPoint(long memberNum) throws SQLException;
 	
 }

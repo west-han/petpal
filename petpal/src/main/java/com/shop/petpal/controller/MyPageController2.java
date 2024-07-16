@@ -58,7 +58,10 @@ public class MyPageController2 {
                               Model model) throws Exception {
         // 마이페이지 포인트리스트
         SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+        
+        if(info == null) {
+        	return "redirect:/member/login";
+        }
        
 
         long memberNum = info.getMemberNum(); // SessionInfo 객체에서 memberNum 가져오기
@@ -67,10 +70,11 @@ public class MyPageController2 {
         int size = 10;
         int total_page;
         int dataCount;
-
+        int totalPoint = 0;
+        
         dataCount = service.pointDataCount(memberNum);
         total_page = myUtil.pageCount(dataCount, size);
-
+        totalPoint = service.myTotalPoint(memberNum);
         if (total_page < current_page) {
             current_page = total_page;
         }
@@ -111,6 +115,7 @@ public class MyPageController2 {
         model.addAttribute("paging", paging);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
+        model.addAttribute("totalPoint", totalPoint);
 
         return ".myPage2.mypoint";
     }
