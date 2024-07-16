@@ -46,7 +46,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		}
 		
 		HttpSession session = request.getSession();
-		Member member = memberService.findById(email);
+		Member member = memberService.loginMember(email);
 		SessionInfo info = new SessionInfo();
 		
 		info.setMemberNum(member.getMemberNum());

@@ -173,6 +173,18 @@ public class MemberServiceImpl implements MemberService {
 				
 		return dto;
 	}
+
+	@Override
+	public Member loginMember(String email) {
+		Member dto = null;
+		
+		try {
+			 dto = mapper.loginMember(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	
 	
 }

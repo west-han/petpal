@@ -6,7 +6,7 @@ import java.util.Map;
 import com.shop.petpal.domain.Member;
 
 public interface MemberMapper {
-	public Member loginMember(String email);
+	public Member loginMember(String email); // 세션에 저장
 	public void updateLastLogin(String email) throws SQLException;
 	public void updateFailureCount(String email) throws SQLException;
 	public Member findById(String email);

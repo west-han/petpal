@@ -6,6 +6,7 @@ import java.util.Map;
 import com.shop.petpal.domain.Member;
 
 public interface MemberService {
+	public Member loginMember(String email); // 세션 로그인
 	public void updateLastLogin(String email) throws SQLException;
 	public void updateFailureCount(String email) throws SQLException;
 	public void updateMember(Member dto) throws Exception;

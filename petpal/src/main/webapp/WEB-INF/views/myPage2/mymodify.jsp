@@ -40,6 +40,97 @@ a {
 	text-align: center;
 }
 </style>
+
+<script type="text/javascript">
+function memberOk() {
+	const f = document.memberForm;
+	let str;
+	
+	str = f.nickname.value;
+    const nicknamePattern = /^[a-zA-Z가-힣0-9]{2,6}$/;
+    if (!nicknamePattern.test(str)) {
+        alert("닉네임은 2글자 이상 6자 이하의 영어, 한글, 숫자만 가능합니다.");
+        f.nickname.focus();
+        return;
+    }
+    
+    if ($('#userNicknameValid').val() !== 'true') {
+        alert("닉네임 중복 체크를 해주세요");
+        f.nickname.focus();
+        return;
+    }
+    
+    str = f.userName.value;
+    if( !/^[가-힣]{2,5}$/.test(str) ) {
+        alert("이름을 다시 입력하세요. ");
+        f.userName.focus();
+        return;
+    }
+    
+    str = f.birth.value;
+    if( !str ) {
+        alert("생년월일를 입력하세요. ");
+        f.birth.focus();
+        return;
+    }
+    
+    str = f.tel1.value;
+    if( !str ) {
+        alert("전화번호를 입력하세요. ");
+        f.tel1.focus();
+        return;
+    }
+
+    str = f.tel2.value;
+    if( !/^\d{3,4}$/.test(str) ) {
+        alert("숫자만 가능합니다. ");
+        f.tel2.focus();
+        return;
+    }
+
+    str = f.tel3.value;
+    if( !/^\d{4}$/.test(str) ) {
+    	alert("숫자만 가능합니다. ");
+        f.tel3.focus();
+        return;
+    }
+    f.submit();
+}
+function userNicknameCheck() {
+    // 닉네임 중복 검사
+    let nickname = $('#nickname').val();
+
+    const nicknamePattern = /^[a-zA-Z가-힣0-9]{2,6}$/;
+    if (!nicknamePattern.test(nickname)) {
+        let str = '닉네임은 2글자 이상 6자 이하의 영어, 한글, 숫자만 가능합니다.';
+        $('#nickname').focus();
+        $('.userNickname-box').find('.help-block').html(str);
+        return;
+    }
+    let url = '${pageContext.request.contextPath}/myPage2/userNicknameCheck';
+
+    // AJAX:POST-JSON
+    $.post(url, { nickname: nickname }, function(data) {
+        let passed = data.passed;
+
+        console.log("AJAX Response:", data); // 응답 확인
+
+        if (passed === 'true') {
+            let str = '<span style="color:blue; font-weight: bold;">' + nickname + '</span> 닉네임은 사용 가능합니다.';
+            $('.userNickname-box').find('.help-block').html(str);
+            $('#userNicknameValid').val('true');
+        } else {
+            let str = '<span style="color:red; font-weight: bold;">' + nickname + '</span> 닉네임은 사용할 수 없습니다.';
+            $('.userNickname-box').find('.help-block').html(str);
+            $('#nickname').val('');
+            $('#userNicknameValid').val('false');
+            $('#nickname').focus();
+        }
+    }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+        console.error("AJAX Error:", textStatus, errorThrown); // 오류 확인
+    });
+}
+</script>
 </head>
 <body>
 <div class="container mt-5">
@@ -73,10 +164,11 @@ a {
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <p><strong>이름:</strong> 사용자 이름</p>
-                                <p><strong>생년월일:</strong> 1990-01-01</p>
-                                <p><strong>전화번호:</strong> 010-1234-5678</p>
-                                <p><strong>닉네임:</strong> 닉네임</p>
+                                <p><strong>이름:</strong> ${dto.userName }</p>
+                                <p><strong>생년월일:</strong> ${dto.birth }</p>
+                                <p><strong>전화번호:</strong> ${dto.tel }</p>
+                                <p><strong>닉네임:</strong> ${dto.nickname }</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -88,24 +180,47 @@ a {
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <form>
+                                <form action="${pageContext.request.contextPath}/myPage2/updateMember" method="post" name="memberForm">
                                     <div class="form-group">
                                         <label for="userName">이름</label>
-                                        <input type="text" class="form-control" id="userName" value="사용자 이름">
+                                        <input type="text" class="form-control" id="userName" name="userName" value="${dto.userName }">
                                     </div>
                                     <div class="form-group">
-                                        <label for="userBirthday">생년월일</label>
-                                        <input type="date" class="form-control" id="userBirthday" value="1990-01-01">
+                                        <label for="birth">생년월일</label>
+                                        <input type="date" class="form-control" id="birth" name="birth" value="${dto.birth}">
                                     </div>
+                                    <div class="form-group row">
+									    <label for="tel1">전화번호</label>
+									    <div class="col-sm-10 row">
+									        <div class="col-sm-3 pe-1">
+									            <input type="text" name="tel1" id="tel1" class="form-control" maxlength="3" value="${dto.tel1 }">
+									        </div>
+									        <div class="col-sm-1 px-1">
+									            <p class="form-control-plaintext text-center">-</p>
+									        </div>
+									        <div class="col-sm-3 px-1">
+									            <input type="text" name="tel2" id="tel2" class="form-control" maxlength="4" value="${dto.tel2}">
+									        </div>
+									        <div class="col-sm-1 px-1">
+									            <p class="form-control-plaintext text-center">-</p>
+									        </div>
+									        <div class="col-sm-3 ps-1">
+									            <input type="text" name="tel3" id="tel3" class="form-control" maxlength="4" value="${dto.tel3 }">
+									        </div>
+									    </div>
+									</div>
                                     <div class="form-group">
-                                        <label for="userPhone">전화번호</label>
-                                        <input type="tel" class="form-control" id="userPhone" value="010-1234-5678">
+                                        <label for="nickname">닉네임</label>
+                                        <div class="input-group userNickname-box">
+                                        <input type="text" class="form-control" id="nickname" name="nickname" value="${dto.nickname}">
+                                        <button class="btn btn-outline-secondary" type="button" id="nickname-check" onclick="userNicknameCheck();">중복 체크</button>
+                                        <small class="form-control-plaintext help-block">닉네임을 중복체크 해주세요.</small>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="userNickname">닉네임</label>
-                                        <input type="text" class="form-control" id="userNickname" value="닉네임">
-                                    </div>
-                                    <button type="submit" class="btn btn-success">저장</button>
+                                    <div class="d-flex justify-content-end mt-3">
+        								<button type="button" class="btn btn-success" onclick="memberOk();">저장</button>
+        								<input type="hidden" name="userNicknameValid" id="userNicknameValid" value="false">
+    								</div>
                                 </form>
                             </div>
                         </div>

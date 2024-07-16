@@ -13,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.petpal.common.MyUtil;
+import com.shop.petpal.domain.Member;
 import com.shop.petpal.domain.Mypage2;
 import com.shop.petpal.domain.SessionInfo;
+import com.shop.petpal.service.MemberService;
 import com.shop.petpal.service.Mypage2Service;
 
 @Controller
@@ -27,6 +31,9 @@ public class MyPageController2 {
 
 	@Autowired
 	private Mypage2Service service;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@Autowired
 	private MyUtil myUtil;
@@ -127,9 +134,60 @@ public class MyPageController2 {
 	}
 
 	@GetMapping("mymodify")
-	public String mymodifyFrom() throws Exception {
+	public String mymodifyFrom(Model model, HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		
+		// member2에 대한 birth, address1,address2,tel,nickname,userName,postalCode 의 값들을 가져옴
+		Member memberDto = service.findByMember(info.getMemberNum());
 
+		// jsp한테 dto의 값을 보냄
+		model.addAttribute("dto", memberDto);
+		model.addAttribute("info", info);
 		return ".myPage2.mymodify";
+	}
+	
+	@PostMapping("userNicknameCheck")
+	@ResponseBody
+	public Map<String, Object> nickNameCheck(@RequestParam String nickname, HttpSession session) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String p = "true";
+		Member memberDto = memberService.findByNickName(nickname);
+		if (memberDto != null) {
+	        // 현재 사용자가 같은 닉네임을 사용 중인 경우
+	        if (info.getNickname().equals(memberDto.getNickname())) {
+	            p = "true";
+	        } else {
+	            p = "false";
+	           
+	        }
+	    }
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("passed", p);
+		return model;
+	}
+	
+	@PostMapping("updateMember")
+	public String updateMemberSubmit(Member dto, HttpSession session) {
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			if (info == null) {
+	            // 세션이 만료된 경우 로그인 페이지로 리다이렉트
+	            return "redirect:/member/login";
+	        }
+			// dto에 memberNum 집어넣음
+			dto.setMemberNum(info.getMemberNum());
+			
+			service.updateMember(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/myPage2/mymodify";
 	}
 
 	@GetMapping("likelist")
