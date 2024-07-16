@@ -17,17 +17,30 @@
                 <div style="width: 200px;"></div>
                 <div class="logo-container">
                    <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
-                    <p class="name"><a href="${pageContext.request.contextPath}/main/main"><span class="highlight">PET</span>PAL</a></p>
+                    <p class="name"><a href="${pageContext.request.contextPath}/"><span class="highlight">PET</span>PAL</a></p>
                 </div>
                 <div class="search">
                     <input type="text" placeholder="어떤 상품을 찾고있개 ?">
                     <img src="${pageContext.request.contextPath}/resources/images/search.png" >
                 </div>
                 <div class="more">
-                    <img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기">
-                    <img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림">
-                    <img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자">
-                    <a href="${pageContext.request.contextPath}/myPage/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
+                	<div class="more">
+					    <c:choose>
+					        <c:when test="${empty sessionScope.member}">
+					            <a href="${pageContext.request.contextPath}/member/login"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
+					            <a href="${pageContext.request.contextPath}/member/login"><img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림"></a>
+					            <a href="${pageContext.request.contextPath}/member/login"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
+					            <a href="${pageContext.request.contextPath}/member/login"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
+					        </c:when>
+					        <c:otherwise>
+					            <a href="${pageContext.request.contextPath}/myPage2/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
+					            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림"></a>
+					            <a href="${pageContext.request.contextPath}/myPage2/orderlist"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
+					            <a href="${pageContext.request.contextPath}/myPage/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
+					        </c:otherwise>
+					    </c:choose>
+					</div>
+
                 </div>
                 <div style="width:200px;"></div>
             </div>
