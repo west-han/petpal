@@ -5,10 +5,16 @@ import java.util.List;
 public class ProductStockManage {
 	private long stockNum;//재고번호
 	private long productNum;//상품번호
-	private Long detailNum; // 상세번호
+	private Long detailNum1; // 상세번호
 	private Long detailNum2;// 상세번호
 	private int totalStock; //총계
-	
+	private Long detailNum;
+	public Long getDetailNum() {
+		return detailNum;
+	}
+	public void setDetailNum(Long detailNum) {
+		this.detailNum = detailNum;
+	}
 	private List<Long> stockNums;
 	private List<Long> detailNums;
 	private List<Long> detailNums2;
@@ -31,11 +37,11 @@ public class ProductStockManage {
 	public void setProductNum(long productNum) {
 		this.productNum = productNum;
 	}
-	public Long getDetailNum() {
-		return detailNum;
+	public Long getDetailNum1() {
+		return detailNum1;
 	}
-	public void setDetailNum(Long detailNum) {
-		this.detailNum = detailNum;
+	public void setDetailNum1(Long detailNum1) {
+		this.detailNum1 = detailNum1;
 	}
 	public Long getDetailNum2() {
 		return detailNum2;

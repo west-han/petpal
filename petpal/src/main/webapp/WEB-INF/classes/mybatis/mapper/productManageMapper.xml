@@ -67,5 +67,85 @@
 			INSERT INTO productAttribute (productNum, attrDtlNum)
 			VALUES (#{productNum}, #{attrDtlNum})
 	</insert>
+	
+	<select id="listProduct" parameterType="map" resultType="com.shop.petpal.admin.domain.ProductManage">
+		SELECT p.productNum,thumbnail,cg.categoryName, p.productName, p.price, p.discountRate, NVL(t.totalStock, 0),p.productStatus,
+    p.modifyDate
+		FROM product p
+		LEFT OUTER JOIN (
+			SELECT productNum, NVL(SUM(totalStock), 0) totalStock
+			FROM productStock
+			GROUP BY productNum
+		) t ON p.productNum = t.productNum
+		LEFT OUTER JOIN 
+    category cg ON p.categoryNum = cg.categoryNum
+		<where>
+			p.species = #{species}
+			<if test="categoryNum != 0">
+				AND parentCategory = #{parentCategory}
+			</if>
+			<if test="parentCategory != 0">
+				AND p.categoryNum = #{categoryNum}
+			</if>
+		</where>
+		ORDER BY p.productNum DESC
+	<!--	OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY  -->
+	</select>
+	
+	<select id="productCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM product p
+		JOIN category cg ON p.categoryNum = cg.categoryNum
+		<where>
+			p.species = #{species}
+			<if test="categoryNum != 0">
+				AND parentCategory = #{parentCategory}
+			</if>
+			<if test="parentCategory != 0">
+				AND p.categoryNum = #{categoryNum}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 상품 재고 -->
+	<insert id="insertProductStock" parameterType="com.shop.petpal.admin.domain.ProductStockManage">
+		INSERT INTO productStock(stockNum, productNum, detailNum1, detailNum2, totalStock)
+			VALUES (productStock_seq.NEXTVAL, #{productNum}, 
+				#{detailNum1, jdbcType=BIGINT}, #{detailNum2, jdbcType=BIGINT},
+				#{totalStock})
+	</insert>
+	
+	<update id="updateProductStock" parameterType="com.shop.petpal.admin.domain.ProductStockManage">
+		UPDATE productStock SET totalStock = #{totalStock}
+		WHERE stockNum = #{stockNum}
+	</update>
+
+	<select id="listProductStock" parameterType="map" resultType="com.shop.petpal.admin.domain.ProductStockManage">
+		SELECT p.productNum, p.productName, 
+			po1.optionNum, po1.optionName,
+			po2.optionNum optionNum2, po2.optionName optionName2,
+			d1.detailNum, d1.optionValue, 
+			d2.detailNum detailNum2, d2.optionValue optionValue2,
+		 	ps.stockNum, NVL(ps.totalStock, 0) totalStock
+		FROM product p 
+		LEFT OUTER JOIN productOption po1 ON p.productNum = po1.productNum AND parentOption IS NULL
+		LEFT OUTER JOIN productOption po2 ON po1.optionNum = po2.parentOption
+        LEFT OUTER JOIN optionDetail d1 ON po1.optionNum = d1.optionNum
+        LEFT OUTER JOIN optionDetail d2 ON po2.optionNum = d2.optionNum
+        <choose>
+        	<when test="optionCount == 0">
+        		LEFT OUTER JOIN productStock ps ON p.productNum = ps.productNum
+        	</when>
+        	<when test="optionCount == 1">
+        		LEFT OUTER JOIN productStock ps ON d1.detailNum = ps.detailNum
+        	</when>
+        	<otherwise>
+        		LEFT OUTER JOIN productStock ps ON d1.detailNum = ps.detailNum AND d2.detailNum = ps.detailNum2
+        	</otherwise>
+        </choose>
+		WHERE p.productNum = #{productNum}
+        ORDER BY detailNum, detailNum2
+	</select>
+	
 
 </mapper>

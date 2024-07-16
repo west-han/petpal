@@ -2,10 +2,12 @@ package com.shop.petpal.admin.controller;
 
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.petpal.admin.domain.Attribute;
 import com.shop.petpal.admin.domain.ProductManage;
+import com.shop.petpal.admin.domain.ProductStockManage;
 import com.shop.petpal.admin.service.ProductManageService;
 import com.shop.petpal.common.MyUtil;
-
 
 @Controller
 @RequestMapping("/admin/product/*")
@@ -115,11 +117,95 @@ public class ProductManageController {
 
 
 	@GetMapping("list")
-    public String listProducts(Model model) {
+    public String listProducts(
+    		@RequestParam(defaultValue = "1") int species,
+    		@RequestParam(defaultValue = "0") int parentCategory,
+    		@RequestParam(defaultValue = "0") int categoryNum,
+    		HttpServletRequest req,
+			Model model) {
+		
+        List<Map<String, Object>> categories = service.listCategory(species);  
+        model.addAttribute("categories", categories);
+        
+        //int classify = menuItem.orElse(100);
+		
+		String cp = req.getContextPath();
+		
+		int size = 10;
+		//int total_page;
+		int dataCount;
+        
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+	//		kwd = URLDecoder.decode(kwd, "UTF-8");
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("species", species);
+		map.put("parentCategory", parentCategory);
+		map.put("categoryNum", categoryNum);
+        
+		dataCount = service.productCount(map);
+//		total_page = myUtil.pageCount(dataCount, size);
 		/*
-        List<ProductManage> products = ProductManageService.getAllProducts();  
-        model.addAttribute("products", products);
-        */
+		if(current_page > total_page) {
+			current_page = total_page;
+		}
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		*/
+		
+		List<ProductManage> list = service.listProduct(map);
+		model.addAttribute("species",species);
+		model.addAttribute("list",list);
+		model.addAttribute("dataCount",dataCount);
+		
+		
+
+		model.addAttribute("parentCategory", parentCategory);
+		
         return ".admin.product.list";
     }
+	
+	// AJAX-Text
+		@GetMapping("listProductStock")
+		public String listProductStock(@RequestParam Map<String, Object> paramMap, Model model) throws Exception {
+			// 상세 옵션별 재고 -----
+			try {
+				List<ProductStockManage> list = service.listProductStock(paramMap); // productNum, optionCount
+				
+				if(list.size() >= 1) {
+					String productName = list.get(0).getProductName();
+					String title = list.get(0).getOptionName();
+					String title2 = list.get(0).getOptionName2();
+					
+					model.addAttribute("productNum", paramMap.get("productNum"));
+					model.addAttribute("productName", productName);
+					model.addAttribute("title", title);
+					model.addAttribute("title2", title2);
+				}
+				
+				model.addAttribute("list", list);
+			} catch (Exception e) {
+			}
+			
+			return "admin/product/listProductStock";
+		}
+		
+		@PostMapping("updateProductStock")
+		@ResponseBody
+		public Map<String, Object> updateProductStock(ProductStockManage dto) throws Exception {
+			// 상세 옵션별 재고 추가 또는 변경 -----
+			String state = "true";
+			try {
+				service.updateProductStock(dto);
+			} catch (Exception e) {
+				state = "false";
+			}
+			
+			Map<String, Object> model = new HashMap<>();
+			model.put("state", state);
+			return model;
+		}
 }

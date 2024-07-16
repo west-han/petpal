@@ -2,7 +2,6 @@ package com.shop.petpal.admin.service;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.petpal.admin.domain.Attribute;
 import com.shop.petpal.admin.domain.ProductManage;
+import com.shop.petpal.admin.domain.ProductStockManage;
 import com.shop.petpal.admin.mapper.ProductManageMapper;
 import com.shop.petpal.common.FileManager;
 
@@ -146,4 +146,71 @@ public class ProductManageServiceImpl implements ProductManageService {
 			throw e;
 		}
 	}
+
+	@Override
+	public int productCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.productCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<ProductManage> listProduct(Map<String, Object> map) {
+		 List<ProductManage> list = null;
+		 
+		 try {
+			list = mapper.listProduct(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 
+		return list;
+	}
+
+	@Override
+	public List<ProductStockManage> listProductStock(Map<String, Object> map) {
+		List<ProductStockManage> list = null;
+		
+		try {
+			// 상세 옵션별 재고 현황 -----
+			list = mapper.listProductStock(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void updateProductStock(ProductStockManage dto) throws Exception{
+		try {
+			// 상세 옵션별 재고 추가 또는 변경 -----
+			for(int idx = 0; idx < dto.getStockNums().size(); idx++) {
+				dto.setStockNum(dto.getStockNums().get(idx));
+				if(dto.getDetailNums() != null && dto.getDetailNums().get(idx) != 0) {
+					dto.setDetailNum1(dto.getDetailNums().get(idx));
+				}
+				if(dto.getDetailNums2() != null && dto.getDetailNums2().get(idx) != 0) {
+					dto.setDetailNum2(dto.getDetailNums2().get(idx));
+				}
+				dto.setTotalStock(dto.getTotalStocks().get(idx));
+				
+				if(dto.getStockNum() == 0) {
+					mapper.insertProductStock(dto);
+				} else {
+					mapper.updateProductStock(dto);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 }

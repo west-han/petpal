@@ -25,8 +25,16 @@ public class ProductManage {
 	private String origin;
 	private String brand;
 	private String manufacturer;
-
+	private int totalStock;
 	
+	public int getTotalStock() {
+		return totalStock;
+	}
+
+	public void setTotalStock(int totalStock) {
+		this.totalStock = totalStock;
+	}
+
 	// NOTE: 클라이언트가 전송한 파일을 컨트롤러에서 받기 위한 필드
 	private MultipartFile thumbnailFile;
 
@@ -53,6 +61,8 @@ public class ProductManage {
 	private List<Long> detailNums;
 	private List<String> optionValues;
 
+	
+	private Long detailNum1;
 	private Long detailNum2;
 	private String optionValue2;
 	private List<Long> detailNums2;
@@ -362,6 +372,14 @@ public class ProductManage {
 
 	public void setAttrDtlNums(List<Long> attrDtlNums) {
 		this.attrDtlNums = attrDtlNums;
+	}
+
+	public Long getDetailNum1() {
+		return detailNum1;
+	}
+
+	public void setDetailNum1(Long detailNum1) {
+		this.detailNum1 = detailNum1;
 	}
 	
 }
