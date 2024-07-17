@@ -21,7 +21,7 @@ public class ProductListController {
 	@Autowired
 	private ProductListService service;
 	
-	@GetMapping(value = {"recent/{species}/{categoryNum}", "recent", "recent/{species}"})
+	@GetMapping(value = {"recent", "recent/{species}", "recent/{species}/{categoryNum}"})
 	public String listRecentProducts(
 			@PathVariable(required = false) Integer species,
 			@PathVariable(required = false) Integer categoryNum,
@@ -57,20 +57,13 @@ public class ProductListController {
 		return ".product.main-without-filter";
 	}
 	
-	@GetMapping("best/{species}")
+	@GetMapping(value = {"best", "best/{species}", "best/{species}/{categoryNum}"})
 	public String listBestProducts(
 			@PathVariable(required = false) Integer species,
-			@RequestParam(defaultValue = "all") String category,
+			@PathVariable(required = false) Integer categoryNum,
+			@RequestParam(defaultValue = "1") int currentPage,
 			Model model) {
 
-		return "product/main-without-filter";
-	}
-	
-	@GetMapping("category/{species}/{categoryNum}")
-	public String listCategorizedProducts(
-			@PathVariable(required = false) Integer species,
-			@PathVariable(required = false) Integer categoryNum) {
-		
 		if (species == null) {
 			species = 1;
 		}
@@ -79,9 +72,77 @@ public class ProductListController {
 			categoryNum = 0;
 		}
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("categoryNum", categoryNum);
+		map.put("species", species);
+		map.put("currentPage", currentPage);
 		
+		try {
+			List<Map<String, Object>> categories = service.listCategory(species);
+			List<Product> bestProducts = service.listBestProducts(map);
+			
+			model.addAttribute("species", species);
+			model.addAttribute("categories", categories);
+			model.addAttribute("products", bestProducts);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return "product/main-with-filter";
+		model.addAttribute("mode", "best");
+		
+		return ".product.main-without-filter";
+	}
+	
+	@GetMapping(value = {"category", "category/{species}", "category/{species}/{parentCategory}",
+			"category/{species}/{parentCategory}/{categoryNum}"})
+	public String listCategorizedProducts(
+			@PathVariable(required = false) Integer species,
+			@PathVariable(required = false) Integer parentCategory,
+			@PathVariable(required = false) Integer categoryNum,
+			@RequestParam(defaultValue = "1") int currentPage,
+			Model model) {
+		
+		if (species == null) {
+			species = 1;
+		}
+		
+		if (parentCategory == null) {
+			parentCategory = 0;
+		}
+
+		if (categoryNum == null) {
+			categoryNum = 0;
+		}
+		
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("species", species);
+			map.put("parentCategory", parentCategory);
+			map.put("categoryNum", categoryNum);
+
+			System.out.println("parentCategory: " + parentCategory + "\ncategoryNum: " + categoryNum);
+			
+			List<Map<String, Object>> categories = service.listCategory(species);
+			List<Map<String, Object>> subCategories = service.listSubCategory(map);
+			
+			for (Map<String, Object> map2 : subCategories) {
+				System.out.println("subcategory: " + map2.get("categoryNum") + "\tparentCategory: " + map2.get("parentCategory"));
+			}
+			
+			model.addAttribute("categories", categories);
+			model.addAttribute("subCategories", subCategories);
+			model.addAttribute("species", species);
+			model.addAttribute("parentCategory", parentCategory);
+			model.addAttribute("categoryNum", categoryNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(species);
+		
+		return ".product.main-with-filter";
 	}
 	
 	

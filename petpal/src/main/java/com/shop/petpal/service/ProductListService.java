@@ -7,5 +7,7 @@ import com.shop.petpal.domain.Product;
 
 public interface ProductListService {
 	public List<Map<String, Object>> listCategory(Integer species);
+	public List<Map<String, Object>> listSubCategory(Map<String, Object> map);
 	public List<Product> listRecentProducts(Map<String, Object> map);
+	public List<Product> listBestProducts(Map<String, Object> map);
 }
