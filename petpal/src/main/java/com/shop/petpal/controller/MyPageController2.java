@@ -215,7 +215,7 @@ public class MyPageController2 {
 		
 		
 		try {
-			
+			memberDto.setEmail(info.getEmail());
 			memberDto.setPassword(newPassword); // 새 비밀번호 설정
 			service.updateMemberPassword(memberDto);
 			
