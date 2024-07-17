@@ -65,6 +65,20 @@
                     </li>
                 </ul>
             </li>
+            <li class="menu--item menu--item__has_sub_menu">
+                <label class="menu--link" title="고객 정보 관리">
+                    <i class="menu--icon fa-solid fa-user"></i>
+                    <span class="menu--label">고객 정보 관리</span>
+                </label>
+                <ul class="sub_menu">
+                <li class="sub_menu--item">
+                        <a href="${pageContext.request.contextPath}/admin/member/list" class="sub_menu--link">고객 정보 관리</a>
+                    </li>
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link">쿠폰 관리</a>
+                    </li>
+                </ul>
+            </li>
             <li class="menu--item">
                 <a href="#" class="menu--link" title="공지 사항">
                     <i class="menu--icon fa-solid fa-headset"></i>
@@ -79,12 +93,7 @@
 			                    <span class="menu--label">매출 현황</span>
 			                </a>
 			</li>
-            <li class="menu--item">
-                <a href="#" class="menu--link" title="고객 정보 관리">
-                    <i class="menu--icon fa-solid fa-user"></i>
-                    <span class="menu--label">고객 정보 관리</span>
-                </a>
-            </li>
+            
         </ul>
     </nav>
 
