@@ -22,7 +22,7 @@
     align-items: center;
     position: fixed;
     top: 0;
-    left: 250px; /* left-nav와 겹치지 않도록 설정 */
+    left: 270px; /* left-nav와 겹치지 않도록 설정 */
     right: 0;
     z-index: 1000;
 }
@@ -53,7 +53,7 @@ a {
 
 .header2 {
 	font-family: 'MangoDdobak-B';
-    padding: 10px;
+    padding: 20px;
     margin-top : 100px;
     background-color: #d3b892; 
     display: flex;

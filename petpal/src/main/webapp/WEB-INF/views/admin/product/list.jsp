@@ -3,6 +3,81 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // 종 선택 변경 시
+    $("input[name='species']").change(function() {
+        updateProductList();
+    });
+
+    // 상위 카테고리 선택 변경 시
+    $("#changeCategory").change(function() {
+        updateSubCategories();
+        updateProductList();
+    });
+
+    // 하위 카테고리 선택 변경 시
+    $("select[name='categoryNum']").change(function() {
+        updateProductList();
+    });
+
+    function updateSubCategories() {
+        let parentCategory = $("#changeCategory").val();
+        let url = "${pageContext.request.contextPath}/admin/product/listSubCategory";
+        let query = { parentCategory: parentCategory };
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: query,
+            dataType: "json",
+            success: function(data) {
+                $("select[name='categoryNum']").empty();
+                $("select[name='categoryNum']").append("<option value=''>:: 하위 카테고리 선택 ::</option>");
+                $.each(data.subCategories, function(index, item) {
+                    let categoryNum = item.CATEGORYNUM;
+                    let categoryName = item.CATEGORYNAME;
+                    $("select[name='categoryNum']").append("<option value='"+categoryNum+"'>"+categoryName+"</option>");
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error:", textStatus, errorThrown);
+            }
+        });
+    }
+
+    function updateProductList() {
+        let species = $("input[name='species']:checked").val();
+        let parentCategory = $("#changeCategory").val();
+        let categoryNum = $("select[name='categoryNum']").val();
+        let url = "${pageContext.request.contextPath}/admin/product/listProduct";
+        let query = {
+            species: species,
+            parentCategory: parentCategory,
+            categoryNum: categoryNum
+        };
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: query,
+            dataType: "html",
+            success: function(data) {
+                $("#productListContainer").html(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error:", textStatus, errorThrown);
+            }
+        });
+    }
+
+    // 초기 로드 시 상품 리스트 업데이트
+    updateProductList();
+});
+</script>
+
 <script type="text/javascript">
 function searchList() {
 	const f = document.searchForm;
@@ -259,8 +334,10 @@ $(function(){
 						<div class="col-auto pt-2 text-end">
 							데이터개수/(페이지수/총 페이지)
 						</div>
+    
+    
 					</div>
-					
+						<div id="productListContainer">
 					<table class="table table-border table-list">
 						<thead>
 						
@@ -278,14 +355,14 @@ $(function(){
 						
 						</thead>
 						<tbody>
-						
+					
 							<c:forEach var="dto" items="${list}" varStatus="status">
 								<tr valign="middle">
 									<td>${dto.productNum}</td>
 									<td>${dto.categoryName}</td>
 									<td class="product-subject left">
 										<img src="${pageContext.request.contextPath}/uploads/product/admin">
-										<a href="#"><label>${dto.productName}</label></a>
+										${dto.productName}
 									</td>
 									<td>${dto.price}</td>
 									<td>${dto.discountRate}%</td>
@@ -326,10 +403,8 @@ $(function(){
 							</c:forEach>
 						</tbody>
 					</table>
-
-					<div class="page-navigation">
-						등록된 상품이 없습니다.	
-					</div>
+</div>
+		
 					
 					<table class="table table-borderless">
 						<tr>

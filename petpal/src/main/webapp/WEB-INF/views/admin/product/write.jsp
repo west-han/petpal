@@ -4,9 +4,13 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 950px;
+	max-width: 1300px;
+	margin-top: 140px;
+	margin-left: 80px;
 }
-
+.body-title h3{
+	font-size: 26px;
+}
 .table-form tr>td { vertical-align: middle; }
 .table-form tr:first-child { border-top: 2px solid #212529; }
 .table-form tr>td:first-child { text-align: center; }
@@ -500,7 +504,7 @@ $(function() {
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 상품 등록 </h3>
+			<h3><img src="${pageContext.request.contextPath}/resources/images/bone.png"> 상품 등록 </h3>
 		</div>
 		
 		<div class="body-main">
