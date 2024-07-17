@@ -69,7 +69,7 @@
 	</insert>
 	
 	<select id="listProduct" parameterType="map" resultType="com.shop.petpal.admin.domain.ProductManage">
-		SELECT p.productNum,thumbnail,cg.categoryName, p.productName, p.price, p.discountRate, NVL(t.totalStock, 0),p.productStatus,
+		SELECT p.productNum,thumbnail,cg.categoryName, p.productName, p.price, p.discountRate, NVL(t.totalStock, 0) totalStock,p.productStatus,
     p.modifyDate
 		FROM product p
 		LEFT OUTER JOIN (

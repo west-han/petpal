@@ -1,14 +1,5 @@
 ﻿@charset "UTF-8";
 
-header {
-	position: relative;
-	z-index: 999;
-
-	width: 100%; height: 60px;
-
-	background: #eeeeee;
-	box-shadow: rgba(0, 0, 0, 0.5) 0 -20px 20px 20px;
-}
 
 body {
 	color: #222;

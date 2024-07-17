@@ -168,6 +168,13 @@ public class ProductManageController {
         return ".admin.product.list";
     }
 	
+	 @GetMapping("listProduct")
+	    public String listProduct(@RequestParam Map<String, Object> paramMap, Model model) throws Exception {
+	        List<ProductManage> list = service.listProduct(paramMap);
+	        model.addAttribute("list", list);
+	        return "admin/product/listProduct";
+	    }
+	
 	// AJAX-Text
 		@GetMapping("listProductStock")
 		public String listProductStock(@RequestParam Map<String, Object> paramMap, Model model) throws Exception {

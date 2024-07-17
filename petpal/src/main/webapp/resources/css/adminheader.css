@@ -1,0 +1,79 @@
+@font-face {
+    /*굵기 : 300 400 700*/
+    font-family: 'MangoDdobak-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-W-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header {
+	font-family: 'MangoDdobak-B';
+    padding: 20px;
+    background-color: #DDC8B1; /* 배경색 이미지에 맞춰서 설정 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 270px; /* left-nav와 겹치지 않도록 설정 */
+    right: 0;
+    z-index: 1000;
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+    font-family: 'Cafe24Meongi-W-v1.0';
+    
+}
+
+.logo-container img {
+    width: 50px;
+    height: 50px;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+.logo-container p {
+  font-family: 'Cafe24Meongi-W-v1.0';
+    font-size: 58px;
+    
+}
+
+.logo-container .name .highlight {
+    color: #E4B075;
+}
+
+.header2 {
+	font-family: 'MangoDdobak-B';
+    padding: 20px;
+    margin-top : 100px;
+    background-color: #d3b892; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 270px; 
+    right: 0;
+    z-index: 1000;
+}
+
+.header2 p{
+	color: white;
+	font-family: 'MangoDdobak-B';
+	font-size: 18px;
+}
+.logout a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+

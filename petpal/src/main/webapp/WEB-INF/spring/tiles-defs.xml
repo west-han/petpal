@@ -15,6 +15,7 @@
 	
 	<definition name=".adminLayout" template="/WEB-INF/views/admin/layout/layout2.jsp">
 	    <put-attribute name="title" value="petpal" />
+	    <put-attribute name="header" value="/WEB-INF/views/admin/layout/adminheader.jsp" />
 	  	<put-attribute name="left" value="/WEB-INF/views/admin/layout/left.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
 	</definition>
