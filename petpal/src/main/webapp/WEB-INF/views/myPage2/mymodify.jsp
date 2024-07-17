@@ -130,6 +130,34 @@ function userNicknameCheck() {
         console.error("AJAX Error:", textStatus, errorThrown); // 오류 확인
     });
 }
+
+function updatePassWord() {
+	const f = document.updatePwdForm;
+	let str;
+	
+	str = f.password.value;
+	if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) { 
+		alert("패스워드를 다시 입력 하세요. ");
+		f.password.focus();
+		return;
+	}
+	
+	
+	str = f.newPassword1.value;
+	if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) { 
+		alert("패스워드를 다시 입력 하세요. ");
+		f.newPassword1.focus();
+		return;
+	}
+
+	if( str !== f.newPassword2.value ) {
+        alert("패스워드가 일치하지 않습니다. ");
+        f.newPassword2.focus();
+        return;
+	}
+	
+	f.submit();
+}
 </script>
 </head>
 <body>
@@ -168,6 +196,8 @@ function userNicknameCheck() {
                                 <p><strong>생년월일:</strong> ${dto.birth }</p>
                                 <p><strong>전화번호:</strong> ${dto.tel }</p>
                                 <p><strong>닉네임:</strong> ${dto.nickname }</p>
+                                <p><strong>닉네임:</strong> ${info.nickname }</p>
+                                <p><strong>닉네임:</strong> ${info.email }</p>
                                 
                             </div>
                         </div>
@@ -233,22 +263,25 @@ function userNicknameCheck() {
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <form>
+                                <form name="updatePwdForm" action="${pageContext.request.contextPath}/myPage2/updatePassWord" method="post">
                                     <div class="form-group">
-                                        <label for="currentPassword">현재 비밀번호</label>
-                                        <input type="password" class="form-control" id="currentPassword">
+                                        <label for="password">현재 비밀번호</label>
+                                        <input type="password" class="form-control" id="password" name="password">
                                     </div>
                                     <div class="form-group">
-                                        <label for="newPassword">새 비밀번호</label>
-                                        <input type="password" class="form-control" id="newPassword">
+                                        <label for="newPassword1">새 비밀번호</label>
+                                        <input type="password" class="form-control" id="newPassword1" name="newPassword1">
                                     </div>
                                     <div class="form-group">
-                                        <label for="confirmPassword">새 비밀번호 확인</label>
-                                        <input type="password" class="form-control" id="confirmPassword">
+                                        <label for="newPassword2">새 비밀번호 확인</label>
+                                        <input type="password" class="form-control" id="newPassword2" name="newPassword2">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+                                    <button type="button" class="btn btn-primary" onclick="updatePassWord();">비밀번호 변경</button>
                                 </form>
                             </div>
+                        </div>
+                        <div>
+                        ${message}
                         </div>
                     </div>
                 </div>

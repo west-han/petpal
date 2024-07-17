@@ -132,7 +132,20 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 
 	@Override
 	public void updateMemberPassword(Member memberDto) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			
+			boolean bPwdUpdate = ! isPasswordCheck(memberDto.getEmail(), memberDto.getPassword());
+			if(bPwdUpdate) {
+				String encPwd = bcryptEncoder.encode(memberDto.getPassword());
+				memberDto.setPassword(encPwd);
+				mapper.updateMemberPassword(memberDto);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 

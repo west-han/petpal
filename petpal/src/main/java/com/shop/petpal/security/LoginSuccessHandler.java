@@ -38,7 +38,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		String email = authentication.getName();
-		System.err.println("성공!");
+		
 		try {
 			memberService.updateLastLogin(email);
 		} catch (Exception e) {
@@ -53,6 +53,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		info.setMembershipNum(member.getMembershipNum());
 		info.setUserName(member.getUserName());
 		info.setNickname(member.getNickname());
+		info.setEmail(member.getEmail());
 		
 		session.setAttribute("member", info);
 		

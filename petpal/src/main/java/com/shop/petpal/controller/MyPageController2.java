@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.petpal.common.MyUtil;
 import com.shop.petpal.domain.Member;
@@ -186,6 +187,46 @@ public class MyPageController2 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return "redirect:/myPage2/mymodify";
+	}
+	
+	@PostMapping("updatePassWord")
+	public String updatePassWordSubmit(Member memberDto,
+			final RedirectAttributes reAttr,
+				HttpSession session,
+				 @RequestParam("password") String currentPassword,
+			     @RequestParam("newPassword1") String newPassword,
+			     @RequestParam("newPassword2") String confirmPassword){
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		memberDto.setMemberNum(info.getMemberNum());
+		// 현재 비밀번호 확인
+	    if (!service.isPasswordCheck(info.getEmail(), currentPassword)) {
+	        reAttr.addFlashAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
+	        return "redirect:/myPage2/mymodify";
+	    }
+		
+		if (!newPassword.equals(confirmPassword)) {
+	        reAttr.addFlashAttribute("message", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+	        return "redirect:/myPage2/mymodify";
+	    }
+		
+		
+		try {
+			
+			memberDto.setPassword(newPassword); // 새 비밀번호 설정
+			service.updateMemberPassword(memberDto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(info.getNickname() + "님의 비밀번호가 정상적으로 변경되었습니다.");
+		
+		reAttr.addFlashAttribute("message", sb.toString());
 		
 		return "redirect:/myPage2/mymodify";
 	}
