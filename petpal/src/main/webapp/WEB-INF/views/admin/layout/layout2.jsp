@@ -12,13 +12,16 @@
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/jquery/css/jquery-ui.min.css" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css">
-	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu2.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/forms.css" type="text/css">
+	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/paginate.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ui-css.css" type="text/css">
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminheader.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/left.css" type="text/css">
+	
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
 	
@@ -28,6 +31,7 @@
 
 <body>
 
+<tiles:insertAttribute name="header"/>
 <tiles:insertAttribute name="left"/>
 <main class="wrapper">
 	<tiles:insertAttribute name="body"/>

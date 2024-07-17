@@ -51,22 +51,16 @@
                             <img src="${pageContext.request.contextPath}/resources/images/menu.png" ><p style="padding-left: 5px;">카테고리</p>
                         </button>
                         <div class="dropdown-content">
-                            <a href="#">사료</a>
-                            <a href="#">간식</a>
-                            <a href="#">건강관리</a>
-                            <a href="#">위생/배변</a>
-                            <a href="#">케어용품</a>
-                            <a href="#">목욕용품</a>
-                            <a href="#">하우스/스탭</a>
-                            <a href="#">급식기/급수기</a>
-                            <a href="#">산책/이동장</a>
-                            <a href="#">장난감</a>
+                        	<a href="${pageContext.request.contextPath}/">전체</a>
+                           <c:forEach items="${categories}" var="category">
+                           	<a href="${pageContext.request.contextPath}/">${category.CATEGORYNAME}</a>
+                           </c:forEach>
                         </div>
                     </div>
                     <div class="line"></div>
                     <div class="menu2">
-                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/new.png" ><p>신상품</p></a></span>
-                        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
+                        <span><a href="${pageContext.request.contextPath}/products/recent/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/new.png" ><p>신상품</p></a></span>
+                        <span><a href="${pageContext.request.contextPath}/products/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
                         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
                         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>특가 상품</p></a></span>
                         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/clock.png"><p>타임 세일</p></a></span>

@@ -1,0 +1,114 @@
+body {
+   font-family: 'MangoDdobak-B';
+    margin: 0;
+    padding: 0;
+}
+.date-greeting {
+    width: 270px;
+    height:200px; 
+    background-color: #DDC8B1;
+    padding: 50px 0 10px 10px;
+    
+    
+}
+
+
+.date-greeting .date {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 30px;
+    
+}
+
+.date-greeting .greeting {
+    font-size: 20px;
+    color: white;
+    line-height: 40px;
+}
+.date-greeting .greeting .highlight {
+    font-size: 20px;
+    color: #E4A951;
+    line-height: 40px;
+}
+
+.left-nav {
+    width: 270px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    overflow-y: auto;
+    z-index: 900; /* header보다 낮은 z-index 설정 */
+}
+
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu--item {
+    position: relative;
+}
+
+.menu--link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.menu--link:hover,
+.active_menu {
+    background-color: #ddd;
+}
+
+.menu--icon {
+    margin-right: 10px;
+}
+
+.menu--item__has_sub_menu > .menu--link::after {
+    content: '\f078';
+    font-family: FontAwesome;
+    position: absolute;
+    right: 15px;
+}
+
+.sub_menu {
+    display: none;
+    list-style-type: none;
+    padding-left: 20px;
+    background-color: #f9f9f9;
+}
+
+.menu--subitens__opened .sub_menu {
+    display: block;
+}
+
+.sub_menu--item {
+    border-bottom: none;
+}
+
+.sub_menu--link {
+    padding: 10px 15px;
+    color: #666;
+    text-decoration: none;
+}
+
+.sub_menu--link:hover {
+    background-color: #ddd;
+}
+
+.collapse_menu {
+    display: none;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    background-color: #f7f7f7;
+}
+
+.collapse_menu--icon {
+    margin-right: 10px;
+}
