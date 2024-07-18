@@ -44,7 +44,7 @@
 		                        <if test="categoryNum != 0">
 									AND c.parentCategory = #{categoryNum}
 								</if>
-		                    ORDER BY regDate DESC
+		                    ORDER BY regDate ASC
 		                ) inner
 	               WHERE ROWNUM &lt;= #{endNum}
 	           )
@@ -58,6 +58,7 @@
 			thumbnail, species, brand, regDate)
 	</select>
 	
+	<!-- TODO: 리뷰가 없는 상품은 출력하지 않도록 수정 -->
 	<!-- 베스트 상품 -->
 	<select id="listBestProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
 		SELECT productNum, productName, productClass, price, discountRate, discountAmount, 
@@ -86,5 +87,18 @@
 		        ORDER BY sales DESC, rating DESC
 		    ) outter WHERE ROWNUM &lt;= #{endNum}
 		) WHERE rnum &gt;= #{startNum}
+	</select>
+	
+	<select id="listAttribute" parameterType="map" resultType="map">
+        SELECT  a.attributeNum, attributeName, categoryNum, attrDtlNum, attrDtlName
+		FROM attribute a
+		JOIN attributeDetail d
+			ON a.attributeNum = d.attributeNum
+		WHERE categoryNum = #{parentCategory}
+		ORDER BY attributeNum, attrDtlNum
+	</select>
+	
+	<select id="listCategorizedProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
+		SELECT * FROM product
 	</select>
 </mapper>
