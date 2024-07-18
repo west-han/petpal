@@ -23,10 +23,9 @@
             margin-bottom: 15px;
         }
         .list-group-item.active {
-			background-color: #E4B075;
-			border-color: #E4B075;
-		}
-        
+            background-color: #E4B075;
+            border-color: #E4B075;
+        }
         .modal-header {
             background-color: #007bff;
             color: white;
@@ -45,6 +44,37 @@
             text-decoration: none;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+    function daumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = '';
+                var extraAddr = '';
+
+                if (data.userSelectedType === 'R') {
+                    fullAddr = data.roadAddress;
+                } else {
+                    fullAddr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                document.getElementById('postalCode').value = data.zonecode;
+                document.getElementById('address1').value = fullAddr;
+                document.getElementById('address2').focus();
+            }
+        }).open();
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -73,19 +103,24 @@
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">배송지 추가</button>
                 </div>
                 <div id="addressList">
-                    <!-- 배송지 항목 예제 -->
-                    <div class="card address-item">
-                        <div class="card-body">
-                            <h5 class="card-title">배송지 이름</h5>
-                            <p class="card-text">받는 사람: 홍길동</p>
-                            <p class="card-text">전화번호: 010-1234-5678</p>
-                            <p class="card-text">주소: 서울특별시 강남구 테헤란로 123</p>
-                            <p class="card-text">우편번호: 12345</p>
-                            <p class="card-text">배송 메모: 부재 시 경비실에 맡겨 주세요.</p>
-                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAddressModal">수정</button>
-                            <button class="btn btn-danger" onclick="deleteAddress(this)">삭제</button>
+                    <c:forEach var="dto" items="${list}">
+                        <div class="card address-item">
+                            <div class="card-body">
+                                <h5 class="card-title">배송지 이름</h5>
+                                <p class="card-text">받는 사람: ${dto.recipientName}</p>
+                                <p class="card-text">전화번호: ${dto.tel}</p>
+                                <p class="card-text">주소: ${dto.address1}</p>
+                                <p class="card-text">${dto.address2}</p>
+                                <p class="card-text">우편번호: ${dto.postalCode}</p>
+                                <p class="card-text">배송 메모: ${dto.note}</p>
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAddressModal">수정</button>
+                                <form action="${pageContext.request.contextPath}/myPage2/deleteAddress" method="post" style="display:inline;">
+                                    <input type="hidden" name="destNum" value="${dto.destNum}">
+                                    <button type="submit" class="btn btn-danger">삭제</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -100,14 +135,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addAddressForm">
+                    <form id="addAddressForm" action="${pageContext.request.contextPath}/myPage2/addAddress" method="post">
                         <div class="mb-3">
                             <label for="recipientName" class="form-label">받는 사람 이름</label>
-                            <input type="text" class="form-control" id="recipientName" required>
+                            <input type="text" class="form-control" id="recipientName" name="recipientName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="form-label">전화번호</label>
-                            <input type="text" class="form-control" id="phone" required>
+                            <label for="tel" class="form-label">전화번호</label>
+                            <input type="text" class="form-control" id="tel" name="tel" required>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="postalCode">우편번호</label>
@@ -128,13 +163,14 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="deliveryNote" class="form-label">배송 메모</label>
-                            <input type="text" class="form-control" id="deliveryNote">
+                            <label for="note" class="form-label">배송 메모</label>
+                            <input type="text" class="form-control" id="note" name="note">
                         </div>
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="defaultAddress">
-                            <label class="form-check-label" for="defaultAddress">기본 배송지 설정</label>
+                            <input type="checkbox" class="form-check-input" id="defaultDest" name="defaultDest" value="0">
+                            <label class="form-check-label" for="defaultDest">기본 배송지 설정</label>
                         </div>
+                        <input type="hidden" id="defaultDestHidden" name="defaultDestHidden" value="0">
                         <button type="submit" class="btn btn-primary">추가</button>
                     </form>
                 </div>
@@ -151,14 +187,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editAddressForm">
+                    <form id="editAddressForm" action="${pageContext.request.contextPath}/myPage2/updateAddress" method="post">
                         <div class="mb-3">
                             <label for="editRecipientName" class="form-label">받는 사람 이름</label>
-                            <input type="text" class="form-control" id="editRecipientName" required>
+                            <input type="text" class="form-control" id="editRecipientName" name="recipientName" required>
                         </div>
                         <div class="mb-3">
                             <label for="editPhone" class="form-label">전화번호</label>
-                            <input type="text" class="form-control" id="editPhone" required>
+                            <input type="text" class="form-control" id="editPhone" name="tel" required>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="editPostalCode">우편번호</label>
@@ -180,12 +216,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="editDeliveryNote" class="form-label">배송 메모</label>
-                            <input type="text" class="form-control" id="editDeliveryNote">
+                            <input type="text" class="form-control" id="editDeliveryNote" name="note">
                         </div>
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="editDefaultAddress">
+                            <input type="checkbox" class="form-check-input" id="editDefaultAddress" name="defaultDest" value="0">
                             <label class="form-check-label" for="editDefaultAddress">기본 배송지 설정</label>
                         </div>
+                        <input type="hidden" id="editDefaultDestHidden" name="defaultDestHidden" >
                         <button type="submit" class="btn btn-primary">수정</button>
                     </form>
                 </div>
@@ -222,11 +259,6 @@
                     document.getElementById('address2').focus();
                 }
             }).open();
-        }
-
-        function deleteAddress(button) {
-            const addressItem = button.closest('.address-item');
-            addressItem.remove();
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

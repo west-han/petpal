@@ -17,4 +17,9 @@ public interface Mypage2Service {
 	public void updateMember(Member memberDto) throws Exception; // 회원정보 수정
 	public void updateMemberPassword(Member memberDto) throws Exception; // 비밀번호 수정
 	public boolean isPasswordCheck(String email, String password); // 비밀번호 체크
+	
+	// 회원 배송지
+	public List<Mypage2> selectAllList(long memberNum) throws Exception; // 나의 배송지 리스트
+	public void deleteDest(Mypage2 dto) throws Exception; // 배송지 삭제
+	public void insertDest(Mypage2 dto) throws Exception; // 배송지 추가
 }

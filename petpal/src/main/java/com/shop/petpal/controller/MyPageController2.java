@@ -244,10 +244,46 @@ public class MyPageController2 {
 	}
 	
 	@GetMapping("myaddress")
-	public String myaddressForm() throws Exception{
+	public String myaddressForm(HttpSession session,
+			Model model) throws Exception{
 		
+		try {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		if(info == null) {
+			return "redirect:/member/login";
+		}
+			
+		List<Mypage2> list = service.selectAllList(info.getMemberNum());
+			
+		model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return ".myPage2.myaddress";
 	}
 	
+	@PostMapping("addAddress")
+    public String addAddress(Mypage2 dto, HttpSession session,
+                             @RequestParam(defaultValue = "1") int defaultDest) throws Exception {
+        SessionInfo info = (SessionInfo) session.getAttribute("member");
+        dto.setMemberNum(info.getMemberNum());
+        dto.setDefaultDest(defaultDest); // 기본 배송지 설정 값을 DTO에 설정
+
+        service.insertDest(dto);
+
+        return "redirect:/myPage2/myaddress";
+    }
+	
+	@PostMapping("deleteAddress")
+    public String deleteAddress(@RequestParam long destNum, HttpSession session) throws Exception {
+        SessionInfo info = (SessionInfo) session.getAttribute("member");
+        Mypage2 dto = new Mypage2();
+        dto.setMemberNum(info.getMemberNum());
+        dto.setDestNum(destNum);
+        service.deleteDest(dto);
+        return "redirect:/myPage2/myaddress";
+    }
 
 }

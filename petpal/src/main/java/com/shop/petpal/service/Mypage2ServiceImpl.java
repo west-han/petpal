@@ -159,6 +159,40 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		return bcryptEncoder.matches(password, memberDto.getPassword());
 	}
 
-	
+	@Override
+	public List<Mypage2> selectAllList(long memberNum) throws Exception {
+		List<Mypage2> list = null;
+		
+		try {
+			list = mapper.selectAllList(memberNum);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void deleteDest(Mypage2 dto) throws Exception {
+		// TODO 배송지 삭제
+		try {
+            mapper.deleteDest(dto);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+	}
+
+	@Override
+	public void insertDest(Mypage2 dto) throws Exception {
+		// TODO 배송지 추가
+		
+		try {
+			mapper.insertDest(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

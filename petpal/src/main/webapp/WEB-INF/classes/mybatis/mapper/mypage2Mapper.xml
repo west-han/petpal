@@ -75,8 +75,31 @@
     	WHERE memberNum = #{memberNum}
 	</update>
 	
-	<!-- 아이디 찾기 -->
 	
+	
+	<!-- myaddress -->
+	<!-- 나의 배송지 리스트 -->
+	<select id="selectAllList" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
+		SELECT destNum,recipientName,defaultDest,tel,postalCode,address1,address2,note,memberNum
+		FROM memberDest
+		WHERE memberNum = #{memberNum}
+	</select>
+	
+	<!-- 배송지 삭제 -->
+	<delete id="deleteDest" parameterType="com.shop.petpal.domain.Mypage2">
+		DELETE FROM memberDest
+		WHERE memberNum = #{memberNum}
+		AND
+		destNum = #{destNum}
+	</delete>	
+	
+	<!-- 배송지 추가 -->
+	<insert id="insertDest" parameterType="com.shop.petpal.domain.Mypage2">
+		INSERT INTO memberDest(destNum,recipientName,defaultDest,tel,
+			postalCode,address1,address2,note,memberNum)
+		VALUES(memberdest_seq.NEXTVAL,#{recipientName},#{defaultDest},#{tel},
+			#{postalCode},#{address1},#{address2},#{note},#{memberNum})
+	</insert>
 	
 	
 </mapper>

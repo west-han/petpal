@@ -7,6 +7,72 @@ public class Mypage2 {
 	private int point; // 포인트 액수
 	private int balance; // 포인트 total
 	
+	private long memberNum; // 회원번호
+	private long destNum; // 배송지번호
+	private String recipientName; // 배송 받는사람 이름
+	private int defaultDest; // 기본 배송지(0)/일반 배송지(1)
+	private String tel; // 배송 전화번호
+	private String postalCode; // 우편번호
+	private String address1; // 기본 주소
+	private String address2; // 상세 주소
+	private String note; // 배송 메모
+	
+	
+	
+	public long getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(long memberNum) {
+		this.memberNum = memberNum;
+	}
+	public long getDestNum() {
+		return destNum;
+	}
+	public void setDestNum(long destNum) {
+		this.destNum = destNum;
+	}
+	public String getRecipientName() {
+		return recipientName;
+	}
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+	public int getDefaultDest() {
+		return defaultDest;
+	}
+	public void setDefaultDest(int defaultDest) {
+		this.defaultDest = defaultDest;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public long getPointNum() {
 		return pointNum;
 	}

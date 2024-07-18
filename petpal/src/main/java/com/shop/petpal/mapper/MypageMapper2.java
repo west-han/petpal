@@ -20,6 +20,10 @@ public interface MypageMapper2 {
 	public void updateMember(Member memberDto) throws SQLException; // 회원정보 수정
 	public void updateMemberPassword(Member memberDto) throws SQLException; // 비밀번호 수정
 	
+	// 회원 배송지
+	public List<Mypage2> selectAllList(long memberNum) throws SQLException; // 나의 배송지 리스트
+	public int deleteDest(Mypage2 dto) throws SQLException; // 배송지 삭제
+	public void insertDest(Mypage2 dto) throws SQLException; // 배송지 추가
 	
 	
 	
