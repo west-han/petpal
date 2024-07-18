@@ -36,7 +36,7 @@
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 쿠폰관리 </h3>
+			<h3><i class="fa-solid fa-ticket"></i> 쿠폰관리 </h3>
 		</div>
 		
 		<div id="couponlistContainer">

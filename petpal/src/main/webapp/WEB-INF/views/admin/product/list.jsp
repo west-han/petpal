@@ -114,7 +114,7 @@ $(document).ready(function() {
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 상품관리 </h3>
+			<h3><i class="menu--icon fa-solid fa-cube"></i> 상품관리 </h3>
 		</div>
 		
 		<div class="filters">
