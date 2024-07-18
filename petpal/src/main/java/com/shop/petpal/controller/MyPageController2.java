@@ -242,5 +242,12 @@ public class MyPageController2 {
 
 		return ".myPage2.myreview";
 	}
+	
+	@GetMapping("myaddress")
+	public String myaddressForm() throws Exception{
+		
+		return ".myPage2.myaddress";
+	}
+	
 
 }

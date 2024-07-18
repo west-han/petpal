@@ -103,6 +103,9 @@ a {
 						href="${pageContext.request.contextPath}/myPage2/mymodify">내
 							정보</a></li>
 					<li class="list-group-item"><a
+						href="${pageContext.request.contextPath}/myPage2/myaddress">나의
+							배송지</a></li>
+					<li class="list-group-item"><a
 						href="${pageContext.request.contextPath}/myPage2/likelist">찜
 							리스트</a></li>
 					<li class="category-header">my 활동</li>
@@ -110,6 +113,7 @@ a {
 						href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
 					<li class="list-group-item"><a
 						href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
+
 				</ul>
 			</div>
 

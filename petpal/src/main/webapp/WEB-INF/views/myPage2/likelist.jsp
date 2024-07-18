@@ -74,6 +74,7 @@ a {
 					<li class="category-header">my 정보</li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypet">나의 펫</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mymodify">내 정보</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myaddress">나의 배송지</a></li>
 					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage2/likelist">찜 리스트</a></li>
 					<li class="category-header">my 활동</li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
