@@ -2,8 +2,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
 
+<style type="text/css">
+.body-container {
+	max-width: 1300px;
+	margin-top: 140px;
+	margin-left: 80px;
+}
+.body-title h3{
+	font-size: 26px;
+}
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.filters .form-check {
+    margin-right: 20px;
+}
+.filters select, .filters input[type="text"] {
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+.filters button {
+    padding: 5px 10px;
+}
+</style>
+
+<!-- jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -78,208 +111,40 @@ $(document).ready(function() {
 });
 </script>
 
-<script type="text/javascript">
-function searchList() {
-	const f = document.searchForm;
-	f.submit();
-}
-
-function changeList() {
-	let parentNum = $("#changeCategory").val();
-	//let productShow = $("#changeShowProduct").val();
-
-	
-	const f = document.searchForm;
-	f.parentNum.value = parentNum;
-	f.categoryNum.value = 0;
-//	f.productShow.value = productShow;
-	searchList();
-}
-
-function changeSubList() {
-	let parentNum = $("#changeCategory").val();
-	let categoryNum = $("#categoryNum").val();
-//	let productShow = $("#changeShowProduct").val();
-
-	
-	
-	const f = document.searchForm;
-	f.parentNum.value = parentNum;
-	f.categoryNum.value = categoryNum;
-//	f.productShow.value = productShow;
-	searchList();
-}
-
-// 여기 위에 function들이 새로 요청보내주는 기능 아닌가?..
-
-
-
-// 탭
-$(function(){
-	$("button[role='tab']").on('click', function(){
-		const tab = $(this).attr("aria-controls");
-		
-		if(tab === "1") { // 일반상품
-			location.href="${pageContext.request.contextPath}/admin/product/100/main";
-		} else if( tab === "2") { // 오늘의 특가
-			location.href="${pageContext.request.contextPath}/admin/product/200/main";
-		}
-	});
-});
-
-function ajaxFun(url, method, formData, dataType, fn, file = false) {
-    const settings = {
-        type: method, 
-        data: formData,
-        dataType: dataType,
-        success: function(data) { 
-            fn(data);
-        },
-        beforeSend: function(jqXHR) {
-            jqXHR.setRequestHeader('AJAX', true);
-        },
-        complete: function () {
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("Error:", textStatus, errorThrown); // 콘솔 로그 추가
-            if(jqXHR.status === 403) {
-                login();
-                return false;
-            } else if(jqXHR.status === 400) {
-                alert('요청 처리가 실패 했습니다.');
-                return false;
-            }
-            console.log(jqXHR.responseText);
-        }
-    };
-    
-    if(file) {
-        settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-        settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
-    }
-    
-    $.ajax(url, settings);
-}
-
-
-$(function() {
-    $("form input[name=species]").change(function() {
-        const species = $("input[name=species]:checked").val();
-
-        // 기존 옵션들을 제거합니다.
-        $("form select[name=parentCategory]").find("option").remove();
-        $("#attr").children("td:eq(1)").remove();
-
-        // 기본 선택 옵션 추가
-        $("form select[name=parentCategory]").append("<option value='' selected>:: 상위 카테고리 선택 ::</option>");
-        $("#attr").append('<td><p style="color: red;">⚠️ 카테고리를 먼저 선택해 주세요.</p></td>');
-
-        // AJAX 요청
-        let url = "${pageContext.request.contextPath}/admin/product/listCategory";
-        let query = { species: species };
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            data: query,
-            dataType: "json",
-            success: function(data) {
-                // 받은 데이터를 사용하여 옵션 추가
-                if (data.categories && data.categories.length > 0) {
-                    data.categories.forEach(function(item) {
-                        const categoryNum = item.CATEGORYNUM;
-                        const categoryName = item.CATEGORYNAME;
-                        let option = '<option value="' + categoryNum + '">' + categoryName + '</option>';
-                        $("form select[name=parentCategory]").append(option);
-                    });
-                } else {
-                    console.log("No categories received.");
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error("Error:", textStatus, errorThrown);
-            }
-        });
-    });
-});
-
-
-
-$(function(){
-    $("form select[name=parentCategory]").change(function(){
-        let parentCategory = $(this).val();
-        console.log("Selected parent category:", parentCategory); // 콘솔 로그 추가
-
-        $("form select[name=categoryNum]").find('option').remove().end()
-            .append("<option value=''>:: 하위 카테고리 선택 ::</option>");
-
-        if(!parentCategory) {
-            $("#attr").children("td:eq(1)").remove().end().append('<p style="color: red;">⚠️ 카테고리를 먼저 선택해 주세요.</p>');
-            return false;
-        }
-
-        let url = "${pageContext.request.contextPath}/admin/product/listSubCategory";
-        let query = { parentCategory: parentCategory };
-
-        const printSubCategories = function(data) {
-            $.each(data.subCategories, function(index, item){
-                let categoryNum = item.CATEGORYNUM;
-                let categoryName = item.CATEGORYNAME;
-                let s = "<option value='"+categoryNum+"'>"+categoryName+"</option>";
-                $("form select[name=categoryNum]").append(s);
-            });
-        };
-        ajaxFun(url, "get", query, "json", printSubCategories);
-
-        url = "${pageContext.request.contextPath}/admin/product/listAttribute";
-
-        const printAttributes = function(data) {
-            let s = '<td>';
-            s += '<small class="form-detailCategory help-block">[사료] 카테고리와 적합한 속성을 선택하세요</small>';
-            s += '<table>';
-            const attributes = data.attributes.filter(
-                (attribute, idx, callback) => idx === callback.findIndex(
-                    (attribute2) => attribute2.attributeNum === attribute.attributeNum
-                )
-            ).map(item => { return {'attributeNum': item.attributeNum, 'attributeName': item.attributeName} });
-
-            for (let attribute of attributes) {
-                const attributeDetails = data.attributes.filter(
-                    (attribute2, idx) => attribute2.attributeNum === attribute.attributeNum
-                );
-
-                s += '<tr>';
-                s += '<td>' + attribute.attributeName + '</td>';
-                s += '<td>';
-                s += '<div class="form-check">';
-
-                for (let i in attributeDetails) {
-                    let attributeDetail = attributeDetails[i];
-                    let id = 'attrDtl-' + attributeDetail.attrDtlNum;
-                    let value = attributeDetail.attrDtlNum;
-                    s += '<span class="attrDtl">';
-                    s += '<input class="form-check-input" name="attrDtlNums" type="checkbox" value="' + value +'" id="' + id + '">';
-                    s += '<label class="form-check-label" for="' + id + '">' + attributeDetail.attrDtlName;
-                    s += '</label>';
-                    s += '</span>';
-                }
-                s += '</div>';
-                s += '</td></tr>';
-            }
-            s += '</table></td>';
-            $("#attr").children("td:eq(1)").remove().end().append(s);
-        };
-        ajaxFun(url, "get", query, "json", printAttributes);
-    });
-});
-
-</script>
-
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 상품관리 </h3>
+			<h3><i class="menu--icon fa-solid fa-cube"></i> 상품관리 </h3>
 		</div>
+		
+		<div class="filters">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="species" id="speciesRadio1" value="1" checked>
+                <label class="form-check-label" for="speciesRadio1">강아지</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="species" id="speciesRadio2" value="2">
+                <label class="form-check-label" for="speciesRadio2">고양이</label>
+            </div>
+            <select id="changeCategory" name="parentCategory" class="form-select">
+                <option value="">:: 상위 카테고리 선택 ::</option>
+                <c:forEach items="${categories}" var="category">
+                    <option value="${category.CATEGORYNUM}">${category.CATEGORYNAME}</option>
+                </c:forEach>
+            </select>
+            <select name="categoryNum" class="form-select">
+                <option value="">:: 하위 카테고리 선택 ::</option>
+                <c:if test="${empty categoryNum}">
+                    <option value="">상위 카테고리를 먼저 선택하세요</option>
+                </c:if>
+                <c:if test="${not empty categoryNum}">
+                    <c:forEach items="${subCategories}" var="subCategory">
+                        <option value="${subCategory.CATEGORYNUM}">${subCategory.CATEGORYNAME}</option>
+                    </c:forEach>
+                </c:if>
+            </select>
+           
+        </div>
 		
 		<div class="body-main">
 			<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
@@ -295,37 +160,7 @@ $(function(){
 				<div class="tab-pane fade show active" id="tab-pane" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
 					<form name="productForm" method="post" enctype="multipart/form-data">
     <div class="row">
-        <div class="col-6 pe-1">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="species" id="speciesRadio1" value="1" checked>
-                <label class="form-check-label" for="speciesRadio1">강아지</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="species" id="speciesRadio2" value="2">
-                <label class="form-check-label" for="speciesRadio2">고양이</label>
-            </div>
-        </div>
-        <div class="col-6 pe-1">
-            <select id="changeCategory" name="parentCategory" class="form-select">
-                <option value="">:: 상위 카테고리 선택 ::</option>
-                <c:forEach items="${categories}" var="category">
-                    <option value="${category.CATEGORYNUM}">${category.CATEGORYNAME}</option>
-                </c:forEach>
-            </select>
-        </div>
-        <div class="col-6 ps-1">
-            <select name="categoryNum" class="form-select">
-                <option value="">:: 하위 카테고리 선택 ::</option>
-                <c:if test="${empty categoryNum}">
-                    <option value="">상위 카테고리를 먼저 선택하세요</option>
-                </c:if>
-                <c:if test="${not empty categoryNum}">
-                    <c:forEach items="${subCategories}" var="subCategory">
-                        <option value="${subCategory.CATEGORYNUM}">${subCategory.CATEGORYNAME}</option>
-                    </c:forEach>
-                </c:if>
-            </select>
-        </div>
+        
     </div>
 </form>
 
@@ -394,6 +229,7 @@ $(function(){
 											<c:param name="productNum" value="${dto.productNum}"/>
 											<c:param name="parentNum" value="${parentNum}"/>
 											<c:param name="categoryNum" value="${categoryNum}"/>
+											<c:param name="page" value="${page}"/>
 											<c:param name="page" value="${page}"/>
 										</c:url> --%> 
 										<button type="button" class="btn border btn-productStock" data-productNum="${dto.productNum}" data-optionCount="${dto.optionCount}" data-bs-toggle="modal" data-bs-target="#productStockDialogModal">재고</button>
