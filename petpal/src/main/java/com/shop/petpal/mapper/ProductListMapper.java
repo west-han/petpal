@@ -14,10 +14,9 @@ public interface ProductListMapper {
 	// NOTE: 신상품 목록 - 동물 종류에 따른 카테고리 리스트, 카테고리에 해당하는 상품 리스트
 	public List<Map<String, Object>> listCategory(Integer species);
 	public List<Map<String, Object>> listSubCategory(Map<String, Object> map);
+	public List<Map<String, Object>> listAttribute(Map<String, Object> map);
+	
 	public List<Product> listRecentProducts(Map<String, Object> map); // NOTE: species, categoryNum
-	
-	
-	
 	public List<Product> listBestProducts(Map<String, Object> map);
-//	public List<Product> list
+	public List<Product> listCategorizedProducts(Map<String, Object> map);
 }

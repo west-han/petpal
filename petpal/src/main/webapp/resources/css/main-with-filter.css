@@ -5,7 +5,7 @@ main .list-h {
     flex-wrap: wrap;
 }
 
-main .list-w > li {
+main .list-v > li {
     padding-bottom: 15px;
 }
 
@@ -42,6 +42,7 @@ main .left > *:not(:last-child) {
 
 main .side-box {
     border: 2px solid #eee;
+    width: 100%;
 }
 
 main .side-box h4 {
@@ -123,7 +124,7 @@ main .dropdown {
     width: 100px;
 }
 
-main .dropdown-menu-han {
+main .dropdown-menu-petpal {
     position: absolute;
     text-align: center;
     width: 80%;
@@ -162,11 +163,46 @@ main .menu-item:hover {
     filter:brightness(0.5);
 }
 
-main ul.list-w > li:hover, ul.list-h > li:hover {
+main ul.list-v > li:hover, ul.list-h > li:hover {
     color: #E4B075;
     cursor: pointer;
 }
 
 main .selected {
 	color: #E4B075;
+}
+
+main .price-input {
+	width: 100%;
+}
+
+main .price-input input {
+	width: calc(40% - 10px);
+    background: white;
+    padding: 5px;
+	border: 1px solid #434347;
+    border-radius: 5px;	
+}
+
+
+main .search-button {
+    background: white;
+    padding: 5px;
+	border: 1px solid #434347;
+    border-radius: 5px;	
+}
+
+main input.checkbox + label.checkbox {
+	width: 13px;
+	height: 13px;
+	border: 2px solid #434347;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: middle;
+	border-radius: 3px;
+	user-select: none /* 드래그 금지 */
+}
+
+main input.checkbox:checked + label.checkbox {  /* 체크되었을 때 */
+    background: #E4B075;
 }

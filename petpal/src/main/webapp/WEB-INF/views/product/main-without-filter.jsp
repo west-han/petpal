@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<main>
     <div class="body-container">
     	<!-- if 태그로 검사, 기획전 상품 목록 페이지인 경우에는 아래 div 표시 -->
     	<c:if test="${mode} == special">
@@ -73,4 +72,3 @@
             </div>
         </div>
     </div>
-</main>

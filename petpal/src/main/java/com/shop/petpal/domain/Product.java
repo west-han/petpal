@@ -15,6 +15,7 @@ public class Product {
 	private int species;
 	private int productStatus;
 	private String regDate;
+	private String brand;
 	
 	private long stockNum;
 	private int totalStock;
@@ -252,5 +253,11 @@ public class Product {
 	}
 	public void setOptionValue2(String optionValue2) {
 		this.optionValue2 = optionValue2;
+	}
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 }
