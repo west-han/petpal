@@ -75,7 +75,7 @@
                         <a href="${pageContext.request.contextPath}/admin/member/list" class="sub_menu--link">고객 정보 관리</a>
                     </li>
                     <li class="sub_menu--item">
-                        <a href="#" class="sub_menu--link">쿠폰 관리</a>
+                        <a href="${pageContext.request.contextPath}/admin/coupon/list" class="sub_menu--link">쿠폰 관리</a>
                     </li>
                 </ul>
             </li>
