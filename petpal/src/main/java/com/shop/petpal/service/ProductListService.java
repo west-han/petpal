@@ -12,5 +12,7 @@ public interface ProductListService {
 	
 	public List<Product> listRecentProducts(Map<String, Object> map);
 	public List<Product> listBestProducts(Map<String, Object> map);
-	public List<Product> listCategorizedProducts(Map<String, Object> map);
+	public List<Product> listCategorizedProducts(Map<String, Object> params);
+	
+	public int countCategorizedProducts(Map<String, Object> params);
 }

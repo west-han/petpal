@@ -5,10 +5,10 @@
     <div class="body-container">    
         <div class="list-container list-h">
             <div class="left">
-                <h2>간식</h2>
+                <h2 class="title"></h2>
                 <div class="side-box">
                     <h4>카테고리</h4>
-                    <ul class="list-v">
+                    <ul class="list-v category">
                         <li><a class="${parentCategory == 0 ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/category/${species}/0">전체</a></li>
                         <c:forEach items="${categories}" var="category">
                         	<li><a class="${parentCategory == category.CATEGORYNUM ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a></li>
@@ -31,7 +31,7 @@
                     <h4>평점</h4>
                     <ul class="list-v rating">
                     	<li>
-                    		<input class="checkbox" type="checkbox" value="0" id="minRating-0" style="display: none;" ${empty param.minRating || params.minRating == 0 ? 'checked' : ''}>
+                    		<input class="checkbox" type="checkbox" value="0" id="minRating-0" style="display: none;" ${empty param.minRating || param.minRating == 0 ? 'checked' : ''}>
                     		<label class="checkbox" for="minRating-0"></label>&nbsp;
 	                		<label class="checkbox" for="minRating-0">전체</label>
                     	</li>
@@ -50,9 +50,9 @@
 	                	<ul class="list-v">
 	                		<c:forEach items="${attribute.attrDtls}" var="dtl">
 	                			<li data-dtlNum="${dtl.attrDtlNum}" style="vertical-align: text-top;" class="checkbox">
-	                				<input class="checkbox" type="checkbox" id="${attribute.attributeNum}-${dtl.attrDtlNum}" name="${attribute.attributeNum}" style="display: none;" value="${dtl.attrDtlNum}" onchange="toggleAttr(${attribute.attributeNum}, ${dtl.attrDtlNum});">
-	                				<label class="checkbox" for="${attribute.attributeNum}-${dtl.attrDtlNum}"></label>&nbsp;
-	                				<label class="checkbox" for="${attribute.attributeNum}-${dtl.attrDtlNum}">${dtl.attrDtlName}</label>
+	                				<input class="checkbox" type="checkbox" id="attr-${dtl.attrDtlNum}" name="${attribute.attributeNum}" style="display: none;" value="${dtl.attrDtlNum}" onchange="toggleAttr(${attribute.attributeNum}, ${dtl.attrDtlNum});">
+	                				<label class="checkbox" for="attr-${dtl.attrDtlNum}"></label>&nbsp;
+	                				<label class="checkbox" for="attr-${dtl.attrDtlNum}">${dtl.attrDtlName}</label>
 	                			</li>
 	                		</c:forEach>
 	                	</ul>
@@ -90,18 +90,18 @@
                     </ul>
                 </div>
                 <div class="sort-box list-h">
-                    <span>전체 <strong>n</strong>개</span>
+                    <span>전체 <strong>${dataCount}</strong>개</span>
                     <div class="dropdown">
                         <div class="list-h">
                             <button class="dropdown-button">
-                                판매량
+                                등록일
                             </button>
-                            <i class="bi fs-5 bi-arrow-down" data-order="asc"></i>
+                            <i class="order bi fs-5 bi-arrow-${empty param.order || param.order == 'desc' ? 'down' : 'up'}" data-order="${empty param.order ? 'desc' : param.order}"></i>
                         </div>
                         <ul class="dropdown-menu-petpal menu-hidden">
+                            <li class="menu-item" data-sortby="regDate">등록일</li>
                             <li class="menu-item" data-sortby="price">가격</li>
                             <li class="menu-item" data-sortby="sales">판매량</li>
-                            <li class="menu-item" data-sortby="regDate">등록일</li>
                             <li class="menu-item" data-sortby="rating">평점</li>
                             <li class="menu-item" data-sortby="reviewCount">후기수</li>
                         </ul>
@@ -109,9 +109,9 @@
                 </div>
                 <div class="display-box list-h">
                 	<c:forEach items="${products}" var="product">
-	                    <div class="product-box"> 
+	                    <div class="product-box" onclick="location.href='${pageContext.request.contextPath}/product/${species}/${product.productNum}';"> 
 	                        <div class="product-img-box">
-	                            <img src="${pageContext.request.contextPath}/resources/images/product1.jpeg" alt="이미지">
+	                            <img src="${pageContext.request.contextPath}/uploads/product/${product.thumbnail}" alt="이미지">
 	                        </div>
 	                        <div class="product-info">
 	                            <p>${product.brand}</p>
@@ -141,9 +141,34 @@
 
 <script type="text/javascript">
 
+window.addEventListener('load', function() {
+	const sortCriteria = {price: '가격', sales: '판매량', regDate: '등록일', rating: '평점', reviewCount: '후기수'};
+	document.querySelector('.title').innerText = document.querySelector('.category .selected').innerText;
+	if ('${param.sortBy}') {
+		document.querySelector('.dropdown-button').innerText = sortCriteria['${param.sortBy}'];
+		document.querySelector('.menu-item[data-sortBy=${param.sortBy}]').remove();
+	}
+
+	document.addEventListener('click', function(e) {
+		e.stopPropagation();
+		
+		const menu = document.querySelector('.dropdown-menu-petpal');
+		if (e.target != document.querySelector('.dropdown-button')) {
+			
+			if (menu.classList.contains('menu-shown')) {
+				menu.classList.toggle('menu-hidden');
+		        menu.classList.toggle('menu-shown');
+			}
+		}
+	});
+	
+});
+
 const replaceParam = (url, param, value) => {
 	url.searchParams.delete(param);
-	url.searchParams.append(param, value);
+	if (value) {
+		url.searchParams.append(param, value);
+	}
 }
 
 window.addEventListener('load', function() {
@@ -181,59 +206,67 @@ window.addEventListener('load', function() {
 window.addEventListener('load', function() {
 	const url = new URL(document.location.href);
 	let params = url.searchParams;
-	let keys = params.keys();
 	
-	for (let key of keys) {
-		if (isNaN(key)) {
-			continue;
-		}
-		
-		let values = params.get(key).split(',');
+	let values = params.get('attributes');
+	
+	if (values) {
+		values = values.split(',');
 		
 		for (let value of values) {
-			document.getElementById(key + '-' + value).setAttribute('checked', 'checked');
+			document.getElementById('attr-' + value).setAttribute('checked', 'checked');
 		}
 	}
 });
 
 function toggleAttr(attrNum, dtlNum) {
 	const url = new URL(window.location.href);
-	let values = url.searchParams.get(attrNum.toString());
+	let values = url.searchParams.get('attributes');
 	values = values ? values.split(',') : [];
-	console.log(attrNum);
-	console.log(dtlNum);
-	console.log(values);
 	
 	if (values.includes(dtlNum.toString())) {
 		values = values.filter(e => e != dtlNum.toString());
-		console.log('found');
 	} else {
 		values.push(dtlNum.toString());
 	}
 	
-	replaceParam(url, attrNum, values.toString());
+	replaceParam(url, 'attributes', values.toString());
 	
-	console.log(url.searchParams.get(attrNum));
 	location.href = url.toString();
 }
 
 window.addEventListener('load', function() {
     document.querySelector('button.dropdown-button').addEventListener('click', function(e) {
-		console.log(e.target);
-    	
     	const menu = e.target.closest('div.dropdown').querySelector('.dropdown-menu-petpal');
 
         menu.classList.toggle('menu-hidden');
         menu.classList.toggle('menu-shown');
     });
     
-    document.querySelector('.menu-item').addEventListener('click', function(e) {
-    	const url = new URL(document.location.href);
-    	
-    	const sortBy = e.target.dataset.sortBy;
-    	const order = this.closest('list-h').querySelector('i[data-order]').dataset.order;
-    	
-    	console.log(sortBy, order);
+    const menuItems = document.querySelectorAll('.menu-item');
+    
+    for (let item of menuItems) {
+    	item.addEventListener('click', function(e) {
+    		const url = new URL(document.location.href);
+    		
+    		const sortBy = e.target.dataset.sortby;
+    		const order = this.closest('.list-h').querySelector('i.order').dataset.order;
+
+    		replaceParam(url, 'sortBy', sortBy);
+    		replaceParam(url, 'order', order);
+    		location.href = url.toString();
+    	});
+    }
+    
+    document.querySelector('i.order').addEventListener('click', function(e) {
+    	let order = this.getAttribute('data-order') === 'desc' ? 'asc' : 'desc';
+		const url = new URL(location.href);
+		
+		if (! url.searchParams.get('sortBy')) {
+			url.searchParams.append('sortBy', 'regDate');
+		}
+		
+    	replaceParam(url, 'order', order);
+    	location.href = url.toString();
     });
 });
 </script>
