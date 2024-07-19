@@ -63,6 +63,7 @@
     <script>
         function editCustomer(memberId) {
             // 수정 버튼 클릭 시 동작할 스크립트
+            
         }
 
         function viewPoints(memberId) {
