@@ -44,6 +44,88 @@
             text-decoration: none;
         }
     </style>
+    <script type="text/javascript">
+    function insertDest() {
+		const f = document.addAddressForm;
+		let str;
+		
+		str = f.recipientName.value;
+		if( !str ) {
+            alert("받는 사람을 입력해주세요 ");
+            f.recipientName.focus();
+            return;
+        }
+		
+		str = f.tel.value;
+		if( !str ) {
+            alert("전화번호를 입력해주세요 ");
+            f.tel.focus();
+            return;
+        }
+		str = f.postalCode.value;
+		if( !str ) {
+            alert("우편번호를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+		str = f.address1.value;
+		if( !str ) {
+            alert("기본주소를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+		str = f.address2.value;
+		if( !str ) {
+            alert("상세주소를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+		
+		f.submit();
+		
+	}
+    
+    function updateAddress() {
+		const f = document.editAddressForm;
+		let str;
+		
+		str = f.recipientName.value;
+		if( !str ) {
+            alert("받는 사람을 입력해주세요 ");
+            f.recipientName.focus();
+            return;
+        }
+		
+		str = f.tel.value;
+		if( !str ) {
+            alert("전화번호를 입력해주세요 ");
+            f.tel.focus();
+            return;
+        }
+		str = f.postalCode.value;
+		if( !str ) {
+            alert("우편번호를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+		str = f.address1.value;
+		if( !str ) {
+            alert("기본주소를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+		str = f.address2.value;
+		if( !str ) {
+            alert("상세주소를 입력해주세요 ");
+            f.postalCode.focus();
+            return;
+        }
+		
+	}
+    function confirmDelete() {
+        return confirm("정말 삭제하시겠습니까?");
+    }
+    </script>
     
 </head>
 <body>
@@ -93,9 +175,9 @@
                                 <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAddressModal"
                                         onclick="fillEditForm(${dto.destNum}, '${dto.recipientName}', '${dto.tel}', '${dto.postalCode}', 
                                         '${dto.address1}', '${dto.address2}', '${dto.note}', ${dto.defaultDest})">수정</button>
-                                <form action="${pageContext.request.contextPath}/myPage2/deleteAddress" method="post" style="display:inline;">
+                                <form action="${pageContext.request.contextPath}/myPage2/deleteAddress" method="post" style="display:inline;" >
                                     <input type="hidden" name="destNum" value="${dto.destNum}">
-                                    <button type="submit" class="btn btn-danger">삭제</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirmDelete();">삭제</button>
                                 </form>
                             </div>
                         </div>
@@ -114,7 +196,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addAddressForm" action="${pageContext.request.contextPath}/myPage2/addAddress" method="post">
+                    <form id="addAddressForm" name="addAddressForm" action="${pageContext.request.contextPath}/myPage2/addAddress" method="post">
                         <div class="mb-3">
                             <label for="recipientName" class="form-label">받는 사람 이름</label>
                             <input type="text" class="form-control" id="recipientName" name="recipientName" required>
@@ -150,7 +232,7 @@
                             <label class="form-check-label" for="defaultDest">기본 배송지 설정</label>
                         </div>
                         <input type="hidden" id="defaultDestHidden" name="defaultDestHidden">
-                        <button type="submit" class="btn btn-primary">추가</button>
+                        <button type="button" class="btn btn-primary" onclick="insertDest();" >추가</button>
                     </form>
                 </div>
             </div>
@@ -166,7 +248,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editAddressForm" action="${pageContext.request.contextPath}/myPage2/updateAddress" method="post">
+                    <form id="editAddressForm" name="editAddressForm" action="${pageContext.request.contextPath}/myPage2/updateAddress" method="post">
                      <input type="hidden" id="editDestNum" name="destNum">
                         <div class="mb-3">
                             <label for="editRecipientName" class="form-label">받는 사람 이름</label>
@@ -203,7 +285,7 @@
                             <label class="form-check-label" for="editDefaultAddress">기본 배송지 설정</label>
                         </div>
                         <input type="hidden" id="editDefaultDestHidden" name="defaultDestHidden" >
-                        <button type="submit" class="btn btn-primary">수정</button>
+                        <button type="submit" class="btn btn-primary" onclick="updateAddress();">수정</button>
                     </form>
                 </div>
             </div>
