@@ -217,5 +217,17 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}
 		
 	}
+
+	@Override
+	public List<Mypage2> selectMemberCoupon(long memberNum) throws Exception {
+		// TODO 나의 쿠폰 리스트
+		List<Mypage2> list = null;
+		try {
+			list = mapper.selectMemberCoupon(memberNum);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 }

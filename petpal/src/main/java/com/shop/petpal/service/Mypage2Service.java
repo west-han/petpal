@@ -26,4 +26,7 @@ public interface Mypage2Service {
 	public void updateDefaultDest(long memberNum) throws Exception; // 나의 모든 배송지 1(일반배송지)로 바꿈
 	public void updateDest(Mypage2 dto) throws Exception; // 배송지 수정
 	
+	// 쿠폰 리스트
+	public List<Mypage2> selectMemberCoupon(long memberNum) throws Exception; // 나의 쿠폰 리스트
+	
 }

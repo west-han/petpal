@@ -114,6 +114,17 @@
             postalCode = #{postalCode}, address1 = #{address1}, address2 = #{address2}, note = #{note, jdbcType=VARCHAR}
         WHERE memberNum = #{memberNum} AND destNum = #{destNum}
     </update>
+    
+    
+    
+    <!-- 나의 쿠폰 리스트 -->
+    <select id="selectMemberCoupon" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
+    	SELECT m.couponNum,m.memberNum,regDate,state,validity,couponName,discountRate,minPayment
+		FROM memberCoupon m
+		JOIN Coupon c
+		ON m.couponNum = c.couponNum
+		WHERE memberNum = #{memberNum}
+    </select>
 	
 	
 	

@@ -28,5 +28,10 @@ public interface MypageMapper2 {
 	public void updateDest(Mypage2 dto) throws SQLException; // 배송지 수정
 	
 	
+	// 쿠폰 리스트
+	public List<Mypage2> selectMemberCoupon(long memberNum) throws SQLException; //나의 쿠폰 리스트
+	
+	
+	
 	
 }

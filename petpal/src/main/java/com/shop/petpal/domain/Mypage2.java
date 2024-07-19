@@ -2,7 +2,7 @@ package com.shop.petpal.domain;
 
 public class Mypage2 {
 	private long pointNum; // 포인트 적립 번호	
-	private String regDate; // 포인트날짜
+	private String regDate; // 포인트날짜 // 쿠폰발급일
 	private int classify; // 포인트상태 구매적립(0)/이벤트적립 (1)/ 사용(2)/소멸(3)
 	private int point; // 포인트 액수
 	private int balance; // 포인트 total
@@ -18,7 +18,52 @@ public class Mypage2 {
 	private String note; // 배송 메모
 	
 	
+	// 쿠폰날짜 위에 있음
+	private long couponNum; // 쿠폰 번호
+	private int state; // 쿠폰 상태 사용가능(0)/사용완료(1)/만료(2)
+	private String validity; // 쿠폰 유효기간
+	private int minPayment; // 최소 결제 금액
+	private String couponName; // 쿠폰 이름
+	private int discountRate; // 쿠폰 할인율
 	
+	
+	
+	public long getCouponNum() {
+		return couponNum;
+	}
+	public void setCouponNum(long couponNum) {
+		this.couponNum = couponNum;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public String getValidity() {
+		return validity;
+	}
+	public void setValidity(String validity) {
+		this.validity = validity;
+	}
+	public int getMinPayment() {
+		return minPayment;
+	}
+	public void setMinPayment(int minPayment) {
+		this.minPayment = minPayment;
+	}
+	public String getCouponName() {
+		return couponName;
+	}
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+	public int getDiscountRate() {
+		return discountRate;
+	}
+	public void setDiscountRate(int discountRate) {
+		this.discountRate = discountRate;
+	}
 	public long getMemberNum() {
 		return memberNum;
 	}

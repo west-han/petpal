@@ -52,8 +52,22 @@ public class MyPageController2 {
 	}
 
 	@GetMapping("mycoupon")
-	public String mycouponForm() throws Exception {
-
+	public String mycouponForm(HttpSession session,
+			 Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		
+		try {
+			 List<Mypage2> list = service.selectMemberCoupon(info.getMemberNum());
+			 
+			 model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		return ".myPage2.mycoupon";
 	}
 
@@ -311,5 +325,7 @@ public class MyPageController2 {
 		
 		return "redirect:/myPage2/myaddress";
 	}
+	
+	
 
 }

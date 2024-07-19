@@ -105,21 +105,15 @@ thead {
                                 </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="dto" items="${list}">
                                 <tr>
-                                    <td>할인 쿠폰 1</td>
-                                    <td>10%</td>
-                                    <td>2024.07.01</td>
-                                    <td>2024.12.31</td>
-                                    <td>50,000원</td>
+                                    <td>${dto.couponName}</td>
+                                    <td>${dto.discountRate} %</td>
+                                    <td>${dto.regDate}</td>
+                                    <td>${dto.validity}</td>
+                                    <td>${dto.minPayment}원</td>
                                 </tr>
-                                <tr>
-                                    <td>할인 쿠폰 2</td>
-                                    <td>20%</td>
-                                    <td>2024.07.05</td>
-                                    <td>2024.11.30</td>
-                                    <td>30,000원</td>
-                                </tr>
-                                <!-- 추가적인 쿠폰 항목 -->
+                            </c:forEach>                              
                             </tbody>
                         </table>
                     </div>
