@@ -98,8 +98,22 @@
 		INSERT INTO memberDest(destNum,recipientName,defaultDest,tel,
 			postalCode,address1,address2,note,memberNum)
 		VALUES(memberdest_seq.NEXTVAL,#{recipientName},#{defaultDest},#{tel},
-			#{postalCode},#{address1},#{address2},#{note},#{memberNum})
+			#{postalCode},#{address1},#{address2},#{note, jdbcType=VARCHAR},#{memberNum})
 	</insert>
+	
+	<!-- 배송지 수정(모든 배송지 일반 배송지로 변경) -->
+	<update id="updateDefaultDest" parameterType="long">
+		UPDATE memberDest set defaultdest = 1
+		WHERE memberNum = #{memberNum}
+	</update>
+	
+	<!-- 배송지 수정 -->
+	<update id="updateDest" parameterType="com.shop.petpal.domain.Mypage2">
+		UPDATE memberDset set recipientName=#{recipientName},defaultDest={defaultDest,
+		tel=#{tel},postalCode=#{postalCode},address1,address2,note
+	</update>
+	
+	
 	
 	
 </mapper>
