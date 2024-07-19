@@ -270,8 +270,14 @@ public class MyPageController2 {
         SessionInfo info = (SessionInfo) session.getAttribute("member");
         dto.setMemberNum(info.getMemberNum());
         dto.setDefaultDest(defaultDest); // 기본 배송지 설정 값을 DTO에 설정
-
-        service.insertDest(dto);
+        
+        if(defaultDest == 1) {
+        	service.insertDest(dto);// 일반 배송지
+        }else if(defaultDest == 0) {
+        	service.updateDefaultDest(info.getMemberNum()); // 모든 배송지를 일반 배송지로 바꿈
+        	service.insertDest(dto); // 기본 배송지
+        }
+        
 
         return "redirect:/myPage2/myaddress";
     }
@@ -285,5 +291,25 @@ public class MyPageController2 {
         service.deleteDest(dto);
         return "redirect:/myPage2/myaddress";
     }
+	
+	@PostMapping("updateAddress")
+	public String updateAddress(Mypage2 dto,
+			@RequestParam long destNum,
+			HttpSession session,
+			@RequestParam(defaultValue = "1") int defaultDest) throws Exception{
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		dto.setMemberNum(info.getMemberNum());
+		dto.setDestNum(destNum);
+		dto.setDefaultDest(defaultDest);
+		
+		if(defaultDest == 1) {
+			service.updateDest(dto);
+		}else if(defaultDest == 0) {
+			service.updateDefaultDest(info.getMemberNum());
+			service.updateDest(dto);
+		}
+		
+		return "redirect:/myPage2/myaddress";
+	}
 
 }

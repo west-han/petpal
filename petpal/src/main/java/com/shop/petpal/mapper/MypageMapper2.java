@@ -24,6 +24,8 @@ public interface MypageMapper2 {
 	public List<Mypage2> selectAllList(long memberNum) throws SQLException; // 나의 배송지 리스트
 	public int deleteDest(Mypage2 dto) throws SQLException; // 배송지 삭제
 	public void insertDest(Mypage2 dto) throws SQLException; // 배송지 추가
+	public int updateDefaultDest(long memberNum) throws SQLException; // 나의 모든 배송지 1(일반배송지)로 바꿈
+	public void updateDest(Mypage2 dto) throws SQLException; // 배송지 수정
 	
 	
 	

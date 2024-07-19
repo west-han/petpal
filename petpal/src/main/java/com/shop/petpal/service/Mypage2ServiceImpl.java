@@ -194,5 +194,28 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}
 		
 	}
+
+	@Override
+	public void updateDefaultDest(long memberNum) throws Exception {
+		// TODO 모든 배송지 1(일반 배송지)로 변경
+		
+		try {
+			mapper.updateDefaultDest(memberNum);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateDest(Mypage2 dto) throws Exception {
+		// TODO 배송지 수정
+		
+		try {
+			mapper.updateDest(dto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

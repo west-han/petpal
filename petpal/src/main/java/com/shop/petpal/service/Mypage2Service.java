@@ -1,5 +1,6 @@
 package com.shop.petpal.service;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,7 @@ public interface Mypage2Service {
 	public List<Mypage2> selectAllList(long memberNum) throws Exception; // 나의 배송지 리스트
 	public void deleteDest(Mypage2 dto) throws Exception; // 배송지 삭제
 	public void insertDest(Mypage2 dto) throws Exception; // 배송지 추가
+	public void updateDefaultDest(long memberNum) throws Exception; // 나의 모든 배송지 1(일반배송지)로 바꿈
+	public void updateDest(Mypage2 dto) throws Exception; // 배송지 수정
+	
 }

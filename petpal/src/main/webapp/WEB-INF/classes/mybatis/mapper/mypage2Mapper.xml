@@ -109,9 +109,11 @@
 	
 	<!-- 배송지 수정 -->
 	<update id="updateDest" parameterType="com.shop.petpal.domain.Mypage2">
-		UPDATE memberDset set recipientName=#{recipientName},defaultDest={defaultDest,
-		tel=#{tel},postalCode=#{postalCode},address1,address2,note
-	</update>
+        UPDATE memberDest
+        SET recipientName = #{recipientName}, defaultDest = #{defaultDest}, tel = #{tel},
+            postalCode = #{postalCode}, address1 = #{address1}, address2 = #{address2}, note = #{note, jdbcType=VARCHAR}
+        WHERE memberNum = #{memberNum} AND destNum = #{destNum}
+    </update>
 	
 	
 	

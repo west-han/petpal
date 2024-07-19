@@ -44,37 +44,7 @@
             text-decoration: none;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-    function daumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var fullAddr = '';
-                var extraAddr = '';
-
-                if (data.userSelectedType === 'R') {
-                    fullAddr = data.roadAddress;
-                } else {
-                    fullAddr = data.jibunAddress;
-                }
-
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== ''){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== ''){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                }
-
-                document.getElementById('postalCode').value = data.zonecode;
-                document.getElementById('address1').value = fullAddr;
-                document.getElementById('address2').focus();
-            }
-        }).open();
-    }
-    </script>
+    
 </head>
 <body>
     <div class="container">
@@ -106,14 +76,23 @@
                     <c:forEach var="dto" items="${list}">
                         <div class="card address-item">
                             <div class="card-body">
-                                <h5 class="card-title">배송지 이름</h5>
+                                <c:choose>
+									<c:when test="${dto.defaultDest == 0}">
+                    					<p class="text-center"><i class="bi bi-caret-right-fill"></i>기본배송지<i class="bi bi-caret-left-fill"></i></p>
+                					</c:when>
+									<c:when test="${dto.defaultDest == 1}">
+                    					
+                					</c:when>
+                				</c:choose>
                                 <p class="card-text">받는 사람: ${dto.recipientName}</p>
                                 <p class="card-text">전화번호: ${dto.tel}</p>
                                 <p class="card-text">주소: ${dto.address1}</p>
                                 <p class="card-text">${dto.address2}</p>
                                 <p class="card-text">우편번호: ${dto.postalCode}</p>
                                 <p class="card-text">배송 메모: ${dto.note}</p>
-                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAddressModal">수정</button>
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAddressModal"
+                                        onclick="fillEditForm(${dto.destNum}, '${dto.recipientName}', '${dto.tel}', '${dto.postalCode}', 
+                                        '${dto.address1}', '${dto.address2}', '${dto.note}', ${dto.defaultDest})">수정</button>
                                 <form action="${pageContext.request.contextPath}/myPage2/deleteAddress" method="post" style="display:inline;">
                                     <input type="hidden" name="destNum" value="${dto.destNum}">
                                     <button type="submit" class="btn btn-danger">삭제</button>
@@ -170,7 +149,7 @@
                             <input type="checkbox" class="form-check-input" id="defaultDest" name="defaultDest" value="0">
                             <label class="form-check-label" for="defaultDest">기본 배송지 설정</label>
                         </div>
-                        <input type="hidden" id="defaultDestHidden" name="defaultDestHidden" value="0">
+                        <input type="hidden" id="defaultDestHidden" name="defaultDestHidden">
                         <button type="submit" class="btn btn-primary">추가</button>
                     </form>
                 </div>
@@ -188,6 +167,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="editAddressForm" action="${pageContext.request.contextPath}/myPage2/updateAddress" method="post">
+                     <input type="hidden" id="editDestNum" name="destNum">
                         <div class="mb-3">
                             <label for="editRecipientName" class="form-label">받는 사람 이름</label>
                             <input type="text" class="form-control" id="editRecipientName" name="recipientName" required>
@@ -201,7 +181,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input type="text" name="postalCode" id="editPostalCode" class="form-control" placeholder="우편번호" readonly>
-                                    <button class="btn btn-light" type="button" onclick="daumPostcode();">우편번호 검색</button>
+                                    <button class="btn btn-light" type="button" onclick="daumPostcode2();">우편번호 검색</button>
                                 </div>
                             </div>
                         </div>
@@ -259,6 +239,46 @@
                     document.getElementById('address2').focus();
                 }
             }).open();
+        }
+        
+        function daumPostcode2() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var fullAddr = '';
+                    var extraAddr = '';
+
+                    if (data.userSelectedType === 'R') {
+                        fullAddr = data.roadAddress;
+                    } else {
+                        fullAddr = data.jibunAddress;
+                    }
+
+                    if(data.userSelectedType === 'R'){
+                        if(data.bname !== ''){
+                            extraAddr += data.bname;
+                        }
+                        if(data.buildingName !== ''){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                    }
+
+                    document.getElementById('editPostalCode').value = data.zonecode;
+                    document.getElementById('editAddress1').value = fullAddr;
+                    document.getElementById('editAddress2').focus();
+                }
+            }).open();
+        }
+        
+        function fillEditForm(destNum, recipientName, tel, postalCode, address1, address2, note, defaultDest) {
+            document.getElementById('editDestNum').value = destNum;
+            document.getElementById('editRecipientName').value = recipientName;
+            document.getElementById('editPhone').value = tel;
+            document.getElementById('editPostalCode').value = postalCode;
+            document.getElementById('editAddress1').value = address1;
+            document.getElementById('editAddress2').value = address2;
+            document.getElementById('editDeliveryNote').value = note;
+            document.getElementById('editDefaultAddress').checked = (defaultDest === 0);
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
