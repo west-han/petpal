@@ -119,11 +119,12 @@
     
     <!-- 나의 쿠폰 리스트 -->
     <select id="selectMemberCoupon" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
-    	SELECT m.couponNum,m.memberNum,regDate,state,validity,couponName,discountRate,minPayment
+    	SELECT m.couponNum,m.memberNum,TO_CHAR(m.regDate,'YYYY-MM-DD') AS regDate,state,validity,couponName,discountRate,minPayment
 		FROM memberCoupon m
 		JOIN Coupon c
 		ON m.couponNum = c.couponNum
 		WHERE memberNum = #{memberNum}
+		ORDER BY m.regDate DESC
     </select>
 	
 	
