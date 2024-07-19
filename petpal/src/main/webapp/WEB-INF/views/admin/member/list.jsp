@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="members" items="${dto}">
+                    <c:forEach var="dto" items="${members}">
                         <tr>
                             <td>${dto.memberNum}</td>
                             <td>${dto.email}</td>
