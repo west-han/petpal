@@ -9,5 +9,7 @@ import com.shop.petpal.domain.Member;
 @Mapper
 public interface MemberManageMapper {
 	List<Member> findAllMembers();
+	Member findById(Long memberNum);
+    void updateMember(Member member);
 
 }
