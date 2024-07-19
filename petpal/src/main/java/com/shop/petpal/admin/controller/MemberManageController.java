@@ -35,6 +35,7 @@ public class MemberManageController {
             return ResponseEntity.ok(member);
         } else {
             return ResponseEntity.notFound().build();
+            
         }
     }
 

@@ -13,6 +13,7 @@ public class MemberManageServiceImpl implements MemberManageService{
 
 	 @Autowired
 	    private MemberManageMapper memberManageMapper;
+	 
 
 	    @Override
 	    public List<Member> findAllMembers() {

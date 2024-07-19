@@ -26,6 +26,7 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
         }
+        
         .modal-content {
             background-color: #fefefe;
             margin: 15% auto;
