@@ -102,7 +102,7 @@ public class ProductListServiceImpl implements ProductListService {
 		 */
 		
 		try {
-			// HACK: Attribute DTO 클래스를 사용하거나 속성과 속성값을 따로 가져오도록 변경
+			// TODO: Attribute DTO 클래스를 사용하거나 속성과 속성값을 따로 가져오도록 변경
 			
 			attributes = mapper.listAttribute(map);
 			
@@ -168,17 +168,36 @@ public class ProductListServiceImpl implements ProductListService {
 	}
 
 	@Override
-	public List<Product> listCategorizedProducts(Map<String, Object> map) {
+	public List<Product> listCategorizedProducts(Map<String, Object> params) {
 		List<Product> products = null;
 		
 		try {
+			if (params.get("attributes") != null) {
+				List<String> attrDtlNums = List.of(((String)params.get("attributes")).split(","));
+				params.replace("attributes", attrDtlNums);
+			}
 			
-			products = mapper.listCategorizedProducts(map);
+			params.put("startNum", 1);
+			params.put("endNum", 30);
+			
+			products = mapper.listCategorizedProducts(params);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return products;
+	}
+	
+	public int countCategorizedProducts(Map<String, Object> params) {
+		int dataCount = 0;
+		
+		try {
+			dataCount = mapper.countCategorizedProducts(params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dataCount;
 	}
 }

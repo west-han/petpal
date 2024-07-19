@@ -19,4 +19,5 @@ public interface ProductListMapper {
 	public List<Product> listRecentProducts(Map<String, Object> map); // NOTE: species, categoryNum
 	public List<Product> listBestProducts(Map<String, Object> map);
 	public List<Product> listCategorizedProducts(Map<String, Object> map);
+	public int countCategorizedProducts(Map<String, Object> map);
 }
