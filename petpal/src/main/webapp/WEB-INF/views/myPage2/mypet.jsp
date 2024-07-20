@@ -151,8 +151,9 @@ a {
 										<img src="${pageContext.request.contextPath}/uploads/petPhotos/${pet.petPhoto}" alt="펫 사진">
 									</div>
 									<div class="carousel-caption">
-										<h5>${pet.petName}</h5>
-										<p>${pet.breedName}</p>
+									
+										<h5 class="text-dark">${pet.petName}</h5>
+										<p class="text-dark">${pet.breedName}</p>
 										<div class="button-group">
 											<button class="btn btn-primary" onclick="changeRepresentative(${pet.petNum})">대표 동물로 설정</button>
 											<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editPetModal_${pet.petNum}">펫 수정</button>
@@ -252,6 +253,7 @@ a {
                 </div>
                 <div class="modal-body">
                     <form class="pet-form mt-4" id="editPetForm_${pet.petNum}" action="${pageContext.request.contextPath}/myPage2/updateMemberPet" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="petNum" value="${pet.petNum}">
                         <div class="form-group">
                             <label for="petType_${pet.petNum}">종류</label><br>
                             <input type="radio" id="dog_${pet.petNum}" name="petSpecies" value="1" <c:if test="${pet.species == 1}">checked</c:if> onchange="loadBreeds(1, ${pet.petNum})">

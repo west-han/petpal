@@ -157,16 +157,15 @@
     
 	<!-- 펫 수정 -->
 	<update id="updateMemberPet" parameterType="com.shop.petpal.domain.Mypage2">
-	    UPDATE MemberPet
-	    SET petName = #{petName, jdbcType=VARCHAR},
+	    UPDATE pet
+	    SET petName = #{petName},
 	        <if test="petPhoto != null">petPhoto = #{petPhoto, jdbcType=VARCHAR},</if>
 	        <if test="petBirth != null">petBirth = #{petBirth, jdbcType=DATE},</if>
 	        <if test="petGender != null">petGender = #{petGender, jdbcType=INTEGER},</if>
 	        <if test="petWeight != null">petWeight = #{petWeight, jdbcType=DOUBLE},</if>
 	        <if test="bodyShape != null">bodyShape = #{bodyShape, jdbcType=INTEGER},</if>
 	        <if test="petRegNum != null">petRegNum = #{petRegNum, jdbcType=VARCHAR},</if>
-	        <if test="breedNum != null">breedNum = #{breedNum, jdbcType=INTEGER},</if>
-	        <if test="species != null">species = #{species, jdbcType=INTEGER}</if>
+	        <if test="breedNum != null">breedNum = #{breedNum, jdbcType=INTEGER}</if>	      
 	    WHERE petNum = #{petNum} AND memberNum = #{memberNum}
 	</update>
 	
