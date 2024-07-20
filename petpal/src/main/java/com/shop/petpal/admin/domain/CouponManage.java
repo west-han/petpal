@@ -9,6 +9,28 @@ public class CouponManage {
 	
 	private int categoryNum;
 	private String categoryName;
+	private int parentCategory;
+	
+	
+	private long memberNum;
+	
+	
+
+	public long getMemberNum() {
+		return memberNum;
+	}
+
+	public void setMemberNum(long memberNum) {
+		this.memberNum = memberNum;
+	}
+
+	public int getParentCategory() {
+		return parentCategory;
+	}
+
+	public void setParentCategory(int parentCategory) {
+		this.parentCategory = parentCategory;
+	}
 
 	public String getCategoryName() {
 		return categoryName;

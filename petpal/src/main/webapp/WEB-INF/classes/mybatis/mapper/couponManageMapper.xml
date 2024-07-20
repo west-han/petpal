@@ -7,6 +7,23 @@
 	from coupon cp
 	join category cg on cp.categorynum = cg.categorynum
 	</select>	
+	
+	<insert id="insertCoupon" parameterType="com.shop.petpal.admin.domain.CouponManage">
+		INSERT INTO coupon (couponNum, couponName, discountRate, minPayment, validity, categoryNum)
+		VALUES(coupon_seq.nextval,#{couponName}, #{discountRate}, #{minPayment},#{validity},#{categoryNum})
+	</insert>
+
+
+	<insert id="grantCoupon" parameterType="com.shop.petpal.admin.domain.MemberCoupon">
+	INSERT INTO memberCoupon(couponNum, memberNum, regDate, state)
+        VALUES( #{couponNum}, #{memberNum}, sysdate, 0 )
+	</insert>
+	
+	<select id="memberExists" parameterType="long" resultType="int">
+    	SELECT COUNT(memberNum)
+    	FROM member1
+    	WHERE memberNum = #{memberNum}
+	</select>
 
 
 	

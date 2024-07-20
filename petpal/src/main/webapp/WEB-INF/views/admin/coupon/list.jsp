@@ -95,10 +95,14 @@
 									</div>
 								</form>
 			
-							</td>					
+							</td>		
 							<td width="150" align="right">
 								<c:url var="url" value="/admin/product"/>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/product/write';">상품등록</button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/coupon/grant';">쿠폰지급</button>
+							</td>			
+							<td width="150" align="right">
+								<c:url var="url" value="/admin/product"/>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/coupon/write';">쿠폰생성</button>
 							</td>
 						</tr>
 					</table>
