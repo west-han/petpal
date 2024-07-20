@@ -135,9 +135,7 @@ $(document).ready(function() {
                     <!-- 하위 카테고리 옵션은 AJAX로 동적으로 채워짐 -->
                 </select>
             </div>
-            <div>
-            <button type="button" class="btn btn-primary" onclick="location.href='#';">쿠폰지급</button>
-            </div>
+            
             <div>
             	
                 <button type="submit" class="btn btn-primary">쿠폰 등록</button>
