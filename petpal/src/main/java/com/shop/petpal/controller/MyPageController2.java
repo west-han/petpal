@@ -217,6 +217,22 @@ public class MyPageController2 {
 		return "redirect:/myPage2/mypet";
 	}
 	
+	@PostMapping("setInsertRegPet")
+	@ResponseBody
+	public String setInsertRegPet(Mypage2 dto, HttpSession session)throws Exception{
+		try {
+            SessionInfo info = (SessionInfo) session.getAttribute("member");
+            
+            dto.setMemberNum(info.getMemberNum());
+            
+            service.setInsertRegPet(dto);
+            return "대표 동물이 설정되었습니다.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "대표 동물 설정에 실패했습니다.";
+        }
+	}
+	
 	
 	@GetMapping("breed")
     @ResponseBody

@@ -175,4 +175,16 @@
     WHERE petNum = #{petNum} AND memberNum = #{memberNum}
 	</delete>
 	
+	<!-- 대표동물삭제 -->
+	<delete id="deleteRegPet" parameterType="long">
+	DELETE FROM regPet
+	WHERE memberNum = #{memberNum}
+	</delete>
+	
+	<!-- 대표동물등록 -->
+	<insert id="insertRegPet" parameterType="com.shop.petpal.domain.Mypage2">
+		INSERT INTO regPet (memberNum, petNum) 
+		VALUES (#{memberNum}, #{petNum})
+	</insert>
+	
 </mapper>

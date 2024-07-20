@@ -225,7 +225,7 @@ a {
 									</div>
 									<div class="form-group">
 										<label for="petWeight">몸무게</label>
-										<input type="number" class="form-control" id="petWeight" name="petWeight">
+										<input type="number" class="form-control" id="petWeight" name="petWeight" value="0">
 									</div>
 									<div class="form-group">
 										<label for="petBodyType">체형</label>
@@ -384,6 +384,24 @@ a {
 		};
 		reader.readAsDataURL(event.target.files[0]);
 	}
+	
+	// 대표 동물 설정
+	function changeRepresentative(petNum) {
+    $.ajax({
+        url: '${pageContext.request.contextPath}/myPage2/setInsertRegPet',
+        type: 'POST',
+        data: { petNum: petNum },
+        success: function(response) {
+            alert(response);
+            // 필요시 페이지 새로고침 또는 다른 동작 추가
+            location.reload(); // 성공 시 페이지 새로고침
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('대표 동물 설정에 실패했습니다. 다시 시도해주세요.');
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
 	</script>
 </body>
 </html>

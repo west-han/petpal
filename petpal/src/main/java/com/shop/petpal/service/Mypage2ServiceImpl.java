@@ -316,4 +316,21 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}	
 			
 	}
+
+	@Override
+	public void setInsertRegPet(Mypage2 dto) throws Exception {
+		// TODO 대표 펫 삭제 후 대표 펫 추가
+		try {
+			mapper.deleteRegPet(dto.getMemberNum()); // 대표동물 삭제
+            
+            mapper.insertRegPet(dto);// 새로운 대표 동물 추가
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+			
+		}
+		
+	}
+
+	
 }

@@ -2,7 +2,6 @@ package com.shop.petpal.service;
 
 
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -37,4 +36,5 @@ public interface Mypage2Service {
 	public void insertMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 추가
 	public void updateMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 수정
 	public void deleteMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 삭제
+	public void setInsertRegPet(Mypage2 dto) throws Exception; // 대표동물 추가
 }
