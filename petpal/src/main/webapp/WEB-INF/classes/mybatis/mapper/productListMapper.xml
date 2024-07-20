@@ -25,6 +25,7 @@
 	</select>
 	
 	<!-- 신상품 -->
+	<!-- TODO: 서브쿼리 최대한 줄여서 다시 짜기 -->
 	<select id="listRecentProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
 		SELECT p.productNum, productName, productClass, price, discountRate, discountAmount,
 			thumbnail, species, brand, regDate, NVL(COUNT(rating), 0) reviewCount, NVL(AVG(rating), 0) rating
@@ -44,7 +45,7 @@
 		                        <if test="categoryNum != 0">
 									AND c.parentCategory = #{categoryNum}
 								</if>
-		                    ORDER BY regDate ASC
+		                    ORDER BY regDate DESC
 		                ) inner
 	               WHERE ROWNUM &lt;= #{endNum}
 	           )
@@ -98,7 +99,102 @@
 		ORDER BY attributeNum, attrDtlNum
 	</select>
 	
+	<!-- NOTE: categoryNum, parentCategory, species, sortBy, order, attributes, minPrice, maxPrice, minRating -->
 	<select id="listCategorizedProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
-		SELECT * FROM product
+		SELECT p.productNum, p.productName, p.productClass, p.price, p.discountRate,
+				p.deliveryCharge, p.thumbnail, p.productStatus, p.regDate,
+				p.modifyDate, p.species, p.brand, p.discountAmount,
+				NVL(r.reviewCount, 0) reviewCount, NVL(r.rating, 0) rating, NVL(od.sales, 0) sales
+		FROM (
+			SELECT *
+			FROM product
+			WHERE productStatus = 1 AND species = #{species}
+		) p
+		LEFT JOIN (
+		    SELECT productNum, 
+		           COUNT(orderDetailNum) reviewCount, 
+		           AVG(rating) rating
+		    FROM review
+		    GROUP BY productNum
+		) r ON p.productNum = r.productNum
+		LEFT JOIN (
+		    SELECT productNum, 
+		           COUNT(orderDetailNum) sales
+		    FROM orderDetail
+		    GROUP BY productNum
+		) od ON p.productNum = od.productNum
+		<where> p.categoryNum IN (
+		        SELECT categoryNum 
+		        FROM category 
+		        <if test="categoryNum != 0">
+		        	WHERE categoryNum = #{categoryNum}
+		        </if>
+		        <if test="categoryNum == 0 and parentCategory != 0">
+		        	WHERE parentCategory = #{parentCategory}
+		        </if>
+		    )
+		  <if test="minPrice != null">
+			AND p.price &gt;= #{minPrice}
+		  </if>
+		  <if test="maxPrice != null">
+		  	AND p.price &lt;= #{maxPrice}
+		  </if>
+		  <if test="minRating != null">
+		  	AND NVL(r.rating, 0) &gt; #{minRating}
+		  </if>
+		  <if test="attributes != null">
+			AND EXISTS (
+			      SELECT 1 
+			      FROM productAttribute pa 
+			      WHERE pa.productNum = p.productNum 
+			        AND pa.attrDtlNum IN 
+			            <foreach collection="attributes" item="attr" open="(" close=")" separator=",">#{attr}</foreach>
+			  )
+		  </if>
+		</where>
+		<if test="sortBy != null">
+			ORDER BY ${sortBy} ${order}
+		</if>
+		OFFSET #{startNum} ROWS FETCH FIRST #{endNum} ROWS ONLY
 	</select>
+	
+	<!-- NOTE: 데이터 개수 가져오는 쿼리 - 원본 쿼리에서 불필요한 JOIN 연산 제거 -->
+	<select id="countCategorizedProducts" parameterType="map" resultType="Integer">
+	    SELECT NVL(COUNT(*), 0) count
+	    FROM product p
+	    <where>
+	        p.productStatus = 1 AND p.species = #{species}
+	        AND p.categoryNum IN (
+	            SELECT categoryNum 
+	            FROM category 
+	            <if test="categoryNum != 0">
+	                WHERE categoryNum = #{categoryNum}
+	            </if>
+	            <if test="categoryNum == 0 and parentCategory != 0">
+	                WHERE parentCategory = #{parentCategory}
+	            </if>
+	        )
+	        <if test="minPrice != null">
+	            AND p.price &gt;= #{minPrice}
+	        </if>
+	        <if test="maxPrice != null">
+	            AND p.price &lt;= #{maxPrice}
+	        </if>
+	        <if test="minRating != null">
+	            AND (SELECT NVL(AVG(rating), 0) 
+	                 FROM review 
+	                 WHERE productNum = p.productNum) &gt; #{minRating}
+	        </if>
+	        <if test="attributes != null">
+	            AND EXISTS (
+	                SELECT 1 
+	                FROM productAttribute pa 
+	                WHERE pa.productNum = p.productNum 
+	                  AND pa.attrDtlNum IN 
+	                      <foreach collection="attributes" item="attr" open="(" close=")" separator=",">#{attr}</foreach>
+	            )
+	        </if>
+	    </where>
+	</select>
+	
 </mapper>

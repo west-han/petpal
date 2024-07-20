@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.petpal.admin.mapper.MemberManageMapper">
-
     <select id="findAllMembers" resultType="com.shop.petpal.domain.Member">
-        SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled, 
-               failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
-               nickname, userName, postalCode, area, membershipNum
+        SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled,
+            failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
+            nickname, userName, postalCode, area, membershipNum
         FROM member1 m1
         JOIN member2 m2 ON m1.memberNum = m2.memberNum
     </select>
+    
 
+    <select id="findMemberById" parameterType="long" resultType="com.shop.petpal.domain.Member">
+        SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled,
+            failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
+            nickname, userName, postalCode, area, membershipNum
+        FROM member1 m1
+        JOIN member2 m2 ON m1.memberNum = m2.memberNum
+        WHERE m1.memberNum = #{memberNum}
+    </select>
+
+    <update id="updateMember" parameterType="com.shop.petpal.domain.Member">
+        UPDATE member1 SET 
+            email = #{email},
+            socialLogin = #{socialLogin},
+            password = #{password},
+            regDate = #{regDate},
+            notificationConsent = #{notificationConsent},
+            enabled = #{enabled},
+            failureCount = #{failureCount},
+            lastLogin = #{lastLogin},
+            birth = TO_DATE(#{birth}, 'YYYY-MM-DD'),
+            address1 = #{address1},
+            address2 = #{address2},
+            tel = #{tel},
+            nickname = #{nickname},
+            userName = #{userName},
+            postalCode = #{postalCode},
+            area = #{area}
+        WHERE memberNum = #{memberNum};
+
+        UPDATE member2 SET 
+            membershipNum = #{membershipNum}
+        WHERE memberNum = #{memberNum};
+    </update>
 </mapper>

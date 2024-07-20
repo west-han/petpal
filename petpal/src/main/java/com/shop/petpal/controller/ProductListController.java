@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shop.petpal.common.MyUtil;
 import com.shop.petpal.domain.Product;
 import com.shop.petpal.service.ProductListService;
 
@@ -22,6 +23,9 @@ import com.shop.petpal.service.ProductListService;
 public class ProductListController {
 	@Autowired
 	private ProductListService service;
+	
+	@Autowired
+	private MyUtil myUtil;
 	
 	@GetMapping(value = {"recent", "recent/{species}", "recent/{species}/{categoryNum}"})
 	public String listRecentProducts(
@@ -102,7 +106,7 @@ public class ProductListController {
 			@PathVariable(required = false) Integer parentCategory,
 			@PathVariable(required = false) Integer categoryNum,
 			@RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam Map<String, String> params,
+			@RequestParam Map<String, Object> params,
 			Model model) {
 		// NOTE: 파라미터 - sortBy(price, sales, ...), order(asc, desc), 
 		// NOTE: 파라미터 - 필터 조건, 여러개의 필터는 ,로 구분
@@ -119,28 +123,19 @@ public class ProductListController {
 		if (categoryNum == null) {
 			categoryNum = 0;
 		}
-
-		// TODO: 테스트 코드 삭제
-		Iterator<String> it = params.keySet().iterator();
-		while (it.hasNext()) {
-			String key = it.next();
-			System.out.println(key + ": " + params.get(key));
-		}
-		
-		// TODO: 파라미터 decoding
 		
 		try {
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("species", species);
-			map.put("parentCategory", parentCategory);
-			map.put("categoryNum", categoryNum);
+			params.put("species", species);
+			params.put("parentCategory", parentCategory);
+			params.put("categoryNum", categoryNum);
 
 			List<Map<String, Object>> categories = service.listCategory(species);
-			List<Map<String, Object>> subCategories = service.listSubCategory(map);
-			List<Map<String, Object>> attributes = service.listAttribute(map);
+			List<Map<String, Object>> subCategories = service.listSubCategory(params);
+			List<Map<String, Object>> attributes = service.listAttribute(params);
 			
-			List<Product> products = service.listCategorizedProducts(map);
+			List<Product> products = service.listCategorizedProducts(params);
+			
+			int dataCount = service.countCategorizedProducts(params);
 			
 			model.addAttribute("attributes", attributes);
 			model.addAttribute("categories", categories);
@@ -149,6 +144,7 @@ public class ProductListController {
 			model.addAttribute("parentCategory", parentCategory);
 			model.addAttribute("categoryNum", categoryNum);
 			model.addAttribute("products", products);
+			model.addAttribute("dataCount", dataCount);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
