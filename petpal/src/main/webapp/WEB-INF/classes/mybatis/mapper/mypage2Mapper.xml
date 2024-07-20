@@ -116,7 +116,7 @@
     </update>
     
     
-    
+    <!-- 나의 펫 -->
     <!-- 나의 쿠폰 리스트 -->
     <select id="selectMemberCoupon" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
     	SELECT m.couponNum,m.memberNum,TO_CHAR(m.regDate,'YYYY-MM-DD') AS regDate,state,validity,couponName,discountRate,minPayment
@@ -128,6 +128,16 @@
     </select>
 	
 	
+	
+	<!-- 나의 펫 -->
+	<!-- 나의 펫 리스트 -->
+	<select id="selectMemberPet" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
+		SELECT p.petNum, p.petName, p.petPhoto, p.petBirth, p.petGender, p.petWeight,
+           p.bodyShape, p.petRegNum, p.memberNum, p.breedNum, b.breedName
+    		FROM Pet p
+    		JOIN Breed b ON b.breedNum = p.breedNum
+   			WHERE memberNum = #{memberNum}
+	</select>
 	
 	
 </mapper>

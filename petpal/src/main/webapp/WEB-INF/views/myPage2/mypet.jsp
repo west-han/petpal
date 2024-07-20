@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Page - 나의 펫</title>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-	rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <style>
 body {
 	background-color: #f8f9fa;
@@ -74,6 +72,7 @@ a {
 	text-decoration: none;
 }
 
+
 .category-header {
 	list-style-type: none;
 	text-align: center;
@@ -85,6 +84,15 @@ a {
 .mypage {
 	text-align: center;
 }
+
+#addPetModal img {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin: auto;
+	display: block;
+}
 </style>
 </head>
 <body>
@@ -94,33 +102,18 @@ a {
 				<h3 class="mypage">마이페이지</h3>
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/orderlist">주문
-							내역/배송 조회</a></li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불
-							내역</a></li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
-					<li class="list-group-item "><a
-						href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/orderlist">주문 내역/배송 조회</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
-					<li class="list-group-item active"><a
-						href="${pageContext.request.contextPath}/myPage2/mypet">나의 펫</a></li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/mymodify">내
-							정보</a></li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/myaddress">나의
-							배송지</a></li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/likelist">찜
-							리스트</a></li>
+					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage2/mypet">나의 펫</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mymodify">내 정보</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myaddress">나의 배송지</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/likelist">찜 리스트</a></li>
 					<li class="category-header">my 활동</li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
-					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
 				</ul>
 			</div>
 
@@ -130,69 +123,133 @@ a {
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<div class="position-relative">
-								<img
-									src="${pageContext.request.contextPath}/resources/images/dog.jpg"
-									alt="Pet 1"> <i class="fa-solid fa-crown crown-icon"></i>
+								<img src="${pageContext.request.contextPath}/resources/images/dog.jpg" alt="Pet 1"> <i class="fa-solid fa-crown crown-icon"></i>
 							</div>
 						</div>
 						<div class="carousel-item">
 							<div class="position-relative">
-								<img
-									src="${pageContext.request.contextPath}/resources/images/cat.jpg"
-									alt="Pet 2">
+								<img src="${pageContext.request.contextPath}/resources/images/cat.jpg" alt="Pet 2">
 							</div>
 						</div>
 						<!-- 추가적인 펫 항목 -->
 					</div>
-					<button class="carousel-control-prev" type="button"
-						data-bs-target="#petCarousel" data-bs-slide="prev">
+					<button class="carousel-control-prev" type="button" data-bs-target="#petCarousel" data-bs-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Previous</span>
 					</button>
-					<button class="carousel-control-next" type="button"
-						data-bs-target="#petCarousel" data-bs-slide="next">
+					<button class="carousel-control-next" type="button" data-bs-target="#petCarousel" data-bs-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Next</span>
 					</button>
 				</div>
 
 				<div class="always-visible">
-					<button class="btn btn-primary" onclick="changeRepresentative()">대표
-						동물로 설정</button>
+					<button class="btn btn-primary" onclick="changeRepresentative()">대표 동물로 설정</button>
+					<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addPetModal">펫 추가</button>
 				</div>
 
+				<!-- 펫 추가 모달 -->
+				<div class="modal fade" id="addPetModal" tabindex="-1" aria-labelledby="addPetModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="addPetModalLabel">펫 추가</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form class="pet-form mt-4">
+									<div class="form-group">
+										<label for="petType">종류</label><br>
+										<input type="radio" id="dog" name="petType" value="강아지">
+										<label for="dog">강아지</label>
+										<input type="radio" id="cat" name="petType" value="고양이">
+										<label for="cat">고양이</label>
+									</div>
+									<div class="form-group">
+										<label for="petName">이름</label> 
+										<input type="text" class="form-control" id="petName" value="펫 이름">
+									</div>
+									<div class="form-group">
+										<label for="petPhoto">사진</label> 
+										<input type="file" class="form-control" id="petPhoto" onchange="previewImage(event)">
+										<img id="preview" src="" alt="미리보기" style="display:none;">
+									</div>
+									<div class="form-group">
+										<label for="petBirthday">생일</label> 
+										<input type="date" class="form-control" id="petBirthday" value="2020-01-01">
+									</div>
+									<div class="form-group">
+										<label for="petGender">성별</label> 
+										<select class="form-control" id="petGender">
+											<option>남</option>
+											<option>여</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="petWeight">몸무게</label> 
+										<input type="number" class="form-control" id="petWeight" value="5">
+									</div>
+									<div class="form-group">
+										<label for="petBodyType">체형</label> 
+										<select class="form-control" id="petBodyType">
+											<option>날씬해요</option>
+											<option>적당해요</option>
+											<option>통통해요</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="petRegistrationNumber">동물등록번호</label> 
+										<input type="text" class="form-control" id="petRegistrationNumber" value="123456789">
+									</div>
+									<button type="submit" class="btn btn-success">저장</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- 펫 추가 모달 -->
 				<form class="pet-form mt-4">
 					<div class="form-group">
-						<label for="petName">이름</label> <input type="text"
-							class="form-control" id="petName" value="펫 이름">
+						<label for="petType">종류</label><br>
+						<input type="radio" id="dog" name="petType" value="강아지">
+						<label for="dog">강아지</label>
+						<input type="radio" id="cat" name="petType" value="고양이">
+						<label for="cat">고양이</label>
 					</div>
 					<div class="form-group">
-						<label for="petPhoto">사진</label> <input type="file"
-							class="form-control" id="petPhoto">
+						<label for="petName">이름</label> 
+						<input type="text" class="form-control" id="petName" value="펫 이름">
 					</div>
 					<div class="form-group">
-						<label for="petBirthday">생일</label> <input type="date"
-							class="form-control" id="petBirthday" value="2020-01-01">
+						<label for="petPhoto">사진</label> 
+						<input type="file" class="form-control" id="petPhoto">
 					</div>
 					<div class="form-group">
-						<label for="petGender">성별</label> <select class="form-control"
-							id="petGender">
+						<label for="petBirthday">생일</label> 
+						<input type="date" class="form-control" id="petBirthday" value="2020-01-01">
+					</div>
+					<div class="form-group">
+						<label for="petGender">성별</label> 
+						<select class="form-control" id="petGender">
 							<option>남</option>
 							<option>여</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="petWeight">몸무게</label> <input type="number"
-							class="form-control" id="petWeight" value="5">
+						<label for="petWeight">몸무게</label> 
+						<input type="number" class="form-control" id="petWeight" value="5">
 					</div>
 					<div class="form-group">
-						<label for="petBodyType">체형</label> <input type="text"
-							class="form-control" id="petBodyType" value="보통">
+						<label for="petBodyType">체형</label> 
+						<select class="form-control" id="petBodyType">
+							<option>날씬해요</option>
+							<option>적당해요</option>
+							<option>통통해요</option>
+						</select>
 					</div>
 					<div class="form-group">
-						<label for="petRegistrationNumber">동물등록번호</label> <input
-							type="text" class="form-control" id="petRegistrationNumber"
-							value="123456789">
+						<label for="petRegistrationNumber">동물등록번호</label> 
+						<input type="text" class="form-control" id="petRegistrationNumber" value="123456789">
 					</div>
 					<button type="submit" class="btn btn-success">저장</button>
 				</form>
@@ -200,10 +257,10 @@ a {
 		</div>
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<script>
 		function changeRepresentative() {
-			var activeItem = document
-					.querySelector('.carousel-item.active .position-relative');
+			var activeItem = document.querySelector('.carousel-item.active .position-relative');
 			var currentCrown = document.querySelector('.fa-crown');
 			if (currentCrown) {
 				currentCrown.remove();
@@ -212,8 +269,16 @@ a {
 			newCrown.className = 'fa-solid fa-crown crown-icon';
 			activeItem.appendChild(newCrown);
 		}
-	</script>
 
+		function previewImage(event) {
+			var reader = new FileReader();
+			reader.onload = function(){
+				var output = document.getElementById('preview');
+				output.src = reader.result;
+				output.style.display = 'block';
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		}
+	</script>
 </body>
 </html>
-
