@@ -2,7 +2,7 @@
  	dataCount : 전체 데이터 개수
  	pageSize : 한 페이지의 데이터 개수
  */
-function pageCount(dataCount, pageSize) {
+function countPage(dataCount, pageSize) {
 	let result = 0;
 	
 	try {

@@ -2,6 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script type="text/javascript">
+window.addEventListener('load', function() {
+	document.querySelector('img.searchButton').addEventListener('click', function() {
+		const f = document.searchForm;
+		
+		if (! f.kwd.value.trim()) {
+			f.kwd.focus();
+			alert('검색어를 입력하세요')
+			return;
+		}
+		
+		f.kwd.value = f.kwd.value.trim().replaceAll(' ', '');
+		
+		f.action = '${pageContext.request.contextPath}/products/search/${species}/0/0';
+		
+		f.submit();
+	});
+});
+</script>
+
 	<header>
             <div class="evtpreview">
                 <div class="event-left">
@@ -20,8 +40,10 @@
                     <p class="name"><a href="${pageContext.request.contextPath}/"><span class="highlight">PET</span>PAL</a></p>
                 </div>
                 <div class="search">
-                    <input type="text" placeholder="어떤 상품을 찾고있개 ?">
-                    <img src="${pageContext.request.contextPath}/resources/images/search.png" >
+                	<form name="searchForm" action="" method="get">
+	                    <input name="kwd" type="text" placeholder="어떤 상품을 찾고있개 ?" value="${not empty param.kwd ? param.kwd : ''}">
+	                    <img class="searchButton" src="${pageContext.request.contextPath}/resources/images/search.png" >
+                	</form>
                 </div>
                 <div class="more">
                 	<div class="more">

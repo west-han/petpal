@@ -9,9 +9,9 @@
                 <div class="side-box">
                     <h4>카테고리</h4>
                     <ul class="list-v category">
-                        <li><a class="${parentCategory == 0 ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/category/${species}/0">전체</a></li>
+                        <li><a class="${parentCategory == 0 ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/${mode}/${species}/0${query}">전체</a></li>
                         <c:forEach items="${categories}" var="category">
-                        	<li><a class="${parentCategory == category.CATEGORYNUM ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a></li>
+                        	<li><a class="${parentCategory == category.CATEGORYNUM ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/${mode}/${species}/${category.CATEGORYNUM}/0${query}">${category.CATEGORYNAME}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -66,7 +66,7 @@
                         <li>
                         	<a
                         		${parentCategory == 0 || categoryNum == 0 ? 'class="selected"' : ''}
-                        		href="${pageContext.request.contextPath}/products/category/${species}/${empty parentCategory ? '' : parentCategory += '/'}0"
+                        		href="${pageContext.request.contextPath}/products/${mode}/${species}/${empty parentCategory ? '' : parentCategory += '/'}0${query}"
                         	>
                         		전체
                         	</a>
@@ -76,13 +76,13 @@
                         		<c:if test="${empty subCategory.PARENTCATEGORY}">
                         			<a
                         				class="${parentCategory == subCategory.CATEGORYNUM ? 'selected' : ''}"
-                        				href="${pageContext.request.contextPath}/products/category/${species}/${subCategory.CATEGORYNUM}">${subCategory.CATEGORYNAME}
+                        				href="${pageContext.request.contextPath}/products/${mode}/${species}/${subCategory.CATEGORYNUM}${query}">${subCategory.CATEGORYNAME}
                         			</a>
                         		</c:if>
                         		<c:if test="${not empty subCategory.PARENTCATEGORY}">
                         			<a 
 	                        			class="${categoryNum == subCategory.CATEGORYNUM ? 'selected' : ''}"
-	                        			href="${pageContext.request.contextPath}/products/category/${species}/${subCategory.PARENTCATEGORY}/${subCategory.CATEGORYNUM}">${subCategory.CATEGORYNAME}
+	                        			href="${pageContext.request.contextPath}/products/${mode}/${species}/${subCategory.PARENTCATEGORY}/${subCategory.CATEGORYNUM}${query}">${subCategory.CATEGORYNAME}
 	                        		</a>
                         		</c:if>
                         	</li>
@@ -108,6 +108,9 @@
                     </div>
                 </div>
                 <div class="display-box list-h">
+                	<c:if test="${empty products}">
+                		<div>등록된 상품이 없습니다.</div>
+                	</c:if>
                 	<c:forEach items="${products}" var="product">
 	                    <div class="product-box" onclick="location.href='${pageContext.request.contextPath}/product/${species}/${product.productNum}';"> 
 	                        <div class="product-img-box">
@@ -123,23 +126,26 @@
 	                    </div>
                 	</c:forEach>
                 </div>
-                <div class="page-box">
-                    <span>1</span>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <a href="">6</a>
-                    <a href="">7</a>
-                    <a href="">8</a>
-                    <a href="">9</a>
-                    <a href="">10</a>
-                </div>
+                <div class="page-box"></div>
             </div>
         </div>
     </div>
 
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/paginate.js"></script>
+
 <script type="text/javascript">
+// TODO: 페이지 사이즈 변경 기능 구현
+const pageSize = 30;
+const dataCount = '${dataCount}';
+const currentPage = '${currentPage}' ? '${currentPage}' : 1;
+
+const replaceParam = (url, param, value) => {
+	url.searchParams.delete(param);
+	if (value) {
+		url.searchParams.append(param, value);
+	}
+}
 
 window.addEventListener('load', function() {
 	const sortCriteria = {price: '가격', sales: '판매량', regDate: '등록일', rating: '평점', reviewCount: '후기수'};
@@ -164,12 +170,14 @@ window.addEventListener('load', function() {
 	
 });
 
-const replaceParam = (url, param, value) => {
-	url.searchParams.delete(param);
-	if (value) {
-		url.searchParams.append(param, value);
-	}
-}
+window.addEventListener('load', function() {
+	let pageCount = 1;
+	
+	totalPage = countPage(dataCount, pageSize);
+	let paging = pagingUrl(currentPage, totalPage, location.href.replaceAll(/page=[0-9]+/g, ""));
+	
+	document.querySelector('.page-box').innerHTML = paging;
+});
 
 window.addEventListener('load', function() {
 	document.querySelector('button.search-button').addEventListener('click', function(e) {

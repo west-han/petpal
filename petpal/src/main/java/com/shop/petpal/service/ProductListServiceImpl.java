@@ -23,7 +23,6 @@ public class ProductListServiceImpl implements ProductListService {
 	@Autowired
 	private DateUtil dateUtil;
 	
-	private final int pageSize = 30;
 	private final int lookupDays = 90;
 	
 	// TODO: 페이징 구현
@@ -172,14 +171,7 @@ public class ProductListServiceImpl implements ProductListService {
 		List<Product> products = null;
 		
 		try {
-			if (params.get("attributes") != null) {
-				List<String> attrDtlNums = List.of(((String)params.get("attributes")).split(","));
-				params.replace("attributes", attrDtlNums);
-			}
-			
-			params.put("startNum", 1);
-			params.put("endNum", 30);
-			
+
 			products = mapper.listCategorizedProducts(params);
 			
 		} catch (Exception e) {
@@ -189,6 +181,7 @@ public class ProductListServiceImpl implements ProductListService {
 		return products;
 	}
 	
+	@Override
 	public int countCategorizedProducts(Map<String, Object> params) {
 		int dataCount = 0;
 		

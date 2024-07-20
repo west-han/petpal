@@ -109,9 +109,11 @@ main .product-info > p:last-child, p:first-child {
 
 main .page-box {
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-main .page-box > span, main .page-box > a {
+main .page-box span, main .page-box a {
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -119,7 +121,12 @@ main .page-box > span, main .page-box > a {
     border: 1px solid black;
 }
 
-main .page-box > a, a:link, a:visited {
+main .page-box span, main .page-box a:hover {
+	color: #E4B075;
+}
+
+main .page-box a, a:link, a:visited {
+    cursor: pointer;
     text-decoration: none;
 }
 
