@@ -37,7 +37,7 @@ public interface MypageMapper2 {
 	public List<Mypage2> selectBreed(int species) throws SQLException; // 품종
 	public void insertMemberPet(Mypage2 dto)throws SQLException; // 펫 추가
 	public void updateMemberPet(Mypage2 dto)throws SQLException; // 펫 수정
-	
+	public void deleteMemberPet(Mypage2 dto)throws SQLException; // 펫 삭제
 	
 	
 	

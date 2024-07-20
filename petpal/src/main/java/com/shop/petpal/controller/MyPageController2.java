@@ -200,6 +200,23 @@ public class MyPageController2 {
 	    return "redirect:/myPage2/mypet";
 	}
 	
+	@PostMapping("deleteMemberPet")
+	public String deleteMemberPet(Mypage2 dto, HttpSession session) throws Exception{
+		String root = session.getServletContext().getRealPath("/");
+	    String path = root + "uploads" + File.separator + "petPhotos";
+	    
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    
+	    try {
+			dto.setMemberNum(info.getMemberNum());
+			service.deleteMemberPet(dto, path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/myPage2/mypet";
+	}
+	
 	
 	@GetMapping("breed")
     @ResponseBody

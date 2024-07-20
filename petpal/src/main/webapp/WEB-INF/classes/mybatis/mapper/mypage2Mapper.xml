@@ -169,5 +169,10 @@
 	    WHERE petNum = #{petNum} AND memberNum = #{memberNum}
 	</update>
 	
+	<!-- 펫 삭제 -->
+	<delete id="deleteMemberPet" parameterType="com.shop.petpal.domain.Mypage2">
+    DELETE FROM pet
+    WHERE petNum = #{petNum} AND memberNum = #{memberNum}
+	</delete>
 	
 </mapper>

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Page - 나의 펫</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
 body {
 	background-color: #f8f9fa;
@@ -157,6 +157,10 @@ a {
 										<div class="button-group">
 											<button class="btn btn-primary" onclick="changeRepresentative(${pet.petNum})">대표 동물로 설정</button>
 											<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editPetModal_${pet.petNum}">펫 수정</button>
+											<form action="${pageContext.request.contextPath}/myPage2/deleteMemberPet" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+												<input type="hidden" name="petNum" value="${pet.petNum}">
+												<button type="submit" class="btn btn-danger">펫 삭제</button>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -314,8 +318,6 @@ a {
 		</div>
 	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<script>
 	function loadBreeds(species, petNum) {
