@@ -197,8 +197,13 @@ function updatePassWord() {
                                 <p><strong>생년월일:</strong> ${dto.birth }</p>
                                 <p><strong>전화번호:</strong> ${dto.tel }</p>
                                 <p><strong>닉네임:</strong> ${dto.nickname }</p>
-                                <p><strong>닉네임:</strong> ${info.nickname }</p>
-                                <p><strong>닉네임:</strong> ${info.email }</p>
+                                
+                                	<p>-------세션정보-------</p>
+                                <p><strong>세션 닉네임:</strong> ${info.nickname }</p>
+                                <p><strong>세션 회원번호:</strong> ${info.memberNum }</p>
+                                <p><strong>세션 이름:</strong> ${info.userName }</p>
+                                <p><strong>세션 멤버쉽번호:</strong> ${info.membershipNum }</p>
+                                <p><strong>세션 이메일:</strong> ${info.email }</p>
                                 
                             </div>
                         </div>

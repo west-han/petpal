@@ -11,7 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
-        
         * {
             box-sizing: border-box;
             font-family: "Noto Sans CJK KR";
@@ -29,13 +28,13 @@
             flex-direction: column;
             align-items: center;
             width: 670px;
-            height: 960px;
             margin-top: 60px;
             margin-bottom: 60px;
             background: #ffffff;
             border: 1px solid #aacdff;
             box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
             border-radius: 20px;
+            padding: 20px;
         }
 
         .member-container {
@@ -43,25 +42,21 @@
             flex-direction: column;
             align-items: center;
             width: 470px;
-            margin-top: 72px;
-            margin-bottom: 70px;
         }
 
         .header {
-            width: 466px;
-            height: 94px;
+            width: 100%;
             font-weight: 700;
             font-size: 32px;
             line-height: 47px;
             color: #0068ff;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
+            width: 100%;
+            margin-bottom: 30px;
         }
 
         .section div {
@@ -75,37 +70,8 @@
             color: #797979;
             border: none;
             border-bottom: 1px solid #cfcfcf;
-            width: 466px;
-            margin-top: 21px;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: space-between;
             width: 100%;
-            margin-top: 30px;
-        }
-
-        .btn-container.section3 {
-            margin-top: 100px;
-            gap: 200px; 
-        }
-
-        button {
-            width: 150px;
-            height: 50px;
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 27px;
-            text-align: center;
-            color: #0068ff;
-            background: #ffffff;
-            border: 1px solid #0068ff;
-            border-radius: 10px;
-        }
-
-        button#next-btn3 {
-            margin-left: auto; 
+            margin-top: 21px;
         }
 
         .radio-group {
@@ -150,7 +116,7 @@
             </div>
 
             <!-- 페이지 3 : 동물 선택 -->
-            <div class="section active" id="section3">
+            <div class="section">
                 <div class="emoji" ref="emoji">{{ selectedContent }}</div>
                 <div class="radio-group">
                     <div v-for="(animal, index) in animals" :key="animal"
@@ -161,14 +127,10 @@
                         {{ animal }}
                     </div>
                 </div>
-                <div class="btn-container section3">
-                    <button id="prev-btn2">이전</button>
-                    <button id="next-btn3">다음</button>
-                </div>
             </div>
 
-            <!-- 페이지 4 :  -->
-            <div class="section" id="section4">
+            <!-- 페이지 4 : 동물 정보 입력 -->
+            <div class="section">
                 <div class="pet-info-name">
                     <div>* 동물 이름</div>
                     <input type="text" />
@@ -197,30 +159,11 @@
                     <div>* 동물등록번호</div>
                     <input type="text" />
                 </div>
-                <div class="btn-container">
-                    <button id="prev-btn3">이전</button>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
-        $(document).ready(function(){
-            $("#next-btn3").click(function(){
-                $("#section3").removeClass("active");
-                $("#section4").addClass("active");
-            });
-
-            $("#prev-btn2").click(function(){
-                window.location.href = 'member.jsp';
-            });
-
-            $("#prev-btn3").click(function(){
-                $("#section4").removeClass("active");
-                $("#section3").addClass("active");
-            });
-        });
-
         const app = new Vue({
             el: "#app",
             data: {
