@@ -1,6 +1,7 @@
 package com.shop.petpal.service;
 
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,9 @@ public interface Mypage2Service {
 	// 쿠폰 리스트
 	public List<Mypage2> selectMemberCoupon(long memberNum) throws Exception; // 나의 쿠폰 리스트
 	
+	// 펫 정보
+	public List<Mypage2> selectMemberPet(long memberNum) throws Exception; // 펫 리스트
+	public List<Mypage2> selectBreed(int species) throws Exception; // 품종
+	public void insertMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 추가
+	public void updateMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 수정
 }

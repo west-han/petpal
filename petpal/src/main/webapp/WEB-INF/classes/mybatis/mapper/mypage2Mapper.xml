@@ -133,11 +133,42 @@
 	<!-- 나의 펫 리스트 -->
 	<select id="selectMemberPet" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
 		SELECT p.petNum, p.petName, p.petPhoto, p.petBirth, p.petGender, p.petWeight,
-           p.bodyShape, p.petRegNum, p.memberNum, p.breedNum, b.breedName
+           p.bodyShape, p.petRegNum, p.memberNum, p.breedNum, b.breedName,b.species
     		FROM Pet p
     		JOIN Breed b ON b.breedNum = p.breedNum
    			WHERE memberNum = #{memberNum}
 	</select>
+	
+	<select id="selectBreed" resultType="com.shop.petpal.domain.Mypage2">
+		SELECT breedNum,species,breedName
+		FROM Breed
+		WHERE species = #{species}
+	</select>
+	
+	<!-- 펫 추가 -->
+    <insert id="insertMemberPet" parameterType="com.shop.petpal.domain.Mypage2">
+        INSERT INTO Pet(petNum, petName, petPhoto, petBirth, petGender,
+            petWeight, bodyShape, petRegNum, memberNum, breedNum)
+        VALUES (pet_seq.nextval, #{petName}, #{petPhoto, jdbcType=VARCHAR}, 
+            #{petBirth, jdbcType=DATE}, #{petGender, jdbcType=INTEGER}, 
+            #{petWeight, jdbcType=DOUBLE}, #{bodyShape, jdbcType=INTEGER}, 
+            #{petRegNum, jdbcType=VARCHAR}, #{memberNum, jdbcType=INTEGER}, #{breedNum, jdbcType=INTEGER})
+    </insert>
+    
+	<!-- 펫 수정 -->
+	<update id="updateMemberPet" parameterType="com.shop.petpal.domain.Mypage2">
+	    UPDATE MemberPet
+	    SET petName = #{petName, jdbcType=VARCHAR},
+	        <if test="petPhoto != null">petPhoto = #{petPhoto, jdbcType=VARCHAR},</if>
+	        <if test="petBirth != null">petBirth = #{petBirth, jdbcType=DATE},</if>
+	        <if test="petGender != null">petGender = #{petGender, jdbcType=INTEGER},</if>
+	        <if test="petWeight != null">petWeight = #{petWeight, jdbcType=DOUBLE},</if>
+	        <if test="bodyShape != null">bodyShape = #{bodyShape, jdbcType=INTEGER},</if>
+	        <if test="petRegNum != null">petRegNum = #{petRegNum, jdbcType=VARCHAR},</if>
+	        <if test="breedNum != null">breedNum = #{breedNum, jdbcType=INTEGER},</if>
+	        <if test="species != null">species = #{species, jdbcType=INTEGER}</if>
+	    WHERE petNum = #{petNum} AND memberNum = #{memberNum}
+	</update>
 	
 	
 </mapper>

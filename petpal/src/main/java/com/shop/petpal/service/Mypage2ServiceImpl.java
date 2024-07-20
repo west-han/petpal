@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.shop.petpal.common.FileManager;
 import com.shop.petpal.domain.Member;
 import com.shop.petpal.domain.Mypage2;
 import com.shop.petpal.mapper.MypageMapper2;
+
 
 
 @Service
@@ -22,6 +24,9 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
+	
+	@Autowired
+	private FileManager fileManager;
 
 	@Override
 	public List<Mypage2> myPointList(long memberNum) {
@@ -229,5 +234,82 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}
 		return list;
 	}
-	
+
+	@Override
+	public List<Mypage2> selectMemberPet(long memberNum) throws Exception {
+		// TODO 나의 펫 리스트
+		List<Mypage2> list = null;
+		
+		try {
+			list = mapper.selectMemberPet(memberNum);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("Error fetching pet list", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Mypage2> selectBreed(int species) throws Exception {
+		// TODO 품종
+		List<Mypage2> list = null;
+		
+		try {
+			list = mapper.selectBreed(species);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+	}
+
+	@Override
+	public void insertMemberPet(Mypage2 dto,String pathname) throws Exception {
+		// TODO 펫추가
+		try {
+			String saveFilename = fileManager.doFileUpload(dto.getSelectFile(), pathname);
+			if (saveFilename != null) {
+				dto.setPetPhoto(saveFilename);
+			}
+			mapper.insertMemberPet(dto);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void updateMemberPet(Mypage2 dto, String pathname) throws Exception {
+	    try {
+	        System.out.println("Starting file upload...");
+	        String saveFilename = fileManager.doFileUpload(dto.getSelectFile(), pathname);
+	        System.out.println("File upload result: " + saveFilename);
+	        
+	        if (saveFilename != null) {
+	            // 이전 파일 지우기
+	            if (dto.getPetPhoto() != null && dto.getPetPhoto().length() != 0) {
+	                System.out.println("Deleting old file: " + dto.getPetPhoto());
+	                try {
+	                    fileManager.doFileDelete(dto.getPetPhoto(), pathname);
+	                    System.out.println("Old file deleted: " + dto.getPetPhoto());
+	                } catch (Exception e) {
+	                    System.out.println("Error deleting file: " + dto.getPetPhoto());
+	                    e.printStackTrace();
+	                }
+	            }
+
+	            dto.setPetPhoto(saveFilename);
+	            System.out.println("Updated DTO petPhoto: " + dto.getPetPhoto());
+	        }
+	        
+	        System.out.println("Updating member pet in DB with DTO: " + dto);
+	        mapper.updateMemberPet(dto);
+	        System.out.println("Member pet update complete.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+	}
 }

@@ -1,5 +1,7 @@
 package com.shop.petpal.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Mypage2 {
 	private long pointNum; // 포인트 적립 번호	
 	private String regDate; // 포인트날짜 // 쿠폰발급일
@@ -26,8 +28,94 @@ public class Mypage2 {
 	private String couponName; // 쿠폰 이름
 	private int discountRate; // 쿠폰 할인율
 	
+	// 나의 펫
+	private long petNum; // 펫 번호
+	private String petName; // 펫이름
+	private String petPhoto; // 펫 사진
+	private String petBirth; // 펫 생일
+	private int petGender; // 펫 성별
+	private double petWeight; // 펫 몸무게
+	private int bodyShape; // 펫 체형 날씬(1),적당(2),뚱뚱(3)
+	private String petRegNum; // 동물 등록 번호
+	private long breedNum; // 품종코드
+	private int species; // 강아지1 고양이2 구분
+	private String breedName; // 품종명
+	
+	private MultipartFile selectFile; // 파일
 	
 	
+	public MultipartFile getSelectFile() {
+		return selectFile;
+	}
+	public void setSelectFile(MultipartFile selectFile) {
+		this.selectFile = selectFile;
+	}
+	public long getPetNum() {
+		return petNum;
+	}
+	public void setPetNum(long petNum) {
+		this.petNum = petNum;
+	}
+	public String getPetName() {
+		return petName;
+	}
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+	public String getPetPhoto() {
+		return petPhoto;
+	}
+	public void setPetPhoto(String petPhoto) {
+		this.petPhoto = petPhoto;
+	}
+	public String getPetBirth() {
+		return petBirth;
+	}
+	public void setPetBirth(String petBirth) {
+		this.petBirth = petBirth;
+	}
+	public int getPetGender() {
+		return petGender;
+	}
+	public void setPetGender(int petGender) {
+		this.petGender = petGender;
+	}
+	public double getPetWeight() {
+		return petWeight;
+	}
+	public void setPetWeight(double petWeight) {
+		this.petWeight = petWeight;
+	}
+	public int getBodyShape() {
+		return bodyShape;
+	}
+	public void setBodyShape(int bodyShape) {
+		this.bodyShape = bodyShape;
+	}
+	public String getPetRegNum() {
+		return petRegNum;
+	}
+	public void setPetRegNum(String petRegNum) {
+		this.petRegNum = petRegNum;
+	}
+	public long getBreedNum() {
+		return breedNum;
+	}
+	public void setBreedNum(long breedNum) {
+		this.breedNum = breedNum;
+	}
+	public int getSpecies() {
+		return species;
+	}
+	public void setSpecies(int species) {
+		this.species = species;
+	}
+	public String getBreedName() {
+		return breedName;
+	}
+	public void setBreedName(String breedName) {
+		this.breedName = breedName;
+	}
 	public long getCouponNum() {
 		return couponNum;
 	}

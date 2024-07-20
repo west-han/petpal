@@ -1,6 +1,7 @@
 package com.shop.petpal.controller;
 
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -143,10 +144,68 @@ public class MyPageController2 {
     }
 
 	@GetMapping("mypet")
-	public String mypetFrom() throws Exception {
+	public String mypetFrom(Model model,
+			 HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		
+		try {
+			List<Mypage2> list = service.selectMemberPet(info.getMemberNum());
+			
+			
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 
 		return ".myPage2.mypet";
 	}
+	
+	
+	@PostMapping("insertMemberPet")
+    public String insertPetFrom(Mypage2 dto, HttpSession session) throws Exception {
+        String root = session.getServletContext().getRealPath("/");
+        String path = root + "uploads" + File.separator + "petPhotos";
+
+        SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+        try {
+            dto.setMemberNum(info.getMemberNum());
+            service.insertMemberPet(dto, path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/myPage2/mypet";
+    }
+	
+	@PostMapping("updateMemberPet")
+	public String updateMemberPet(Mypage2 dto, HttpSession session) throws Exception {
+	    String root = session.getServletContext().getRealPath("/");
+	    String path = root + "uploads" + File.separator + "petPhotos";
+	    
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    try {
+	    	dto.setMemberNum(info.getMemberNum());
+	        service.updateMemberPet(dto, path);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return "redirect:/myPage2/mypet";
+	}
+	
+	
+	@GetMapping("breed")
+    @ResponseBody
+    public List<Mypage2> getBreedBySpecies(@RequestParam("petSpecies") int species) throws Exception {
+        return service.selectBreed(species);
+    }
 
 	@GetMapping("mymodify")
 	public String mymodifyFrom(Model model, HttpSession session) throws Exception {
@@ -325,6 +384,8 @@ public class MyPageController2 {
 		
 		return "redirect:/myPage2/myaddress";
 	}
+	
+	
 	
 	
 

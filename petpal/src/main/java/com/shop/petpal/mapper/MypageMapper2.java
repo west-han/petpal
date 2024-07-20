@@ -32,6 +32,14 @@ public interface MypageMapper2 {
 	public List<Mypage2> selectMemberCoupon(long memberNum) throws SQLException; //나의 쿠폰 리스트
 	
 	
+	// 펫 정보
+	public List<Mypage2> selectMemberPet(long memberNum) throws SQLException; // 펫 정보
+	public List<Mypage2> selectBreed(int species) throws SQLException; // 품종
+	public void insertMemberPet(Mypage2 dto)throws SQLException; // 펫 추가
+	public void updateMemberPet(Mypage2 dto)throws SQLException; // 펫 수정
+	
+	
+	
 	
 	
 }
