@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,24 +15,26 @@
             font-size: 26px;
         }
         .modal {
-            display: none; /* 기본적으로 숨김 */
+            display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 3; 
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 색상 변경 */
         }
         
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 10% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 60%;
             position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* 그림자 효과 추가 */
+            border-radius: 10px; 
         }
         .close {
             color: #aaa;
@@ -47,6 +48,16 @@
             text-decoration: none;
             cursor: pointer;
         }
+        .overlay {
+            display: none;
+            position: fixed;
+            z-index: 2; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* 어두운 배경 */
+        }
     </style>
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/memberadmin.css">
@@ -55,22 +66,86 @@
     <script>
         $(document).ready(function() {
             $('.close').on('click', function() {
-                $('#editModal').hide(); // 모달 창을 숨김
+                $('#editModal').hide(); 
+                $('.overlay').hide(); 
             });
 
             $(window).on('click', function(event) {
                 if ($(event.target).is('#editModal')) {
-                    $('#editModal').hide(); // 모달 창 외부 클릭 시 닫기
+                    $('#editModal').hide(); 
+                    $('.overlay').hide(); 
                 }
             });
         });
 
         function editCustomer(memberNum) {
-            $('#editModal').show(); // 모달 창을 보여줍니다
+            $('#editModal').show(); 
+            $('.overlay').show(); 
+
+           
+            $.get("/admin/member/" + memberNum, function(data) {
+                $('#memberNum').val(data.memberNum);
+                $('#email').val(data.email);
+                $('#socialLogin').val(data.socialLogin);
+                $('#password').val(data.password);
+                $('#regDate').val(data.regDate);
+                $('#notificationConsent').val(data.notificationConsent);
+                $('#enabled').val(data.enabled);
+                $('#failureCount').val(data.failureCount);
+                $('#lastLogin').val(data.lastLogin);
+                $('#birth').val(data.birth);
+                $('#address1').val(data.address1);
+                $('#address2').val(data.address2);
+                $('#tel').val(data.tel);
+                $('#nickname').val(data.nickname);
+                $('#userName').val(data.userName);
+                $('#postalCode').val(data.postalCode);
+                $('#area').val(data.area);
+                $('#membershipNum').val(data.membershipNum);
+            });
+        }
+
+        function saveChanges() {
+            const member = {
+                memberNum: $('#memberNum').val(),
+                email: $('#email').val(),
+                socialLogin: $('#socialLogin').val(),
+                password: $('#password').val(),
+                regDate: $('#regDate').val(),
+                notificationConsent: $('#notificationConsent').val(),
+                enabled: $('#enabled').val(),
+                failureCount: $('#failureCount').val(),
+                lastLogin: $('#lastLogin').val(),
+                birth: $('#birth').val(),
+                address1: $('#address1').val(),
+                address2: $('#address2').val(),
+                tel: $('#tel').val(),
+                nickname: $('#nickname').val(),
+                userName: $('#userName').val(),
+                postalCode: $('#postalCode').val(),
+                area: $('#area').val(),
+                membershipNum: $('#membershipNum').val()
+            };
+
+            $.ajax({
+                url: "/admin/member/" + member.memberNum,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(member),
+                success: function() {
+                    $('#editModal').hide();
+                    $('.overlay').hide();
+                    location.reload(); // 페이지 새로고침하여 변경된 내용 반영
+                },
+                error: function() {
+                    alert("회원 정보 수정에 실패했습니다.");
+                }
+            });
         }
     </script>
 </head>
 <body>
+    <div id="mainOverlay" class="overlay"></div>
     <div class="container">
         <div class="customer-info-management">
             <h2>고객 정보</h2>

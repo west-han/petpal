@@ -9,27 +9,24 @@ import com.shop.petpal.admin.mapper.MemberManageMapper;
 import com.shop.petpal.domain.Member;
 
 @Service
-public class MemberManageServiceImpl implements MemberManageService{
+public class MemberManageServiceImpl implements MemberManageService {
 
-	 @Autowired
-	    private MemberManageMapper memberManageMapper;
-	 
+    @Autowired
+    private MemberManageMapper memberManageMapper;
 
-	    @Override
-	    public List<Member> findAllMembers() {
-	        return memberManageMapper.findAllMembers();
-	    }
+    @Override
+    public List<Member> findAllMembers() {
+        return memberManageMapper.findAllMembers();
+    }
 
-	    @Override
-	    public Member findById(Long memberNum) {
-	        return memberManageMapper.findById(memberNum);
-	    }
+    @Override
+    public Member findById(Long memberNum) {
+        return memberManageMapper.findById(memberNum);
+    }
 
-	    @Override
-	    public void updateMember(Member member) {
-	        memberManageMapper.updateMember(member);
-	    }
-	
-
-
+    @Override
+    public void updateMember(Member member) {
+        memberManageMapper.updateMember(member);
+    }
 }
+

@@ -35,13 +35,13 @@ public class MemberManageController {
             return ResponseEntity.ok(member);
         } else {
             return ResponseEntity.notFound().build();
-            
         }
     }
 
     @PutMapping("/admin/member/{memberNum}")
     @ResponseBody
     public ResponseEntity<Void> updateMember(@PathVariable Long memberNum, @RequestBody Member member) {
+        member.setMemberNum(memberNum);
         memberManageService.updateMember(member);
         return ResponseEntity.ok().build();
     }
