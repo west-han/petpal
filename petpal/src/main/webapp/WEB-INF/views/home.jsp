@@ -64,6 +64,7 @@
         return false;
     });
     </script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
 </head>
 <body>
     <main>
@@ -79,7 +80,38 @@
                 <span class="dot" onclick="currentSlide(2)"></span>
             </div>
         </div>
+ <!-- 맞춤상품 섹션 -->
+        <div id="customcontainer">
+            <div class="custom title">
+                <div class="left">
+                    <img src="${pageContext.request.contextPath}/resources/images/love.png" alt="">
+                    <p>맞춤상품</p>
+                </div>
+                <a href="#"><span>더보기 ></span></a>
+            </div>
+            <div class="product">
+                <c:forEach var="dto" items="${customList}" varStatus="status">
+                    <div class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                        <div class="p-2">
+                            <div class="text-truncate fw-semibold pb-1">
+                                ${dto.productName}
+                            </div>
+                            <div class="pb-1">
+                                <c:if test="${dto.discountRate != 0}">
+                                    <label class="fs-5 pe-2 text-danger">${dto.discountRate}%</label>
+                                </c:if>
+                                <label class="fs-5 pe-2 fw-semibold"><fmt:formatNumber value="${dto.price * (100 - dto.discountRate) / 100}" />원</label>
+                                <c:if test="${dto.discountRate != 0}">
+                                    <label class="fs-6 fw-light text-decoration-line-through"><fmt:formatNumber value="${dto.price}"/>원</label>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
 
+       
         <div id="newcontainer">
             <div class="new title">
                 <div class="left">
@@ -139,12 +171,12 @@
                 </c:forEach>
             </div>
         </div>
-
+ <!-- 기획상품 섹션 -->
         <div id="specialcontainer">
             <div class="special title">
                 <div class="left">
                     <img src="${pageContext.request.contextPath}/resources/images/special.png" alt="">
-                    <p>기획 상품</p>
+                    <p>기획상품</p>
                 </div>
                 <a href="#"><span>더보기 ></span></a>
             </div>
@@ -159,7 +191,7 @@
                                 <c:if test="${dto.discountRate != 0}">
                                     <label class="fs-5 pe-2 text-danger">${dto.discountRate}%</label>
                                 </c:if>
-                                <label class="fs-5 pe-2 fw-semibold"><fmt:formatNumber value="${dto.salePrice}"/>원</label>
+                                <label class="fs-5 pe-2 fw-semibold"><fmt:formatNumber value="${dto.price * (100 - dto.discountRate) / 100}" />원</label>
                                 <c:if test="${dto.discountRate != 0}">
                                     <label class="fs-6 fw-light text-decoration-line-through"><fmt:formatNumber value="${dto.price}"/>원</label>
                                 </c:if>
@@ -169,10 +201,11 @@
                 </c:forEach>
             </div>
         </div>
+       
 
         <a href="#" class="btn_gotop">
             <img src="${pageContext.request.contextPath}/resources/images/toparrow.png" class="top_arrow">
-            <span class="glyphicon glyphicon-chevron-up"></span>
+            <span class="glyphicon-chevron-up"></span>
         </a>
     </main>
 </body>

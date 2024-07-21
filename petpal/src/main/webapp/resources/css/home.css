@@ -1,15 +1,14 @@
 @charset "UTF-8";
 
 body {
-	
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'MangoDdobak-B';
+    font-family: 'MangoDdobak-B', 'Cafe24Meongi-W-v1.0', sans-serif;
     font-weight: 400;
 }
+
 @font-face {
-    /*굵기 : 300 400 700*/
     font-family: 'MangoDdobak-B';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
     font-weight: 700;
@@ -28,10 +27,12 @@ body {
 *::after {
     box-sizing: inherit;
 }
+
 ul {
     display: block;
     list-style-type: none;
 }
+
 ul::after {
     content: "";
     display: block;
@@ -45,12 +46,10 @@ ul::after {
     flex-direction: column;
 }
 
-
 main {
     flex: 1;
 }
 
-/* Carousel Styles */
 .carousel {
     position: relative;
     max-width: 100%;
@@ -94,42 +93,19 @@ main {
     background-color: #E4B075;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
-}
-
-ul {
-    display: block;
-    list-style-type: none;
-}
-
-ul::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.container {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
-}
-
-#lovecontainer {
+#newcontainer, #rankcontainer, #specialcontainer, #customcontainer {
     padding: 40px 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 30px;
 }
 
-#lovecontainer .love {
+#newcontainer {
+    background-color: #EFEFEF;  /* 신상품 섹션 배경 */
+}
+
+.title {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -137,100 +113,94 @@ main {
     margin-bottom: 10px;
 }
 
-#lovecontainer .love p {
-    font-size: 38px;
+.left {
+    display: flex;
+    align-items: center;
 }
+
+.left img {
+    margin-right: 10px;
+}
+
+.title p {
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.title a {
+    text-align: right;
+}
+
 .product {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 4개씩 두 줄로 배열 */
+    gap: 50px; /* 간격 조정 */
 }
 
 .product .item {
-    width: 240px;
-    height: 320px;
+    width: 320px; /* 아이템 가로 길이 증가 */
+    height: 400px; /* 아이템 세로 길이 증가 */
     background-color: #ffcccc;
     border: 1px solid #ff9999;
-}
-
-
-
-
-#rankcontainer {
-    padding: 40px 10%;
+    border-radius: 10px; /* border-radius 추가 */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
 }
 
-#rankcontainer .rank {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.item .p-2 {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
 }
 
-#rankcontainer .rank p {
-    font-size: 38px;
-}
-#newcontainer {
-    padding: 40px 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 550px;
-    background-color: #EFEFEF;
-    
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-#newcontainer .new {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.fw-semibold {
+    font-weight: 600;
 }
 
-#newcontainer .new p {
-    font-size: 38px;
+.pb-1 {
+    padding-bottom: 10px;
 }
 
-#specialcontainer {
-    padding: 40px 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.fs-5 {
+    font-size: 1.25rem;
 }
 
-#specialcontainer .special {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.fs-6 {
+    font-size: 1rem;
 }
 
-#specialcontainer .special p {
-    font-size: 38px;
+.text-danger {
+    color: #ff0000;
 }
 
+.text-decoration-line-through {
+    text-decoration: line-through;
+}
 
 .btn_gotop {
-    display:none;
-    position:fixed;
-    bottom:30px;
-    right:90px;
-    z-index:999;
-    border:1px solid #ccc;
-    outline:none;
-    background-color:white;
-    color:#333;
-    cursor:pointer;
-    padding:15px 20px;
-    border-radius:100%;
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 90px;
+    z-index: 999;
+    border: 1px solid #ccc;
+    outline: none;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 100%;
     width: 60px;
     height: 60px;
     display: flex;
@@ -239,10 +209,10 @@ main {
 }
 
 .top_arrow {
-    width: 50px; 
+    width: 50px;
     height: auto;
 }
 
 .glyphicon-chevron-up {
-    display: none; 
+    display: none;
 }
