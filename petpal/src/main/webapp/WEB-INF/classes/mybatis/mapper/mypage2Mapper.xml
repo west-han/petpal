@@ -116,7 +116,7 @@
     </update>
     
     
-    <!-- 나의 펫 -->
+    <!-- mycoupon -->
     <!-- 나의 쿠폰 리스트 -->
     <select id="selectMemberCoupon" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
     	SELECT m.couponNum,m.memberNum,TO_CHAR(m.regDate,'YYYY-MM-DD') AS regDate,state,validity,couponName,discountRate,minPayment
@@ -129,7 +129,7 @@
 	
 	
 	
-	<!-- 나의 펫 -->
+	<!-- mypet -->
 	<!-- 나의 펫 리스트 -->
 	<select id="selectMemberPet" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
 		SELECT p.petNum, p.petName, p.petPhoto, p.petBirth, p.petGender, p.petWeight,
@@ -194,4 +194,19 @@
 		WHERE memberNum = #{memberNum}
 	</select>
 	
+	
+	<!-- likelist -->
+	<!-- 찜 리스트 -->
+	<select id="selectWishListProducts" resultType="com.shop.petpal.domain.Mypage2" parameterType="long">
+	    SELECT p.productNum, p.productName, p.thumbnail, p.price
+	    FROM wishList w
+	    JOIN Product p ON w.productNum = p.productNum
+	    WHERE w.memberNum = #{memberNum}
+	</select>
+	
+	<!-- 찜 삭제 -->
+	<delete id="deleteWishListProducts" parameterType="com.shop.petpal.domain.Mypage2">
+		DELETE FROM wishList
+		WHERE productNum = #{productNum} and memberNum=#{memberNum}
+	</delete>
 </mapper>

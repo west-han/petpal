@@ -84,37 +84,39 @@ a {
 
 			<div class="col-md-9 ms-5">
 				<h2>찜 리스트</h2>
-				<form id="wishlistForm">
-					<div class="form-check mb-3">
-						<input class="form-check-input" type="checkbox" id="selectAll">
-						<label class="form-check-label" for="selectAll"> 전체 선택 </label>
-						<button type="button" class="btn btn-danger btn-sm ms-3"
-							id="deleteSelected">전체 삭제</button>
-					</div>
-					<div class="wishlist-item">
-						<input class="form-check-input me-2" type="checkbox" name="item"
-							value="1"> <img src="https://via.placeholder.com/100"
-							alt="상품 이미지">
-						<div class="item-details">
-							<h5 class="item-title">상품 제목 1</h5>
-							<p class="item-price">₩10,000</p>
-						</div>
-						<button type="button" class="btn btn-danger btn-sm">삭제</button>
-					</div>
-					<div class="wishlist-item">
-						<input class="form-check-input me-2" type="checkbox" name="item"
-							value="2"> <img src="https://via.placeholder.com/100"
-							alt="상품 이미지">
-						<div class="item-details">
-							<h5 class="item-title">상품 제목 2</h5>
-							<p class="item-price">₩20,000</p>
-						</div>
-						<button type="button" class="btn btn-danger btn-sm">삭제</button>
-					</div>
-					<!-- 추가적인 찜 리스트 항목 -->
+				<form id="wishlistForm" action="${pageContext.request.contextPath}/myPage2/deleteWishList" method="post">
+				    <div class="form-check mb-3">
+				        <input class="form-check-input" type="checkbox" id="selectAll">
+				        <label class="form-check-label" for="selectAll"> 전체 선택 </label>
+				        <button type="submit" class="btn btn-danger btn-sm ms-3" name="action" value="deleteSelected" onclick="return confirmDelete('선택한 항목을 삭제하시겠습니까?');">전체 삭제</button>
+				    </div>
+				    <c:forEach var="item" items="${wishList}">
+				        <div class="wishlist-item">
+				            <input class="form-check-input me-2" type="checkbox" name="item[]" value="${item.productNum}"> 
+				            <img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="상품 이미지">
+				            <div class="item-details">
+				                <h5 class="item-title">${item.productName}</h5>
+				                <p class="item-price">₩<fmt:formatNumber value="${item.price}" pattern="#,###"/></p>
+				            </div>
+				            <button type="submit" class="btn btn-danger btn-sm" name="action" value="deleteOne" formaction="${pageContext.request.contextPath}/myPage2/deleteWishList?item=${item.productNum}" onclick="return confirmDelete('정말 삭제하시겠습니까?');">삭제</button>
+				        </div>
+				    </c:forEach>
 				</form>
 			</div>
 		</div>
 	</div>
+
+	<script>
+	document.getElementById('selectAll').addEventListener('change', function(e) {
+	    var checkboxes = document.querySelectorAll('input[name="item"]');
+	    for (var checkbox of checkboxes) {
+	        checkbox.checked = e.target.checked;
+	    }
+	});
+	
+	function confirmDelete(message) {
+	    return confirm(message);
+	}
+	</script>
 </body>
 </html>

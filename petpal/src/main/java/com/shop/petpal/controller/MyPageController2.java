@@ -342,9 +342,46 @@ public class MyPageController2 {
 	}
 
 	@GetMapping("likelist")
-	public String likelistFrom() throws Exception {
-
+	public String likelistFrom(HttpSession session, Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		if (info == null) {
+            return "redirect:/member/login";
+        }
+		
+		try {
+			 List<Mypage2> wishList = service.selectWishListProducts(info.getMemberNum());
+			 
+			 model.addAttribute("wishList", wishList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return ".myPage2.likelist";
+	}
+	
+	@PostMapping("deleteWishList")
+	public String deleteWishList(@RequestParam("action") String action, @RequestParam(value = "item", required = false) List<Long> itemList, HttpSession session) {
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+	    if (info == null) {
+	        return "redirect:/member/login";
+	    }
+
+	    try {
+	        if ("deleteSelected".equals(action) && itemList != null) {
+	            for (Long productNum : itemList) {
+	                Mypage2 dto = new Mypage2();
+	                dto.setProductNum(productNum);
+	                dto.setMemberNum(info.getMemberNum());
+	                service.deleteWishListProducts(dto);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return "redirect:/myPage2/likelist";
 	}
 
 	@GetMapping("myreview")
