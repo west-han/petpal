@@ -332,5 +332,15 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		
 	}
 
+	@Override
+	public Long selectRepPet(long memberNum) throws Exception {
+	    try {
+	        return mapper.selectRepPet(memberNum);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+	}
+
 	
 }

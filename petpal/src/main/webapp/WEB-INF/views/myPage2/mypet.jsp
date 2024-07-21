@@ -47,10 +47,7 @@ h3, h2 {
 }
 
 .crown-icon {
-	position: absolute;
-	top: -10px;
-	right: -10px;
-	font-size: 30px;
+	
 	color: gold;
 }
 
@@ -147,13 +144,20 @@ a {
 						<div class="carousel-inner">
 							<c:forEach var="pet" items="${list}" varStatus="status">
 								<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+									<c:if test="${representativePetNum != null && pet.petNum == representativePetNum}">
+									<p><i class="fas fa-crown crown-icon position-relative fa-2x"></i></p>
+									</c:if>
 									<div class="position-relative">
 										<img src="${pageContext.request.contextPath}/uploads/petPhotos/${pet.petPhoto}" alt="펫 사진">
 									</div>
 									<div class="carousel-caption">
-									
+										
 										<h5 class="text-dark">${pet.petName}</h5>
 										<p class="text-dark">${pet.breedName}</p>
+										
+										<c:if test="${representativePetNum != null && pet.petNum == representativePetNum}">
+										<p class="text-dark">대표 동물</p>
+										</c:if>
 										<div class="button-group">
 											<button class="btn btn-primary" onclick="changeRepresentative(${pet.petNum})">대표 동물로 설정</button>
 											<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editPetModal_${pet.petNum}">펫 수정</button>
@@ -392,7 +396,7 @@ a {
         type: 'POST',
         data: { petNum: petNum },
         success: function(response) {
-            alert(response);
+            alert(response.message);
             // 필요시 페이지 새로고침 또는 다른 동작 추가
             location.reload(); // 성공 시 페이지 새로고침
         },

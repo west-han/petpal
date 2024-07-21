@@ -40,6 +40,7 @@ public interface MypageMapper2 {
 	public void deleteMemberPet(Mypage2 dto)throws SQLException; // 펫 삭제
 	public void deleteRegPet(long memberNum) throws SQLException; // 대표동물 모두 삭제
 	public void insertRegPet(Mypage2 dto) throws SQLException; // 대표동물 추가
+	public Long selectRepPet(long memberNum) throws SQLException; // 대표동물 검색
 	
 	
 	

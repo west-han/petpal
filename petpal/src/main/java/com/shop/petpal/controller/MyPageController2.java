@@ -154,9 +154,12 @@ public class MyPageController2 {
 		
 		try {
 			List<Mypage2> list = service.selectMemberPet(info.getMemberNum());
-			
+			Long representativePetNum = service.selectRepPet(info.getMemberNum());
+		    // 현재 대표 동물 정보 조회
+		    service.selectRepPet(info.getMemberNum());
 			
 			model.addAttribute("list", list);
+			model.addAttribute("representativePetNum", representativePetNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -217,20 +220,21 @@ public class MyPageController2 {
 		return "redirect:/myPage2/mypet";
 	}
 	
-	@PostMapping("setInsertRegPet")
+	@PostMapping("/setInsertRegPet")
 	@ResponseBody
-	public String setInsertRegPet(Mypage2 dto, HttpSession session)throws Exception{
-		try {
-            SessionInfo info = (SessionInfo) session.getAttribute("member");
-            
-            dto.setMemberNum(info.getMemberNum());
-            
-            service.setInsertRegPet(dto);
-            return "대표 동물이 설정되었습니다.";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "대표 동물 설정에 실패했습니다.";
-        }
+	public Map<String, String> setInsertRegPet(Mypage2 dto, HttpSession session) {
+	    Map<String, String> response = new HashMap<>();
+	    try {
+	        SessionInfo info = (SessionInfo) session.getAttribute("member");
+	        dto.setMemberNum(info.getMemberNum());
+
+	        service.setInsertRegPet(dto);
+	        response.put("message", "대표 동물이 설정되었습니다.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.put("message", "대표 동물 설정에 실패했습니다.");
+	    }
+	    return response;
 	}
 	
 	
