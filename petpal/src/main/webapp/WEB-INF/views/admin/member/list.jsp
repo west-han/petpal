@@ -62,7 +62,6 @@
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/memberadmin.css">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.close').on('click', function() {
@@ -83,7 +82,7 @@
             $('.overlay').show(); 
 
            
-            $.get("/admin/member/" + memberNum, function(data) {
+            $.get("${pageContext.request.contextPath}/admin/member/" + memberNum, function(data) {
                 $('#memberNum').val(data.memberNum);
                 $('#email').val(data.email);
                 $('#socialLogin').val(data.socialLogin);

@@ -9,7 +9,7 @@
         JOIN member2 m2 ON m1.memberNum = m2.memberNum
     </select>
     
-    <select id="findMemberById" parameterType="long" resultType="com.shop.petpal.domain.Member">
+    <select id="findById" parameterType="long" resultType="com.shop.petpal.domain.Member">
         SELECT m1.memberNum, email, socialLogin, password, regDate, notificationConsent, enabled,
             failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
             nickname, userName, postalCode, area, membershipNum
