@@ -37,4 +37,5 @@ public interface Mypage2Service {
 	public void updateMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 수정
 	public void deleteMemberPet(Mypage2 dto, String pathname)throws Exception; // 펫 삭제
 	public void setInsertRegPet(Mypage2 dto) throws Exception; // 대표동물 추가
+	public Long selectRepPet(long memberNum) throws Exception; // 대표동물 검색
 }
