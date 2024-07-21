@@ -342,5 +342,31 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	    }
 	}
 
+	@Override
+	public List<Mypage2> selectWishListProducts(long memberNum) throws Exception {
+		List<Mypage2> list = null;
+		try {
+			list = mapper.selectWishListProducts(memberNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void deleteWishListProducts(Mypage2 dto) throws Exception {
+		// TODO 찜삭제
+		
+		try {
+			 mapper.deleteWishListProducts(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
 	
 }

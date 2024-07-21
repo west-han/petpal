@@ -41,9 +41,39 @@ public class Mypage2 {
 	private int species; // 강아지1 고양이2 구분
 	private String breedName; // 품종명
 	
-	private MultipartFile selectFile; // 파일
+	// 찜 정보
+	private long productNum; // 상품번호
+	private String productName; // 상품 이름
+	private int price; // 상품 가격
+	private String thumbnail; // 대표 이미지 이름
+	
+	private MultipartFile selectFile; // 이미지 파일
 	
 	
+	public long getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(long productNum) {
+		this.productNum = productNum;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	public MultipartFile getSelectFile() {
 		return selectFile;
 	}

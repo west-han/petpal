@@ -43,6 +43,10 @@ public interface MypageMapper2 {
 	public Long selectRepPet(long memberNum) throws SQLException; // 대표동물 검색
 	
 	
+	// 찜 정보
+	public List<Mypage2> selectWishListProducts(long memberNum) throws SQLException; // 나의 찜 리스트
+	public void deleteWishListProducts(Mypage2 dto) throws SQLException; // 찜 삭제
+	
 	
 	
 }
