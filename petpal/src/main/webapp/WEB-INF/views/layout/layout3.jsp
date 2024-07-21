@@ -18,7 +18,6 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" type="text/css">
 		
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css" />
 		
 	<link rel="stylesheet" href="${pageContext.request.contextPath}<tiles:getAsString name="dynamic-css"/>"/>

@@ -11,8 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap" rel="stylesheet">
     <title>PETPAL : 멍냥 반려동물 용품</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
     <script>
         let slideIndex = 0;
         const slides = document.getElementsByClassName("slide");

@@ -43,6 +43,9 @@ public class ProductListController {
 		map.put("species", species);
 		map.put("currentPage", currentPage);
 		
+		map.put("startNum", 1);
+		map.put("endNum", 50);
+		
 		try {
 			List<Map<String, Object>> categories = service.listCategory(species);
 			List<Product> recentProducts = service.listRecentProducts(map);
@@ -78,6 +81,9 @@ public class ProductListController {
 		map.put("categoryNum", categoryNum);
 		map.put("species", species);
 		map.put("currentPage", currentPage);
+		
+		map.put("startNum", 1);
+		map.put("endNum", 50);
 		
 		try {
 			List<Map<String, Object>> categories = service.listCategory(species);
