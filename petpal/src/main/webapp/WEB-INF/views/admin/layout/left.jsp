@@ -2,10 +2,10 @@
 
     <nav class="left-nav">
         <ul id="js-menu" class="menu">
-	        <div class="date-greeting">
+	        <li class="date-greeting">
 	            <div class="date">2024-07-12 금요일</div>
 	            <div class="greeting">안녕하세요! <span class="highlight">ADMIN</span>님<br>오늘도 즐거운 하루 되세요 :)</div>
-	        </div>
+	        </li>
             <li class="menu--item menu--item__has_sub_menu">
                 <label class="menu--link" title="주문 / 배송 관리">
                     <i class="menu--icon fa-solid fa-box"></i>
@@ -104,7 +104,7 @@
         menuItems.forEach(function (menuItem) {
             menuItem.addEventListener('click', function () {
                 var parent = this.parentElement;
-                parent.classList.toggle('menu--subitens__opened');
+                parent.classList.toggle('menu--subitems__opened');
             });
         });
     });

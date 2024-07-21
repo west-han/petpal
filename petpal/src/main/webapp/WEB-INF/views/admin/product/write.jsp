@@ -3,11 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
-.body-container {
-	max-width: 1300px;
-	margin-top: 140px;
-	margin-left: 80px;
-}
 .body-title h3{
 	font-size: 26px;
 }
@@ -271,7 +266,7 @@ $(function(){
 		const printAttributes = function(data) {
 			
 			let s = '<td>';
-			s += '		<small class="form-detailCategory help-block">[사료] 카테고리와 적합한 속성을 선택하세요</small>';
+			s += '		<small class="form-detailCategory help-block">등록할 상품에 적합한 속성을 선택하세요</small>';
 			s += '		<table>';
 			const attributes = data.attributes.filter(
 				    (attribute, idx, callback) => 
@@ -288,7 +283,7 @@ $(function(){
 				s += '			<tr>';
 				s += '				<td>' + attribute.attributeName + '</td>';
 				s += '				<td>';
-				s += '					<div class="form-check">';
+				s += '					<div>';
 				
 				for (let i in attributeDetails) {
 					let attributeDetail = attributeDetails[i];
@@ -513,7 +508,7 @@ $(function() {
 		
 			<form name="productForm" method="post" enctype="multipart/form-data">
 				
-				<table class="table mt-5 table-form">
+				<table class="table table-form">
 				<tr>
 					<td class="table-light col-sm-2">대상</td>
 					<td>

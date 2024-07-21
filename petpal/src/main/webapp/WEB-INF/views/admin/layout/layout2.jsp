@@ -22,9 +22,11 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminheader.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/left.css" type="text/css">
 	
-	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/icon/bootstrap-icons.css" type="text/css">
+
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
-	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/menu2.js"></script>
 </head>
