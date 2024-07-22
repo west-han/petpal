@@ -111,7 +111,7 @@ public class MyPageController2 {
         
         dataCount = service.pointDataCount(memberNum);
         total_page = myUtil.pageCount(dataCount, size);
-        totalPoint = service.myTotalPoint(memberNum);
+        service.myTotalPoint(memberNum);
         if (total_page < current_page) {
             current_page = total_page;
         }

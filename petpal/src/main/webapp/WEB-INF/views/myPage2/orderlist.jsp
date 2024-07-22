@@ -122,6 +122,7 @@ a {
 				<c:forEach var="dto" items="${list}">
 					<div class="card mb-3">
 						<div class="card-header">주문 번호: ${dto.orderNum}</div>
+						<div style="float: right;">주문 상세</div>
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-9">
@@ -132,7 +133,9 @@ a {
 										<strong>배송 상태:</strong> ${dto.orderState }
 									</p>
 									<h5 class="card-title">${dto.productName}</h5>
-									<img src="${pageContext.request.contextPath}/uploads/${dto.thumbnail}" alt="상품 이미지">
+									<div class="review-item">
+										<img src="${pageContext.request.contextPath}/uploads/${dto.thumbnail}" alt="주문한사진">
+									</div>
 									<p class="card-text">
 										<strong>결제금액:</strong> ${dto.payment}원
 									</p>

@@ -12,7 +12,7 @@ public interface Mypage2Service {
 	public List<Mypage2> myPointList(long memberNum) throws Exception; // 포인트 리스트
 	public int pointDataCount(long memberNum) throws Exception; // 데이터카운트
 	public List<Mypage2> myPointListPaged(Map<String, Object> params) throws Exception; // 포인트 날짜 검색
-	public int myTotalPoint(long memberNum) throws Exception; // 포인트 합계
+	public void myTotalPoint(long memberNum) throws Exception; // 포인트 합계
 	
 	public Member findByMember(long memberNum); // 회원번호 가져오기
 	public Member findByMember(String email); // 회원이메일 가져오기

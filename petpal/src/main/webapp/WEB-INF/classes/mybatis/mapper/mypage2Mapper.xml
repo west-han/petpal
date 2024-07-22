@@ -35,7 +35,7 @@
 	</select>
 	
 	<!-- 포인트 총 금액 -->
-	<select id="myTotalPoint" parameterType="long" resultType="Integer">
+	<select id="myTotalPoint" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
 		SELECT BALANCE
 		FROM userPoint
 		WHERE regDate = (
