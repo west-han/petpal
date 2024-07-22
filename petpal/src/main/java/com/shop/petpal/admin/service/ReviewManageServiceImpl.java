@@ -1,13 +1,31 @@
 package com.shop.petpal.admin.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.shop.petpal.admin.domain.ReviewManage;
+import com.shop.petpal.admin.mapper.ReviewManageMapper;
 
 @Service
 public class ReviewManageServiceImpl implements ReviewManageService{
+	@Autowired
+	private ReviewManageMapper mapper;
 	
-	// TODO : 여기에 ReviewManageMappper.java 를
-	// 		: 선언해야된다 시발죽겠다 오늘 더이상못해
-	//		: 해야하는게 ReviewManageMapper.xml 작성도 해야되고
-	//		: 쿼리생각은 내일하고 또뭐있지 일단자야겠다
+	@Override
+	public List<ReviewManage> listReview(Map<String, Object> map) {
+		List <ReviewManage> list = null;
+		try {
+			list = mapper.listReview(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
 	
 }
