@@ -52,7 +52,7 @@ a {
 
 <script type="text/javascript">
 	function searchList() {
-		const f = document.searchForm;
+		const f = document.searchForm2;
 		f.submit();
 	}
 </script>
@@ -97,7 +97,7 @@ a {
 				<div class="total-points">
 					<h3>적립금 총액: ${totalPoint}</h3>					
 				</div>
-				<form action="${pageContext.request.contextPath}/myPage2/mypoint" method="get" name="searchForm">
+				<form action="${pageContext.request.contextPath}/myPage2/mypoint" method="get" name="searchForm2">
 					<div class="input-group mb-3">
   						<input type="date" class="form-control" name="startDate" value="${startDate}"  placeholder="start">
   						<button type="button" class="input-group-text" onclick="searchList();">검색</button>
