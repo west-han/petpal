@@ -35,7 +35,10 @@ public class MemberManageServiceImpl implements MemberManageService {
             }
 
             // 전화번호가 부분적으로 입력된 경우 전화번호 전체를 생성하여 설
-            if (member.getTel1().length() != 0 && member.getTel2().length() != 0 && member.getTel3().length() != 0) {
+            if (member.getTel1() != null && member.getTel2() != null && member.getTel3() != null &&
+            		member.getTel1().length() != 0 &&
+            		member.getTel2().length() != 0 &&
+            		member.getTel3().length() != 0) {
             	member.setTel(member.getTel1() + "-" + member.getTel2() + "-" + member.getTel3());
             }
 
