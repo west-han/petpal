@@ -2,14 +2,22 @@ package com.shop.petpal;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.petpal.service.ProductListService;
 import com.shop.petpal.domain.Product;
@@ -20,11 +28,13 @@ public class HomeController {
     private ProductListService productListService;
     
     @RequestMapping(value = {"/", "/{species}"}, method = RequestMethod.GET)
-    public String home(@PathVariable(required = false) Integer species, Model model) {
+    public String home(@PathVariable(required = false) Integer species, Model model, HttpSession session) {
         
         if (species == null) {
             species = 1;
         }
+        
+        session.setAttribute("species", species);
         
         // 카테고리 리스트 가져오기
         List<Map<String, Object>> categories = productListService.listCategory(species);
@@ -54,5 +64,18 @@ public class HomeController {
         model.addAttribute("bestList", bestProducts);
         
         return ".home"; // 뷰 이름 반환
+    }
+    
+    @GetMapping(value = "setSpecies/{species}")
+    public String toggleSpecies(@PathVariable(required = false) Integer species,
+    		HttpServletRequest request, HttpSession session) {
+    	
+    	if (species == null) {
+    		species = 1;
+    	}
+		System.out.println(species);
+		session.setAttribute("species", species);
+    	
+    	return "redirect:/" + species;
     }
 }

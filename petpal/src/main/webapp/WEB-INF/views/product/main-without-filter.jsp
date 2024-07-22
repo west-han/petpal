@@ -29,9 +29,9 @@
             </h2>
             <div class="category-box">
                 <ul class="list-h category-list">
-                	<li><a href="${pageContext.request.contextPath}/products/recent/${species}/0">전체</a></li>
+                	<li><a href="${pageContext.request.contextPath}/products/recent/${sessionScope.species}/0">전체</a></li>
                     <c:forEach items="${categories}" var="category">
-                    	<li><a href="${pageContext.request.contextPath}/products/recent/${species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
+                    	<li><a href="${pageContext.request.contextPath}/products/recent/${sessionScope.species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
                     </c:forEach>
                 </ul>
             </div>
