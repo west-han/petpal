@@ -50,6 +50,95 @@ public class Mypage2 {
 	private MultipartFile selectFile; // 이미지 파일
 	
 	
+	// 주문내역
+	private String orderNum; // 주문 번호
+	private String orderDate; // 주문 날짜
+	private int orderState; // 주문 상태
+	private int totalMoney; // 총 금액
+	private int usedPoint; // 사용된 포인트
+	private int usedCoupon; // 사용된 쿠폰 금액
+	private int deliveryCharge; // 배송비
+	private int payment; // 실제 결제 금액
+	private int detailState; // 상세 상태
+	private int total_Price; // 총 가격 (주문 상세)
+	private int total_Quantity; // 총 수량 (주문 상세)
+	private String deliveryName; // 택배사 이름
+	
+	
+	
+	public int getTotal_Price() {
+		return total_Price;
+	}
+	public void setTotal_Price(int total_Price) {
+		this.total_Price = total_Price;
+	}
+	public int getTotal_Quantity() {
+		return total_Quantity;
+	}
+	public void setTotal_Quantity(int total_Quantity) {
+		this.total_Quantity = total_Quantity;
+	}
+	public String getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public int getOrderState() {
+		return orderState;
+	}
+	public void setOrderState(int orderState) {
+		this.orderState = orderState;
+	}
+	public int getTotalMoney() {
+		return totalMoney;
+	}
+	public void setTotalMoney(int totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+	public int getUsedPoint() {
+		return usedPoint;
+	}
+	public void setUsedPoint(int usedPoint) {
+		this.usedPoint = usedPoint;
+	}
+	public int getUsedCoupon() {
+		return usedCoupon;
+	}
+	public void setUsedCoupon(int usedCoupon) {
+		this.usedCoupon = usedCoupon;
+	}
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+	public int getPayment() {
+		return payment;
+	}
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
+	public int getDetailState() {
+		return detailState;
+	}
+	public void setDetailState(int detailState) {
+		this.detailState = detailState;
+	}
+	
+	public String getDeliveryName() {
+		return deliveryName;
+	}
+	public void setDeliveryName(String deliveryName) {
+		this.deliveryName = deliveryName;
+	}
 	public long getProductNum() {
 		return productNum;
 	}

@@ -368,5 +368,17 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		
 	}
 
+	@Override
+	public List<Mypage2> selectOrderList(long memberNum) throws Exception {
+		// TODO 주문내역
+		List<Mypage2> list = null;
+		try {
+			list = mapper.selectOrderList(memberNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	
 }

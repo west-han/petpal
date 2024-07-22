@@ -48,5 +48,8 @@ public interface MypageMapper2 {
 	public void deleteWishListProducts(Mypage2 dto) throws SQLException; // 찜 삭제
 	
 	
+	// 주문내역
+	public List<Mypage2> selectOrderList(long memberNum) throws SQLException; // 나의 주문 내역
+	
 	
 }

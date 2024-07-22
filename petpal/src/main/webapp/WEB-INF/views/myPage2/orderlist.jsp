@@ -119,34 +119,36 @@ a {
 
 			<div class="col-md-9 ms-5">
 				<h2>주문 내역</h2>
-				<div class="card mb-3">
-					<div class="card-header">주문 번호: 123456789</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-9">
-								<p class="card-text">
-									<strong>주문날짜:</strong> 2024.07.09
-								</p>
-								<p class="card-text">
-									<strong>배송 상태:</strong> 배송중
-								</p>
-								<h5 class="card-title">상품 이름</h5>
-								<p class="card-text">
-									<strong>가격:</strong> 20,000원
-								</p>
-								<p class="card-text">
-									<strong>구매한 갯수:</strong> 2
-								</p>
-							</div>
-							<div class="col-md-3 button-column">
-								<button class="btn btn-primary mt-3">배송 조회</button>
-								<button class="btn btn-secondary">교환/반품 신청</button>
-								<button class="btn btn-success">리뷰 작성</button>
+				<c:forEach var="dto" items="${list}">
+					<div class="card mb-3">
+						<div class="card-header">주문 번호: ${dto.orderNum}</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-9">
+									<p class="card-text">
+										<strong>주문날짜:</strong> ${dto.orderDate}
+									</p>
+									<p class="card-text">
+										<strong>배송 상태:</strong> ${dto.orderState }
+									</p>
+									<h5 class="card-title">${dto.productName}</h5>
+									<img src="${pageContext.request.contextPath}/uploads/${dto.thumbnail}" alt="상품 이미지">
+									<p class="card-text">
+										<strong>결제금액:</strong> ${dto.payment}원
+									</p>
+									<p class="card-text">
+										<strong>구매한 갯수:</strong> ${dto.total_Quantity}
+									</p>
+								</div>
+								<div class="col-md-3 button-column">
+									<button class="btn btn-primary mt-3">배송 조회</button>
+									<button class="btn btn-secondary">교환/반품 신청</button>
+									<button class="btn btn-success">리뷰 작성</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- 추가적인 주문 내역 카드 -->
+				</c:forEach>
 			</div>
 		</div>
 	</div>
