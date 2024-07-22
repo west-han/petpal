@@ -60,24 +60,32 @@ public class Mypage2 {
 	private int deliveryCharge; // 배송비
 	private int payment; // 실제 결제 금액
 	private int detailState; // 상세 상태
-	private int total_Price; // 총 가격 (주문 상세)
-	private int total_Quantity; // 총 수량 (주문 상세)
+	private int total_price; // 총 가격 (주문 상세)
+	private int total_quantity; // 총 수량 (주문 상세)
 	private String deliveryName; // 택배사 이름
+	private String destMemo; // 택배 메모
 	
 	
 	
-	public int getTotal_Price() {
-		return total_Price;
+	public int getTotal_price() {
+		return total_price;
 	}
-	public void setTotal_Price(int total_Price) {
-		this.total_Price = total_Price;
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
 	}
-	public int getTotal_Quantity() {
-		return total_Quantity;
+	public int getTotal_quantity() {
+		return total_quantity;
 	}
-	public void setTotal_Quantity(int total_Quantity) {
-		this.total_Quantity = total_Quantity;
+	public void setTotal_quantity(int total_quantity) {
+		this.total_quantity = total_quantity;
 	}
+	public String getDestMemo() {
+		return destMemo;
+	}
+	public void setDestMemo(String destMemo) {
+		this.destMemo = destMemo;
+	}
+	
 	public String getOrderNum() {
 		return orderNum;
 	}
