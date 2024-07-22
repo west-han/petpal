@@ -39,7 +39,7 @@
 								LEFT OUTER JOIN category c
 		                        	ON p.categoryNum = c.categoryNum
 							</if>
-		                    WHERE TO_CHAR(regDate, 'YYYYMMDD') &gt;= ${baseDate}
+		                    WHERE TO_CHAR(regDate, 'YYYYMMDD') &gt;= #{baseDate}
 		                    	AND productStatus = 1
 		                        AND p.species = #{species}
 		                        <if test="categoryNum != null and categoryNum != 0">

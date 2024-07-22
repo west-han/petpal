@@ -15,9 +15,16 @@ window.addEventListener('load', function() {
 		
 		f.kwd.value = f.kwd.value.trim().replaceAll(' ', '');
 		
-		f.action = '${pageContext.request.contextPath}/products/search/${species}/0/0';
+		f.action = '${pageContext.request.contextPath}/products/search/${sessionScope.species}/0/0';
 		
 		f.submit();
+	});
+	
+	document.querySelector('#pet-selector').addEventListener('change', function() {
+		alert(this.value);
+		const url = '${pageContext.request.contextPath}/setSpecies/' + this.value;
+		
+		location.href = url;
 	});
 });
 </script>
@@ -89,9 +96,9 @@ window.addEventListener('load', function() {
                     </div>
                 </div>
                 <div class="pet-dropdown">
-                    <select id="pet-selector">
-                        <option value="dog">강아지</option>
-                        <option value="cat">고양이</option>
+                    <select id="pet-selector" name="species">
+                        <option value="1" ${sessionScope.species == 1 ? 'selected' : ''}>강아지</option>
+                        <option value="2" ${sessionScope.species == 2 ? 'selected' : ''}>고양이</option>
                     </select>
                 </div>
                 <div style="width: 200px;"></div>

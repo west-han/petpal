@@ -129,6 +129,9 @@ public class ProductListController {
 		
 		try {
 			int offset = (currentPage - 1) * pageSize;
+			if (offset < 0) {
+				offset = 0;
+			}
 
 			params.put("offset", offset);
 			params.put("pageSize", pageSize);
@@ -261,8 +264,13 @@ public class ProductListController {
 			categoryNum = 0;
 		}
 		
+		int offset = (currentPage - 1) * pageSize;
+		if (offset < 0) {
+			offset = 0;
+		}
+		
 		try {
-			params.put("offset", 0);
+			params.put("offset", offset);
 			params.put("pageSize", pageSize);
 			params.put("species", species);
 			params.put("parentCategory", parentCategory);
