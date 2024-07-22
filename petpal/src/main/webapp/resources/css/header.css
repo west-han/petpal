@@ -41,6 +41,9 @@ header {
     color: #000;
     font-weight: bold;
 }
+.event-left p{
+	margin-bottom: 0;
+}
 
 .event-right {
     background-color: #FFC0CB;
@@ -80,6 +83,9 @@ a {
 #head1 a{
     font-family: 'Cafe24Meongi-W-v1.0';
     font-size: 58px;
+}
+p.name{
+	margin-bottom: 0;
 }
 
 #head1 .logo-container {

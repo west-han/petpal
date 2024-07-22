@@ -80,38 +80,7 @@
                 <span class="dot" onclick="currentSlide(2)"></span>
             </div>
         </div>
- <!-- 맞춤상품 섹션 -->
-        <div id="customcontainer">
-            <div class="custom title">
-                <div class="left">
-                    <img src="${pageContext.request.contextPath}/resources/images/love.png" alt="">
-                    <p>맞춤상품</p>
-                </div>
-                <a href="#"><span>더보기 ></span></a>
-            </div>
-            <div class="product">
-                <c:forEach var="dto" items="${customList}" varStatus="status">
-                    <div class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
-                        <div class="p-2">
-                            <div class="text-truncate fw-semibold pb-1">
-                                ${dto.productName}
-                            </div>
-                            <div class="pb-1">
-                                <c:if test="${dto.discountRate != 0}">
-                                    <label class="fs-5 pe-2 text-danger">${dto.discountRate}%</label>
-                                </c:if>
-                                <label class="fs-5 pe-2 fw-semibold"><fmt:formatNumber value="${dto.price * (100 - dto.discountRate) / 100}" />원</label>
-                                <c:if test="${dto.discountRate != 0}">
-                                    <label class="fs-6 fw-light text-decoration-line-through"><fmt:formatNumber value="${dto.price}"/>원</label>
-                                </c:if>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
-
-       
+        
         <div id="newcontainer">
             <div class="new title">
                 <div class="left">
@@ -122,7 +91,7 @@
             </div>
             <div class="product">
                 <c:forEach var="dto" items="${newList}" varStatus="status">
-                    <div class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                    <a href="${pageContext.request.contextPath}/products/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
                         <div class="p-2">
                             <div class="text-truncate fw-semibold pb-1">
                                 ${dto.productName}
@@ -137,7 +106,7 @@
                                 </c:if>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </c:forEach>
             </div>
         </div>
@@ -152,7 +121,7 @@
             </div>
             <div class="product">
                 <c:forEach var="dto" items="${bestList}" varStatus="status">
-                    <div class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                    <a href="${pageContext.request.contextPath}/products/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
                         <div class="p-2">
                             <div class="text-truncate fw-semibold pb-1">
                                 ${dto.productName}
@@ -167,11 +136,43 @@
                                 </c:if>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </c:forEach>
             </div>
         </div>
- <!-- 기획상품 섹션 -->
+
+        <!-- 맞춤상품 섹션 -->
+        <div id="customcontainer">
+            <div class="custom title">
+                <div class="left">
+                    <img src="${pageContext.request.contextPath}/resources/images/love.png" alt="">
+                    <p>맞춤상품</p>
+                </div>
+                <a href="#"><span>더보기 ></span></a>
+            </div>
+            <div class="product">
+                <c:forEach var="dto" items="${customList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/products/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                        <div class="p-2">
+                            <div class="text-truncate fw-semibold pb-1">
+                                ${dto.productName}
+                            </div>
+                            <div class="pb-1">
+                                <c:if test="${dto.discountRate != 0}">
+                                    <label class="fs-5 pe-2 text-danger">${dto.discountRate}%</label>
+                                </c:if>
+                                <label class="fs-5 pe-2 fw-semibold"><fmt:formatNumber value="${dto.price * (100 - dto.discountRate) / 100}" />원</label>
+                                <c:if test="${dto.discountRate != 0}">
+                                    <label class="fs-6 fw-light text-decoration-line-through"><fmt:formatNumber value="${dto.price}"/>원</label>
+                                </c:if>
+                            </div>
+                        </div>
+                    </a>
+                </c:forEach>
+            </div>
+        </div>
+
+        <!-- 기획상품 섹션 -->
         <div id="specialcontainer">
             <div class="special title">
                 <div class="left">
@@ -182,7 +183,7 @@
             </div>
             <div class="product">
                 <c:forEach var="dto" items="${specialList}" varStatus="status">
-                    <div class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                    <a href="${pageContext.request.contextPath}/products/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
                         <div class="p-2">
                             <div class="text-truncate fw-semibold pb-1">
                                 ${dto.productName}
@@ -197,11 +198,10 @@
                                 </c:if>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </c:forEach>
             </div>
         </div>
-       
 
         <a href="#" class="btn_gotop">
             <img src="${pageContext.request.contextPath}/resources/images/toparrow.png" class="top_arrow">
