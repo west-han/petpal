@@ -36,13 +36,13 @@ window.addEventListener('load', function() {
             <div id="head1">
                 <div style="width: 200px;"></div>
                 <div class="logo-container">
-                   <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
+                   <a href="${pageContext.request.contextPath}/"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
                     <p class="name"><a href="${pageContext.request.contextPath}/"><span class="highlight">PET</span>PAL</a></p>
                 </div>
                 <div class="search">
                 	<form name="searchForm" action="" method="get">
 	                    <input name="kwd" type="text" placeholder="어떤 상품을 찾고있개 ?" value="${not empty param.kwd ? param.kwd : ''}">
-	                    <img class="searchButton" src="${pageContext.request.contextPath}/resources/images/search.png" >
+	                    <a><img class="searchButton" src="${pageContext.request.contextPath}/resources/images/search.png" ></a>
                 	</form>
                 </div>
                 <div class="more">
@@ -73,9 +73,9 @@ window.addEventListener('load', function() {
                             <img src="${pageContext.request.contextPath}/resources/images/menu.png" ><p style="padding-left: 5px;">카테고리</p>
                         </button>
                         <div class="dropdown-content">
-                        	<a href="${pageContext.request.contextPath}/">전체</a>
+                        	<a href="${pageContext.request.contextPath}/products/category/${species}">전체</a>
                            <c:forEach items="${categories}" var="category">
-                           	<a href="${pageContext.request.contextPath}/">${category.CATEGORYNAME}</a>
+                           	<a href="${pageContext.request.contextPath}/products/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a>
                            </c:forEach>
                         </div>
                     </div>

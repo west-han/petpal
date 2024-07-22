@@ -85,8 +85,6 @@
             $.get("${pageContext.request.contextPath}/admin/member/" + memberNum, function(data) {
                 $('#memberNum').val(data.memberNum);
                 $('#email').val(data.email);
-                $('#socialLogin').val(data.socialLogin);
-                $('#password').val(data.password);
                 $('#regDate').val(data.regDate);
                 $('#notificationConsent').val(data.notificationConsent);
                 $('#enabled').val(data.enabled);
@@ -108,8 +106,6 @@
             const member = {
                 memberNum: $('#memberNum').val(),
                 email: $('#email').val(),
-                socialLogin: $('#socialLogin').val(),
-                password: $('#password').val(),
                 regDate: $('#regDate').val(),
                 notificationConsent: $('#notificationConsent').val(),
                 enabled: $('#enabled').val(),
@@ -127,7 +123,7 @@
             };
 
             $.ajax({
-                url: "/admin/member/" + member.memberNum,
+                url: "${pageContext.request.contextPath}/admin/member/" + member.memberNum,
                 type: 'PUT',
                 contentType: 'application/json',
                 data: JSON.stringify(member),
@@ -198,10 +194,6 @@
                 <input type="hidden" id="memberNum">
                 <label for="email">이메일:</label>
                 <input type="text" id="email"><br>
-                <label for="socialLogin">소셜 로그인:</label>
-                <input type="text" id="socialLogin"><br>
-                <label for="password">비밀번호:</label>
-                <input type="password" id="password"><br>
                 <label for="regDate">가입 날짜:</label>
                 <input type="text" id="regDate"><br>
                 <label for="notificationConsent">알림 동의:</label>

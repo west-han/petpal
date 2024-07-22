@@ -80,6 +80,10 @@ a {
     text-decoration: none;
     color: black;
 }
+a:hover {
+    text-decoration: none;
+    color: black;
+}
 #head1 a{
     font-family: 'Cafe24Meongi-W-v1.0';
     font-size: 58px;
@@ -115,18 +119,22 @@ p.name{
 
 .search input {
     width: 900px;
-    height: 55px;
+    height: 60px;
     padding: 10px 50px 5px 10px;
     font-size: 18px;
-    border-radius: 10px;
+    border-radius: 15px;
+    border-color: #646464;
+ 	 outline: none;
 }
 
 .search img {
     position: absolute;
     right: 30px;
-    width: 20px;
-    height: 20px;
+    object-fit:cover;
+    top: 25px;
+    width: 50px;
 }
+
 
 .more img {
     width: 30px;
