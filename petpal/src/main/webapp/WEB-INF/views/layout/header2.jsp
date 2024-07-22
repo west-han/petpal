@@ -21,9 +21,7 @@ window.addEventListener('load', function() {
 	});
 	
 	document.querySelector('#pet-selector').addEventListener('change', function() {
-		alert(this.value);
 		const url = '${pageContext.request.contextPath}/setSpecies/' + this.value;
-		
 		location.href = url;
 	});
 });
