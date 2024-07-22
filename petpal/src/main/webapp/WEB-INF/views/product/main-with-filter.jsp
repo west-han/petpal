@@ -238,6 +238,7 @@ function toggleAttr(attrNum, dtlNum) {
 	}
 	
 	replaceParam(url, 'attributes', values.toString());
+	url.searchParams.delete('page');
 	
 	location.href = url.toString();
 }

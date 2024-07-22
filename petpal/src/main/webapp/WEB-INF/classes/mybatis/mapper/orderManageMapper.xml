@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.admin.mapper.OrderManageMapper">
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'orderNum'">
+				(po.orderNum = #{kwd})
+			</when>
+			<when test="schType == 'invoiceNumber'">
+				(invoiceNumber = #{kwd})
+			</when>
+			<when test="schType == 'orderDate'">
+				(TO_CHAR(orderDate, 'YYYYMMDD') = #{kwd})
+			</when>
+			<when test="schType == 'userName'">
+				INSTR(userName = #{kwd}) &gt; 0
+			</when>
+		</choose>
+	</sql>
+	
+	<select id="countOrder" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM productOrder po
+		LEFT OUTER JOIN member1 m1
+			ON m1.memberNum = po.memberNum
+		<where>
+			<if test="state == 1">
+				(po.orderState = 0 OR po.orderState = 1)
+			</if>
+			<if test="state == 2">
+				(po.orderState &gt;= 2 AND po.orderState &lt;= 5)
+			</if>
+			<if test="state == 3">
+				po.orderState = 6
+			</if>
+			<if test="kwd != null and kwd != ''">
+				AND <include refid="where-list"></include>
+			</if>
+		</where>
+	</select>
+
+	<select id="listOrder" parameterType="map" resultType="com.shop.petpal.admin.domain.OrderManage">
+		SELECT po.orderNum, po.memberNum, userName, totalMoney, usedPoint, usedCoupon, deliveryCharge,
+			payment, orderState, cancelAmount, TO_CHAR(orderDate, 'YYYY-MM-DD') orderDate, invoiceNumber,
+			deliveryNum
+		FROM productOrder po
+		LEFT OUTER JOIN member2 m ON po.memberNum = m.memberNum
+		LEFT OUTER JOIN (
+			SELECT orderNum, COUNT(*) totalOrderCount, SUM(qty) totalQuantity,
+				COUNT(DECODE(detailState, 3, 1, 4, 1, 5, 1, 10, 1, 11, 1, 12, 1)) detailCancelCount
+			FROM orderDetail
+			GROUP BY orderNum
+		) od ON po.orderNum = od.orderNum
+		<where>
+			<if test="state == 1">
+				(po.orderState = 0 OR po.orderState = 1)
+			</if>
+			<if test="state == 2">
+				(po.orderState &gt;= 2 AND po.orderState &lt;= 5)
+			</if>
+			<if test="state == 3">
+				po.orderState = 6
+			</if>
+			<if test="kwd != null and kwd != ''">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY po.orderNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="listDeliveryCompany" resultType="map">
+		SELECT deliveryNum, deliveryName, deliveryTel
+		FROM deliveryCompany
+	</select>
+</mapper>
