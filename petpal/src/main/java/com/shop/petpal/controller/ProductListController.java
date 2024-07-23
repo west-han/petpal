@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +30,12 @@ public class ProductListController {
 			@PathVariable(required = false) Integer species,
 			@PathVariable(required = false) Integer categoryNum,
 			@RequestParam(defaultValue = "1") int currentPage,
+			HttpSession session,
 			Model model) {
 
 		if (species == null) {
 			species = 1;
+			session.setAttribute("species", species);
 		}
 		
 		if (categoryNum == null) {
@@ -67,10 +71,12 @@ public class ProductListController {
 			@PathVariable(required = false) Integer species,
 			@PathVariable(required = false) Integer categoryNum,
 			@RequestParam(defaultValue = "1") int currentPage,
+			HttpSession session,
 			Model model) {
 
 		if (species == null) {
 			species = 1;
+			session.setAttribute("species", species);
 		}
 		
 		if (categoryNum == null) {
@@ -110,6 +116,7 @@ public class ProductListController {
 			@RequestParam(value = "page", defaultValue = "1") int currentPage,
 			@RequestParam(value = "pageSize", defaultValue = "30") int pageSize,
 			@RequestParam Map<String, Object> params,
+			HttpSession session,
 			Model model) {
 		// NOTE: 파라미터 - sortBy(price, sales, ...) / order(asc, desc), 
 		// NOTE: 파라미터 - 필터 조건 / 여러개의 필터는 ,로 구분
@@ -117,8 +124,9 @@ public class ProductListController {
 		
 		if (species == null) {
 			species = 1;
+			session.setAttribute("species", species);
 		}
-				
+		
 		if (parentCategory == null) {
 			parentCategory = 0;
 		}
@@ -187,10 +195,12 @@ public class ProductListController {
 		@RequestParam(value = "page", defaultValue = "1") int currentPage,
 		@RequestParam(value = "pageSize", defaultValue = "30") int pageSize,
 		@RequestParam Map<String, Object> params,
+		HttpSession session,
 		Model model) {
 	
 	if (species == null) {
 		species = 1;
+		session.setAttribute("species", species);
 	}
 			
 	if (parentCategory == null) {
@@ -250,10 +260,12 @@ public class ProductListController {
 			@RequestParam(value = "page", defaultValue = "1") int currentPage,
 			@RequestParam(value = "pageSize", defaultValue = "30") int pageSize,
 			@RequestParam Map<String, Object> params,
+			HttpSession session,
 			Model model) {
 		
 		if (species == null) {
 			species = 1;
+			session.setAttribute("species", species);
 		}
 				
 		if (parentCategory == null) {
@@ -322,7 +334,7 @@ public class ProductListController {
 		}
 		
 		if (params.get("minPrice") != null) {
-			sb.append("minPrice=" + params.get("minRating"));
+			sb.append("minPrice=" + params.get("minPrice"));
 			sb.append("&");
 		}
 		
@@ -338,10 +350,15 @@ public class ProductListController {
 		
 		if (params.get("order") != null) {
 			sb.append("order=" + params.get("order"));
+			sb.append("&");
 		}
 		
 		if (params.get("kwd") != null) {
 			sb.append("kwd=" + params.get("kwd"));
+		}
+		
+		if (sb.lastIndexOf("&") == sb.length() - 1) {
+			sb.deleteCharAt(sb.length() - 1);
 		}
 
 		return sb.toString();
