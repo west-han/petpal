@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.petpal.domain.Product;
 import com.shop.petpal.domain.SessionInfo;
+import com.shop.petpal.service.ProductListService;
 import com.shop.petpal.service.ProductService;
 
 @Controller
@@ -24,6 +25,9 @@ import com.shop.petpal.service.ProductService;
 public class ProductDetailController {
 	@Autowired
 	private ProductService service;
+	
+	@Autowired
+    private ProductListService productListService;
 	
 	@GetMapping("listOptionDetailStock")
 	@ResponseBody
@@ -39,6 +43,8 @@ public class ProductDetailController {
 			Model model, HttpSession session) throws Exception {
 		
 		try {
+			List<Map<String, Object>> categories = productListService.listCategory(species);
+			
 			if (species == null) {
 				species = 1;
 			}
@@ -117,7 +123,7 @@ public class ProductDetailController {
 			model.addAttribute("listProductFile", listProductFile);
 			model.addAttribute("listProductOption", listProductOption);
 			model.addAttribute("listOptionDetail", listOptionDetail);
-			
+			model.addAttribute("categories", categories);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

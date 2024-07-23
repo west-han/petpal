@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public String productOrderNumber() {
-		String result = "";
+		String result = null;
 		
 		try {
 			Calendar cal = Calendar.getInstance();
@@ -71,6 +71,8 @@ public class OrderServiceImpl implements OrderService {
 			mapper.insertOrder(dto);
 			mapper.insertPayDetail(dto);
 			
+			
+			
 			for(int i=0; i < dto.getProductNums().size(); i++) {
 				dto.setProductNum(dto.getProductNums().get(i));
 				dto.setAmount(dto.getBuyAmounts().get(i));
@@ -85,20 +87,18 @@ public class OrderServiceImpl implements OrderService {
 				dto.setPriceOrig(dto.getPriceOrigs().get(i));
 				dto.setPriceDiscount(dto.getPriceDiscounts().get(i));
 				dto.setTotalPrice(dto.getTotalPrices().get(i));
-				dto.setStockNum(dto.getStockNums().get(i));
 				
 				mapper.insertOrderDetail(dto);
 				
+				dto.setStockNum(dto.getStockNums().get(i));
 				mapper.updateProductStock(dto);
-			}
-			
+			}	
 			if(dto.getUsedPoint() > 0) {
 				LocalDateTime now = LocalDateTime.now();
 				String dateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 					
 				Mypage2 point = new Mypage2();
 				point.setMemberNum(dto.getMemberNum());
-					
 				point.setPoint(-dto.getUsedPoint());
 				point.setClassify(2);
 				point.setRegDate(dateTime);

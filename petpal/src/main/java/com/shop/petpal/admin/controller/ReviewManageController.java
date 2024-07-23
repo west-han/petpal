@@ -3,6 +3,7 @@ package com.shop.petpal.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,14 @@ public class ReviewManageController {
 	public ResponseEntity<?> saveResponse(@RequestBody ReviewManage reviewManage, HttpSession session) {
 	    try {
 	        // 세션에서 memberNum 가져오기
-	        SessionInfo info = (SessionInfo) session.getAttribute("member");
 	        
+	    	SessionInfo info = (SessionInfo) session.getAttribute("member");
 	        if (info != null) {
 	            reviewManage.setAnswerNum(info.getMemberNum());
 	            service.saveResponse(reviewManage);
 	            return ResponseEntity.ok().build();
 	        } else {
+	        	
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
 	        }
 	    } catch (Exception e) {

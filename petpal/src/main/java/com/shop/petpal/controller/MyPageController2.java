@@ -59,6 +59,27 @@ public class MyPageController2 {
 		
 		return ".myPage2.orderlist";
 	}
+	
+	@GetMapping("orderDetail")
+    public String getOrderDetail(@RequestParam("orderNum") String orderNum, Model model,
+    		HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		try {
+			List<Mypage2> orderDetails = service.findByOrderNum(orderNum);
+			model.addAttribute("orderDetails", orderDetails);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+       
+        return ".myPage2.orderDetail"; 
+    }
+	
+	
+	
 
 	@GetMapping("cancel-return-change")
 	public String ancelreturnchangeForm() throws Exception {

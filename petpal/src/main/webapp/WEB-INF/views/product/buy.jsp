@@ -169,7 +169,7 @@ $(function() {
 		out += '    <div class="col">';
 		out += '      <div class="input-group">';
 		out += '        <i class="bi bi-dash input-group-text bg-white qty-minus rounded-circle"></i>';
-		out += '        <input type="text" name="buyQtys" class="form-control border border-0" value="1" style="flex:none; width: 60px; text-align: center;" readonly>';
+		out += '        <input type="text" name="buyAmounts" class="form-control border border-0" value="1" style="flex:none; width: 60px; text-align: center;" readonly>';
 		out += '        <input type="hidden" name="productNums" value="' + productNum + '">';
 		out += '        <input type="hidden" name="stockNums" value="' + stockNum + '">';
 		out += '        <input type="hidden" name="detailNums" value="' + detailNum + '" disabled>';
@@ -203,17 +203,17 @@ $(function() {
 		}
 		
 		let order = $(this).closest(".order-qty");
-		let qty = parseInt(order.find("input[name=buyQtys]").val());
+		let amount = parseInt(order.find("input[name=buyAmounts]").val());
 		
-		if(qty >= totalStock) {
+		if(amount >= totalStock) {
 			alert("재고가 부족합니다. 다시 선택해주세요");
 			return false;
 		}
 		
-		qty++;
-		order.find("input[name=buyQtys]").val(qty);
+		amount++;
+		order.find("input[name=buyAmounts]").val(amount);
 		let totalPrice = order.find(".product-totalPrice").attr("data-totalPrice");
-		let item = qty * totalPrice;
+		let item = amount * totalPrice;
 		let paymentAmount = item.toLocaleString();
 		order.find(".item-paymentAmount").text(paymentAmount+"원");
 		
@@ -222,8 +222,8 @@ $(function() {
 	
 	$(".order-area").on("click", ".qty-minus", function() {
 		let order = $(this).closest(".order-qty");
-		let qty = parseInt(order.find("input[name=buyQtys]").val()) - 1;
-		if(qty <= 0) {
+		let amount = parseInt(order.find("input[name=buyAmounts]").val()) - 1;
+		if(amount <= 0) {
 			alert("수량을 한개 이상 선택해주세요");
 			if(optionCount === 0) {
 				return false;
@@ -238,9 +238,9 @@ $(function() {
 			return false;
 		}
 		
-		order.find("input[name=buyQtys]").val(qty);
+		order.find("input[name=buyAmounts]").val(amount);
 		let totalPrice = order.find(".product-totalPrice").attr("data-totalPrice");
-		let item = qty * totalPrice;
+		let item = amount * totalPrice;
 		let paymentAmount = item.toLocaleString();
 		order.find(".item-paymentAmount").text(paymentAmount + "원");
 		
@@ -262,14 +262,14 @@ $(function() {
 	});
 	
 	function totalOrderPrice() {
-		let totalQty = 0;
+		let totalAmount = 0;
 		let paymentAmount = 0;
 		$(".order-qty").each(function() {
-			let qty = parseInt($(this).find("input[name=buyQtys]").val());
+			let amount = parseInt($(this).find("input[name=buyAmounts]").val());
 			let totalPrice = parseInt($(this).find(".product-totalPrice").attr("data-totalPrice"));
 			
-			totalQty += qty;
-			paymentAmount += (totalPrice * qty);
+			totalAtmount += amount;
+			paymentAmount += (totalPrice * amount);
 		});
 		
 		let s = paymentAmount.toLocaleString();
@@ -288,14 +288,14 @@ $(function(){
 });
 
 function sendOk(mode) {
-	let totalQty = 0;
+	let totalAmount = 0;
 	$(".order-qty").each(function(){
-		let qty = parseInt($(this).find("input[name=buyQtys]").val());
+		let amount = parseInt($(this).find("input[name=buyAmounts]").val());
 		
-		totalQty += qty;
+		totalAmount += amount;
 	});
 	
-	if(totalQty <= 0) {
+	if(totalAmount <= 0) {
 		alert("상품 옵션을 선택하세요.");
 		return;
 	}

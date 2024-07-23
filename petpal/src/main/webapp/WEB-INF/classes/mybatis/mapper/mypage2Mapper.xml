@@ -214,44 +214,115 @@
 	<!-- orderlist -->
 	<!-- 주문내역 리스트 -->
 	<select id="selectOrderList" resultType="com.shop.petpal.domain.Mypage2" parameterType="long">
-	    SELECT 
-	        p.ORDERNUM,
-	        p.ORDERDATE,
-	        p.ORDERSTATE,
-	        p.TOTALMONEY,
-	        p.USEDPOINT,
-	        p.USEDCOUPON,
-	        p.DELIVERYCHARGE,
-	        p.PAYMENT,
-	        p.NOTE,
-	        od.PRODUCTNUM,
-	        ds.DETAILSTATE,
-	        pr.PRODUCTNAME,
-	        pr.THUMBNAIL,
-	        od.PRICEPAY AS total_price,
-	        od.QTY AS total_quantity,
-	        dc.DELIVERYNAME,
-	        d.RECIPIENTNAME,
-	        d.TEL,
-	        d.POSTALCODE,
-	        d.ADDRESS1,
-	        d.ADDRESS2,
-	        d.DESTMEMO
-	    FROM 
-	        productOrder p
-	    LEFT OUTER JOIN 
-	        orderDetail od ON p.ORDERNUM = od.ORDERNUM
-	    LEFT OUTER JOIN 
-	        detailStateInfo ds ON od.ORDERDETAILNUM = ds.ORDERDETAILNUM
-	    LEFT OUTER JOIN 
-	        Product pr ON od.PRODUCTNUM = pr.PRODUCTNUM
-	    LEFT OUTER JOIN 
-	        deliveryCompany dc ON p.DELIVERYNUM = dc.DELIVERYNUM
-	    LEFT OUTER JOIN 
-	        orderDelivery d ON p.ORDERNUM = d.ORDERNUM
-	    WHERE 
-	        p.MEMBERNUM = #{memberNum}
-	    ORDER BY 
-	        p.ORDERDATE DESC
+		SELECT
+		    od.orderDetailNum,
+		    od.amount,
+		    od.priceOrig,
+		    od.priceDiscount,
+		    od.pricePay,
+		    od.savePoint,
+		    od.orderNum,
+		    ps.stockNum,
+		    ps.productNum,
+		    odt.optionValue,
+		    po.memberNum,
+		    odi.recipientName,
+		    odi.tel,
+		    odi.postalCode,
+		    odi.address1,
+		    odi.address2,
+		    odi.destMemo,
+		    dsi.stateNum,
+		    dsi.detailState,
+		    dsi.stateMemo,
+		    dsi.detailStateDate,
+		    dc.deliveryName,
+		    dc.deliveryTel,
+		    pd.payClassify,
+		    pd.cardName,
+		    pd.authNumber,
+		    pd.authDate,
+		    pc.cancelAmount,
+		    pc.candleDate,
+		    po.orderDate,
+		    po.totalMoney,
+		    p.productName,
+		    p.species,
+		    p.price,
+		    p.deliveryCharge,
+		    p.discountAmount,
+		    p.discountRate,
+		    p.thumbnail,
+		    po.payment,
+            po.usedPoint
+		FROM
+		    OrderDetail od
+		    JOIN ProductStock ps ON od.stockNum = ps.stockNum
+		    JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
+		    JOIN ProductOrder po ON od.orderNum = po.orderNum
+		    LEFT JOIN OrderDelivery odi ON po.orderNum = odi.orderNum
+		    LEFT JOIN DetailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
+		    LEFT JOIN DeliveryCompany dc ON po.deliveryNum = dc.deliveryNum
+		    LEFT JOIN PayDetail pd ON po.orderNum = pd.orderNum
+		    LEFT JOIN PayCancel pc ON po.orderNum = pc.orderNum
+		    JOIN Product p ON ps.productNum = p.productNum
+		WHERE
+		    po.memberNum = #{memberNum}
+	</select>
+	
+	
+	<select id="findByOrderNum" resultType="com.shop.petpal.domain.Mypage2" parameterType="String">
+		SELECT
+		    od.orderDetailNum,
+		    od.amount,
+		    od.priceOrig,
+		    od.priceDiscount,
+		    od.pricePay,
+		    od.savePoint,
+		    od.orderNum,
+		    ps.stockNum,
+		    ps.productNum,
+		    odt.optionValue,
+		    po.memberNum,
+		    odi.recipientName,
+		    odi.tel,
+		    odi.postalCode,
+		    odi.address1,
+		    odi.address2,
+		    odi.destMemo,
+		    dsi.stateNum,
+		    dsi.detailState,
+		    dsi.stateMemo,
+		    dsi.detailStateDate,
+		    dc.deliveryName,
+		    dc.deliveryTel,
+		    pd.payClassify,
+		    pd.cardName,
+		    pd.authNumber,
+		    pd.authDate,
+		    pc.cancelAmount,
+		    pc.candleDate,
+		    po.orderDate,
+		    po.totalMoney,
+		    p.productName,
+		    p.species,
+		    p.price,
+		    p.deliveryCharge,
+		    p.discountAmount,
+		    p.discountRate,
+		    p.thumbnail
+		FROM
+		    OrderDetail od
+		    JOIN ProductStock ps ON od.stockNum = ps.stockNum
+		    JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
+		    JOIN ProductOrder po ON od.orderNum = po.orderNum
+		    LEFT JOIN OrderDelivery odi ON po.orderNum = odi.orderNum
+		    LEFT JOIN DetailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
+		    LEFT JOIN DeliveryCompany dc ON po.deliveryNum = dc.deliveryNum
+		    LEFT JOIN PayDetail pd ON po.orderNum = pd.orderNum
+		    LEFT JOIN PayCancel pc ON po.orderNum = pc.orderNum
+		    JOIN Product p ON ps.productNum = p.productNum
+		WHERE
+		    po.orderNum  = #{orderNum}
 	</select>
 </mapper>

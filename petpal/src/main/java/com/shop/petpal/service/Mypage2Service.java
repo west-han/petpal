@@ -46,5 +46,6 @@ public interface Mypage2Service {
 	
 	// 주문내역
 	public List<Mypage2> selectOrderList(long memberNum) throws Exception; // 주문내역
+	public List<Mypage2> findByOrderNum(String orderNum) throws Exception; // 상세주문내역
 	
 }
