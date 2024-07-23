@@ -199,7 +199,7 @@
             </div>
             <div class="product">
                 <c:forEach var="dto" items="${newList}" varStatus="status">
-                    <a href="${pageContext.request.contextPath}/products/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                    <a href="${pageContext.request.contextPath}/product/${sessionScope.species }/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
                         <div class="p-2">
                             <div class="text-truncate fw-semibold pb-1">
                                 ${dto.productName}
