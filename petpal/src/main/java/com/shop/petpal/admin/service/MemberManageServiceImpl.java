@@ -1,6 +1,7 @@
 package com.shop.petpal.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 
     @Autowired
     private MemberManageMapper memberManageMapper;
+
 
     @Override
     public List<Member> findAllMembers() {
@@ -53,5 +55,31 @@ public class MemberManageServiceImpl implements MemberManageService {
             throw e;
         }        
     }
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = memberManageMapper.dataCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Member> listMember(Map<String, Object> map) {
+		List<Member> list = null;
+		
+		try {
+			list = memberManageMapper.listMember(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }
 

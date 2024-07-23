@@ -1,6 +1,7 @@
 package com.shop.petpal.admin.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,5 +14,7 @@ public interface MemberManageMapper {
 	Member findById(Long memberNum);
     void updateMember1(Member member);
     void updateMember2(Member member);
+	int dataCount(Map<String, Object> map);
+	List<Member> listMember(Map<String, Object> map);
 
 }
