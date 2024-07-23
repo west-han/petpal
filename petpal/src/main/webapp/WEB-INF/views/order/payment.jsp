@@ -51,7 +51,7 @@ function sendOk() {
 	let p = Number(f.payment.value) - usedPoint;  
 	f.payment.value = p;
 	
-	f.orderState.value = 0; // 예시로 주문 상태를 0으로 설정
+	f.orderState.value = 0;
     f.point.value = usedPoint;
     f.optionName.value = "${dto.optionName}";
     f.optionValue.value = "${dto.optionValue}";
@@ -149,12 +149,11 @@ $(function(){
 									<input type="hidden" name="productNums" value="${dto.productNum}">
 									<input type="hidden" name="detailNums" value="${empty dto.detailNum ? 0 : dto.detailNum}">
 									<input type="hidden" name="detailNums2" value="${empty dto.detailNum2 ? 0 : dto.detailNum2}">
-									<input type="hidden" name="stockNums" value="${dto.stockNum}">
+									<input type="hidden" name="stockNums" value="${dto.stockNum}"> 
 									<input type="hidden" name="buyAmounts" value="${dto.amount}">
 									<input type="hidden" name="pricePays" value="${dto.pricePay}">
 									<input type="hidden" name="priceOrigs" value="${dto.priceOrig}">
 									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
-									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
 									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
 									<input type="hidden" name="savePoint" value="${dto.totalSavePoint}">
 									
@@ -285,7 +284,8 @@ $(function(){
 					<div class="saving-point">
 						<div class="price-content">
 							<label class=" price-pointSave title-gray">포인트 적립 </label>
-							<label class="">
+							<c:out value="${totalSavePoint}"/>
+							<label >
 								<fmt:formatNumber value="${totalSavePoint}"/>원
 							</label>
 						</div>

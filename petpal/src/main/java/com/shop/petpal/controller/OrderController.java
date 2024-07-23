@@ -65,17 +65,8 @@ public class OrderController {
 					list.add(map);
 				}
 				
-				totalSavePoint = totalPayment * info.getMembershipNum();
 				
-				if(info.getMembershipNum() == 1) {
-					totalSavePoint = (int)(totalPayment * 0.01);
-				} else if(info.getMembershipNum() == 2) {
-					totalSavePoint = (int)(totalPayment * 0.02);
-				} else if(info.getMembershipNum() == 3) {
-					totalSavePoint = (int)(totalPayment * 0.03);
-				} else {
-					totalSavePoint = (int)(totalPayment * 0.04);
-				}
+				
 				
 				Order order = new Order();
 				order.setTotalSavePoint(totalSavePoint);
@@ -85,9 +76,23 @@ public class OrderController {
 				for(int i = 0; i < listProduct.size(); i++) {
 					Order dto = listProduct.get(i);
 					dto.setAmount(buyAmounts.get(i));
-					dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice());
+					dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice()); 
 					
-					totalMoney += buyAmounts.get(i) * dto.getTotalPrice();
+					if(info.getMembershipNum() == 1) {
+						totalSavePoint += (int)(buyAmounts.get(i) * 0.01);
+						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
+					} else if(info.getMembershipNum() == 2) {
+						totalSavePoint += (int)(buyAmounts.get(i) * 0.02);
+						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
+					} else if(info.getMembershipNum() == 3) {
+						totalSavePoint += (int)(buyAmounts.get(i) * 0.03);
+						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
+					} else {
+						totalSavePoint += (int)(buyAmounts.get(i) * 0.04);
+						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
+					}
+					
+					totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
 					totalDiscountPrice += dto.getDiscountAmount();
 					if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
 						deliveryCharge = dto.getDeliveryCharge();
@@ -103,7 +108,11 @@ public class OrderController {
 				
 				totalPayment = totalMoney + deliveryCharge;
 				
-				
+				if (totalSavePoint == 0) {
+	                System.out.println("totalSavePoint is zero. Possible calculation error.");
+	            } else {
+	                System.out.println("totalSavePoint: " + totalSavePoint);
+	            }
 				
 				
 				
