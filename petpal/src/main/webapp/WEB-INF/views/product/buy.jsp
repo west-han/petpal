@@ -268,7 +268,7 @@ $(function() {
 			let amount = parseInt($(this).find("input[name=buyAmounts]").val());
 			let totalPrice = parseInt($(this).find(".product-totalPrice").attr("data-totalPrice"));
 			
-			totalAtmount += amount;
+			totalAmount += amount;
 			paymentAmount += (totalPrice * amount);
 		});
 		
@@ -352,8 +352,8 @@ function sendOk(mode) {
 							</c:if>	
 
 							
-							<div class="category">
-								<div>${dto.species == 2? "고양이" : "강아지"} > ${dto.categoryName}</div>
+							<div class="brand">
+								<div>${dto.brand}</div>
 							</div>
 
 							<div class="productName">

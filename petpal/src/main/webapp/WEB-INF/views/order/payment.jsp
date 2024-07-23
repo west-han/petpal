@@ -60,7 +60,7 @@ function sendOk() {
 	
 	let payClassify = 0;
 	let cardName = "삼성카드";
-	let authNumber = "12493645998";
+	let authNumber = "${productOrderNumber}";
 	let authDate = "";
 	authDate = new Date().toISOString().replace('T', ' ').slice(0, -5);
 
@@ -68,6 +68,7 @@ function sendOk() {
 	f.cardName.value = cardName;
 	f.authNumber.value = authNumber;
 	f.authDate.value = authDate;
+	
 	
 	f.action = "${pageContext.request.contextPath}/order/paymentOk";
     f.submit();
@@ -155,7 +156,11 @@ $(function(){
 									<input type="hidden" name="priceOrigs" value="${dto.priceOrig}">
 									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
 									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
-									<input type="hidden" name="savePoint" value="${dto.totalSavePoint}">
+									<input type="hidden" name="totalSavePoint" value="${dto.totalSavePoint}">
+									<input type="hidden" name="savePoint" value="${dto.savePoint}">
+									<input type="hidden" name="priceDiscount" value="${dto.discountAmount}">
+									
+									
 									
 								</td>
 								<td class="content-qty" width="90">
@@ -220,7 +225,7 @@ $(function(){
 						<div class="destination-tel">
 							<div>
 								<label class="tel-title title-gray">전화번호*</label>
-								<input type="text" name="tel" class="tel">
+								<input type="text" name="tel" class="tel" placeholder="예: 01012345789">
 							</div>
 							
 						</div>
@@ -246,7 +251,7 @@ $(function(){
 						<div class="point-title">포인트</div>
 						<div class="point-content">
 							<div class="point-detail title-gray">포인트</div>
-							<input type="number" class="form-control point-input" name="usedPoint" min="0" max="${empty userPoint ? 0 : userPoint.balance}">
+							<input type="number" class="form-control point-input" name="usedPoint" min="0" max="${empty userPoint ? 0 : userPoint.balance}" value="0">
 							<button type="button" class="input-group-text btn-usedPoint point-btn" data-balance="${empty userPoint ? 0 : userPoint.balance}">전액사용</button>
 							<div class="point-own">(보유 <fmt:formatNumber value="${empty userPoint ? 0 : userPoint.balance}"/>원)</div>
 						</div>
@@ -284,7 +289,6 @@ $(function(){
 					<div class="saving-point">
 						<div class="price-content">
 							<label class=" price-pointSave title-gray">포인트 적립 </label>
-							<c:out value="${totalSavePoint}"/>
 							<label >
 								<fmt:formatNumber value="${totalSavePoint}"/>원
 							</label>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.petpal.domain.Member;
 import com.shop.petpal.domain.Mypage2;
@@ -67,7 +68,6 @@ public class OrderController {
 				
 				
 				
-				
 				Order order = new Order();
 				order.setTotalSavePoint(totalSavePoint);
 				
@@ -78,20 +78,26 @@ public class OrderController {
 					dto.setAmount(buyAmounts.get(i));
 					dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice()); 
 					
-					if(info.getMembershipNum() == 1) {
-						totalSavePoint += (int)(buyAmounts.get(i) * 0.01);
-						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
-					} else if(info.getMembershipNum() == 2) {
-						totalSavePoint += (int)(buyAmounts.get(i) * 0.02);
-						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
-					} else if(info.getMembershipNum() == 3) {
-						totalSavePoint += (int)(buyAmounts.get(i) * 0.03);
-						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
-					} else {
-						totalSavePoint += (int)(buyAmounts.get(i) * 0.04);
-						dto.setSavePoint(buyAmounts.get(i) * dto.getSavePoint());
-					}
-					
+					double savePointMultiplier;
+				    if (info.getMembershipNum() == 1) {
+				        savePointMultiplier = 0.01;
+				    } else if (info.getMembershipNum() == 2) {
+				        savePointMultiplier = 0.02;
+				    } else if (info.getMembershipNum() == 3) {
+				        savePointMultiplier = 0.03;
+				    } else {
+				        savePointMultiplier = 0.04;
+				    }
+				    
+				    int calculatedSavePoint = (int)(buyAmounts.get(i) * dto.getTotalPrice() * savePointMultiplier);
+				    dto.setSavePoint(calculatedSavePoint);
+				    totalSavePoint += calculatedSavePoint; 
+				    
+				    System.out.println("Product " + i + ": Amount = " + buyAmounts.get(i) + 
+		                       ", TotalPrice = " + dto.getTotalPrice() + 
+		                       ", SavePointMultiplier = " + savePointMultiplier + 
+		                       ", savePoint = " + calculatedSavePoint);
+				    
 					totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
 					totalDiscountPrice += dto.getDiscountAmount();
 					if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
@@ -107,13 +113,6 @@ public class OrderController {
 				deliveryCharge = totalMoney >= 20000 ? 0 : deliveryCharge;
 				
 				totalPayment = totalMoney + deliveryCharge;
-				
-				if (totalSavePoint == 0) {
-	                System.out.println("totalSavePoint is zero. Possible calculation error.");
-	            } else {
-	                System.out.println("totalSavePoint: " + totalSavePoint);
-	            }
-				
 				
 				
 				Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
@@ -152,7 +151,7 @@ public class OrderController {
 	
 	@PostMapping("paymentOk")
 	public String paymentSubmit(@RequestParam(defaultValue = "buy") String mode,
-				Order dto, 
+				Order dto, RedirectAttributes reAttr,
 				HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
@@ -173,6 +172,9 @@ public class OrderController {
 				orderService.deleteCart(map);
 				
 			}
+			
+			reAttr.addFlashAttribute("title", "상품 결제 완료");
+			reAttr.addFlashAttribute("message", "정상처리");
 			
 			return "redirect:/order/done";
 			

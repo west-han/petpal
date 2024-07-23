@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <div class="container">
 	<div class="body-container">	
         <div class="body-container2">
@@ -19,7 +18,7 @@
 	                </div>
  
                     <div class="main-btn">
-                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/main/main';">메인화면</button>
+                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">메인화면</button>
                     </div>
                 </div>
 
