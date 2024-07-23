@@ -29,7 +29,7 @@ public class MemberManageController {
 
     @GetMapping("/admin/member/{memberNum}")
     @ResponseBody
-    public ResponseEntity<Member> getMember(@PathVariable Long memberNum) {
+    public ResponseEntity<Member> getMember(@PathVariable(name = "memberNum") Long memberNum) {
         Member member = memberManageService.findById(memberNum);
         if (member != null) {
             return ResponseEntity.ok(member);
@@ -40,7 +40,7 @@ public class MemberManageController {
 
     @PutMapping("/admin/member/{memberNum}")
     @ResponseBody
-    public ResponseEntity<Void> updateMember(@PathVariable Long memberNum, @RequestBody Member member) {
+    public ResponseEntity<Void> updateMember(@PathVariable(name = "memberNum") Long memberNum, @RequestBody Member member) {
         member.setMemberNum(memberNum);
         memberManageService.updateMember(member);
         return ResponseEntity.ok().build();

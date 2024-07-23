@@ -28,7 +28,7 @@ public class HomeController {
     private ProductListService productListService;
     
     @RequestMapping(value = {"/", "/{species}"}, method = RequestMethod.GET)
-    public String home(@PathVariable(required = false) Integer species, Model model, HttpSession session) {
+    public String home(@PathVariable(name = "species", required = false) Integer species, Model model, HttpSession session) {
         
         if (species == null) {
             species = 1;
