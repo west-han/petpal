@@ -41,7 +41,15 @@ h2 {
 				<h5 class="card-title">주문 정보</h5>
 				<p class="card-text"><strong>주문 번호:</strong> ${orderDetails[0].orderNum}</p>
 				<p class="card-text"><strong>주문 날짜:</strong> ${orderDetails[0].orderDate}</p>
-				<p class="card-text"><strong>배송 상태:</strong> ${orderDetails[0].detailState}</p>
+				<p class="card-text"><strong>배송 상태:</strong>
+					<c:choose>
+						<c:when test="${orderDetails[0].detailState == 0}">결제완료</c:when>
+						<c:when test="${orderDetails[0].detailState == 1}">배송중</c:when>
+						<c:when test="${orderDetails[0].detailState == 2}">배송완료</c:when>
+						<c:when test="${orderDetails[0].detailState == 3}">구매확정</c:when>
+						<c:otherwise>알 수 없음</c:otherwise>
+					</c:choose>
+				</p>
 			</div>
 		</div>
 
@@ -75,7 +83,13 @@ h2 {
 				<p class="card-text"><strong>총 결제 금액:</strong> 
 					${totalProductPrice - orderDetails[0].usedPoint + orderDetails[0].deliveryCharge}원
 				</p>
-				<p class="card-text"><strong>결제 구분:</strong> ${orderDetails[0].payClassify}</p>
+				<p class="card-text"><strong>결제 구분:</strong>
+					<c:choose>
+						<c:when test="${orderDetails[0].payClassify == 0}">카드결제</c:when>
+						<c:when test="${orderDetails[0].payClassify == 1}">간편결제</c:when>
+						<c:otherwise>알 수 없음</c:otherwise>
+					</c:choose>
+				</p>
 				<p class="card-text"><strong>결제사명:</strong> ${orderDetails[0].cardName}</p>
 			</div>
 		</div>

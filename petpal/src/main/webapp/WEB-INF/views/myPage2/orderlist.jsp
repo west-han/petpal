@@ -92,7 +92,14 @@ a {
 					                                    <strong>주문 날짜:</strong> ${item.orderDate}
 					                                </p>
 					                                <p class="card-text">
-					                                    <strong>배송 상태:</strong> ${item.orderState}
+					                                    <strong>배송 상태:</strong> 
+					                                    <c:choose>
+					                                    	<c:when test="${item.orderState == 0}">결제완료</c:when>
+					                                    	<c:when test="${item.orderState == 1}">배송중</c:when>
+					                                    	<c:when test="${item.orderState == 2}">배송완료</c:when>
+					                                    	<c:when test="${item.orderState == 3}">구매확정</c:when>
+					                                    	<c:otherwise>알 수 없음</c:otherwise>
+					                                    </c:choose>
 					                                </p>
 					                                <h5 class="card-title">${item.productName}</h5>
 					                                <div class="review-item">
