@@ -25,7 +25,7 @@
 						<th>변 경</th>
 					</tr>
 				</thead>
-				<tbody class="productStcok-list">
+				<tbody class="productStock-list">
 					<c:if test="${list.size() == 0}">
 						<tr>
 							<td colspan="5">등록된 상품이 없습니다.</td>

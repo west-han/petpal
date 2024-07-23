@@ -191,7 +191,7 @@ $(function(){
 
     $(document).on('click', '.btn-allStockUpdate', function(){
         // 재고 일괄 변경
-        if (!confirm('재고를 일괄 변경 하시겠습니까 ? ')) {
+        if (!confirm('재고를 일괄 변경 하시겠습니까 ?? ')) {
             return false;
         }
 
@@ -222,6 +222,7 @@ $(function(){
             query += '&detailNums=' + detailNum1;
             query += '&detailNums2=' + detailNum2;
             query += '&totalStocks=' + totalStock;
+            
         });
 
         if (!isValid) {
