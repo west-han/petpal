@@ -380,5 +380,17 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		return list;
 	}
 
+	@Override
+	public List<Mypage2> findByOrderNum(String orderNum) throws Exception {
+
+		List<Mypage2> list = null;
+		try {
+			list = mapper.findByOrderNum(orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	
 }

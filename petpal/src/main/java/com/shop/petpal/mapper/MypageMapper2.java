@@ -50,6 +50,7 @@ public interface MypageMapper2 {
 	
 	// 주문내역
 	public List<Mypage2> selectOrderList(long memberNum) throws SQLException; // 나의 주문 내역
+	public List<Mypage2> findByOrderNum(String orderNum) throws SQLException; // 상세주문내역
 	
 	
 }
