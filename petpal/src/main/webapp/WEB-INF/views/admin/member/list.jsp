@@ -8,80 +8,74 @@
     <style type="text/css">
         .body-container {
             max-width: 1300px;
-            margin-top: 140px;
             margin-left: 80px;
         }
         .body-title h3 {
             font-size: 26px;
         }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 3; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 색상 변경 */
-        }
-        
         .modal-content {
             background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 60%;
+            padding: 30px;
+            border: none;
+            width: 90%;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* 그림자 효과 추가 */
-            border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+            border-radius: 15px; 
         }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+        .modal-header {
+            border-bottom: none;
+        }
+        .modal-header .close {
+            font-size: 1.5rem;
+        }
+        .modal-body {
+            padding-top: 10px;
+        }
+        .modal-footer {
+            border-top: none;
+        }
+        .form-group label {
             font-weight: bold;
         }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        .form-control {
+            border-radius: 10px;
         }
-        .overlay {
-            display: none;
-            position: fixed;
-            z-index: 2; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* 어두운 배경 */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 20px;
+        }
+        .btn-secondary {
+            border-radius: 20px;
+        }
+        .pagination .btn {
+            border-radius: 20px;
+        }
+        .search .form-control {
+            border-radius: 20px;
+        }
+        .search .btn {
+            border-radius: 20px;
         }
     </style>
-
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/memberadmin.css">
 
     <script>
         $(document).ready(function() {
-            $('.close').on('click', function() {
-                $('#editModal').hide(); 
-                $('.overlay').hide(); 
+            $('.close, .btn-secondary').on('click', function() {
+                $('#editModal').modal('hide'); 
             });
 
             $(window).on('click', function(event) {
                 if ($(event.target).is('#editModal')) {
-                    $('#editModal').hide(); 
-                    $('.overlay').hide(); 
+                    $('#editModal').modal('hide'); 
                 }
             });
         });
 
         function editCustomer(memberNum) {
-            $('#editModal').show(); 
-            $('.overlay').show(); 
+            $('#editModal').modal('show'); 
 
-           
             $.get("${pageContext.request.contextPath}/admin/member/" + memberNum, function(data) {
                 $('#memberNum').val(data.memberNum);
                 $('#email').val(data.email);
@@ -128,9 +122,8 @@
                 contentType: 'application/json',
                 data: JSON.stringify(member),
                 success: function() {
-                    $('#editModal').hide();
-                    $('.overlay').hide();
-                    location.reload(); // 페이지 새로고침하여 변경된 내용 반영
+                    $('#editModal').modal('hide');
+                    location.reload(); 
                 },
                 error: function() {
                     alert("회원 정보 수정에 실패했습니다.");
@@ -141,10 +134,10 @@
 </head>
 <body>
     <div id="mainOverlay" class="overlay"></div>
-    <div class="container">
+    <div class="container body-container">
         <div class="customer-info-management">
             <h2>고객 정보</h2>
-            <table class="customer-info-table">
+            <table class="table table-striped customer-info-table">
                 <thead>
                     <tr>
                         <th>회원번호</th>
@@ -164,66 +157,105 @@
                             <td>${dto.userName}</td>
                             <td>${dto.birth}</td>
                             <td>${dto.regDate}</td>
-                            <td><button class="action-btn" onclick="editCustomer(${dto.memberNum})">수정</button></td>
-                            <td><button class="action-btn">포인트</button></td>
+                            <td><button class="btn btn-primary" onclick="editCustomer(${dto.memberNum})">수정</button></td>
+                            <td><button class="btn btn-primary" onclick="editCustomer(${dto.memberNum})">포인트</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
             <div class="pagination">
-                <button class="pagination-btn"><<</button>
-                <button class="pagination-btn current-page">1</button>
-                <button class="pagination-btn">>></button>
+                <button class="btn btn-light"><<</button>
+                <button class="btn btn-light current-page">1</button>
+                <button class="btn btn-light">>></button>
             </div>
             <div class="search">
-                <select id="searchField" class="search-field">
-                    <option value="email">이메일</option>
+                <select id="searchField" class="form-control d-inline w-auto">
+                    <option value="email">이메일 ▼</option>
                 </select>
-                <input type="text" id="searchQuery" class="search-query">
-                <button class="search-btn">검색</button>
+                <input type="text" id="searchQuery" class="form-control d-inline w-auto">
+                <button class="btn btn-primary">검색</button>
             </div>
         </div>
     </div>
 
     <!-- Modal -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>회원 정보 수정</h2>
-            <form>
-                <input type="hidden" id="memberNum">
-                <label for="email">이메일:</label>
-                <input type="text" id="email"><br>
-                <label for="regDate">가입 날짜:</label>
-                <input type="text" id="regDate"><br>
-                <label for="notificationConsent">알림 동의:</label>
-                <input type="text" id="notificationConsent"><br>
-                <label for="enabled">활성화 상태:</label>
-                <input type="text" id="enabled"><br>
-                <label for="failureCount">실패 횟수:</label>
-                <input type="text" id="failureCount"><br>
-                <label for="lastLogin">마지막 로그인:</label>
-                <input type="text" id="lastLogin"><br>
-                <label for="birth">생년월일:</label>
-                <input type="text" id="birth"><br>
-                <label for="address1">주소 1:</label>
-                <input type="text" id="address1"><br>
-                <label for="address2">주소 2:</label>
-                <input type="text" id="address2"><br>
-                <label for="tel">전화번호:</label>
-                <input type="text" id="tel"><br>
-                <label for="nickname">닉네임:</label>
-                <input type="text" id="nickname"><br>
-                <label for="userName">이름:</label>
-                <input type="text" id="userName"><br>
-                <label for="postalCode">우편번호:</label>
-                <input type="text" id="postalCode"><br>
-                <label for="area">지역:</label>
-                <input type="text" id="area"><br>
-                <label for="membershipNum">멤버십 번호:</label>
-                <input type="text" id="membershipNum"><br>
-                <button type="button" onclick="saveChanges()">저장</button>
-            </form>
+    <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">회원 정보 수정</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="memberNum">
+                        <div class="form-group">
+                            <label for="email">이메일:</label>
+                            <input type="text" class="form-control" id="email" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label for="regDate">가입 날짜:</label>
+                            <input type="text" class="form-control" id="regDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="notificationConsent">알림 동의:</label>
+                            <input type="text" class="form-control" id="notificationConsent">
+                        </div>
+                        <div class="form-group">
+                            <label for="enabled">활성화 상태:</label>
+                            <input type="text" class="form-control" id="enabled">
+                        </div>
+                        <div class="form-group">
+                            <label for="failureCount">실패 횟수:</label>
+                            <input type="text" class="form-control" id="failureCount">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastLogin">마지막 로그인:</label>
+                            <input type="text" class="form-control" id="lastLogin">
+                        </div>
+                        <div class="form-group">
+                            <label for="birth">생년월일:</label>
+                            <input type="text" class="form-control" id="birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="address1">주소 1:</label>
+                            <input type="text" class="form-control" id="address1">
+                        </div>
+                        <div class="form-group">
+                            <label for="address2">주소 2:</label>
+                            <input type="text" class="form-control" id="address2">
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">전화번호:</label>
+                            <input type="text" class="form-control" id="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="nickname">닉네임:</label>
+                            <input type="text" class="form-control" id="nickname">
+                        </div>
+                        <div class="form-group">
+                            <label for="userName">이름:</label>
+                            <input type="text" class="form-control" id="userName">
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode">우편번호:</label>
+                            <input type="text" class="form-control" id="postalCode">
+                        </div>
+                        <div class="form-group">
+                            <label for="area">지역:</label>
+                            <input type="text" class="form-control" id="area">
+                        </div>
+                        <div class="form-group">
+                            <label for="membershipNum">멤버십 번호:</label>
+                            <input type="text" class="form-control" id="membershipNum">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="saveChanges()">저장</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </body>

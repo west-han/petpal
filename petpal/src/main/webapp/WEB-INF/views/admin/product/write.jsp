@@ -718,19 +718,20 @@ $(function() {
 						</td>
 					</tr>
 					<tr>
-						<td class="table-light col-sm-2">할인율</td>
-						<td>
-							<input type="text" name="discountRate" class="form-control" value="" readonly>
-							<small class="form-control-plaintext help-block">할인율이 0인 경우 상품가격이 판매가격입니다.</small>
-						</td>
-					</tr>
-					<tr>
 						<td class="table-light col-sm-2">할인액</td>
 						<td>
 							<input type="text" name="discountAmount" class="form-control" value="">
 							<small class="form-control-plaintext help-block">할인액이 0인 경우 상품가격이 판매가격입니다.</small>
 						</td>
 					</tr>
+					<tr>
+						<td class="table-light col-sm-2">할인율</td>
+						<td>
+							<input type="text" name="discountRate" class="form-control" value="" readonly>
+							<small class="form-control-plaintext help-block">할인율이 0인 경우 상품가격이 판매가격입니다.</small>
+						</td>
+					</tr>
+					
 					<tr>
 						<td class="table-light col-sm-2">배송비</td>
 						<td>
