@@ -85,11 +85,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> listOptionDetail(long productNum) {
+	public List<Product> listOptionDetail(long optionNum) {
 		List<Product> list = null;
 		
 		try {
-			list = mapper.listOptionDetail(productNum);
+			list = mapper.listOptionDetail(optionNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,8 +99,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> listOptionDetailStock(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list = null;
+		
+		try {
+			list = mapper.listOptionDetailStock(map);
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 }

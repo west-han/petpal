@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+* { padding: 0; margin: 0; }
+*, *::after, *::before { box-sizing: border-box; }
+
+.body-container2 {
+	max-width: 1300px;
+	margin: 20px auto;
+	margin-bottom: 60px;
+}
+
+.body-title {
+	width: 1300px;
+	margin-bottom: 15px;
+	border: none;
+}
+
+.body-title h3 {
+	border: none;
+}
+
+.body-main {
+	border-top: 3px solid #BDBDBD;
+	padding-top: 8px;
+}
+
+.select-cart {
+	display: flex;
+}
+
+.cart-deleteCheck {
+	background-color: white;
+	padding: 5px 10px;
+	border: 1px solid #A6A6A6;
+	border-radius: 5px;
+	margin-left: 5px;
+}
+
+tbody{
+	border-bottom: px solid #BDBDBD;
+	margin-bottom: 10px;
+}
+
+.table th {
+	text-align: center;
+	font-size: 15px;
+	color: #A6A6A6;
+	font-weight: normal;
+}
+
+input[type=checkbox]:hover {
+	cursor: pointer;
+}
+
+.cart-deleteCheck {
+	font-size: 13px;
+	margin-bottom: 3px;
+}
+
+.table td {
+	text-align: center;
+	padding: 20px 0;
+}
+
+.content-info {
+	padding-left: 10px;
+	margin-top: 5px;
+}
+
+.content-info .product-title {
+	margin-top: 15px;
+}
+
+.content-info .product-options {
+	margin-bottom: 15px;
+	font-size: 11px;
+	color: #A6A6A6;
+}
+
+.product-title, .product-options {
+	margin-bottom: 2px;
+}
+
+.btnMinus {
+	margin-left: 60px;
+}
+
+.btnPlus, .btnMinus {
+	border: none;
+	background: rgba(0, 0, 0, 0);
+	font-size: 25px;
+}
+
+.content-delete .cart-delete {
+	border: none;
+	background: rgba(0,0,0,0);
+	font-size: 20px;
+}
+
+.buttons {
+	text-align: center;
+	padding: 35px 0;
+}
+
+.go-main {
+	padding: 10px;
+	border: 1px solid #BDBDBD;
+}
+
+.select-buy-btn {
+	background-color: #E4B075;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	margin-left: 5px;
+	font-size: 15px;
+	color: white;
+
+}
+.order-price {
+	margin-top: 80px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.cal-title {
+	padding: 20px 100px;
+	font-size: 15px;
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	border-top: 3px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	color: #A6A6A6;
+}
+
+.cal-content {
+	padding: 20px 100px;
+	font-size: 18px;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.form-control {
+	border: none;
+}
+
+.oper {
+	font-size: 24px;
+	font-weight: normal;
+}
+
+.total-price {
+	color: #E4B075;
+}

@@ -2,166 +2,150 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<style type="text/css">
 
-* { padding: 0; margin: 0; }
-*, *::after, *::before { box-sizing: border-box; }
+<script type="text/javascript">
 
-.body-container2 {
-	max-width: 1300px;
-	margin: 20px auto;
-	margin-bottom: 60px;
+$(function(){
+	let cartSize = "${list.size()}";
+	if(cartSize!=="" && cartSize!=="0") {
+		$(".cart-chkAll").prop("checked", true);
+		$("form input[name=nums]").prop("checked", true);
+	}
+	
+    $(".cart-chkAll").click(function() {
+    	$("form input[name=nums]").prop("checked", $(this).is(":checked"));
+    });
+});
+
+function sendOk() {
+	const f = document.cartForm;
+	
+	let count = $("form input[name=nums]:checked").length;
+	if(count === 0) {
+		alert("상품을 선택하세요");
+		return;
+	}
+	
+	let b = true;
+	$("form input[name=nums]").each(function(index, item) {
+		if($(this).is(":checked")) {
+			let totalStock = Number($(this).attr("data-totalStock"));
+			let $tr = $(this).closest("tr");
+			let amount = Number($tr.find("input[name=buyAmounts]").val());
+			if(amount > totalStock) {
+				b = false;
+				return false;
+			}
+		}
+	});
+	
+	if(! b) {
+		alert('재고가 부족합니다');
+		return false;
+	}
+	
+	$("form input[name=nums]").each(function(index, item) {
+		if(!$(this).is(":checked")) {
+			$(this).closest("tr").remove();
+		}
+	});
+	
+	f.action = "${pageContext.request.contextPath}/order/payment";
+	f.submit();
 }
 
-.body-title {
-	width: 1300px;
-	margin-bottom: 15px;
-	border: none;
+function deleteSelect() {
+	let count = $("form input[name=nums]:checked").length;
+	if(count === 0) {
+		alert("카트에서 삭제할 상품을 선택하세요");
+		return;
+	}
+	
+	if(! confirm('선택한 상품을 카트에서 삭제하겠습니까?')) {
+		return;
+	}
+	
+	const f = document.cartForm;
+	f.action = "${pageContext.request.contextPath}/myPage/deleteSelectCart";
+	f.submit();
 }
 
-.body-title h3 {
-	border: none;
+function deleteOne(stockNum) {
+	location.href = '${pageContext.request.contextPath}/myPage/deleteOne?stockNum=' + stockNum;	
 }
 
-.body-main {
-	border-top: 3px solid #BDBDBD;
-	padding-top: 8px;
+
+$(function() {
+	$(".btnMinus").click(function(){
+		const $tr = $(this).closest("tr");
+		let amount = Number($tr.find("input[name=buyAmounts]").val()) || 1;
+		let priceOrig = Number($tr.find("input[name=priceOrig]").val()) || 0;
+		let discountAmount = Number($tr.find("input[name=discountAmount]").val()) || 0;
+		let priceDiscount = Number($tr.find("input[name=priceDiscounts]").val()) || 0;
+		
+		if(amount <= 1) {
+			return false;
+		}
+		
+		amount--;
+		$tr.find("input[name=buyAmounts]").val(amount);
+		let total = (priceOrig-discountAmount) * amount;
+		
+		$tr.find(".priceDiscounts").text(total.toLocaleString());
+		$tr.find("input[name=priceDiscounts]").val(total);
+		
+        const stockNum = $tr.find("input[name=nums]").val();
+        updateCart(stockNum, amount);
+	});
+
+	$(".btnPlus").click(function(){
+		const $tr = $(this).closest("tr");
+		let totalStock = Number($tr.find("input[name=nums]").attr("data-totalStock"));
+		
+		let amount = Number($tr.find("input[name=buyAmounts]").val()) || 1;
+		let priceOrig = Number($tr.find("input[name=priceOrig]").val()) || 0;
+		let discountAmount = Number($tr.find("input[name=discountAmount]").val()) || 0;
+		let priceDiscount = Number($tr.find("input[name=priceDiscounts]").val()) || 0;
+		
+		if(totalStock <= amount) {
+			alert("상품 재고가 부족 합니다.");
+			return false;
+		}
+		
+		if(amount >= 99) {
+			return false;
+		}
+		
+		amount++;
+		$tr.find("input[name=buyAmounts]").val(amount);
+		let total = (priceOrig-discountAmount) * amount;
+		
+		$tr.find(".priceDiscounts").text(total.toLocaleString());
+		$tr.find("input[name=priceDiscounts]").val(total);
+		
+        const stockNum = $tr.find("input[name=nums]").val();
+        updateCart(stockNum, amount);
+	});	
+	
+	
+});
+
+function updateCart(stockNum, amount) {
+    $.ajax({
+        url: '${pageContext.request.contextPath}/myPage/updateCart',
+        type: 'POST',
+        data: {
+            stockNum: stockNum,
+            amount: amount
+        },
+        success: function(response) {
+        },
+        error: function(xhr, status, error) {
+        }
+    });
 }
 
-.select-cart {
-	display: flex;
-}
-
-.cart-deleteCheck {
-	background-color: white;
-	padding: 5px 10px;
-	border: 1px solid #A6A6A6;
-	border-radius: 5px;
-	margin-left: 5px;
-}
-
-tbody{
-	border-bottom: px solid #BDBDBD;
-	margin-bottom: 10px;
-}
-
-.table th {
-	text-align: center;
-	font-size: 15px;
-	color: #A6A6A6;
-	font-weight: normal;
-}
-
-input[type=checkbox]:hover {
-	cursor: pointer;
-}
-
-.cart-deleteCheck {
-	font-size: 13px;
-	margin-bottom: 3px;
-}
-
-.table td {
-	text-align: center;
-	padding-top: 13px;
-}
-
-.content-info {
-	padding-left: 10px;
-	margin-top: 5px;
-}
-
-.content-info .product-title {
-	margin-top: 15px;
-}
-
-.content-info .product-options {
-	margin-bottom: 15px;
-	font-size: 11px;
-	color: #A6A6A6;
-}
-
-.product-title, .product-options {
-	margin-bottom: 2px;
-}
-
-.btnMinus {
-	margin-left: 60px;
-}
-
-.btnPlus, .btnMinus {
-	border: none;
-	background: rgba(0, 0, 0, 0);
-	font-size: 25px;
-}
-
-.content-delete .cart-delete {
-	border: none;
-	background: rgba(0,0,0,0);
-	font-size: 20px;
-}
-
-.buttons {
-	text-align: center;
-	padding: 35px 0;
-}
-
-.go-main {
-	padding: 10px;
-	border: 1px solid #BDBDBD;
-}
-
-.select-buy-btn {
-	background-color: #E4B075;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	margin-left: 5px;
-	font-size: 15px;
-	color: white;
-
-}
-.order-price {
-	margin-top: 80px;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.cal-title {
-	padding: 20px 100px;
-	font-size: 15px;
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-between;
-	border-top: 3px solid #BDBDBD;
-	border-bottom: 1px solid #BDBDBD;
-	color: #A6A6A6;
-}
-
-.cal-content {
-	padding: 20px 100px;
-	font-size: 18px;
-	font-weight: bold;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.form-control {
-	border: none;
-}
-
-.oper {
-	font-size: 24px;
-	font-weight: normal;
-}
-
-.total-price {
-	color: #E4B075;
-}
-
-</style>
-
+</script>
 
 <div class="container">
 	<div class="body-container">	
@@ -181,7 +165,7 @@ input[type=checkbox]:hover {
 									<input type="checkbox" class="form-check-input cart-chkAll" name="chkAll">
 								</th>
 								<th width="120">
-									<button type="button" class="btn cart-deleteCheck" onclick="deleteCartSelect();">선택삭제</button>	
+									<button type="button" class="btn cart-deleteCheck" onclick="deleteSelect();">선택삭제</button>	
 								</th>
 								<th width="400">
 									상품정보
@@ -192,97 +176,71 @@ input[type=checkbox]:hover {
 							</tr>
 						</thead>
 						<tbody>
-							
-								<tr valign="middle">
-									<td width="30">&nbsp;</td>
-									<td class="content-check" width="35">
-										<input type="checkbox" class="form-check-input" name="nums" value="" 
-												data-totalStock="" >
-									</td>
-									<td class="content-img" width="120">
-										<img width="65" height="65" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
-									</td>
-									<td class="content-info" width="400">
-										<p class="product-title">쁘리엘르 몰리 카시트 그레이</p>
-										<p class="product-options">
-											<!-- 
-											<c:if test="${dto.optionCount == 1}">
-												선택사항 : ${dto.optionValue}
-											</c:if>
-											<c:if test="${dto.optionCount == 2}">
-												선택사항 : ${dto.optionValue}, ${dto.optionValue2}
-											</c:if>
-											<c:if test="${dto.totalStock <= 5}">
-												&nbsp;&nbsp;&nbsp;재고 : ${dto.totalStock}
-											</c:if>
-											 -->
-											 색상 : 그레이 / 사이즈 : S
-										</p>
-										<!-- 
-										<input type="hidden" name="productNums" value="${dto.productNum}">
-										<input type="hidden" name="stockNums" value="${dto.stockNum}">
-										 -->
-									</td>
-									<td class="content-qty" width="240">
-										<div class="d-flex">
-											<button type="button" class="btn btnMinus">-</button>
-											<input type="text" name="buyQtys" value="1" readonly class="form-control" style="width: 40px; text-align: center;">
-											<button type="button" class="btn btnPlus">+</button>
-										</div>
-									</td>
-									
-									<td class="content-disounted" width="110">
-										<label><fmt:formatNumber value=""/></label><label>39,900원</label>
-										<input type="hidden" name="salePrices" value="">
-									</td>
-									
-									<td class="content-delete" width="140">
-										<button type="button" class="btn cart-delete" onclick="deleteCartItem()">x</button>
-									</td>
-								</tr>
-								
+							<c:choose>
+								<c:when test="${list.size() == 0}">
+									<tr valign="middle">
+										<td colspan="7">
+											장바구니가 비어있습니다.
+										</td>
+									</tr>
+								</c:when>
+								<c:otherwise>							
+									<c:forEach var="dto" items="${list}">
+										<tr valign="middle">
+											<td width="30">&nbsp;</td>
+											<td class="content-check" width="35">
+												<input type="checkbox" class="form-check-input" name="nums" value="${dto.stockNum}" 
+														data-totalStock="${dto.totalStock}" ${dto.totalStock == 0 ? "disabled":""} >
+											</td>
+											<td class="content-img" width="120">
+												<img width="65" height="65" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
+											</td>
+											<td class="content-info" width="400">
+												<p class="product-title">${dto.productName}</p>
+												<p class="product-options">
+													<c:if test="${dto.optionCount == 1}">
+														선택사항 : ${dto.optionValue}
+													</c:if>
+													<c:if test="${dto.optionCount == 2}">
+														선택사항 : ${dto.optionValue}, ${dto.optionValue2}
+													</c:if>
+												</p>
+												
+												<input type="hidden" name="productNums" value="${dto.productNum}">
+												<input type="hidden" name="stockNums" value="${dto.stockNum}">
+												
+											</td>
+											<td class="content-qty" width="240">
+												<div class="d-flex">
+													<button type="button" class="btn btnMinus"><i class="bi bi-dash"></i></button>
+													<input type="text" name="buyAmounts" value="${dto.amount}" readonly class="form-control" style="width: 40px; text-align: center;">
+													<button type="button" class="btn btnPlus"><i class="bi bi-plus"></i></button>
+												</div>
+											</td>
+											
+											<td class="content-disounted" width="110">
+												<label class="priceDiscounts"><fmt:formatNumber value="${dto.pricePay}"/></label><label>원</label>
+												<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
+												<input type="hidden" name="priceOrig" value="${dto.priceOrig}">
+												<input type="hidden" name="discountAmount" value="${dto.discountAmount}">
+											</td>
+											
+											<td class="content-delete" width="140">
+												<button type="button" class="btn cart-delete" onclick="deleteOne('${dto.stockNum}')"><i class="bi bi-x"></i></button>
+											</td>
+										</tr>
+									</c:forEach>	
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 					</table>
 					
-					 <div>
-					 	<div class="order-price">주문예정금액</div>
-					 	<div class="cal-title">
-					 		<div>&nbsp;상품금액</div>
-					 		<div>&nbsp;&nbsp;&nbsp;할인금액</div>
-					 		<div>&nbsp;&nbsp;배송비</div>
-					 		<div>&nbsp;총 주문 금액</div>
-					 	</div>
-					 	<div class="cal-content">
-					 		<div>59,900원</div>
-					 		<div class="oper">-</div>
-					 		<div>20,000원</div>
-					 		<div class="oper">+</div>
-					 		<div>0원</div>
-					 		<div class="oper">=</div>
-					 		<div class="total-price">39,900원</div>
-					 	</div>
-					 </div>
-					 
-					 <!-- 
-					<c:choose>
-						<c:when test="${list.size() == 0}">
-							<div class="">
-								등록된 상품이 없습니다.
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="">
-								<input type="hidden" name="mode" value="cart">
-								<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
-							</div>
-						</c:otherwise>
-					</c:choose>
-					 -->
 					 
 					<div class="buttons">
 						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/main/main';"> 쇼핑 계속하기 </button>
 						<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
 					</div>
+					
 				</form>
 				
 				
