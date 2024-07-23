@@ -44,7 +44,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 
             // 회원 정보를 member1 테이블에 업데이트
             // 패스워드가 변경된 경우에만 업데이트하도록 해야 하지만, 현재 조건이 없음
-            memberManageMapper.updateMember(member);
+            memberManageMapper.updateMember1(member);
+            memberManageMapper.updateMember2(member);
             
         } catch (Exception e) {
             // 예외 발생 시 스택 트레이스를 출력하고 예외를 다시 던짐

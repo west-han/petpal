@@ -12,7 +12,7 @@ public interface Mypage2Service {
 	public List<Mypage2> myPointList(long memberNum) throws Exception; // 포인트 리스트
 	public int pointDataCount(long memberNum) throws Exception; // 데이터카운트
 	public List<Mypage2> myPointListPaged(Map<String, Object> params) throws Exception; // 포인트 날짜 검색
-	public int myTotalPoint(long memberNum) throws Exception; // 포인트 합계
+	public void myTotalPoint(long memberNum) throws Exception; // 포인트 합계
 	
 	public Member findByMember(long memberNum); // 회원번호 가져오기
 	public Member findByMember(String email); // 회원이메일 가져오기
@@ -43,4 +43,8 @@ public interface Mypage2Service {
 	// 나의 찜
 	public List<Mypage2> selectWishListProducts(long memberNum) throws Exception; // 찜 리스트
 	public void deleteWishListProducts(Mypage2 dto) throws Exception; // 찜 삭제
+	
+	// 주문내역
+	public List<Mypage2> selectOrderList(long memberNum) throws Exception; // 주문내역
+	
 }

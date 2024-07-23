@@ -50,6 +50,103 @@ public class Mypage2 {
 	private MultipartFile selectFile; // 이미지 파일
 	
 	
+	// 주문내역
+	private String orderNum; // 주문 번호
+	private String orderDate; // 주문 날짜
+	private int orderState; // 주문 상태
+	private int totalMoney; // 총 금액
+	private int usedPoint; // 사용된 포인트
+	private int usedCoupon; // 사용된 쿠폰 금액
+	private int deliveryCharge; // 배송비
+	private int payment; // 실제 결제 금액
+	private int detailState; // 상세 상태
+	private int total_price; // 총 가격 (주문 상세)
+	private int total_quantity; // 총 수량 (주문 상세)
+	private String deliveryName; // 택배사 이름
+	private String destMemo; // 택배 메모
+	
+	
+	
+	public int getTotal_price() {
+		return total_price;
+	}
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+	public int getTotal_quantity() {
+		return total_quantity;
+	}
+	public void setTotal_quantity(int total_quantity) {
+		this.total_quantity = total_quantity;
+	}
+	public String getDestMemo() {
+		return destMemo;
+	}
+	public void setDestMemo(String destMemo) {
+		this.destMemo = destMemo;
+	}
+	
+	public String getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public int getOrderState() {
+		return orderState;
+	}
+	public void setOrderState(int orderState) {
+		this.orderState = orderState;
+	}
+	public int getTotalMoney() {
+		return totalMoney;
+	}
+	public void setTotalMoney(int totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+	public int getUsedPoint() {
+		return usedPoint;
+	}
+	public void setUsedPoint(int usedPoint) {
+		this.usedPoint = usedPoint;
+	}
+	public int getUsedCoupon() {
+		return usedCoupon;
+	}
+	public void setUsedCoupon(int usedCoupon) {
+		this.usedCoupon = usedCoupon;
+	}
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+	public int getPayment() {
+		return payment;
+	}
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
+	public int getDetailState() {
+		return detailState;
+	}
+	public void setDetailState(int detailState) {
+		this.detailState = detailState;
+	}
+	
+	public String getDeliveryName() {
+		return deliveryName;
+	}
+	public void setDeliveryName(String deliveryName) {
+		this.deliveryName = deliveryName;
+	}
 	public long getProductNum() {
 		return productNum;
 	}

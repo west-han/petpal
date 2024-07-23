@@ -35,7 +35,7 @@
 	</select>
 	
 	<!-- 포인트 총 금액 -->
-	<select id="myTotalPoint" parameterType="long" resultType="Integer">
+	<select id="myTotalPoint" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
 		SELECT BALANCE
 		FROM userPoint
 		WHERE regDate = (
@@ -209,4 +209,49 @@
 		DELETE FROM wishList
 		WHERE productNum = #{productNum} and memberNum=#{memberNum}
 	</delete>
+	
+	
+	<!-- orderlist -->
+	<!-- 주문내역 리스트 -->
+	<select id="selectOrderList" resultType="com.shop.petpal.domain.Mypage2" parameterType="long">
+	    SELECT 
+	        p.ORDERNUM,
+	        p.ORDERDATE,
+	        p.ORDERSTATE,
+	        p.TOTALMONEY,
+	        p.USEDPOINT,
+	        p.USEDCOUPON,
+	        p.DELIVERYCHARGE,
+	        p.PAYMENT,
+	        p.NOTE,
+	        od.PRODUCTNUM,
+	        ds.DETAILSTATE,
+	        pr.PRODUCTNAME,
+	        pr.THUMBNAIL,
+	        od.PRICEPAY AS total_price,
+	        od.QTY AS total_quantity,
+	        dc.DELIVERYNAME,
+	        d.RECIPIENTNAME,
+	        d.TEL,
+	        d.POSTALCODE,
+	        d.ADDRESS1,
+	        d.ADDRESS2,
+	        d.DESTMEMO
+	    FROM 
+	        productOrder p
+	    LEFT OUTER JOIN 
+	        orderDetail od ON p.ORDERNUM = od.ORDERNUM
+	    LEFT OUTER JOIN 
+	        detailStateInfo ds ON od.ORDERDETAILNUM = ds.ORDERDETAILNUM
+	    LEFT OUTER JOIN 
+	        Product pr ON od.PRODUCTNUM = pr.PRODUCTNUM
+	    LEFT OUTER JOIN 
+	        deliveryCompany dc ON p.DELIVERYNUM = dc.DELIVERYNUM
+	    LEFT OUTER JOIN 
+	        orderDelivery d ON p.ORDERNUM = d.ORDERNUM
+	    WHERE 
+	        p.MEMBERNUM = #{memberNum}
+	    ORDER BY 
+	        p.ORDERDATE DESC
+	</select>
 </mapper>

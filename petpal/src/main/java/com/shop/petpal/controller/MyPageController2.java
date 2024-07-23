@@ -41,8 +41,22 @@ public class MyPageController2 {
 	private MyUtil myUtil;
 
 	@GetMapping("orderlist")
-	public String orderlistForm() throws Exception {
-
+	public String orderlistForm(HttpSession session, Model model) throws Exception {
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		
+		try {
+			List<Mypage2> list = service.selectOrderList(info.getMemberNum());
+			
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		return ".myPage2.orderlist";
 	}
 
@@ -97,7 +111,7 @@ public class MyPageController2 {
         
         dataCount = service.pointDataCount(memberNum);
         total_page = myUtil.pageCount(dataCount, size);
-        totalPoint = service.myTotalPoint(memberNum);
+        service.myTotalPoint(memberNum);
         if (total_page < current_page) {
             current_page = total_page;
         }

@@ -112,7 +112,7 @@ public class CouponManageController {
 	        List<CouponManage> coupons = service.listCoupon(map);	
 			model.addAttribute("coupons", coupons);
 			
-	        return "admin/coupon/grant";
+	        return ".admin.coupon.grant";
 	    }
 	    
 	    @GetMapping("checkMember")

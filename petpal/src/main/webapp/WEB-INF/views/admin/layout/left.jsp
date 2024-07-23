@@ -43,7 +43,7 @@
                 </label>
                 <ul class="sub_menu">
                     <li class="sub_menu--item">
-                        <a href="#" class="sub_menu--link">리뷰 관리</a>
+                        <a href="${pageContext.request.contextPath}/admin/review/list" class="sub_menu--link">리뷰 관리</a>
                     </li>
                     <li class="sub_menu--item">
                         <a href="#" class="sub_menu--link">문의 관리</a>

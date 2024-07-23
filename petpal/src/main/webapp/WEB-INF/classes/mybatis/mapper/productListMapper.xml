@@ -57,6 +57,7 @@
 		    ON od.orderDetailNum = r.orderDetailNum
 		GROUP BY (p.productNum, productName, productClass, price, discountRate, discountAmount,
 			thumbnail, species, brand, regDate)
+		ORDER BY regDate DESC
 	</select>
 	
 	<!-- TODO: 리뷰가 없는 상품은 출력하지 않도록 수정 -->
@@ -88,6 +89,7 @@
 		        ORDER BY sales DESC, rating DESC
 		    ) outter WHERE ROWNUM &lt;= #{endNum}
 		) WHERE rnum &gt;= #{startNum}
+		ORDER BY sales DESC, rating DESC
 	</select>
 	
 	<select id="listAttribute" parameterType="map" resultType="map">
