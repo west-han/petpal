@@ -1,23 +1,28 @@
-body {
-   font-family: 'MangoDdobak-B';
-    margin: 0;
-    padding: 0;
-}
-.date-greeting {
-    width: 270px;
-    height:200px; 
-    background-color: #DDC8B1;
-    padding: 50px 0 10px 10px;
-    
-    
+@font-face {
+    font-family: 'MangoDdobak-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
 }
 
+@font-face {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-W-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.date-greeting {
+    width: 270px;
+    height: 200px; 
+    background-color: #DDC8B1;
+    padding: 50px 0 10px 10px;
+}
 
 .date-greeting .date {
     font-size: 20px;
     color: white;
     margin-bottom: 30px;
-    
 }
 
 .date-greeting .greeting {
@@ -25,6 +30,7 @@ body {
     color: white;
     line-height: 40px;
 }
+
 .date-greeting .greeting .highlight {
     font-size: 20px;
     color: #E4A951;
@@ -32,6 +38,7 @@ body {
 }
 
 .left-nav {
+    font-family: 'MangoDdobak-B';
     width: 270px;
     height: 100vh;
     position: fixed;
@@ -79,11 +86,14 @@ body {
 .sub_menu {
     display: none;
     list-style-type: none;
-    padding:20px;
+    padding: 10px;
     background-color: #f9f9f9;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.menu--subitens__opened .sub_menu {
+.menu--subitems__opened .sub_menu {
     display: block;
 }
 
@@ -92,10 +102,12 @@ body {
 }
 
 .sub_menu--link {
+    display: block;
     padding: 10px 15px;
     color: #666;
     text-decoration: none;
-    width: 270px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .sub_menu--link:hover {

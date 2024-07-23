@@ -14,7 +14,7 @@
 }
 
 .header {
-	font-family: 'MangoDdobak-B';
+    font-family: 'MangoDdobak-B';
     padding: 20px;
     background-color: #DDC8B1; /* 배경색 이미지에 맞춰서 설정 */
     display: flex;
@@ -30,25 +30,28 @@
     display: flex;
     align-items: center;
     font-family: 'Cafe24Meongi-W-v1.0';
-    
 }
 
 .logo-container img {
     width: 50px;
     height: 50px;
 }
-a {
+.logo-container a {
     text-decoration: none;
     color: white;
+    margin-left: 10px; /* 로고 이미지와 a 태그 간격 조정 */
+}
+
+a {
+    text-decoration: none;
 }
 a:hover {
     text-decoration: none;
     color: white;
 }
 .logo-container p {
-  font-family: 'Cafe24Meongi-W-v1.0';
+    font-family: 'Cafe24Meongi-W-v1.0';
     font-size: 58px;
-    
 }
 
 .logo-container .name .highlight {
@@ -56,28 +59,27 @@ a:hover {
 }
 
 .header2 {
-	font-family: 'MangoDdobak-B';
+    font-family: 'MangoDdobak-B';
     padding: 20px;
-    margin-top : 100px;
-    background-color: #d3b892; 
+    margin-top: 100px;
+    background-color: #d3b892;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: fixed;
     top: 0px;
-    left: 270px; 
+    left: 270px;
     right: 0;
     z-index: 1000;
 }
 
-.header2 p{
-	color: white;
-	font-family: 'MangoDdobak-B';
-	font-size: 18px;
+.header2 p {
+    color: white;
+    font-family: 'MangoDdobak-B';
+    font-size: 18px;
 }
 .logout a {
     text-decoration: none;
     color: #333;
     font-size: 14px;
 }
-
