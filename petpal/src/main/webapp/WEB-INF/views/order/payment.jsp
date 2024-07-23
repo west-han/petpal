@@ -2,279 +2,103 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<style type="text/css">
-* { padding: 0; margin: 0; }
-*, *::after, *::before { box-sizing: border-box; }
+<head>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
 
-.body-container2 {
-	max-width: 1300px;
-	margin: 0 auto;
-	font-size: 15px;
-	color: #434347;
-}
+<script type="text/javascript">
+function sendOk() {
+	const f = document.paymentForm;
+	
+	if(! f.recipientName.value) {
+		alert("이름을 입력하세요.");
+		return;
+	}
+	
+	if(! f.tel.value) {
+		alert("전화번호를 입력하세요.");
+		return;
+	}
+	
+	if(! /^\d+$/.test(f.tel.value)) {
+		alert("전화번호는 숫자만 입력할 수 있습니다.");
+		return;
+	}
+	
+	if(! f.postalCode.value) {
+		alert("배송지를 입력하세요.");
+		return;
+	}
+	
+	if(! f.address1.value) {
+		alert("배송지를 입력하세요.");
+		return;
+	}
+	
+	if(! /^\d+$/.test(f.usedPoint.value)) {
+		alert("포인트는 숫자만 입력할 수 있습니다.");
+		return;
+	}
 
-.destination-info, .point, .price, .saving-point .buttons {
-	margin-top: 30px;
-}
+	let balance = Number($('.btn-usedPoint').attr('data-balance')) || 0;
+	let usedPoint = Number(f.usedPoint.value);
 
-.md-img {
-	width: 70px; height: 70px;
-}
+	if(usedPoint > balance) {
+		alert("포인트가 부족합니다");
+		return;
+	}
+	
+	let p = Number(f.payment.value) - usedPoint;  
+	f.payment.value = p;
+	
 
-.order-product {
-	margin-top: 20px;
-	padding-bottom: 15px;
-	font-size: 18px;
-	font-weight: bold;
-	border-bottom: 3px solid #BDBDBD;
+	
+	let payClassify = 0;
+	let cardName = "삼성카드";
+	let authNumber = "12493645998";
+	let authDate = "";
+	authDate = new Date().toISOString().replace('T', ' ').slice(0, -5);
 
-}
-
-.order-product-bottom {
-	margin: 15px 0;
-	height: 1px;
-	background-color: #434347;
-	border: none;
-}
-
-.destination .destination-name {
-	font-weight: bold;
-}
-
-.destination-title {
-	margin-top: 50px;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.destination-info {
-	display: flex;
-	align-items: baseline;
-}
-
-
-.destination-info .btn {
-	padding: 0 15px;
-	height: 30px;
-	margin-left: 80px;
-	background: white;
-	border: 1px solid #A6A6A6;
-	border-radius: 5px;
-	font-size: 13px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-
-}
-
-.order-title th {
-	color: #BDBDBD;
-	font-size: 16px;
-	padding-bottom: 15px;
-	padding-top: 15px;
-	text-align: center;
-}
-
-.order-content {
-	margin-bottom: none;
-}
-
-.order-content td {
-	text-align: center;
+	f.payClassify.value = payClassify;
+	f.cardName.value = cardName;
+	f.authNumber.value = authNumber;
+	f.authDate.value = authDate;
+	
+	f.action = "${pageContext.request.contextPath}/order/paymentOk";
+    f.submit();
 }
 
 
-
-.content-title {
-	text-align: center;
-}
-
-.content-option {
-	font-size: 13px;
-	text-align: center;
-	margin-top: 5px;
-	color: #A6A6A6;
-}
-
-.content-point {
-	padding-left: 30px;
-}
-
-.content-qty {
-	padding-left: 48px;
-}
-
-.discount-price, .product-price,  .total-price {
-	padding-left: 38px;
-}
-
-.product-price .original-price {
-	text-decoration: line-through;
-	color: #A6A6A6;
-	margin-top: 3px;
-}
-
-.point-title, .price-title {
-	border-bottom: 3px solid #BDBDBD;
-	font-size: 18px;
-	font-weight: bold;
-	padding-bottom: 10px;
-	margin-top: 50px;
-}
-
-.destinaion {
-	margin-top: 15px !important;
-	border-top: 3px solid #BDBDBD;
-}
-
-.destinaion .destination-name {
-	margin-left: 30px;
-}
-
-.destination-name .mem-name, .destination-name .mem-tel {
-	font-weight: bold;
-}
-
-.destinaion .destination-name, .destinaion .destination-addr, .destination-memo {
-	display: flex;
-}
-
-.destinaion .mem-name, .destination-addr div:first-child  {
-	margin-right: 100px;
-}
-
-.destinaion .mem-name, .destination-addr, .destination-memo  {
-	padding-top: 18px;
-
-}
-
-.destination-memo div:first-child {
-	margin-right: 85px;
-}
-
-.destinaion .btn {
-	padding: 5px 10px;
-	background-color: white;
-}
-
-.point-content {
-	display: flex;
-	margin-top: 18px;
-}
-
-.point-content div {
-	display: flex;
-	align-items: center;
-}
-
-.point-detail {
-	margin-right: 100px;
-}
-
-.point-input {
-	margin-right: 20px;
-}
-
-.point-btn {
-	margin-right: 20px;
-	background: white;
-	padding: 5px 10px;
-	border-radius: 5px;
-	border: 1px solid #A6A6A6;	
-}
-
-.price-content {
-	margin-top: 18px;
-	margin-right: 30px; 
-	display: flex;
-	justify-content: space-between;	
-}
-
-.price-totalMain {
-	margin-bottom: 25px;
-}
-
-.product-totalAmount {
-	padding-top: 7px;
-	color: #E4B075;
-	font-weight: bold;
-	font-size: 18px;
-}
-
-.price .price-usingPoint {
-	margin-bottom: 15px;
-}
-
-.price-total {
-	margin-top: 5px; 
-	margin-right: 65px;
-	color: #E4B075 !important;
-	font-size: 18px;
-}
-
-.saving-point {
-	margin-bottom: 60px;
-}
-
-.title-gray {
-	margin-left: 30px;
-	color: #A6A6A6;
-	font-weight: bold;
-}
-
-.memo-input {
-	width: 450px;
-    border: none; 
-    border-bottom: 1px solid #BDBDBD !important;
-    padding-bottom: 5px;
-
-    outline: none;
-    border-radius: 0;
-}
-
-.point-input {
-	width: 150px;
-    border: none; 
-    border-bottom: 1px solid #BDBDBD;
-    outline: none;
-    border-radius: 0;
-}
-
-input::placeholder {
-  color: #A6A6A6;
-
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.buttons {
-	margin-bottom: 60px;
-	display: flex;
-	justify-content: center;
-}
-
-.buttons .complete-btn {
-	width: 1250px;
-	height: 50px;
-	border-radius: 8px;
-	font-weight: bold;
-	background: #E4B075;
-	border: none;
-	color: white;
-	margin-left: 5px;
-}
-
-button:hover {
-	cursor: pointer;
-}
-
-</style>
+$(function(){
+	$('.btn-usedPoint').click(function(){
+		const f = document.paymentForm;
+		
+		let balance = Number($(this).attr('data-balance')) || 0;
+		f.usedPoint.value = balance;
+		
+		let totalPayment = Number(f.payment.value) - balance;
+		
+		$('.product-totalAmount').text(totalPayment.toLocaleString()+'원');
+		$('.point-usedPoint').text(balance.toLocaleString()+'원');
+	});
+	
+	$('form[name=paymentForm] input[name=usedPoint]').on('keyup mouseup', function() {                                                                                                                     
+		const f = document.paymentForm;
+		let balance = Number($('.btn-usedPoint').attr('data-balance')) || 0;
+		let usedPoint = Number(f.usedPoint.value);
+		
+		if(usedPoint > balance) {
+			usedPoint = balance;
+			f.usedPoint.value = balance;
+		}
+		
+		let totalPayment = Number(f.payment.value) - usedPoint;
+		
+		$('.product-totalAmount').text(totalPayment.toLocaleString()+'원');
+		$('.point-usedPoint').text(usedPoint.toLocaleString()+'원');
+	});
+});
+</script>
 
 <div>
 	<div class="body-container">	
@@ -290,123 +114,117 @@ button:hover {
 						<tr class="order-title">
 							<th width="120">&nbsp;</th>
 							<th width="200">상품정보</th>
-							<th width="90">구매적립</th>
 							<th width="90">수량</th>
 							<th width="120">할인금액</th>
 							<th width="120">상품금액</th>
 							<th width="120">총금액</th>
 						</tr>
 						
-						
+						<c:forEach var="dto" items="${listProduct}" varStatus="status">
 							<tr class="order-content" valign="middle">
 								<td width="120">
-									<img class="md-img" src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg">
+									<img class="md-img" 
+									src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
 								</td>
 								<td class="product-info" width="200">
-									<div class="content-title">이츠독 올 뉴 투웨이 카시트</div>
+									<div class="content-title">${dto.productName}</div>
 									<div class="content-option">
-										<!-- 
+										
 										<c:if test="${dto.optionCount==1}">
 											${dto.optionName} : ${dto.optionValue}
 										</c:if>
-										 -->
-										 
-										 <!-- 
+										
 										 <c:if test="${dto.optionCount==2}">
 											${dto.optionName} : ${dto.optionValue} / 
 											${dto.optionName2} : ${dto.optionValue2}
 										</c:if>
-										  -->
-										
-											색상 : 그레이 / 
-											사이즈 : M
 										
 									</div>
 									
-									<!-- 
 									<input type="hidden" name="productNums" value="${dto.productNum}">
 									<input type="hidden" name="detailNums" value="${empty dto.detailNum ? 0 : dto.detailNum}">
 									<input type="hidden" name="detailNums2" value="${empty dto.detailNum2 ? 0 : dto.detailNum2}">
 									<input type="hidden" name="stockNums" value="${dto.stockNum}">
-									<input type="hidden" name="buyQtys" value="${dto.qty}">
-									<input type="hidden" name="productMoneys" value="${dto.productMoney}">
-									<input type="hidden" name="prices" value="${dto.price}">
-									<input type="hidden" name="salePrices" value="${dto.salePrice}">
-									<input type="hidden" name="savedMoneys" value="${dto.savedMoney}">
-									 -->
-								</td>
-								<td class="content-point " width="90" >
-									<fmt:formatNumber value=""/>2,000원
+									<input type="hidden" name="buyAmounts" value="${dto.amount}">
+									<input type="hidden" name="pricePays" value="${dto.pricePay}">
+									<input type="hidden" name="priceOrigs" value="${dto.priceOrig}">
+									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
+									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
+									<input type="hidden" name="point" value="${dto.totalSavePoint}">
+									
 								</td>
 								<td class="content-qty" width="90">
-									1
+									${dto.amount}
 								</td>
 								<td class="discount-price" width="110">
-									<fmt:formatNumber value=""/>20,000원
+									<fmt:formatNumber value="${dto.discountAmount}"/>원
 								</td>
 								<td class="product-price" width="110">
 									<div class="discounted-price">
 										<label>
-											<fmt:formatNumber value=""/>39,900원
+											<fmt:formatNumber value="${dto.totalPrice}"/>원
 										</label>
 									</div>
-									<div class="original-price">
-										<label>
-											<fmt:formatNumber value=""/>59,900원
-										</label>								
-									</div>
+									<c:if test="${dto.discountAmount > 0}">
+										<div class="original-price">
+											<label>
+												<fmt:formatNumber value="${dto.priceOrig}"/>원
+											</label>								
+										</div>
+									</c:if>
 								</td>
 								<td class="total-price" width="110">
 									<label>
-										<fmt:formatNumber value=""/>39,900원
+										<fmt:formatNumber value="${dto.pricePay}"/>원
 									</label>
 								</td>
 							</tr>
-						
+						</c:forEach>
 					</table>
 					
-					
-					<!-- 
 					<input type="hidden" name="orderNum" value="${productOrderNumber}">
 					<input type="hidden" name="totalMoney" value="${totalMoney}">
 					<input type="hidden" name="deliveryCharge" value="${deliveryCharge}">
 					<input type="hidden" name="payment" value="${totalPayment}">
-	
 					<input type="hidden" name="mode" value="${mode}">
-	
-					<input type="hidden" name="payMethod" value="">
+					<input type="hidden" name="payClassify" value="">
 					<input type="hidden" name="cardName" value="">
 					<input type="hidden" name="authNumber" value="">
 					<input type="hidden" name="authDate" value="">
-					 -->
-					 
 					
 					<div class="destination-info">
 						<div class="destination-title">배송지 정보</div>
-						<button type="button" class="btn"> 배송지변경 </button>
+						<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#addAddressModal"> 배송지 변경 </button>
 					</div>
 					
 					<div class="destinaion">
 						<div class="destination-name">
 							<div>
-								<label class="mem-name">김자바</label>
-								<label class="mem-tel">010-1111-1111</label>
+								<label class="name-title title-gray">받는사람*</label>
+								<input type="text" name="recipientName" class="recipientName">
+							</div>
+							
+						</div>
+						<div class="destination-tel">
+							<div>
+								<label class="tel-title title-gray">전화번호*</label>
+								<input type="text" name="tel" class="tel">
 							</div>
 							
 						</div>
 						<div class="destination-addr">
-							<div class="title-gray">배송지</div>
-							<div>서울특별시 마포구 월드컵북로 21 풍성빌딩 2층</div>
+							<div class="d-flex mb-3">
+								<div class="title-gray addr-title">배송주소*</div>
+								<input type="text" name="postalCode" placeholder="지번 또는 도로명주소" class="postalCode" readOnly>
+								<button type="button" onclick="daumPostcode()" class="postalCode-btn btn"> 우편번호 검색 </button>
+							</div>
+							<input type="text" name="address1" placeholder="기본주소" class="addr1 mb-3 w-50" readOnly>
+							<input type="text" name="address2" placeholder="상세주소" class="addr2 w-50">
 						</div>
-						<div class="destination-memo">
-							<div class="title-gray">요청사항</div>
+						<div class="destination-note">
+							<div class="title-gray note-title">요청사항</div>
 							<div>
-								<input type="hidden" name="recipientName" value="김자바">
-								<input type="hidden" name="tel" value="010-1111-2222">
-								<input type="hidden" name="zip" value="111-111">
-								<input type="hidden" name="addr1" value="서울특별시 마포구 월드컵북로">
-								<input type="hidden" name="addr2" value="21 풍성빌딩 2층">
-								<input type="text" name="destMeno" class="form-control memo-input" placeholder="요청사항을 입력하세요.">
+								<input type="text" name="note" class="form-control note-input" placeholder="요청사항을 입력하세요.">
 							</div>
 						</div>
 						
@@ -416,9 +234,9 @@ button:hover {
 						<div class="point-title">포인트</div>
 						<div class="point-content">
 							<div class="point-detail title-gray">포인트</div>
-							<input type="number" class="form-control point-input" name="usedSaved" min="0" max="0" placeholder="0">
-							<button type="button" class="input-group-text btn-usedSaved point-btn" data-balance="0">전액사용</button>
-							<div class="point-own">(보유 <fmt:formatNumber value=""/>0원)</div>
+							<input type="number" class="form-control point-input" name="usedPoint" min="0" max="${empty userPoint ? 0 : userPoint.balance}">
+							<button type="button" class="input-group-text btn-usedPoint point-btn" data-balance="${empty userPoint ? 0 : userPoint.balance}">전액사용</button>
+							<div class="point-own">(보유 <fmt:formatNumber value="${empty userPoint ? 0 : userPoint.balance}"/>원)</div>
 						</div>
 						
 					</div>				
@@ -428,24 +246,24 @@ button:hover {
 						<div class="price-content price-totalMain">
 							<label class="price-total title-gray">총 결제금액 </label>
 							<label class="product-totalAmount">
-								<fmt:formatNumber value=""/>42,900원
+								<fmt:formatNumber value="${totalPayment}"/>원
 							</label>
 						</div>
 						<div class="price-content">
 							<label class="price-product title-gray">상품금액 </label>
 							<label>
-								<fmt:formatNumber value=""/>39,900원
+								<fmt:formatNumber value="${totalMoney}"/>원
 							</label>
 						</div>
 						<div class="price-content">
 							<label class="price-delFee title-gray">배송비 </label>
 							<label>
-								<fmt:formatNumber value=""/>3,000원
+								<fmt:formatNumber value="${deliveryCharge}"/>원
 							</label>
 						</div>
 						<div class="price-content price-usingPoint">
 							<label class="price-usePoint title-gray">포인트사용액 </label>
-							<label class="point-usedSaved">
+							<label class="point-usedPoint">
 								0원
 							</label>
 						</div>
@@ -455,15 +273,13 @@ button:hover {
 						<div class="price-content">
 							<label class=" price-pointSave title-gray">포인트 적립 </label>
 							<label class="">
-								<fmt:formatNumber value=""/>2,000원
+								<fmt:formatNumber value="${totalSavePoint}"/>원
 							</label>
 						</div>
 					</div>
 					
 					<div class="buttons">
-						
 						<div>
-							
 							<button type="button" class="buttons-btn complete-btn" onclick="sendOk()">결제하기</button>
 						</div>
 					</div>
@@ -472,3 +288,98 @@ button:hover {
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAddressModalLabel">배송지 변경</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="listAddressForm" name="listAddressForm">
+                	<c:choose>
+                		<c:when test="${empty memberDest}">
+                			<div>등록된 배송지가 없습니다</div>
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="dto" items="${memberDest}">
+		                    	<div class="modalList-box">
+		                    		<c:if test="${dto.defaultDest == 0}">
+		                    			<p class="text-center default-title"><i class="bi bi-caret-right-fill"></i>기본배송지<i class="bi bi-caret-left-fill"></i></p>
+		                    		</c:if>
+			                        <div class="d-flex">
+			                        	<div class="w-75 d-flex">
+				                            <label class="list-title recip-title d-flex align-items-center">받는사람</label>
+				                            <label for="recipientName" class="form-control" id="recipientName">${dto.recipientName}</label>
+			                            </div>
+			                            <div class="w-25 d-flex justify-content-end">
+			                            	<button type="button" class="modal-select-btn" data-recipientName="${dto.recipientName}" data-tel="${dto.tel}" data-postalCode="${dto.postalCode}" data-address1="${dto.address1}" data-address2="${dto.address2}" data-note="${dto.note}">선택</button>
+			                        	</div>
+			                        </div>
+			                        <div class="row">
+			                        	<label class="list-title d-flex align-items-center">전화번호</label>
+			                            <label for="tel" class="form-control" id="tel">${dto.tel}</label>
+			                        </div>
+			                        <div class="row">
+			                        	<label class="list-title d-flex align-items-center">배송주소</label>
+			                            <label class="w-25 form-control" for="postalCode" id="postalCode">${dto.postalCode}</label>
+			                        </div>
+			                        <div class="row">
+			                            <label class="col-sm-2 col-form-label form-control" for="address1" id="address1">${dto.address1}</label>
+			                            <label class="col-sm-2 col-form-label form-control" for="address2" id="address2">${dto.address2}</label>
+			                        </div>
+			                        
+			                        <input type="hidden" id="defaultDestHidden" name="defaultDestHidden">
+			                        
+			                        <div class="row">
+			                        	<label class="list-title d-flex align-items-center">배송메모</label>
+			                            <label for="note" class="form-control" id="note">${dto.note}</label>
+			                        </div>
+		                        </div>
+		                    </c:forEach>
+                		</c:otherwise>
+                	</c:choose>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).on('click', '.modal-select-btn', function() {
+    const recipientName = $(this).data('recipientname');
+    const tel = $(this).data('tel');
+    const postalCode = $(this).data('postalcode');
+    const address1 = $(this).data('address1');
+    const address2 = $(this).data('address2');
+    const note = $(this).data('note');
+    
+    $('input[name="recipientName"]').val(recipientName);
+    $('input[name="tel"]').val(tel);
+    $('input[name="postalCode"]').val(postalCode);
+    $('input[name="address1"]').val(address1);
+    $('input[name="address2"]').val(address2);
+    $('input[name="note"]').val(note);
+    
+    $('#addAddressModal').modal('hide');
+});
+
+
+</script>
+
+<script>
+function daumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            let roadAddr = data.roadAddress;
+            let jibunAddr = data.jibunAddress;
+
+            document.querySelector('input[name="postalCode"]').value = data.zonecode;
+            document.querySelector('input[name="address1"]').value = roadAddr || jibunAddr;
+            document.querySelector('input[name="address2"]').focus();
+        }
+    }).open();
+}
+</script>

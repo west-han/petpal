@@ -16,6 +16,7 @@ public class Product {
 	private int productStatus;
 	private String regDate;
 	private String brand;
+	private int savePoint;
 	
 	private long stockNum;
 	private int totalStock;
@@ -43,6 +44,8 @@ public class Product {
 	private String optionName2;
 	private Long detailNum2;
 	private String optionValue2;
+	
+	private int membershipNum;
 	
 	public long getProductNum() {
 		return productNum;
@@ -260,4 +263,17 @@ public class Product {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
+	public int getMembershipNum() {
+		return membershipNum;
+	}
+	public void setMembershipNum(int membershipNum) {
+		this.membershipNum = membershipNum;
+	}
+	public int getSavePoint() {
+		return savePoint;
+	}
+	public void setSavePoint(int savePoint) {
+		this.savePoint = savePoint;
+	}
+	
 }

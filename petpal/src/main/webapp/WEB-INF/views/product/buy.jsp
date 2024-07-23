@@ -2,550 +2,322 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<style type="text/css">
-* {
-	padding: 0;
-	margin: 0;
-}
-
-*, *::after, *::before {
-	box-sizing: border-box;
-}
-
-.body-container2 {
-	width: 1300px;
-	margin: 20px auto;
-	margin-bottom: 60px;
-	color: #434347;
-}
-
-.body-main {
-	width: 100%;
-}
-
-.body-sep {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-}
-
-.body-left, .body-right {
-	width: 500px;
-}
-
-.body-left {
-	padding-left: 30px;
-	width: 50%;
-}
-
-.body-right {
-	padding-right: 30px;
-	display: flex;
-	justify-content: center;
-}
-
-.body-right form {
-	width: 500px;
-}
-
-.lg-img img {
-	height: 530px;
-	width: 580px;
-	object-fit: cover;
-}
-
-.md-img img {
-	width: 200px;
-	height: 200px;
-	cursor: pointer;
-	object-fit: cover;
-}
-
-.sm-img img {
-	width: 80px;
-	height: 80px;
-	cursor: pointer;
-	object-fit: cover;
-}
-
-.img-buy img {
-	border-radius: 10px;
-	width:
-}
-
-.imgs {
-	margin-top: 15px;
-	margin-left: 10px;
-	display: flex;
-}
-
-.imgs .imgs-detail {
-	margin-right: 12px;
-}
-
-.body-right .stock {
-	display: flex;
-	justify-content: center;
-}
-
-.body-right .stock-msg {
-	font-size: 18px;
-	font-weight: bold;
-	color: gray;
-	margin-bottom: 25px;
-}
-
-.price, .point, .delivery, .option, .total-price, .buttons {
-	margin-top: 30px;
-	color: #434347;
-}
-
-.category {
-	margin-bottom: 8px;
-	font-size: 13px;
-}
-
-.productName {
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.price, .point, .buttons, .button-buy {
-	display: flex;
-}
-
-.price div:first-child {
-	color: #DB9700;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.price div:last-child {
-	margin-left: 15px;
-}
-
-.price .discounted-price {
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.price .original-price {
-	font-size: 14px;
-	text-decoration: line-through;
-}
-
-.point, .delivery, .option, .total-price, .buttons {
-	font-size: 14px;
-}
-
-.point div:first-child {
-	font-size: 15px;
-	font-weight: bold;
-	margin-right: 140px;
-}
-
-.delivery {
-	display: flex;
-	margin-top: 40px;
-}
-
-.delivery div:first-child {
-	font-size: 15px;
-	font-weight: bold;
-	margin-right: 170px;
-}
-
-.option {
-	font-weight: bold;
-	font-size: 15px;
-}
-
-.option-tab1, .option-tab2 {
-	width: 70%;
-	height: 38px;
-	margin-top: 15px;
-}
-
-.option-tab1 option, .option-tab2 option {
-	margin-left: 10px;
-	border: 1px solid #CFCFCF;
-}
-
-hr {
-	border-bottom: 1px solid #A6A6A6;
-	margin-top: 40px;
-	width: 500px;
-}
-
-.total-text {
-	font-weight: bold;
-	font-size: 18px;
-}
-
-.total-detail {
-	margin-top: 20px;
-	font-size: 15px;
-}
-
-.total-detail .product-totalAmount {
-	color: #E4B075;
-	font-weight: bold;
-}
-
-.buttons .btn {
-	font-size: 15px;
-	font-weight: bold;
-	padding: 10px 75px;
-}
-
-.buttons .button-wish {
-	margin-left: 5px;
-}
-
-.buttons .btnbtn-productCart {
-	border: 1px solid #BDBDBD;
-	background-color: white;
-	margin: 0 20px;
-}
-
-.buttons .btn-buySend {
-	border: none;
-	background: #E4B075;
-	color: white;
-}
-
-.buttons .wish {
-	padding-right: 10px;
-	padding-top: 5px;
-	border: none;
-	background-color: rgba(0, 0, 0, 0);
-	font-size: 24px;
-	font-weight: bold;
-}
-
-select, button {
-	cursor: pointer;
-}
-
-.qty-plus, .qty-minus, .qty-remove {
-	cursor: pointer;
-}
-
-.qty-plus:hover, .qty-minus:hover, .qty-remove:hover {
-	color: #0b83e6;
-}
-
-.nav-tabs .nav-link {
-	min-width: 433px;
-	color: #BDBDBD;
-	font-weight: bold;
-	border: none;
-	font-size: 18px;
-	padding-bottom: 15px;
-	text-align: center;
-	cursor: pointer;
-}
-
-.tab-active {
-	border-bottom: 3px solid #E4B075 !important;
-	color: #E4B075 !important;
-	outline: none;
-}
-
-.tab-content {
-	border: none;
-}
-
-.tab-pane {
-	min-height: 300px;
-}
-
-.recomm-product .recomm-title {
-	font-size: 20px;
-	font-weight: bold;
-	border-bottom: 3px solid #434347;
-	padding-bottom: 16px;
-}
-
-.recomm-product .recomm-imgs {
-	margin: 25px 20px 100px 20px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.recomm-product .recomm-img:hover {
-	cursor: pointer;
-}
-
-.recomm-product .recomm-img img {
-	width: 180px;
-	height: 200px;
-	cursor: pointer;
-	object-fit: cover;
-	border-radius: 5px;
-}
-
-.recomm-img div {
-	width: 180px;
-	margin-top: 17px;
-}
-
-.recomm-img .recomm-price span {
-	margin-right: 5px;
-	font-weight: bold;
-}
-
-.recomm-img .recomm-price span:first-child {
-	color: #EBB078;
-}
-
-.review {
-	margin-bottom: 100px;
-}
-
-.review-title p {
-	font-size: 20px;
-	border-bottom: 3px solid #434347;
-	padding-bottom: 18px;
-	margin-bottom: 0;
-}
-
-.star-sort {
-	display: flex;
-}
-
-.star-box {
-	display: flex;
-	align-items: center;
-	border-bottom: none;
-}
-
-.score-star {
-	font-size: 0;
-	letter-spacing: -4px;
-}
-
-.score-star .item {
-	font-size: 22px;
-	letter-spacing: 1px;
-	display: inline-block;
-	text-decoration: none;
-	vertical-align: middle;
-}
-
-.score-star .item:first-child {
-	margin-left: 0;
-}
-
-.score-star .on {
-	color: #E4B075;
-}
-
-.reviewSort-area .reviewSortNo {
-	border: none;
-	font-size: 18px;
-}
-
-.reviewSort-area {
-	display: flex;
-	align-items: center;
-}
-
-.review-content {
-	padding-bottom: 20px;
-}
-
-.review-content .review-top {
-	margin-top: 18px;
-	display: flex;
-	justify-content: space-between;
-	font-size: 18px;
-}
-
-.review-content .review-top div:first-child {
-	font-size: 18px;
-}
-
-.review-content .review-top div:last-child {
-	margin-right: 15px;
-}
-
-.review-content .review-top-left label:last-child, .review-top div:last-child
-	{
-	color: #BDBDBD;
-	font-weight: bold;
-}
-
-.review-content .review-top-left i {
-	letter-spacing: -5px;
-}
-
-.review-content .review-top-left i:last-child {
-	margin-right: 15px;
-}
-
-.review-content .review-option {
-	margin: 10px 0 18px 0;
-	font-size: 18px;
-	color: #BDBDBD;
-	font-weight: bold;
-}
-
-.review-content .review-img-content {
-	display: flex;
-	font-weight: bold;
-	font-size: 18px;
-}
-
-.review-content .review-img-content img {
-	width: 50px;
-	height: 50px;
-	object-fit: cover;
-	margin-right: 20px;
-}
-
-.qna .qna-title {
-	border-bottom: 3px solid #434347;
-}
-
-.qna .qna-title p {
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.deleteReview, .notifyReview {
-	cursor: pointer;
-	padding-left: 5px;
-}
-
-.deleteReview:hover, .notifyReview:hover {
-	font-weight: 500;
-	color: #2478FF;
-}
-
-.product-content {
-	text-align: center;
-}
-
-.product-content img {
-	max-width: 1000px;
-}
-
-.btnQuestion {
-	background: #E4B075;
-	color: white;
-	font-weight: bold;
-}
-
-.qna-form textarea {
-	width: 100%;
-	height: 75px;
-	resize: none;
-}
-
-.qna-form .img-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, 54px);
-	grid-gap: 2px;
-}
-
-.qna-form .img-grid .item {
-	object-fit: cover;
-	width: 50px;
-	height: 50px;
-	border-radius: 10px;
-	border: 1px solid #c2c2c2;
-	cursor: pointer;
-}
-
-.deleteQuestion, .notifyQuestion {
-	cursor: pointer;
-	padding-left: 5px;
-}
-
-.deleteQuestion:hover, .notifyQuestion:hover {
-	font-weight: 500;
-	color: #2478FF;
-}
-
-
-
-.img-more {
-	width: 1300px;
-}
-
-#detail.hidden {
-	height: 1300px;
-	overflow: hidden;
-}
-
-#btnMore {
-	font-size: 20px;
-	border-radius: 10px;
-	padding: 30px 30px;
-	background: white;
-	display: flex;
-	justify-content: center;
-	width: 1300px;
-	margin-bottom: 50px;
-	color: #E4B075;
-}
-
-#btnMore:hover {
-	text-decoration: none;
-}
-
-.detailMore {
-	position: relative;
-}
-
-.detailMore:before {
-	content: '';
-	position: absolute;
-	top: -90px; // 맞게 조절 left : 120px;
-	display: block;
-	width: 1300px;
-	height: 96px;
-	background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0),
-		rgba(255, 255, 255, 0.8) 66%, rgba(255, 255, 255, 0.94) 83%,
-		rgba(255, 255, 255, 0.98) 91%, #ffffff);
-}
-
-
-
-
-
-
-
-.btn_gotop {
-	display: none;
-	position: fixed;
-	bottom: 30px;
-	right: 90px;
-	z-index: 999;
-	border: 1px solid #ccc;
-	outline: none;
-	background-color: white;
-	color: #333;
-	cursor: pointer;
-	padding: 15px 20px;
-	border-radius: 100%;
-	width: 60px;
-	height: 60px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.top_arrow {
-	width: 50px;
-	height: auto;
-}
-
-.glyphicon-chevron-up {
-	display: none;
-}
-</style>
+<script type="text/javascript">
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method,
+			data: formData,
+			dataType: dataType,
+			success: function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function() {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리를 실패했습니다.');
+					return false;
+				}
+				
+				console.log(jqXHR.responseText);
+				
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;
+		settings.contentType = false;
+	}
+	
+	$.ajax(url, settings);
+}
+
+</script>
+
+<script type="text/javascript">
+$(function() {
+	const productNum = '${dto.productNum}';
+	const optionCount = ${dto.optionCount};
+	
+	if(optionCount === 0) {
+		let stockNum = '${dto.stockNum}';
+		let totalStock = '${dto.totalStock}';
+		let totalPrice = '${dto.totalPrice}';
+		$('.order-area').attr('data-totalStock', totalStock);
+		
+		buyQuant(stockNum, totalPrice, 0, 0);
+	}
+	
+	$(".requiredOption").change(function() {
+		let detailNum = $(this).val();
+		if(! detailNum) {
+			return false;
+		}
+		
+		let optionNum = $(".requiredOption").attr("data-optionNum");
+		
+		if(optionCount === 1) {
+			let b = true;
+			$(".order-area input[name=detailNums]").each(function() {
+				let deNum = $(this).val();
+				if(detailNum === deNum) {
+					b = false;
+					return false;
+				}
+			});
+			
+			if(! b) {
+				return false;
+			}
+			
+			let stockNum = $(".requiredOption :selected").attr("data-stockNum");
+			let totalPrice = ${dto.totalPrice};
+			
+			buyQuant(stockNum, totalPrice, detailNum, 0);
+			
+			return false;
+		}
+		
+		$(".requiredOption2 option").each(function() {
+			if($(this).is(":first-child")) {
+				return true;
+			}
+			
+			$(this).remove();
+		});
+		
+		let optionNum2 = $(".requiredOption2").attr("data-optionNum2");
+		
+		let url = "${pageContext.request.contextPath}/product/listOptionDetailStock";
+		$.get(url, {productNum:productNum, detailNum:detailNum}, function(data) {
+			$(data).each(function(index, item) {
+				let detailNum = item.detailNum2;
+				let optionValue = item.optionValue2;
+				let stockNum = item.stockNum;
+				let totalStock = parseInt(item.totalStock);
+			});
+		});
+	});
+	
+	$(".requiredOption2").change(function() {
+		if(! $(this).val()) {
+			return false;
+		}
+		
+		let detailNum = $(".requiredOption").val();
+		let detailNum2 = $(this).val();
+		
+		let b = true;
+		$(".order-area input[name=detailNums2]").each(function() {
+			let deNum = $(this).closest(".input-group").find("input[name=detailNums]").val();
+			let deNum2 = $(this).val();
+			if(detailNum === deNum && detailNum2 === deNum2) {
+				alert("이미 추가된 옵션입니다");
+				$(".requiredOption").val("");
+				$(".requiredOption").trigger("change");
+				b = false;
+				return false;
+			}
+		});
+		if(! b) {
+			return false;
+		}
+		
+		let stockNum = $(".requiredOption2 :selected").attr("data-stockNum");
+		let totalPrice = ${dto.totalPrice};
+		
+		buyQuant(stockNum, totalPrice, detailNum, detailNum2);
+	});
+	
+	function buyQuant(stockNum, totalPrice, detailNum, detailNum2) {
+		let paymentAmount = totalPrice.toLocaleString();
+		
+		let optionValue = '', optionValue2 = '';
+		let selectOption = '';
+		
+		if(optionCount === 1) {
+			optionValue = $('.requiredOption :selected').attr('data-optionValue');
+			selectOption = optionValue;
+		} else if(optionCount === 2) {
+			optionValue = $('.requiredOption :selected').attr('data-optionValue');
+			optionValue2 = $('.requiredOption2 :selected').attr('data-optionValue');
+			selectOption = optionValue + ' / ' + optionValue2;
+		}
+		
+		let out = '';
+		out += '<div class="order-qty mt-4 d-flex justify-content-between w-100">';
+		if(optionCount > 0) {
+			out += '  <div class="mt-2 w-25">';
+			out += '	<label class="fs-6">' + selectOption + '</label>';
+			out += '  </div>';
+			out += '  <div class="row mt-1 pb-2 w-75">';
+		} else {
+			out += '  <div class="row mt-1 pb-2 w-100">';
+		}
+		
+		out += '    <div class="col">';
+		out += '      <div class="input-group">';
+		out += '        <i class="bi bi-dash input-group-text bg-white qty-minus rounded-circle"></i>';
+		out += '        <input type="text" name="buyQtys" class="form-control border border-0" value="1" style="flex:none; width: 60px; text-align: center;" readonly>';
+		out += '        <input type="hidden" name="productNums" value="' + productNum + '">';
+		out += '        <input type="hidden" name="stockNums" value="' + stockNum + '">';
+		out += '        <input type="hidden" name="detailNums" value="' + detailNum + '" disabled>';
+		out += '        <input type="hidden" name="detailNums2" value="' + detailNum2 + '" disabled>';
+		out += '        <i class="stockNumsbi bi-plus input-group-text bg-white qty-plus rounded-circle"></i>';
+		out += '      </div>';
+		out += '    </div>';
+		out += '    <div class="col text-end product-totalPrice" data-totalPrice="' + totalPrice + '">';
+		out += '      <label class="pt-2 fs-6 fw-semibold item-paymentAmount">' + paymentAmount + '원</label>';
+		
+		if(optionCount > 0) {
+			out += '	  <label class="pt-2 ps-1"><i class="bi bi-x qty-remove"></i></label>';
+		}
+		out += '    </div>';
+		out += '  </div>';
+		out += '</div>';
+		
+		$('.order-area').append(out);
+		
+		totalOrderPrice();
+	}
+	
+	$(".order-area").on("click", ".qty-plus", function() {
+		let totalStock = 0;
+		if(optionCount == 0) {
+			totalStock = parseInt($(".order-area").attr("data-totalStock"));
+		} else if(optionCount === 1) {
+			totalStock = parseInt($(".requiredOption :selected").attr("data-totalStock"));
+		} else if(optionCount === 2) {
+			totalStock = parseInt($(".requiredOption2 :selected").attr("data-totalStock"));
+		}
+		
+		let order = $(this).closest(".order-qty");
+		let qty = parseInt(order.find("input[name=buyQtys]").val());
+		
+		if(qty >= totalStock) {
+			alert("재고가 부족합니다. 다시 선택해주세요");
+			return false;
+		}
+		
+		qty++;
+		order.find("input[name=buyQtys]").val(qty);
+		let totalPrice = order.find(".product-totalPrice").attr("data-totalPrice");
+		let item = qty * totalPrice;
+		let paymentAmount = item.toLocaleString();
+		order.find(".item-paymentAmount").text(paymentAmount+"원");
+		
+		totalOrderPrice();
+	});
+	
+	$(".order-area").on("click", ".qty-minus", function() {
+		let order = $(this).closest(".order-qty");
+		let qty = parseInt(order.find("input[name=buyQtys]").val()) - 1;
+		if(qty <= 0) {
+			alert("수량을 한개 이상 선택해주세요");
+			if(optionCount === 0) {
+				return false;
+			}
+			
+			$(".requiredOption").val("");
+			$(".requiredOption").trigger("change");
+			order.remove();
+			
+			totalOrderPrice();
+			
+			return false;
+		}
+		
+		order.find("input[name=buyQtys]").val(qty);
+		let totalPrice = order.find(".product-totalPrice").attr("data-totalPrice");
+		let item = qty * totalPrice;
+		let paymentAmount = item.toLocaleString();
+		order.find(".item-paymentAmount").text(paymentAmount + "원");
+		
+		totalOrderPrice();
+	});
+	
+	$(".order-area").on("click", ".qty-remove", function() {
+		if(optionCount === 0) {
+			return false;			
+		}
+		
+		let order = $(this).closest(".order-qty");
+		$(".requiredOption").val("");
+		$(".requiredOption").trigger("change");
+		
+		order.remove();
+		
+		totalOrderPrice();
+	});
+	
+	function totalOrderPrice() {
+		let totalQty = 0;
+		let paymentAmount = 0;
+		$(".order-qty").each(function() {
+			let qty = parseInt($(this).find("input[name=buyQtys]").val());
+			let totalPrice = parseInt($(this).find(".product-totalPrice").attr("data-totalPrice"));
+			
+			totalQty += qty;
+			paymentAmount += (totalPrice * qty);
+		});
+		
+		let s = paymentAmount.toLocaleString();
+		
+		
+		$(".product-totalAmount").text(s);
+	}
+	
+});
+
+$(function(){
+	$(".sm-img img").click(function(){
+		let url = $(this).attr("src");
+		$(".lg-img img").attr("src", url);
+	});
+});
+
+function sendOk(mode) {
+	let totalQty = 0;
+	$(".order-qty").each(function(){
+		let qty = parseInt($(this).find("input[name=buyQtys]").val());
+		
+		totalQty += qty;
+	});
+	
+	if(totalQty <= 0) {
+		alert("상품 옵션을 선택하세요.");
+		return;
+	}
+
+	const f = document.buyForm;
+	
+	if(mode === "buy") {
+		f.method = "get";
+		f.action = "${pageContext.request.contextPath}/order/payment";
+	} else {
+		if(! confirm("장바구니에 추가하시겠습니까? ")) {
+			return false;
+		}
+		
+		f.method = "post";
+		f.action = "${pageContext.request.contextPath}/myPage/insertCart";		
+	}
+	
+	f.submit();
+}
+
+</script>
 
 <div class="container">
 	<div class="body-container">
@@ -556,15 +328,15 @@ select, button {
 						<div>
 							<div class="lg-img">
 								<img class=""
-									src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg"
+									src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}"
 									class="img-buy">
 							</div>
 						</div>
 						<div class="imgs">
-							<c:forEach var="n" begin="1" end="3">
+							<c:forEach var="vo" items="${listProductFile}">
 								<div class="sm-img imgs-detail">
 									<img
-										src="${pageContext.request.contextPath}/uploads/product/product_detail.jpg"
+										src="${pageContext.request.contextPath}/uploads/product/${vo.fileName}"
 										class="img-buy">
 								</div>
 							</c:forEach>
@@ -573,36 +345,35 @@ select, button {
 
 					<div class="body-right">
 						<form name="buyForm">
-							<!-- 
+							<c:if test="${dto.totalStock < 1}">
 								<div class="stock">
 									<label class="stock-msg">상품 재고가 없습니다.</label>
 								</div>
-								 -->
+							</c:if>	
 
-							<!-- 
-								<div class="border rounded bg-light mt-2 p-2">
-									<label class="fs-6 fw-semibold text-primary pe-2">${dto.classify == 200 ? "오늘의 특가" : "기획전"}</label>
-									<label class="fs-6 fw-semibold pe-2 time-remaining">1일 10시간 남음</label>
-									<label class="text-black-50"><fmt:formatNumber value="${dto.saleCount}"/>개 구매</label>
-								</div>
-								 -->
+							
 							<div class="category">
-								<div>강아지 > 이동장/유모차</div>
+								<div>${dto.species == 2? "고양이" : "강아지"} > ${dto.categoryName}</div>
 							</div>
 
 							<div class="productName">
-								<div>이츠독 올 뉴 투웨이 카시트</div>
+								<div>${dto.productName}</div>
 							</div>
 
 							<div class="price">
-								<div>20%</div>
+								<c:if test="${dto.discountRate != 0}">
+									<div class="discountRate me-2">${dto.discountRate}%</div>
+								</c:if>
 
-								<div>
-									<label class="discounted-price"> <fmt:formatNumber
-											value="" />39,900원
-									</label> <label class="original-price"> <fmt:formatNumber
-											value="" />59,900원
-									</label>
+								<div class="ms-0">
+									<label class="discounted-price">
+										<fmt:formatNumber value="${dto.totalPrice}" />원
+									</label> 
+									<c:if test="${dto.discountRate != 0}">
+										<label class="original-price"> 
+											<fmt:formatNumber value="${dto.price}" />원
+										</label>
+									</c:if>
 
 								</div>
 							</div>
@@ -610,46 +381,80 @@ select, button {
 							<div class="delivery">
 								<div>배송비</div>
 								<div>
-									<label> <fmt:formatNumber value="" />3,000원
+									<label> 
+										<c:choose>
+											<c:when test="${dto.totalPrice >= 20000}">
+												무료배송											
+											</c:when>
+											<c:otherwise>
+												<fmt:formatNumber value="${dto.deliveryCharge}" />원
+											</c:otherwise>
+										</c:choose>
 									</label> <label>(20,000원 이상 주문 시 무료배송)</label>
 								</div>
 							</div>
 
 							<div class="point">
 								<div>적립포인트</div>
-								<div>0.5% (199P)</div>
+								
+								<c:choose>
+									<c:when test="${dto.membershipNum == 1 }">
+										<div>1% (${dto.savePoint}P)</div>
+									</c:when>
+									<c:when test="${dto.membershipNum == 2 }">
+										<div>2% (${dto.savePoint}P)</div>
+									</c:when>
+									<c:when test="${dto.membershipNum == 3 }">
+										<div>3% (${dto.savePoint}P)</div>
+									</c:when>
+									<c:otherwise>
+										<div>4% (${dto.savePoint}P)</div>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 
+							
+							<c:if test="${dto.optionCount > 0}">
+								<div class="option">옵션 선택</div>
+							</c:if>
 
-
-							<div class="option">옵션 선택</div>
-
-
-
-							<div class="option-tab">
-								<select class="form-select requiredOption option-tab1">
-									<option>그레이</option>
-								</select>
-							</div>
-
-
-
-							<div class="option-tab">
-								<select class="form-select requiredOption2 option-tab2">
-									<option>S</option>
-								</select>
-							</div>
-
-
+							<c:if test="${dto.optionCount > 0}">
+							    <div class="option-tab">
+							        <select class="form-select requiredOption option-tab1" data-optionNum="${listProductOption[0].optionNum}">
+							            <option>${listProductOption[0].optionName}</option>
+							            <c:forEach var="vo" items="${listOptionDetail}">
+							                <c:choose>
+							                    <c:when test="${dto.optionCount == 1}">
+							                        <option value="${vo.detailNum}" data-stockNum="${vo.stockNum}" data-totalStock="${vo.totalStock}" data-optionValue="${vo.optionValue}" ${vo.totalStock < 1 ? 'disabled' : ''}>
+							                            ${vo.optionValue} ${vo.totalStock < 1 ? '(품절)' : ''}
+							                        </option>
+							                    </c:when>
+							                    <c:otherwise>
+							                        <option value="${vo.detailNum}">${vo.optionValue}</option>
+							                    </c:otherwise>
+							                </c:choose>
+							            </c:forEach>
+							        </select>
+							    </div>
+							</c:if>
+							
+							<c:if test="${dto.optionCount > 1}">
+							    <div class="option-tab">
+							        <select class="form-select requiredOption2 option-tab1" data-optionNum2="${listProductOption[1].optionNum}">
+							            <option>${listProductOption[1].optionName} ${vo.totalStock < 1 ? '(품절)' : ''}</option>
+							            
+							        </select>
+							    </div>
+							</c:if>
 
 							<div class="order-area"></div>
 
 							<hr>
 							<div class="total-price">
-								<div class="total-text">총상품금액</div>
+								<div class="total-text">총금액</div>
 								<div class="total-detail">
-									<label>총수량 <span class="product-totalQty">1</span>개 |
-									</label> <label><span class="product-totalAmount">42,900</span>원</label>
+									<label><span class="product-totalAmount">0</span> 원</label>
 								</div>
 							</div>
 
@@ -668,8 +473,17 @@ select, button {
 									</div>
 									<div>
 										<input type="hidden" name="mode" value="buy">
-										<button type="button" class="btn btn-buySend"
-											onclick="sendOk('buy');">구매하기</button>
+										<c:choose>
+											<c:when test="${dto.totalStock < 1}">
+												<button type="button" class="btn btn-buySend"
+													onclick="sendOk('buy');" disabled>구매하기</button>
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="btn btn-buySend"
+													onclick="sendOk('buy');">구매하기</button>
+											</c:otherwise>
+										</c:choose>
+										
 									</div>
 								</div>
 							</div>
@@ -702,9 +516,7 @@ select, button {
 						role="tabpanel" aria-labelledby="tab-1" tabindex="0">
 						<div class="img-more" id="scrolld">
 							<div class="mt-4 product-content hidden" id="detail">
-								<img
-									src="${pageContext.request.contextPath}/uploads/product/product_detail2.png"
-									class="img-buy">
+								${dto.content}
 							</div>
 							<div class="detailMore">
 								<a id="btnMore" href="javascript:moreDetail();">상세 정보 더보기</a>
@@ -719,9 +531,9 @@ select, button {
 										<img
 											src="${pageContext.request.contextPath}/uploads/product/10.jpg"
 											class="img-buy">
-										<div>개과천선 강아지 스페이스 카시트 라운드형 크림 아이보리</div>
+										<div>제품이름</div>
 										<div class="d-flex recomm-price">
-											<span>68%</span> <span>39,000원</span>
+											<span>할인율%</span> <span>가격</span>
 										</div>
 									</div>
 
@@ -824,7 +636,7 @@ select, button {
 	</div>
 </div>
 
-<script>
+<script type="text/javascript">
 	$(window).scroll(function() {
 		if ($(this).scrollTop() > 300) {
 			$('.btn_gotop').show();
@@ -853,7 +665,7 @@ select, button {
 	});
 
 	$(window).scroll(function() {
-		if ($(this).scrollTop() > 300) {
+		if($(this).scrollTop() > 300) {
 			$('.btn_gotop').show();
 		} else {
 			$('.btn_gotop').hide();
@@ -871,6 +683,9 @@ select, button {
 		$('#detail').removeClass('hidden');
 		$('.detailMore').remove();
 	}
+	
+	
+	
 </script>
 
 

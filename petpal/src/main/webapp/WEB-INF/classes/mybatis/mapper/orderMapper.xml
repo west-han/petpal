@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.mapper.OrderMapper">
+	<select id="findByMaxOrderNum" resultType="String">
+		SELECT orderNum
+		FROM productOrder
+		ORDER BY orderDate DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<insert id="insertOrder" parameterType="com.shop.petpal.domain.Order">
+		INSERT INTO productOrder(orderNum, orderDate, totalMoney, usedPoint, usedCoupon, deliveryCharge, payment, orderState, orderStateDate, userDelete, note, memberNum)
+        VALUES(#{orderNum}, SYSDATE, #{totalMoney}, #{usedPoint}, 0, #{deliveryCharge}, #{payment}, #{orderState}, SYSDATE, 0, #{note, jdbcType=VARCHAR}, #{memberNum})
+	</insert>
+	
+	<insert id="insertOrderDetail" parameterType="com.shop.petpal.domain.Order">
+		INSERT INTO orderDetail(orderDetailNum, orderNum, productNum, stockNum, amount, priceOrig,
+			priceDiscount, pricePay, savePoint)
+		VALUES (orderDetail_seq.NEXTVAL, #{orderNum}, #{productNum}, #{stockNum}, #{amount}, #{priceOrig},
+			#{priceDiscount}, #{pricePay}, #{savePoint})
+	</insert>
+	
+	<insert id="insertPayDetail" parameterType="com.shop.petpal.domain.Order">
+		INSERT INTO payDetail(orderNum, payClassify, cardName, authNumber, authDate)
+		VALUES(#{orderNum}, #{payClassify}, #{cardName}, #{authNumber}, TO_DATE(#{authDate}, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<insert id="insertOrderDelivery" parameterType="com.shop.petpal.domain.Order">
+		INSERT INTO orderDelivery(orderNum, recipientName, tel, postalCode, 
+			address1, address2, destMemo)
+		VALUES(#{orderNum}, #{recipientName}, #{tel}, #{postalCode}, 
+			#{address1}, #{address2, jdbcType=VARCHAR}, #{destMemo, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertUserPoint" parameterType="com.shop.petpal.domain.Mypage2">
+		INSERT INTO userPoint(pointNum, memberNum, regDate, classify, point, balance)
+		VALUES(userPoint_seq.NEXTVAL, #{memberNum}, SYSDATE, #{classify}, #{point}, 
+			NVL((SELECT balance FROM userPoint
+					WHERE memberNum = #{memberNum}
+					ORDER BY pointNum DESC
+					FETCH FIRST 1 ROWS ONLY), 0) + #{point}
+				)
+	</insert>
+	
+	<update id="updateProductStock" parameterType="com.shop.petpal.domain.Order">
+		UPDATE productStock SET totalStock = totalStock - #{amount}
+		WHERE stockNum = #{stockNum}
+	</update>
+	
+	<select id="listOrderProduct" parameterType="java.util.List" resultType="com.shop.petpal.domain.Order">
+		SELECT ps.stockNum, ps.productNum, ps.detailNum1 AS detailNum, ps.detailNum2, ps.totalStock,
+		    p.productName, p.price priceOrig, p.discountRate, p.discountAmount, p.deliveryCharge, p.thumbnail,
+		    po.optionCount,
+		    op1.optionNum, op1.optionName,
+		    op2.optionNum AS optionNum2, op2.optionName AS optionName2,
+		    d1.detailNum, d1.optionValue,
+		    d2.detailNum AS detailNum2, d2.optionValue AS optionValue2
+		FROM (
+		    SELECT stockNum, productNum, detailNum1, detailNum2, totalStock
+		    FROM productStock
+		    WHERE (stockNum, productNum) IN 
+		    	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+		  		  (#{item.stockNum}, #{item.productNum})
+		  		</foreach>  
+		) ps
+		JOIN product p ON ps.productNum = p.productNum
+		LEFT OUTER JOIN (
+		    SELECT productNum, COUNT(*) AS optionCount
+		    FROM productOption
+		    GROUP BY productNum
+		) po ON ps.productNum = po.productNum
+		LEFT OUTER JOIN (
+		    SELECT optionNum, optionName, productNum, parentOption
+		    FROM productOption
+		    WHERE parentOption IS NULL
+		) op1 ON ps.productNum = op1.productNum
+		LEFT OUTER JOIN (
+		    SELECT optionNum, optionName, parentOption
+		    FROM productOption
+		    WHERE parentOption IS NOT NULL
+		) op2 ON op1.optionNum = op2.parentOption
+		LEFT OUTER JOIN optionDetail d1 ON ps.detailNum1 = d1.detailNum
+		LEFT OUTER JOIN optionDetail d2 ON ps.detailNum2 = d2.detailNum
+				
+	</select>
+	
+	<select id="listOptionDetail" parameterType="java.util.List" resultType="com.shop.petpal.domain.Order">
+		SELECT od.detailNum, od.optionNum, po.optionName, od.optionValue
+		FROM optionDetail od
+		JOIN productOption po ON od.optionNum = po.optionNum
+		WHERE od.detailNum IN 
+		<foreach collection="list" item="detailNum" index="index" open="(" separator="," close=")">
+			#{detailNum}
+		</foreach>
+	</select>
+	
+	<select id="findByOrderDetail" parameterType="Long" resultType="com.shop.petpal.domain.Order">
+		SELECT od.orderDetailNum, od.orderNum, od.amount, od.priceOrig, od.priceDiscount, 
+			od.productNum, od.stockNum,
+			od.pricePay, od.savePoint, od.detailState,
+			TO_CHAR(po.orderDate, 'YYYY-MM-DD HH24:MI:SS') orderDate
+		FROM orderDetail od
+		JOIN productOrder po ON od.orderNum = po.orderNum
+		WHERE od.orderDetailNum = #{orderDetailNum};
+	</select>
+	
+	<select id="findByOptionDetail" parameterType="Long" resultType="com.shop.petpal.domain.Order">
+		SELECT od.detailNum, od.optionNum, po.optionName, od.optionValue
+		FROM optionDetail od
+		JOIN productOption po ON od.optionNum = po.optionNum
+		WHERE od.detailNum = #{detailNum}
+	</select>
+	
+	<select id="findByUserPoint" parameterType="Long" resultType="com.shop.petpal.domain.Mypage2">
+		SELECT pointNum, memberNum, regDate, classify, point, balance
+		FROM userPoint
+		WHERE memberNum = #{memberNum}
+		ORDER BY pointNum DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="findByMemberDest" parameterType="Long" resultType="com.shop.petpal.domain.Mypage2">
+		SELECT destNum, recipientName, defaultDest, tel, postalCode, address1, address2, note, memberNum
+		FROM memberDest
+		WHERE memberNum = #{memberNum}
+        order by defaultDest
+	</select>
+
+</mapper>

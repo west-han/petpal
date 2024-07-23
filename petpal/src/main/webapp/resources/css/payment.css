@@ -1,0 +1,351 @@
+@charset "UTF-8";
+* { padding: 0; margin: 0; }
+*, *::after, *::before { box-sizing: border-box; }
+
+.body-container2 {
+	max-width: 1300px;
+	margin: 0 auto;
+	font-size: 15px;
+	color: #434347;
+}
+
+.destination-info, .point, .price, .saving-point .buttons {
+	margin-top: 30px;
+}
+
+.md-img {
+	width: 70px; height: 70px;
+}
+
+.order-product {
+	margin-top: 20px;
+	padding-bottom: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: 3px solid #BDBDBD;
+
+}
+
+.order-product-bottom {
+	margin: 15px 0;
+	height: 1px;
+	background-color: #434347;
+	border: none;
+}
+
+.destination .destination-name {
+	font-weight: bold;
+}
+
+.destination-title {
+	margin-top: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.destination-info {
+	display: flex;
+	align-items: baseline;
+}
+
+
+.destination-info .btn {
+	padding: 0 15px;
+	height: 30px;
+	margin-left: 80px;
+	background: white;
+	border: 1px solid #A6A6A6;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.order-title th {
+	color: #BDBDBD;
+	font-size: 16px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	text-align: center;
+}
+
+.order-content {
+	margin-bottom: none;
+}
+
+.order-content td {
+	text-align: center;
+}
+
+
+
+.content-title {
+	text-align: center;
+}
+
+.content-option {
+	font-size: 13px;
+	text-align: center;
+	margin-top: 5px;
+	color: #A6A6A6;
+}
+
+.content-point {
+	padding-left: 30px;
+}
+
+.content-qty {
+	padding-left: 48px;
+}
+
+.discount-price, .product-price,  .total-price {
+	padding-left: 38px;
+}
+
+.product-price .original-price label {
+	text-decoration: line-through;
+	color: #A6A6A6;
+	margin-top: 3px;
+}
+
+.point-title, .price-title {
+	border-bottom: 3px solid #BDBDBD;
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 10px;
+	margin-top: 50px;
+}
+
+.destinaion {
+	margin-top: 15px !important;
+	border-top: 3px solid #BDBDBD;
+}
+
+.destinaion .destination-name, .destinaion .destination-tel, .destinaion .destination-addr, .destinaion .destination-note  {
+	margin-top: 20px;
+}
+
+.destination-name .name-title, .destination-name .tel {
+	font-weight: bold;
+}
+
+.destinaion .destination-name,  .destination-note {
+	display: flex;
+}
+
+.destinaion .name-title, .destinaion .tel-title, .destinaion .addr-title, .destinaion .note-title {
+	width: 130px;
+}
+
+.destinaion input {
+	margin-right: 25px;
+	width: 250px;
+    border: none; 
+    border-bottom: 1px solid #BDBDBD !important;
+    padding-bottom: 5px;
+    outline: none;
+    border-radius: 0;
+}
+
+.destinaion .addr1, .destinaion .addr2 {
+	width: 380px;
+	margin-left: 160px;
+}
+
+.destinaion .addr2 {
+	width: 380px;	
+}
+
+.destinaion .btn {
+	padding: 5px 10px;
+	background-color: white;
+}
+
+.point-content {
+	display: flex;
+	margin-top: 18px;
+}
+
+.point-content div {
+	display: flex;
+	align-items: center;
+}
+
+.point-detail {
+	margin-right: 100px;
+}
+
+.point-input {
+	margin-right: 20px;
+}
+
+.postalCode-btn {
+	font-size: 13px;
+}
+
+.point-btn, .postalCode-btn, .modal-select-btn {
+	margin-right: 20px;
+	background: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid #A6A6A6;	
+}
+
+.price-content {
+	margin-top: 18px;
+	margin-right: 30px; 
+	display: flex;
+	justify-content: space-between;	
+}
+
+.price-totalMain {
+	margin-bottom: 25px;
+}
+
+.product-totalAmount {
+	padding-top: 7px;
+	color: #E4B075;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.price .price-usingPoint {
+	margin-bottom: 15px;
+}
+
+.price-total {
+	margin-top: 5px; 
+	margin-right: 65px;
+	color: #E4B075 !important;
+	font-size: 18px;
+}
+
+.saving-point {
+	margin-bottom: 60px;
+}
+
+.title-gray {
+	color: #A6A6A6;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+.note-input  {
+	width: 450px !important;
+	padding-left: 0px !important;
+}
+
+.point-input {
+	width: 150px;
+    border: none; 
+    border-bottom: 1px solid #BDBDBD;
+    outline: none;
+    border-radius: 0;
+}
+
+input::placeholder {
+	color: #A6A6A6 !important;
+	font-size: 13px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.buttons {
+	margin-bottom: 60px;
+	width: 100%;
+}
+
+.buttons .complete-btn {
+	width: 100%;
+	height: 50px;
+	border-radius: 8px;
+	font-weight: bold;
+	background: #E4B075;
+	border: none;
+	color: white;
+}
+
+button:hover {
+	cursor: pointer;
+	border: 1px solid #E4B075 !important;
+}
+
+.modal-header {
+	background: #E4B075;
+}
+
+.default-title {
+	font-size: 13px;
+	margin-bottom: 5px;
+}
+
+.default-title i {
+	width: 13px;
+	height: 13px;
+}
+
+.modal-title {
+	font-size: 15px;
+	color: white;
+}
+
+.modal-body {
+	padding: 0 25px;
+}
+
+.modalList-box {
+	border-bottom: 1px solid #A6A6A6;
+	padding: 10px 5px;
+}
+
+#recipientName, #tel, #postalCode, #address1, #address2, #note {
+	border: none;	
+}	
+
+#postalCode, #address1, #address2{
+	width: 460px;
+}
+
+#addAddressModal label {
+	font-size: 10px;
+}
+
+.modal-select-btn {
+	font-size: 9px;
+	margin-right: 0px !important;
+}
+
+#note-title, #addr-title {
+	display: flex; 
+	align-items: center;
+}
+
+.list-title {
+	width: 80px;
+	color: #A6A6A6;
+}
+
+#recipientName {
+	margin-left: 8px;
+}
+
+#tel {
+	width: 300px;
+}
+
+#address1, #address2 {
+	margin-left: 80px;
+	width: 370px;
+}
+
+#note {
+	width: 370px;
+}

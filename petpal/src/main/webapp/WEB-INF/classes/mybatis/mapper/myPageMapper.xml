@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.mapper.MyPageMapper">
+	<insert id="insertCart" parameterType="com.shop.petpal.domain.Order">
+		INSERT INTO cart(cartNum, amount, regDate, memberNum, productNum, stockNum) 
+		VALUES(cart_seq.NEXTVAL, #{amount}, SYSDATE, #{memberNum}, #{productNum}, #{stockNum})
+	</insert>
+	
+	<update id="updateCart" parameterType="com.shop.petpal.domain.Order">
+		UPDATE cart SET amount = #{amount}
+		WHERE stockNum = #{stockNum} AND memberNum = #{memberNum}
+	</update>
+	
+	<select id="findByCartId" parameterType="map" resultType="com.shop.petpal.domain.Order">
+		SELECT cartNum, amount, regDate memberNum, productNum, stockNum
+		FROM cart
+		WHERE memberNum = #{memberNum} AND stockNum = #{stockNum}
+	</select>
+	
+	<select id="listCart" parameterType="Long" resultType="com.shop.petpal.domain.Order">
+		SELECT ct.cartNum, ct.memberNum, ct.stockNum, ct.amount, ct.regDate,
+    		ps.productNum, ps.detailNum1 detailNum, ps.detailNum2, ps.totalStock,
+    		p.productName, p.price priceOrig, p.discountRate, p.discountAmount, p.deliveryCharge, p.thumbnail, po.optionCount,
+    		op1.optionNum, op1.optionName,
+    		op2.optionNum optionNum2, op2.optionName optionName2,
+    		d1.detailNum, d1.optionValue,
+    		d2.detailNum detailNum2, d2.optionValue optionValue2
+    	FROM cart ct
+    	JOIN productStock ps ON ct.stockNum = ps.stockNum 
+    	JOIN product p ON ps.productNum = p.productNum
+    	LEFT OUTER JOIN (
+            SELECT productNum, optionNum, optionName, parentOption 
+            FROM productOption 
+            WHERE parentOption IS NULL
+    	) op1 ON ps.productNum = op1.productNum
+		LEFT OUTER JOIN (
+            SELECT optionNum, optionName, parentOption
+            FROM productOption
+			WHERE parentOption IS NOT NULL
+        ) op2 ON op1.optionNum = op2.parentOption
+        LEFT OUTER JOIN ( 
+            SELECT productNum, COUNT(*) optionCount
+            FROM productOption
+            GROUP BY productNum
+        ) po ON p.productNum = po.productNum
+    	LEFT OUTER JOIN optionDetail d1 ON ps.detailNum1 = d1.detailNum
+    	LEFT OUTER JOIN optionDetail d2 ON ps.detailNum2 = d2.detailNum
+		WHERE ct.memberNum = ${memberNum}
+		ORDER BY cartNum DESC
+	</select>
+
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM cart
+		WHERE memberNum = #{memberNum} 
+		<if test="gubun == 'item'">
+			AND stockNum = #{stockNum}
+		</if>
+		<if test="gubun == 'list'">
+			AND stockNum IN
+			<foreach collection="list" item="stockNum" index="index"
+				open="(" separator="," close=")">
+				#{stockNum}
+			</foreach>
+		</if>
+	
+	</delete>
+</mapper>
