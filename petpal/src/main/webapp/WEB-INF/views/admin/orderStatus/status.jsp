@@ -207,16 +207,17 @@ $(function(){
 							<input type="hidden" name="orderNum">
 							<input type="hidden" name="orderDetailNum">
 							<input type="hidden" name="productNum">
-							<input type="hidden" name="usedSaved">
+							<input type="hidden" name="usedPoint">
 							<input type="hidden" name="payment">
-							<input type="hidden" name="userId">
+							<input type="hidden" name="email">
+							<input type="hidden" name="memberNum">
 							<input type="hidden" name="orderDate">
 							<input type="hidden" name="optionCount">
 							<input type="hidden" name="detailNum">
 							<input type="hidden" name="detailNum2">
-							<input type="hidden" name="qty">
-							<input type="hidden" name="productMoney">
-							<input type="hidden" name="savedMoney">
+							<input type="hidden" name="amount">
+							<input type="hidden" name="priceOrig">
+							<input type="hidden" name="savePoint">
 							<input type="hidden" name="cancelAmount">
 							<button type="button" class="btn btn-light btnDetailStateUpdateOk"> 변경 </button>
 						</div>
@@ -428,11 +429,12 @@ $(function(){
 		let orderNum = $(this).attr("data-orderNum");
 		let orderState = $(this).attr("data-orderState");
 		let detailState = $(this).attr("data-detailState");
-		let productMoney = $(this).attr("data-productMoney");
+		let priceOrig = $(this).attr("data-priceOrig");
 		let cancelAmount = $(".order-cancelAmount").attr("data-cancelAmount");
 		let payment = $(this).attr("data-payment");
-		let usedSaved = $(this).attr("data-usedSaved");
-		let userId = $(this).attr("data-userId");
+		let usedPoint = $(this).attr("data-usedPoint");
+		let email = $(this).attr("data-email");
+		let memberNum = $(this).attr("data-memberNum");
 		let orderDate = $(this).attr("data-orderDate");
 		// 상품 상세 정보 -----
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
@@ -440,22 +442,23 @@ $(function(){
 		let optionCount = $(this).attr("data-optionCount");
 		let detailNum = $(this).attr("data-detailNum");
 		let detailNum2 = $(this).attr("data-detailNum2");
-		let savedMoney = $(this).attr("data-savedMoney");
-		let qty = $(this).attr("data-qty");
+		let savePoint = $(this).attr("data-savePoint");
+		let amount = $(this).attr("data-amount");
 		
 		f.orderNum.value = orderNum;
 		f.orderDetailNum.value = orderDetailNum;
 		f.productNum.value = productNum;
-		f.usedSaved.value = usedSaved;
-		f.userId.value = userId;
+		f.usedPoint.value = usedPoint;
+		f.email.value = email;
+		f.memberNum.value = memberNum;
 		f.orderDate.value = orderDate;
 		f.optionCount.value = optionCount;
 		f.detailNum.value = detailNum;
 		f.detailNum2.value = detailNum2;
-		f.qty.value = qty;
-		f.productMoney.value = productMoney;
+		f.amount.value = amount;
+		f.priceOrig.value = priceOrig;
 		f.payment.value = payment;
-		f.savedMoney.value = savedMoney;
+		f.savePoint.value = savePoint;
 		f.cancelAmount.value = cancelAmount;
 		
 		let opt = $(this).closest("tr").find("td").eq(4).text();
@@ -536,7 +539,7 @@ $(function(){
 		// 주문상세 상태정보변경 등록
 		const f = document.detailStateForm;
 		let orderDetailNum = f.orderDetailNum.value;
-		let productMoney = f.productMoney.value;
+		let priceOrig = f.priceOrig.value;
 		let cancelAmount = f.cancelAmount.value;
 		
 		// 이전상태 : 판매취소(관리자), 주문취소완료(관리자), 반품완료(관리자)
@@ -575,6 +578,8 @@ $(function(){
 				
 				alert("주문 정보가 변경되었습니다.");
 				f.reset();
+			} else {
+				console.log(data);
 			}
 		};
 		

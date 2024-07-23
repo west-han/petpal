@@ -41,13 +41,13 @@
 	</select>
 
 	<select id="listOrder" parameterType="map" resultType="com.shop.petpal.admin.domain.OrderManage">
-		SELECT po.orderNum, po.memberNum, userName, totalMoney, usedPoint, usedCoupon, deliveryCharge,
+		SELECT po.orderNum, po.memberNum, NVL(userName, '고객'), totalMoney, usedPoint, usedCoupon, deliveryCharge,
 			payment, orderState, cancelAmount, TO_CHAR(orderDate, 'YYYY-MM-DD') orderDate, invoiceNumber,
 			deliveryNum
 		FROM productOrder po
 		LEFT OUTER JOIN member2 m ON po.memberNum = m.memberNum
 		LEFT OUTER JOIN (
-			SELECT orderNum, COUNT(*) totalOrderCount, SUM(qty) totalQuantity,
+			SELECT orderNum, COUNT(*) totalOrderCount, SUM(amount) totalQuantity,
 				COUNT(DECODE(detailState, 3, 1, 4, 1, 5, 1, 10, 1, 11, 1, 12, 1)) detailCancelCount
 			FROM orderDetail
 			GROUP BY orderNum
@@ -74,4 +74,135 @@
 		SELECT deliveryNum, deliveryName, deliveryTel
 		FROM deliveryCompany
 	</select>
+	
+	<select id="findById" parameterType="String" resultType="com.shop.petpal.admin.domain.OrderManage">
+		SELECT po.orderNum, po.memberNum, totalMoney, usedPoint, usedCoupon, deliveryCharge, payment,
+			orderState, cancelAmount, orderStateDate, invoiceNumber, orderDate, NVL(m2.userName, '고객'),
+			m1.email, totalMoney, payClassify, cardName, authNumber, authDate
+		FROM productOrder po
+		LEFT OUTER JOIN member1 m1 ON po.memberNum = m1.memberNum
+		LEFT OUTER JOIN member2 m2 ON m1.memberNum = m2.memberNum
+		LEFT OUTER JOIN payDetail pd ON po.orderNum = pd.orderNum
+		WHERE po.orderNum = #{orderNum}
+	</select>
+	
+	<select id="findByOrderDetails" parameterType="String" resultType="com.shop.petpal.admin.domain.OrderDetailManage">
+		SELECT od.orderNum, od.orderDetailNum, amount, priceOrig, priceDiscount, pricePay, savePoint,
+			od.productNum, ps.detailNum1, ps.detailNum2, od.detailState, productName, d1.optionValue, d2.optionValue optionValue2
+		FROM orderDetail od
+		JOIN product p ON od.productNum = p.productNum
+		LEFT OUTER JOIN productStock ps ON ps.stockNum = od.stockNum
+		LEFT OUTER JOIN productOption po ON p.productNum = po.productNum
+		LEFT OUTER JOIN optionDetail d1 ON ps.detailNum1 = d1.detailNum
+		LEFT OUTER JOIN optionDetail d2 ON ps.detailNum1 = d2.detailNum
+		WHERE od.orderNum = #{orderNum}
+	</select>
+	
+	<select id="countOrderDetail" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM productOrder po
+		LEFT OUTER JOIN member1 m ON po.memberNum = m.memberNum
+		JOIN orderDetail od ON po.orderNum = od.orderNum
+	</select>
+	
+	<select id="listOrderDetail" parameterType="map" resultType="com.shop.petpal.admin.domain.OrderDetailManage">
+		SELECT po.orderNum, po.memberNum, orderDate, totalMoney, usedPoint, usedCoupon, payment,
+			deliveryCharge, orrderState, deliveryName, invoiceNumber,
+			od.orderDetailNuum, od.productNum, detailNum, detailNum2, amount, origPrice, priceDiscount, pricePay,
+			savePoint, NVL(m1.userName, '고객') userName, m.userId,
+			p.savedMoney, p.productName, d1.optionValue, d2.optionValue optionValue2
+		FROM productOrder po
+		JOIN orderDetail od ON po.orderNum = od.orderNum
+		JOIN producut p ON od.productNum = p.productNum
+		JOIN productStock ps ON od.stockNum = ps.stockNum
+		LEFT OUTER JOIN optionDetail d1 ON od.detailNum = d1.detailNum
+		LEFT OUTER JOIN optionDetail d2 ON od.detailNum = d2.detailNum
+		LEFT OUTER JOIN member1 m1 ON po.memberNum = m1.memberNum
+		LEFT OUTER JOIN member2 m2 ON m1.memberNum = m2.memberNum
+		ORDER BY po.orderNum DESC, od.orderDetailiNum
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<update id="updateOrderState" parameterType="map">
+		UPDATE productOrder SET orderState = #{orderState}, orderStateDate = SYSDATE
+		WHERE orderNum = #{orderNum}
+	</update>
+	
+	<select id="findByTotalCancelAmount" parameterType="String" resultType="Integer">
+		SELECT NVL(SUM(pricePay), 0) totalCancelAmount
+		FROM orderDetail
+		WHERE orderNum = #{orderNum} AND (detailState = 3 OR detailState = 5 OR detailState = 12)
+	</select>
+	
+	<select id="countTotalOrder" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) orderCount
+		FROM orderDetail
+		WHERE orderNum = #{orderNum} AND (detailState = 3 OR detailState = 5 OR detailState = 12) 
+	</select>
+	
+	<update id="updateCancelAmount" parameterType="map">
+		UPDATE productOrder SET cancelAmount = #{cancelAmount}
+		WHERE orderNum = #{orderNum}
+	</update>
+	
+	<update id="updateOrderInvoiceNumber">
+		UPDATE productOrder SET orderState = #{orderState}, orderStateDate = SYSDATE,
+			deliveryName = #{deliveryName}, invoiceNumber = #{invoiceNumber}
+		WHERE orderNum = #{orderNum}
+	</update>
+	
+	<update id="updateOrderDetailState" parameterType="map">
+		UPDATE orderDetail SET detailState = #{detailState}
+		WHERE orderDetailNum = #{orderDetailNum}
+	</update>
+	
+	<insert id="insertDetailStateInfo" parameterType="map">
+		INSERT INTO detailStateInfo(stateNum, orderDetailNum, memberNum, detailState, stateMemo,
+			detailStateDate) VALUES (detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberNum},
+			#{detailState}, #{stateMemo,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	
+	<select id="listDetailStateInfo" parameterType="long" resultType="map">
+		SELECT stateNum, orderDetailNum, d.memberNum, NVL(userName, '고객') userName, detailState,
+			 stateMemo, TO_CHAR(detailStateDate, 'YYYYMMDD HH24:MI') detailStateDate
+		FROM detailStateInfo d
+		LEFT OUTER JOIN member1 m ON d.memberNum = m.memberNum
+		LEFT OUTER JOIN member2 m2 ON m.memberNum = m2.memberNum
+		WHERE orderDetailNum = #{orderDetailNum}
+		ORDER BY stateNum DESC
+	</select>
+	
+	<update id="updateProductStockInc">
+		UPDATE productStock SET totalStock = totalStock + #{amount}
+		<where>
+			WHERE productNum = #{productNum}
+			<if test="detailNum != null">
+				AND detailNum = #{detailNum}
+			</if>
+			<if test="detailNum2 != null">
+				AND detailNum2 = #{detailNum2}
+			</if>
+		</where>
+	</update>
+	
+	<update id="updateAutoPurchaseconfirmation">
+		UPDATE orderDetail SET detailState = 2
+		WHERE orderDetailNum IN (
+			SELECT orderDetailNum
+			FROM productOrder po
+			JOIN orderDetail od ON po.orderNum = od.orderNum
+			WHERE po.orderState = 5 AND od.detailState = 0
+				AND TRUNC(SYSDATE - orderStateDate) &gt;= 5
+		)
+	</update>
+	
+	<insert id="insertUserPoint" parameterType="com.shop.petpal.domain.UserPoint">
+		INSERT INTO userPoint(pointNum, memberNum, regDate, classify, point, balance)
+			VALUES(userPoint_seq.NEXTVA, #{memberNum}, SYSDATE, #{classify}, #{point},
+				NVL((SELECT balance FROM userPoint
+						WHERE memberNum = #{memberNum}
+						ORDER BY pointNum DESC
+						FETCH FIRST 1 ROWS ONLY ), 0) + #{point}
+			)
+	</insert>
 </mapper>

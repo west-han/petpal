@@ -1,7 +1,7 @@
 package com.shop.petpal.admin.domain;
 
 public class OrderManage {
-	private long orderNum;
+	private String orderNum;
 	private long memberNum;
 	private String email;
 	private String userName;
@@ -31,10 +31,10 @@ public class OrderManage {
 	private String cardName;
 	private String authNumber;
 	private String authDate;
-	public long getOrderNum() {
+	public String getOrderNum() {
 		return orderNum;
 	}
-	public void setOrderNum(long orderNum) {
+	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
 	}
 	public long getMemberNum() {

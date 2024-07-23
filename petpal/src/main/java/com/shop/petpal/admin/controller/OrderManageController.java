@@ -5,15 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.shop.petpal.admin.domain.OrderDetailManage;
 import com.shop.petpal.admin.domain.OrderManage;
 import com.shop.petpal.admin.service.OrderManageService;
+import com.shop.petpal.domain.SessionInfo;
 
 /*
  * NOTE: 주문상세상태
@@ -89,5 +96,99 @@ public class OrderManageController {
 		return ".admin.orderStatus.status";
 	}
 	
+	@GetMapping("detail/info")
+	public String detail(
+			@RequestParam String orderNum,
+			@RequestParam String orderStatus,
+			Model model) {
+		
+		OrderManage order = service.findById(orderNum);
+		
+		List<OrderDetailManage> listDetail = service.orderDetails(orderNum);
+		
+		model.addAttribute("order", order);
+		model.addAttribute("listDetail", listDetail);
+		
+		return "admin/orderStatus/detail";
+	}
 	
+	@PostMapping("detail/invoiceNumber")
+	@ResponseBody
+	public Map<String, Object> invoiceNumber(@RequestParam Map<String, Object> paramMap) {
+		String state = "true";
+		
+		try {
+			service.updateOrder("invoiceNumber", paramMap);
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		return model;
+	}
+	
+	@PostMapping("detail/delivery")
+	@ResponseBody
+	public Map<String, Object> delivery(@RequestParam Map<String, Object> paramMap) {
+		String state = "true";
+		
+		try {
+			service.updateOrder("delivery", paramMap);
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		return model;
+	}
+	
+	@PostMapping("detail/updateDetailState")
+	@ResponseBody
+	public Map<String, Object> updateDetailState(@RequestParam Map<String, Object> paramMap,
+			HttpSession session) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		String state = "true";
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		try {
+			int detailState = Integer.parseInt((String)paramMap.get("detailState"));
+			
+			paramMap.put("memberNum", info.getMemberNum());
+			// service.updateOrderDetailState(paramMap);
+			model.put("detailState", detailState);
+			
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		model.put("state", state);
+		return model;
+	}
+	
+	@GetMapping("detail/listDetailState")
+	@ResponseBody
+	public Map<String, Object> listDetailState(@RequestParam long orderDetailNum) {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = service.listDetailStateInfo(orderDetailNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("list", list);
+		return model;
+	}
+	
+	public String exchange() throws Exception {
+		return "";
+	}
+	
+	public String cancel() throws Exception {
+		return "";
+	}
 }

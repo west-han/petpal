@@ -165,6 +165,7 @@
 	
 	<!-- NOTE: 데이터 개수 가져오는 쿼리 - 원본 쿼리에서 불필요한 JOIN 연산 제거 -->
 	<!-- TODO: 나중에 검색 키워드 저장할 컬럼 추가 -->
+	<!-- TODO: 속성값 AND 조건으로 변경 -->
 	<select id="countCategorizedProducts" parameterType="map" resultType="Integer">
 	    SELECT NVL(COUNT(*), 0) count
 	    FROM product p
