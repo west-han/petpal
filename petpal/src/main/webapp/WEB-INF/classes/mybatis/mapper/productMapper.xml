@@ -4,7 +4,7 @@
 <mapper namespace="com.shop.petpal.mapper.ProductMapper">
 	<select id="findById" parameterType="Long" resultType="com.shop.petpal.domain.Product">
 		SELECT p.productNum, p.categoryNum, p.productClass, p.productStatus, p.species, 
-            c.categoryName, p.productName, p.price, po.optionCount,
+            c.categoryName, p.productName, p.price, p.brand, po.optionCount,
 			p.discountRate, NVL(p.discountAmount,0) discountAmount, p.deliveryCharge, 
 			p.thumbnail, p.content, p.regDate, ps.totalStock,
 			NVL(rating, 0) rating, NVL(reviewCount, 0) reviewCount,

@@ -51,7 +51,7 @@ function sendOk() {
 	let p = Number(f.payment.value) - usedPoint;  
 	f.payment.value = p;
 	
-	f.orderState.value = 0; // 예시로 주문 상태를 0으로 설정
+	f.orderState.value = 0;
     f.point.value = usedPoint;
     f.optionName.value = "${dto.optionName}";
     f.optionValue.value = "${dto.optionValue}";
@@ -60,7 +60,7 @@ function sendOk() {
 	
 	let payClassify = 0;
 	let cardName = "삼성카드";
-	let authNumber = "12493645998";
+	let authNumber = "${productOrderNumber}";
 	let authDate = "";
 	authDate = new Date().toISOString().replace('T', ' ').slice(0, -5);
 
@@ -68,6 +68,7 @@ function sendOk() {
 	f.cardName.value = cardName;
 	f.authNumber.value = authNumber;
 	f.authDate.value = authDate;
+	
 	
 	f.action = "${pageContext.request.contextPath}/order/paymentOk";
     f.submit();
@@ -149,14 +150,17 @@ $(function(){
 									<input type="hidden" name="productNums" value="${dto.productNum}">
 									<input type="hidden" name="detailNums" value="${empty dto.detailNum ? 0 : dto.detailNum}">
 									<input type="hidden" name="detailNums2" value="${empty dto.detailNum2 ? 0 : dto.detailNum2}">
-									<input type="hidden" name="stockNums" value="${dto.stockNum}">
+									<input type="hidden" name="stockNums" value="${dto.stockNum}"> 
 									<input type="hidden" name="buyAmounts" value="${dto.amount}">
 									<input type="hidden" name="pricePays" value="${dto.pricePay}">
 									<input type="hidden" name="priceOrigs" value="${dto.priceOrig}">
 									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
 									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
-									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
-									<input type="hidden" name="savePoint" value="${dto.totalSavePoint}">
+									<input type="hidden" name="totalSavePoint" value="${dto.totalSavePoint}">
+									<input type="hidden" name="savePoint" value="${dto.savePoint}">
+									<input type="hidden" name="priceDiscount" value="${dto.discountAmount}">
+									
+									
 									
 								</td>
 								<td class="content-qty" width="90">
@@ -221,7 +225,7 @@ $(function(){
 						<div class="destination-tel">
 							<div>
 								<label class="tel-title title-gray">전화번호*</label>
-								<input type="text" name="tel" class="tel">
+								<input type="text" name="tel" class="tel" placeholder="예: 01012345789">
 							</div>
 							
 						</div>
@@ -247,7 +251,7 @@ $(function(){
 						<div class="point-title">포인트</div>
 						<div class="point-content">
 							<div class="point-detail title-gray">포인트</div>
-							<input type="number" class="form-control point-input" name="usedPoint" min="0" max="${empty userPoint ? 0 : userPoint.balance}">
+							<input type="number" class="form-control point-input" name="usedPoint" min="0" max="${empty userPoint ? 0 : userPoint.balance}" value="0">
 							<button type="button" class="input-group-text btn-usedPoint point-btn" data-balance="${empty userPoint ? 0 : userPoint.balance}">전액사용</button>
 							<div class="point-own">(보유 <fmt:formatNumber value="${empty userPoint ? 0 : userPoint.balance}"/>원)</div>
 						</div>
@@ -285,7 +289,7 @@ $(function(){
 					<div class="saving-point">
 						<div class="price-content">
 							<label class=" price-pointSave title-gray">포인트 적립 </label>
-							<label class="">
+							<label >
 								<fmt:formatNumber value="${totalSavePoint}"/>원
 							</label>
 						</div>

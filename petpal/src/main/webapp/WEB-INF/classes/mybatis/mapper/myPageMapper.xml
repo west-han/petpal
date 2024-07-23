@@ -13,7 +13,7 @@
 	</update>
 	
 	<select id="findByCartId" parameterType="map" resultType="com.shop.petpal.domain.Order">
-		SELECT cartNum, amount, regDate memberNum, productNum, stockNum
+		SELECT cartNum, amount, regDate, memberNum, productNum, stockNum
 		FROM cart
 		WHERE memberNum = #{memberNum} AND stockNum = #{stockNum}
 	</select>

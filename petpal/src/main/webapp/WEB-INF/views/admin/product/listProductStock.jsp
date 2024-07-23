@@ -4,6 +4,7 @@
 
 <div>
 	<div class="mt-3">
+	<h1>123213</h1>
 		<div class="p-3 shadow bg-body rounded">
 			<p class="fs-6 fw-semibold mb-0">${productName}</p> 
 		</div>
@@ -24,7 +25,7 @@
 						<th>변 경</th>
 					</tr>
 				</thead>
-				<tbody class="productStcok-list">
+				<tbody class="productStock-list">
 					<c:if test="${list.size() == 0}">
 						<tr>
 							<td colspan="5">등록된 상품이 없습니다.</td>

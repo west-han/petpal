@@ -195,6 +195,7 @@ public class ProductManageController {
 				
 				model.addAttribute("list", list);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			
 			return "admin/product/listProductStock";

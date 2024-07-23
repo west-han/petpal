@@ -9,7 +9,6 @@
         JOIN member2 m2 ON m1.memberNum = m2.memberNum
     </select> 
     
-    
     <select id="findById" parameterType="long" resultType="com.shop.petpal.domain.Member">
         SELECT m1.memberNum, email, regDate, notificationConsent, enabled,
             failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
@@ -41,4 +40,42 @@
             membershipNum = #{membershipNum}
         WHERE memberNum = #{memberNum}
     </update>
+    
+    <sql id="where-list">
+	    <choose>
+	        <when test="schType == 'email'">
+	            INSTR(email, #{kwd}) &gt; 0
+	        </when>
+	        <when test="schType == 'memberNum'">
+	            memberNum = #{kwd}
+	        </when>
+	        <when test="schType == 'userName'">
+	            userName = #{kwd}
+	        </when>
+	    </choose>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member1
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<select id="listMember" parameterType="map" resultType="com.shop.petpal.domain.Member">
+		 SELECT m1.memberNum, email, regDate, notificationConsent, enabled,
+            failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
+            nickname, userName, postalCode, area, membershipNum
+        FROM member1 m1
+        JOIN member2 m2 ON m1.memberNum = m2.memberNum
+        <where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
 </mapper>

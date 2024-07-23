@@ -65,8 +65,135 @@ public class Mypage2 {
 	private String deliveryName; // 택배사 이름
 	private String destMemo; // 택배 메모
 	
+	private long orderDetailNum; // 주문 상세 번호
+    private int amount; // 수량
+    private int priceOrig; // 원래 가격
+    private int priceDiscount; // 할인된 가격
+    private int pricePay; // 지불 가격
+    private int savePoint; // 적립 포인트
+    private long stockNum; // 재고 번호
+    private String optionValue; // 옵션 값
+    private int stateNum; // 상태 번호
+    private String stateMemo; // 상태 메모
+    private String detailStateDate; // 상세 상태 날짜
+    private String deliveryTel; // 택배사 전화번호
+    private String payClassify; // 결제 분류
+    private String cardName; // 카드 이름
+    private String authNumber; // 인증 번호
+    private String authDate; // 인증 날짜
+    private int cancelAmount; // 취소 금액
+    private String candleDate; // 취소 날짜
 	
+    
 	
+	public long getOrderDetailNum() {
+		return orderDetailNum;
+	}
+	public void setOrderDetailNum(long orderDetailNum) {
+		this.orderDetailNum = orderDetailNum;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	public int getPriceOrig() {
+		return priceOrig;
+	}
+	public void setPriceOrig(int priceOrig) {
+		this.priceOrig = priceOrig;
+	}
+	public int getPriceDiscount() {
+		return priceDiscount;
+	}
+	public void setPriceDiscount(int priceDiscount) {
+		this.priceDiscount = priceDiscount;
+	}
+	public int getPricePay() {
+		return pricePay;
+	}
+	public void setPricePay(int pricePay) {
+		this.pricePay = pricePay;
+	}
+	public int getSavePoint() {
+		return savePoint;
+	}
+	public void setSavePoint(int savePoint) {
+		this.savePoint = savePoint;
+	}
+	public long getStockNum() {
+		return stockNum;
+	}
+	public void setStockNum(long stockNum) {
+		this.stockNum = stockNum;
+	}
+	public String getOptionValue() {
+		return optionValue;
+	}
+	public void setOptionValue(String optionValue) {
+		this.optionValue = optionValue;
+	}
+	public int getStateNum() {
+		return stateNum;
+	}
+	public void setStateNum(int stateNum) {
+		this.stateNum = stateNum;
+	}
+	public String getStateMemo() {
+		return stateMemo;
+	}
+	public void setStateMemo(String stateMemo) {
+		this.stateMemo = stateMemo;
+	}
+	public String getDetailStateDate() {
+		return detailStateDate;
+	}
+	public void setDetailStateDate(String detailStateDate) {
+		this.detailStateDate = detailStateDate;
+	}
+	public String getDeliveryTel() {
+		return deliveryTel;
+	}
+	public void setDeliveryTel(String deliveryTel) {
+		this.deliveryTel = deliveryTel;
+	}
+	public String getPayClassify() {
+		return payClassify;
+	}
+	public void setPayClassify(String payClassify) {
+		this.payClassify = payClassify;
+	}
+	public String getCardName() {
+		return cardName;
+	}
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+	public String getAuthNumber() {
+		return authNumber;
+	}
+	public void setAuthNumber(String authNumber) {
+		this.authNumber = authNumber;
+	}
+	public String getAuthDate() {
+		return authDate;
+	}
+	public void setAuthDate(String authDate) {
+		this.authDate = authDate;
+	}
+	public int getCancelAmount() {
+		return cancelAmount;
+	}
+	public void setCancelAmount(int cancelAmount) {
+		this.cancelAmount = cancelAmount;
+	}
+	public String getCandleDate() {
+		return candleDate;
+	}
+	public void setCandleDate(String candleDate) {
+		this.candleDate = candleDate;
+	}
 	public int getTotal_price() {
 		return total_price;
 	}

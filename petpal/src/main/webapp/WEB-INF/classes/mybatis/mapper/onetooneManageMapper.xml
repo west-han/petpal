@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.admin.mapper.OnetooneManageMapper">
+	<select id="listonetoone" resultType="com.shop.petpal.admin.domain.OnetooneManage">
+	select qna.num,qna.subject,qna.content,qna.regdate,qna.anssubject,qna.anscontent,qna.ansregdate,qna.photo,
+        qna.isanswered,qna.membernum,qna.classnum,qna.answernum,ques.className,m1.userName
+	from qna qna
+	join member1 m1 ON m1.memberNum = qna.memberNum
+	join quesClass ques ON ques.classNum = qna.classNum
+	</select>
+	
+<!-- 	<update id="updateOnetoone" parameterType="com.shop.petpal.admin.domain.OnetooneManage">
+		UPDATE qna
+		SET anssubject = #{anssubject}, ansregdate = sysdate,
+	</update> 
+list 출력에 대한 select 문에도 qnaFile 테이블 관련 컬럼 dto 저장 안함
+update 쿼리는 미완
+-->
+	
+
+</mapper>

@@ -10,56 +10,9 @@
             max-width: 1300px;
             margin-left: 80px;
         }
-        .body-title h3 {
-            font-size: 26px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            padding: 30px;
-            border: none;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
-            border-radius: 15px; 
-        }
-        .modal-header {
-            border-bottom: none;
-        }
-        .modal-header .close {
-            font-size: 1.5rem;
-        }
-        .modal-body {
-            padding-top: 10px;
-        }
-        .modal-footer {
-            border-top: none;
-        }
-        .form-group label {
-            font-weight: bold;
-        }
-        .form-control {
-            border-radius: 10px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            border-radius: 20px;
-        }
-        .btn-secondary {
-            border-radius: 20px;
-        }
-        .pagination .btn {
-            border-radius: 20px;
-        }
-        .search .form-control {
-            border-radius: 20px;
-        }
-        .search .btn {
-            border-radius: 20px;
-        }
+        
     </style>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/memberadmin.css">
-
     <script>
         $(document).ready(function() {
             $('.close, .btn-secondary').on('click', function() {
@@ -95,6 +48,11 @@
                 $('#membershipNum').val(data.membershipNum);
             });
         }
+        function searchList() {
+        	const f = document.searchForm;
+        	alert('ok');
+        	f.submit();
+        }
 
         function saveChanges() {
             const member = {
@@ -129,6 +87,7 @@
                     alert("회원 정보 수정에 실패했습니다.");
                 }
             });
+            
         }
     </script>
 </head>
@@ -163,17 +122,19 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <div class="pagination">
-                <button class="btn btn-light"><<</button>
-                <button class="btn btn-light current-page">1</button>
-                <button class="btn btn-light">>></button>
+            <div class="page-box">
+            	${paging}
             </div>
             <div class="search">
-                <select id="searchField" class="form-control d-inline w-auto">
-                    <option value="email">이메일 ▼</option>
-                </select>
-                <input type="text" id="searchQuery" class="form-control d-inline w-auto">
-                <button class="btn btn-primary">검색</button>
+            	<form name="searchForm" action="${pageContext.request.contextPath}/admin/member/list" method="post">
+	                <select id="searchField" class="form-control d-inline w-auto">
+						<option value="email" ${schType=="email"?"selected":""}>이메일</option>
+						<option value="memberNum" ${schType=="memberNum"?"selected":""}>회원번호</option>
+						<option value="userName" ${schType=="userName"?"selected":""}>이름</option>
+					</select>
+					<input type="text" id="searchQuery" name="kwd" value="${kwd}" class="form-control d-inline w-auto">
+	                <button class="btn btn-primary" onclick="searchList()">검색</button>
+            	</form>
             </div>
         </div>
     </div>
@@ -251,9 +212,11 @@
                             <label for="membershipNum">멤버십 번호:</label>
                             <input type="text" class="form-control" id="membershipNum">
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="saveChanges()">저장</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveChanges()">저장</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                 </div>
             </div>
         </div>

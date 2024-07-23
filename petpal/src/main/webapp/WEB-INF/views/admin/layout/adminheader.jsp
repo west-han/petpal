@@ -7,7 +7,7 @@
                 </div>
         
         <div class="logout">
-            <a href="${pageContext.request.contextPath}/logout">
+            <a href="${pageContext.request.contextPath}/member/logout">
                 <i class="fas fa-sign-out-alt"></i> 로그아웃
             </a>
         </div>

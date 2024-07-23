@@ -87,10 +87,12 @@ public class OrderServiceImpl implements OrderService {
 				dto.setPriceOrig(dto.getPriceOrigs().get(i));
 				dto.setPriceDiscount(dto.getPriceDiscounts().get(i));
 				dto.setTotalPrice(dto.getTotalPrices().get(i));
+				dto.setStockNum(dto.getStockNums().get(i));
+				
 				
 				mapper.insertOrderDetail(dto);
 				
-				dto.setStockNum(dto.getStockNums().get(i));
+				
 				mapper.updateProductStock(dto);
 			}	
 			if(dto.getUsedPoint() > 0) {
@@ -203,6 +205,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteCart(Map<String, Object> map) throws Exception {
 		try {
+			System.out.println("deleteCart 호출됨: " + map); // 디버깅 로그
 			myPageMapper.deleteCart(map);
 		} catch (Exception e) {
 			e.printStackTrace();

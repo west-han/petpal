@@ -2,9 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrap.com/bootstrap/5.3.3/css/bootstrap.min.css">
-
 <style type="text/css">
 .body-container {
     max-width: 1300px;
@@ -152,9 +149,6 @@
     </div>
 </div>
 
-<!-- jQuery와 Bootstrap JS -->
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
 
 <!-- 모달 창 띄우기 및 AJAX 요청 코드 -->
 <!-- jQuery center 함수 정의 -->
@@ -197,7 +191,9 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 if (xhr.status === 401) {
-                    alert('AJAX : 로그인이 필요합니다.');
+                    location.href = '${pageContext.request.contextPath}/member/login';
+                	// alert('AJAX : 로그인이 필요합니다.');
+                    
                 } else {
                     alert('답변 등록 중 오류가 발생했습니다.');
                     console.log(data);
