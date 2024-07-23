@@ -11,4 +11,5 @@ import com.shop.petpal.admin.domain.ReviewManage;
 public interface ReviewManageMapper {
 	
 	public List<ReviewManage> listReview(Map<String, Object> map);
+	public void updateReview(ReviewManage reviewmanage);
 }

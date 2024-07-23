@@ -25,6 +25,11 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 		
 		return list;
 	}
+
+	@Override
+	public void saveResponse(ReviewManage reviewManage) {
+		mapper.updateReview(reviewManage);
+	}
 	
 	
 	

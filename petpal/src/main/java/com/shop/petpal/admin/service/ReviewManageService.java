@@ -9,5 +9,5 @@ public interface ReviewManageService {
 
 	public List<ReviewManage> listReview(Map<String, Object> map);
 	
-	
+	public void saveResponse(ReviewManage reviewManage);
 }
