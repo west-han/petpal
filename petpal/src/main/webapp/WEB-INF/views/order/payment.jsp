@@ -51,7 +51,12 @@ function sendOk() {
 	let p = Number(f.payment.value) - usedPoint;  
 	f.payment.value = p;
 	
-
+	f.orderState.value = 0; // 예시로 주문 상태를 0으로 설정
+    f.point.value = usedPoint;
+    f.optionName.value = "${dto.optionName}";
+    f.optionValue.value = "${dto.optionValue}";
+    f.optionName2.value = "${dto.optionName2}";
+    f.optionValue2.value = "${dto.optionValue2}";
 	
 	let payClassify = 0;
 	let cardName = "삼성카드";
@@ -150,7 +155,8 @@ $(function(){
 									<input type="hidden" name="priceOrigs" value="${dto.priceOrig}">
 									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
 									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
-									<input type="hidden" name="point" value="${dto.totalSavePoint}">
+									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
+									<input type="hidden" name="savePoint" value="${dto.totalSavePoint}">
 									
 								</td>
 								<td class="content-qty" width="90">
@@ -192,6 +198,13 @@ $(function(){
 					<input type="hidden" name="authNumber" value="">
 					<input type="hidden" name="authDate" value="">
 					
+					<input type="hidden" name="orderState" value="">
+				    <input type="hidden" name="point" value="">
+				    <input type="hidden" name="optionName" value="">
+				    <input type="hidden" name="optionValue" value="">
+				    <input type="hidden" name="optionName2" value="">
+				    <input type="hidden" name="optionValue2" value="">
+					 
 					<div class="destination-info">
 						<div class="destination-title">배송지 정보</div>
 						<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#addAddressModal"> 배송지 변경 </button>

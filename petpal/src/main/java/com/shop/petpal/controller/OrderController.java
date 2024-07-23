@@ -84,12 +84,10 @@ public class OrderController {
 				
 				for(int i = 0; i < listProduct.size(); i++) {
 					Order dto = listProduct.get(i);
-					
 					dto.setAmount(buyAmounts.get(i));
-					dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice()); // 한 상품의 총 가격(할인가*개수)
+					dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice());
 					
 					totalMoney += buyAmounts.get(i) * dto.getTotalPrice();
-					
 					totalDiscountPrice += dto.getDiscountAmount();
 					if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
 						deliveryCharge = dto.getDeliveryCharge();
@@ -104,6 +102,9 @@ public class OrderController {
 				deliveryCharge = totalMoney >= 20000 ? 0 : deliveryCharge;
 				
 				totalPayment = totalMoney + deliveryCharge;
+				
+				
+				
 				
 				
 				Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
