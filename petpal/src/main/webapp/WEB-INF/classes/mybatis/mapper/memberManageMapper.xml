@@ -6,8 +6,9 @@
             failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
             nickname, userName, postalCode, area, membershipNum
         FROM member1 m1
-        JOIN member2 m2 ON m1.memberNum = m2.memberNum;
-    </select>
+        JOIN member2 m2 ON m1.memberNum = m2.memberNum
+    </select> 
+    
     
     <select id="findById" parameterType="long" resultType="com.shop.petpal.domain.Member">
         SELECT m1.memberNum, email, regDate, notificationConsent, enabled,
@@ -15,17 +16,20 @@
             nickname, userName, postalCode, area, membershipNum
         FROM member1 m1
         JOIN member2 m2 ON m1.memberNum = m2.memberNum
-        WHERE m1.memberNum = #{memberNum};
+        WHERE m1.memberNum = #{memberNum}
     </select>
 
-    <update id="updateMember" parameterType="com.shop.petpal.domain.Member">
+    <update id="updateMember1" parameterType="com.shop.petpal.domain.Member">
         UPDATE member1 SET 
             email = #{email},
-            regDate = #{regDate},
             notificationConsent = #{notificationConsent},
             enabled = #{enabled},
-            failureCount = #{failureCount},
-            lastLogin = #{lastLogin},
+            failureCount = #{failureCount}
+        WHERE memberNum = #{memberNum}
+    </update> 
+
+    <update id="updateMember2" parameterType="com.shop.petpal.domain.Member">
+        UPDATE member2 SET 
             birth = TO_DATE(#{birth}, 'YYYY-MM-DD'),
             address1 = #{address1},
             address2 = #{address2},
@@ -33,11 +37,8 @@
             nickname = #{nickname},
             userName = #{userName},
             postalCode = #{postalCode},
-            area = #{area}
-        WHERE memberNum = #{memberNum};
-
-        UPDATE member2 SET 
+            area = #{area},
             membershipNum = #{membershipNum}
-        WHERE memberNum = #{memberNum};
+        WHERE memberNum = #{memberNum}
     </update>
 </mapper>
