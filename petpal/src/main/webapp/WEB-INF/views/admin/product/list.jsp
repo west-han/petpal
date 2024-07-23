@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
 
 <style type="text/css">
 .body-container {
@@ -32,21 +30,22 @@
 }
 </style>
 
-<!-- jQuery and Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
-
 
 <script type="text/javascript">
 $(document).ready(function() {
     // 종 선택 변경 시
     $("input[name='species']").change(function() {
         updateProductList();
+        updateParentCategories();
+        
+        
+        // 상위 카테고리 바꾸는 함수 호출
     });
 
     // 상위 카테고리 선택 변경 시
     $("#changeCategory").change(function() {
+    	
+    	
         updateSubCategories();
         updateProductList();
     });
@@ -56,6 +55,31 @@ $(document).ready(function() {
         updateProductList();
     });
 
+    function updateParentCategories() {
+        let species = $("input[name='species']:checked").val();
+        let url = "${pageContext.request.contextPath}/admin/product/listCategory";
+        let query = { species: species };
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: query,
+            dataType: "json",
+            success: function(data) {
+                $("select[name='parentCategory']").empty();
+                $("select[name='parentCategory']").append("<option value=''>:: 상위 카테고리 선택 ::</option>");
+                $.each(data.categories, function(index, item) {
+                    let categoryNum = item.CATEGORYNUM;
+                    let categoryName = item.CATEGORYNAME;
+                    $("select[name='parentCategory']").append("<option value='"+categoryNum+"'>"+categoryName+"</option>");
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error:", textStatus, errorThrown);
+            }
+        });
+    }
+    
     function updateSubCategories() {
         let parentCategory = $("#changeCategory").val();
         let url = "${pageContext.request.contextPath}/admin/product/listSubCategory";
@@ -67,6 +91,7 @@ $(document).ready(function() {
             data: query,
             dataType: "json",
             success: function(data) {
+            	console.log(data);
                 $("select[name='categoryNum']").empty();
                 $("select[name='categoryNum']").append("<option value=''>:: 하위 카테고리 선택 ::</option>");
                 $.each(data.subCategories, function(index, item) {

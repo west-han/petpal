@@ -1,7 +1,7 @@
 package com.shop.petpal.admin.domain;
 
 public class ReviewManage {
-	private long orderdetailNum; // 주문상세번호
+	private long orderDetailNum; // 주문상세번호
 	private long memberNum; // 회원번호
 	private long productNum; // 상품번호
 	private long answerNum; // 답변자번호
@@ -14,17 +14,11 @@ public class ReviewManage {
 	
 	private String userName; // 회원이름
 	private String productName; // 상품이름
-	private int qty; // 주문한 수량
+	private int amount; // 주문한 수량
 	
 	
 	
 	
-	public int getQty() {
-		return qty;
-	}
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
 	public String getUserName() {
 		return userName;
 	}
@@ -37,12 +31,7 @@ public class ReviewManage {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public long getOrderdetailNum() {
-		return orderdetailNum;
-	}
-	public void setOrderdetailNum(long orderdetailNum) {
-		this.orderdetailNum = orderdetailNum;
-	}
+	
 	public long getMemberNum() {
 		return memberNum;
 	}
@@ -96,6 +85,18 @@ public class ReviewManage {
 	}
 	public void setShowReview(int showReview) {
 		this.showReview = showReview;
+	}
+	public long getOrderDetailNum() {
+		return orderDetailNum;
+	}
+	public void setOrderDetailNum(long orderDetailNum) {
+		this.orderDetailNum = orderDetailNum;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	
 	
