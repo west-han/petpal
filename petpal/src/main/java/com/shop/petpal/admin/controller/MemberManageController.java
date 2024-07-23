@@ -27,7 +27,7 @@ public class MemberManageController {
         return ".admin.member.list";
     }
 
-    @GetMapping("/admin/member/{memberNum}")
+    @GetMapping("/admin/member/{memberNum}") 
     @ResponseBody
     public ResponseEntity<Member> getMember(@PathVariable(name = "memberNum") Long memberNum) {
         Member member = memberManageService.findById(memberNum);

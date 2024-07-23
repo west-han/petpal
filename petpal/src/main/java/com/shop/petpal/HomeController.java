@@ -26,7 +26,7 @@ import com.shop.petpal.domain.Product;
 public class HomeController {
     @Autowired
     private ProductListService productListService;
-    
+     
     @RequestMapping(value = {"/", "/{species}"}, method = RequestMethod.GET)
     public String home(@PathVariable(name = "species", required = false) Integer species, Model model, HttpSession session) {
         
