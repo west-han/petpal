@@ -2,6 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.petpal.mapper.ProductMapper">
+	<!-- 상품 상세 -->
 	<select id="findById" parameterType="Long" resultType="com.shop.petpal.domain.Product">
 		SELECT p.productNum, p.categoryNum, p.productClass, p.productStatus, p.species, 
             c.categoryName, p.productName, p.price, p.brand, po.optionCount,
@@ -47,22 +48,6 @@
 		WHERE productNum = #{productNum}
 	</select>
 	
-	<select id="listCategory" resultType="com.shop.petpal.domain.Product">
-		SELECT categoryNum, categoryName, parentCategory, sortOrder, species
-		FROM category
-		WHERE species = #{species} AND parentCategory IS NULL
-		ORDER BY sortOrder
-	</select>
-	
-	
-	
-	<select id="listSubCategory" parameterType="Long" resultType="com.shop.petpal.domain.Product">
-		SELECT categoryNum, categoryName, parentCategory, sortOrder, species
-		FROM category
-		WHERE parentCategory = #{parentCategory}
-		ORDER BY sortOrder
-	</select>
-	
 	<select id="listProductOption" parameterType="Long" resultType="com.shop.petpal.domain.Product">
 		SELECT optionNum, optionName, productNum, parentOption
 		FROM productOption
@@ -105,5 +90,210 @@
 		LEFT OUTER JOIN optionDetail od2 ON ps.detailNum2 = od2.detailNum
 		WHERE NVL(ps.totalStock, 0) &gt; 0
 		ORDER BY ps.detailNum1, ps.detailNum2
+	</select>
+	
+	<!-- 상품 목록 -->
+	<select id="listCategory" parameterType="Integer" resultType="map">
+		SELECT categoryNum, categoryName, sortOrder, species
+		FROM category
+		WHERE parentCategory IS NULL
+			AND species = #{species}
+		ORDER BY sortOrder ASC
+	</select>
+	
+	<select id="listSubCategory" parameterType="map" resultType="map">
+		SELECT categoryNum, categoryName, parentCategory, sortOrder, species
+		FROM category
+		WHERE species = #{species}
+			<if test="parentCategory != 0">
+				AND parentCategory = #{parentCategory}
+			</if>
+			<if test="parentCategory == 0">
+				AND parentCategory IS NULL
+			</if>
+    	ORDER BY sortOrder ASC
+	</select>
+	
+	<!-- 신상품 -->
+	<!-- TODO: 서브쿼리 최대한 줄여서 다시 짜기 -->
+	<select id="listRecentProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
+		SELECT p.productNum, productName, productClass, price, discountRate, discountAmount,
+			thumbnail, species, brand, regDate, NVL(COUNT(rating), 0) reviewCount, NVL(AVG(rating), 0) rating
+		FROM (
+		    SELECT *
+		            FROM (SELECT inner.*, ROWNUM rnum
+		                FROM (
+		                    SELECT p.*
+		                    FROM product p
+		                    <if test="categoryNum != null and categoryNum != 0">
+								LEFT OUTER JOIN category c
+		                        	ON p.categoryNum = c.categoryNum
+							</if>
+		                    WHERE TO_CHAR(regDate, 'YYYYMMDD') &gt;= #{baseDate}
+		                    	AND productStatus = 1
+		                        AND p.species = #{species}
+		                        <if test="categoryNum != null and categoryNum != 0">
+									AND c.parentCategory = #{categoryNum}
+								</if>
+		                    ORDER BY regDate DESC
+		                ) inner
+	               WHERE ROWNUM &lt;= #{endNum}
+	           )
+	           WHERE rnum &gt;= #{startNum}
+		    ) p
+		LEFT OUTER JOIN orderDetail od
+		    ON p.productNum = od.productNum
+		LEFT OUTER JOIN review r
+		    ON od.orderDetailNum = r.orderDetailNum
+		GROUP BY (p.productNum, productName, productClass, price, discountRate, discountAmount,
+			thumbnail, species, brand, regDate)
+		ORDER BY regDate DESC
+	</select>
+	
+	<!-- TODO: 리뷰가 없는 상품은 출력하지 않도록 수정 -->
+	<!-- 베스트 상품 -->
+	<select id="listBestProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
+		SELECT productNum, productName, productClass, price, discountRate, discountAmount, 
+                    thumbnail, species, brand, regDate, sales, reviewCount, rating
+		FROM (SELECT outter.*, ROWNUM rnum
+		    FROM (SELECT p.productNum, productName, productClass, price, discountRate, discountAmount, 
+                    thumbnail, p.species, brand, regDate, NVL(sales, 0) sales, 
+                    NVL(reviewCount, 0) reviewCount, NVL(rating, 0) rating
+		        FROM (SELECT od.productNum, NVL(COUNT(*), 0) sales,
+		        		NVL(COUNT(rating), 0) reviewCount, NVL(AVG(rating), 0) rating
+		            FROM orderDetail od
+		            LEFT OUTER JOIN review r
+		                ON od.productNum = r.productNum
+		            GROUP BY od.productNum
+		        ) inner
+		        RIGHT OUTER JOIN product p
+		            ON p.productNum = inner.productNum
+		        <if test="categoryNum != null and categoryNum != 0">
+                LEFT OUTER JOIN category c
+                    ON p.categoryNum = c.categoryNum
+		        </if>
+		        WHERE p.species = #{species}
+		        <if test="categoryNum != null and categoryNum != 0">
+		        AND c.parentCategory = #{categoryNum}
+		        </if>
+		        ORDER BY sales DESC, rating DESC
+		    ) outter WHERE ROWNUM &lt;= #{endNum}
+		) WHERE rnum &gt;= #{startNum}
+		ORDER BY sales DESC, rating DESC
+	</select>
+	
+	<select id="listAttribute" parameterType="map" resultType="map">
+        SELECT  a.attributeNum, attributeName, categoryNum, attrDtlNum, attrDtlName
+		FROM attribute a
+		JOIN attributeDetail d
+			ON a.attributeNum = d.attributeNum
+		WHERE categoryNum = #{parentCategory}
+		ORDER BY attributeNum, attrDtlNum
+	</select>
+	
+	<!-- NOTE: categoryNum, parentCategory, species, sortBy, order, attributes, minPrice, maxPrice, minRating -->
+	<select id="listCategorizedProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
+		SELECT p.productNum, p.productName, p.productClass, p.price, p.discountRate,
+				p.deliveryCharge, p.thumbnail, p.productStatus, p.regDate,
+				p.modifyDate, p.species, p.brand, p.discountAmount,
+				NVL(r.reviewCount, 0) reviewCount, NVL(r.rating, 0) rating, NVL(od.sales, 0) sales
+		FROM (
+			SELECT *
+			FROM product
+			WHERE productStatus = 1 AND species = #{species}
+		) p
+		LEFT JOIN (
+		    SELECT productNum, 
+		           COUNT(orderDetailNum) reviewCount, 
+		           AVG(rating) rating
+		    FROM review
+		    GROUP BY productNum
+		) r ON p.productNum = r.productNum
+		LEFT JOIN (
+		    SELECT productNum, 
+		           COUNT(orderDetailNum) sales
+		    FROM orderDetail
+		    GROUP BY productNum
+		) od ON p.productNum = od.productNum
+		<where> p.categoryNum IN (
+		        SELECT categoryNum 
+		        FROM category 
+		        <if test="categoryNum != 0">
+		        	WHERE categoryNum = #{categoryNum}
+		        </if>
+		        <if test="categoryNum == 0 and parentCategory != 0">
+		        	WHERE parentCategory = #{parentCategory}
+		        </if>
+		    )
+		  <if test="minPrice != null">
+			AND p.price &gt;= #{minPrice}
+		  </if>
+		  <if test="maxPrice != null">
+		  	AND p.price &lt;= #{maxPrice}
+		  </if>
+		  <if test="minRating != null">
+		  	AND NVL(r.rating, 0) &gt;= #{minRating}
+		  </if>
+		  <if test="attributes != null">
+			AND EXISTS (
+			      SELECT 1 
+			      FROM productAttribute pa 
+			      WHERE pa.productNum = p.productNum 
+			        AND pa.attrDtlNum IN 
+			            <foreach collection="attributes" item="attr" open="(" close=")" separator=",">#{attr}</foreach>
+			  )
+		  </if>
+		  <if test="kwd != null">
+		  	AND INSTR(REPLACE(TRIM(p.productName), ' ', ''), #{kwd}) != 0
+		  </if>
+		</where>
+		<if test="sortBy != null">
+			ORDER BY ${sortBy} ${order}
+		</if>
+		OFFSET #{offset} ROWS FETCH FIRST #{pageSize} ROWS ONLY
+	</select>
+	
+	<!-- NOTE: 데이터 개수 가져오는 쿼리 - 원본 쿼리에서 불필요한 JOIN 연산 제거 -->
+	<!-- TODO: 나중에 검색 키워드 저장할 컬럼 추가 -->
+	<!-- TODO: 속성값 AND 조건으로 변경 -->
+	<select id="countCategorizedProducts" parameterType="map" resultType="Integer">
+	    SELECT NVL(COUNT(*), 0) count
+	    FROM product p
+	    <where>
+	        p.productStatus = 1 AND p.species = #{species}
+	        AND p.categoryNum IN (
+	            SELECT categoryNum 
+	            FROM category 
+	            <if test="categoryNum != 0">
+	                WHERE categoryNum = #{categoryNum}
+	            </if>
+	            <if test="categoryNum == 0 and parentCategory != 0">
+	                WHERE parentCategory = #{parentCategory}
+	            </if>
+	        )
+	        <if test="minPrice != null">
+	            AND p.price &gt;= #{minPrice}
+	        </if>
+	        <if test="maxPrice != null">
+	            AND p.price &lt;= #{maxPrice}
+	        </if>
+	        <if test="minRating != null">
+	            AND (SELECT NVL(AVG(rating), 0) 
+	                 FROM review 
+	                 WHERE productNum = p.productNum) &gt;= #{minRating}
+	        </if>
+	        <if test="attributes != null">
+	            AND EXISTS (
+	                SELECT 1 
+	                FROM productAttribute pa 
+	                WHERE pa.productNum = p.productNum 
+	                  AND pa.attrDtlNum IN 
+	                      <foreach collection="attributes" item="attr" open="(" close=")" separator=",">#{attr}</foreach>
+	            )
+	        </if>
+	        <if test="kwd != null">
+	        	AND INSTR(REPLACE(TRIM(p.productName), ' ', ''), #{kwd}) != 0
+	        </if>
+	    </where>
 	</select>
 </mapper>

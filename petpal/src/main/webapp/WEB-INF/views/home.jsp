@@ -195,7 +195,7 @@
                     <img src="${pageContext.request.contextPath}/resources/images/new.png" alt="">
                     <p>신상품</p>
                 </div>
-                <span><a href="${pageContext.request.contextPath}/products/recent/${species}/0">더보기 ></a></span>
+                <span><a href="${pageContext.request.contextPath}/product/recent/${species}/0">더보기 ></a></span>
             </div>
             <div class="product">
                 <c:forEach var="dto" items="${newList}" varStatus="status">
@@ -225,11 +225,11 @@
                     <img src="${pageContext.request.contextPath}/resources/images/best.png" alt="">
                     <p>베스트</p>
                 </div>
-                <span><a href="${pageContext.request.contextPath}/products/best/${species}/0">더보기 ></a></span>
+                <span><a href="${pageContext.request.contextPath}/product/best/${species}/0">더보기 ></a></span>
             </div>
             <div class="product">
                 <c:forEach var="dto" items="${bestList}" varStatus="status">
-                    <a href="${pageContext.request.contextPath}/products/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
+                    <a href="${pageContext.request.contextPath}/product/${sessionScope.species}/${dto.productNum}" class="item" style="background-image: url('${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}');">
                         <div class="p-2">
                             <div class="text-truncate fw-semibold pb-1">
                                 ${dto.productName}

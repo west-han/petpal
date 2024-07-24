@@ -38,7 +38,7 @@
             
             <div class="display-box list-h">
             	<c:forEach items="${products}" var="product">
-	                <div class="product-box" onClick="location.href='${pageContext.request.contextPath}/product/'">
+	                <div class="product-box" onClick="location.href='${pageContext.request.contextPath}/product/${sessionScope.species}/${product.productNum}'">
 	                    <div class="product-img-box">
 	                        <img src="${pageContext.request.contextPath}/uploads/product/${product.thumbnail}" alt="이미지">
 	                    </div>
