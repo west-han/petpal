@@ -254,12 +254,12 @@
 		    p.discountRate,
 		    p.thumbnail,
 		    po.payment,
-            po.usedPoint,
-            po.orderState
+		    po.usedPoint,
+		    po.orderState
 		FROM
 		    OrderDetail od
 		    JOIN ProductStock ps ON od.stockNum = ps.stockNum
-		    JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
+		    LEFT JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
 		    JOIN ProductOrder po ON od.orderNum = po.orderNum
 		    LEFT JOIN OrderDelivery odi ON po.orderNum = odi.orderNum
 		    LEFT JOIN DetailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
@@ -269,6 +269,9 @@
 		    JOIN Product p ON ps.productNum = p.productNum
 		WHERE
 		    po.memberNum = #{memberNum}
+		ORDER BY
+      	po.orderDate desc, po.orderNum, od.orderDetailNum
+
 	</select>
 	
 	

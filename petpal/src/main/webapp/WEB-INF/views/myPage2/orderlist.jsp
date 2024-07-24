@@ -23,6 +23,7 @@ h2 {
 
 a {
 	text-decoration: none;
+	color: inherit;
 }
 
 .review-item {
@@ -43,13 +44,6 @@ a {
 	width: 100%;
 	height: 40px;
 	margin-bottom: 10px;
-}
-.category-header {
-	list-style-type: none;
-	text-align: center;
-	padding: 10px 0;
-	font-weight: bold;
-	font-size: 1.2em;
 }
 </style>
 </head>
@@ -77,68 +71,53 @@ a {
 
 			<div class="col-md-9 ms-5">
 				<h2>주문 내역</h2>
-					<c:set var="currentOrderNum" value="" />
-					<c:forEach var="dto" items="${list}">
-					    <c:if test="${currentOrderNum != dto.orderNum}">
-					        <c:set var="currentOrderNum" value="${dto.orderNum}" />
-					        <div class="card mb-3">
-					            <div class="card-header d-flex justify-content-between">
-					                <span class="align-middle">주문 번호: ${dto.orderNum}</span>
-					                <a class="btn btn-link" href="${pageContext.request.contextPath}/myPage2/orderDetail?orderNum=${dto.orderNum}">
-					                    주문 상세
-					                </a>
-					            </div>
-					            <div class="card-body">
-					                <c:forEach var="item" items="${list}">
-					                    <c:if test="${item.orderNum == currentOrderNum}">
-					                        <div class="row">
-					                            <div class="col-md-9">
-					                                <p class="card-text">
-					                                    <strong>주문 날짜:</strong> ${item.orderDate}
-					                                </p>
-					                                <p class="card-text">
-					                                    <strong>배송 상태:</strong> 
-					                                    ${item.orderStateMemo}
-					                                </p>
-					                                <h5 class="card-title">${item.productName}</h5>
-					                                <div class="review-item">
-					                                    <img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="주문한 사진">
-					                                </div>
-					                                <p class="card-text">
-					                                    <strong>가격:</strong> ${item.priceDiscount}원
-					                                </p>
-					                                <p class="card-text">
-					                                    <strong>구매한 갯수:</strong> ${item.amount}
-					                                </p>
-					                            </div>
-					                            <div class="col-md-3 button-column">
-					                                <button class="btn btn-primary mt-3">배송 조회</button>
-					                                <button class="btn btn-secondary">교환/반품 신청</button>
-					                                
-					                          		<c:choose>
-					                                	<c:when test="${item.detailState == 0 || item.detailState == 2}">
-					                                		<form action="${pageContext.request.contextPath}/myPage2/updateDetailState" method="post">
-					                                    		<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
-					                                    		<input type="hidden" name="savePoint" value="${item.savePoint}">
-					                                    		<button type="submit" class="btn btn-success" onclick="return realBuy();">구매확정</button>
-					                                    	</form>
-					                                	</c:when>
-					                                	<c:when test="${item.detailState == 1}">
-					                                		<button class="btn btn-success" onclick="checkReview('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
-					                                	</c:when>
-					                                	<c:otherwise>
-					                                		<!-- 오류는 아무것도 표시하지 않음 -->
-					                                	</c:otherwise>
-					                                </c:choose>
-							
-					                            </div>
-					                        </div>
-					                    </c:if>
-					                </c:forEach>
-					            </div>
-					        </div>
-					    </c:if>
-					</c:forEach>
+				<c:set var="prevOrderNum" value="" />
+				<c:forEach var="dto" items="${list}">
+					<c:if test="${prevOrderNum != dto.orderNum}">
+						<c:set var="prevOrderNum" value="${dto.orderNum}" />
+						<div class="card mb-3">
+							<div class="card-header d-flex justify-content-between">
+								<span class="align-middle">주문 번호: ${dto.orderNum}</span>
+								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage2/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
+							</div>
+							<div class="card-body">
+								<c:forEach var="item" items="${list}">
+									<c:if test="${item.orderNum == dto.orderNum}">
+										<div class="row mb-2">
+											<div class="col-md-9">
+												<p class="card-text"><strong>주문 날짜:</strong> ${item.orderDate}</p>
+												<p class="card-text"><strong>배송 상태:</strong> ${item.orderStateMemo}</p>
+												<h5 class="card-title">${item.productName}</h5>
+												<div class="review-item">
+													<img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="주문한 사진">
+												</div>
+												<p class="card-text"><strong>가격:</strong> ${item.priceDiscount}원</p>
+												<p class="card-text"><strong>구매한 갯수:</strong> ${item.amount}</p>
+												<p class="card-text"><strong>옵션:</strong> ${item.optionValue}</p>
+											</div>
+											<div class="col-md-3 button-column">
+												<button class="btn btn-primary mt-3">배송 조회</button>
+												<button class="btn btn-secondary">교환/반품 신청</button>
+												<c:choose>
+													<c:when test="${item.detailState == 0 || item.detailState == 2}">
+														<form action="${pageContext.request.contextPath}/myPage2/updateDetailState" method="post">
+															<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
+															<input type="hidden" name="savePoint" value="${item.savePoint}">
+															<button type="submit" class="btn btn-success" onclick="return realBuy();">구매확정</button>
+														</form>
+													</c:when>
+													<c:when test="${item.detailState == 1}">
+														<button class="btn btn-success" onclick="checkReview('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
+													</c:when>
+												</c:choose>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -170,7 +149,7 @@ a {
 	            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
 	          </div>
 	          <div class="mb-3">
-	            <label for="reviewFiles" class="form-label">파일 업로드</label>
+	            <label for="selectFiles" class="form-label">파일 업로드</label>
 	            <input class="form-control" type="file" id="selectFiles" name="selectFiles" multiple>
 	          </div>
 	          <button type="submit" class="btn btn-primary">리뷰 저장</button>
