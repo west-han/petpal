@@ -13,7 +13,7 @@
 	
 	<update id="updateReview" parameterType="com.shop.petpal.admin.domain.ReviewManage">
         UPDATE review 
-        SET answer = #{answer}, answerDate = sysdate, answerNum = #{answerNum}, answerContent= #{answerContent}
+        SET answer = #{answer}, answerDate = sysdate, answerNum = #{answerNum}
         WHERE orderDetailNum = #{orderDetailNum}
     </update>
 	
