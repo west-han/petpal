@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.mapper.reviewMapper">
+	<select id="listReview2" parameterType="map" resultType="com.shop.petpal.domain.Review">
+    	SELECT r.orderDetailNum, r.memberNum, m2.nickName, r.rating, r.content, r.answer, r.productNum, f.reviewFilename, 
+			TO_CHAR(reviewDate, 'YYYY-MM-DD') reviewDate, 
+			TO_CHAR(answerDate, 'YYYY-MM-DD') answerDate
+		FROM review r
+		JOIN member1 m ON r.memberNum = m.memberNum 
+        JOIN member2 m2 ON m.memberNum = m2.memberNum
+		LEFT OUTER JOIN (
+			SELECT orderDetailNum, LISTAGG(reviewFileName, ',') WITHIN GROUP(ORDER BY reviewFileNum) reviewFileName
+            FROM reviewFile
+            GROUP BY orderDetailNum	
+		) f ON r.orderDetailNum = f.orderDetailNum
+		WHERE r.productNum = ${productNum} AND showReview = 1
+		<choose>
+			<when test="sortNo==2">
+				ORDER BY rating DESC, reviewDate DESC
+			</when>
+			<when test="sortNo==3">
+				ORDER BY rating ASC, reviewDate DESC
+			</when>
+			<otherwise>
+				ORDER BY reviewDate DESC
+			</otherwise>
+		</choose>
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY;
+    </select>
+    
+    <select id="findByReviewSummary" parameterType="map" resultType="com.shop.petpal.domain.Summary">
+		SELECT NVL(COUNT(*), 0) count,
+			   ROUND(NVL(AVG(rating), 0), 1) ave,
+			   COUNT(DECODE(rating, 1, 1)) rating1, 
+			   COUNT(DECODE(rating, 2, 1)) rating2, 
+			   COUNT(DECODE(rating, 3, 1)) rating3, 
+			   COUNT(DECODE(rating, 4, 1)) rating4, 
+			   COUNT(DECODE(rating, 5, 1)) rating5 
+		FROM review
+		WHERE productNum = #{productNum} AND showReview = 1;
+    </select>
+</mapper>

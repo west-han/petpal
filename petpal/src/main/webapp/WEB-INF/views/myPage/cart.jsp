@@ -162,10 +162,12 @@ function updateCart(stockNum, amount) {
 							<tr valign="middle">
 								<th width="30">&nbsp;</th>
 								<th width="35">
-									<input type="checkbox" class="form-check-input cart-chkAll" name="chkAll">
+									<input type="checkbox" class="form-check-input cart-chkAll" 
+										name="chkAll">
 								</th>
 								<th width="120">
-									<button type="button" class="btn cart-deleteCheck" onclick="deleteSelect();">선택삭제</button>	
+									<button type="button" class="btn cart-deleteCheck" 
+										onclick="deleteSelect();">선택삭제</button>	
 								</th>
 								<th width="400">
 									상품정보
@@ -189,11 +191,13 @@ function updateCart(stockNum, amount) {
 										<tr valign="middle">
 											<td width="30">&nbsp;</td>
 											<td class="content-check" width="35">
-												<input type="checkbox" class="form-check-input" name="nums" value="${dto.stockNum}" 
+												<input type="checkbox" class="form-check-input" 
+													name="nums" value="${dto.stockNum}" 
 														data-totalStock="${dto.totalStock}" ${dto.totalStock == 0 ? "disabled":""} >
 											</td>
 											<td class="content-img" width="120">
-												<img width="65" height="65" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
+												<img width="65" height="65" 
+													src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
 											</td>
 											<td class="content-info" width="400">
 												<p class="product-title">${dto.productName}</p>
@@ -206,8 +210,10 @@ function updateCart(stockNum, amount) {
 													</c:if>
 												</p>
 												
-												<input type="hidden" name="productNums" value="${dto.productNum}">
-												<input type="hidden" name="stockNums" value="${dto.stockNum}">
+												<input type="hidden" name="productNums" 
+													value="${dto.productNum}">
+												<input type="hidden" name="stockNums" 
+													value="${dto.stockNum}">
 												
 											</td>
 											<td class="content-qty" width="240">
@@ -238,7 +244,7 @@ function updateCart(stockNum, amount) {
 					 
 					<div class="buttons">
 						<input type="hidden" name="mode" value="cart">
-						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/';"> 쇼핑 계속하기 </button>
+						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/${sessionScope.species}';"> 쇼핑 계속하기 </button>
 						<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
 					</div>
 					

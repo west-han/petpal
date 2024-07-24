@@ -63,7 +63,7 @@ window.addEventListener('load', function() {
 					            <a href="${pageContext.request.contextPath}/myPage2/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
 					            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림"></a>
 					            <a href="${pageContext.request.contextPath}/myPage2/orderlist"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
-					            <a href="${pageContext.request.contextPath}/myPage/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
+					            <a href="${pageContext.request.contextPath}/myPage/${sessionScope.species}/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
 					        </c:otherwise>
 					    </c:choose>
 					</div>
