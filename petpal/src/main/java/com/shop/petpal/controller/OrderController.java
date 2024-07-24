@@ -100,6 +100,9 @@ public class OrderController {
 				    
 					totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
 					totalDiscountPrice += dto.getDiscountAmount();
+					
+					dto.setPriceDiscount(buyAmounts.get(i) * dto.getDiscountAmount());
+					
 					if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
 						deliveryCharge = dto.getDeliveryCharge();
 					}
@@ -121,7 +124,6 @@ public class OrderController {
 				model.addAttribute("productOrderNumber", productOrderNumber);
 				model.addAttribute("orderUser", orderUser);
 				model.addAttribute("productOrderName", productOrderName);
-				
 				model.addAttribute("listProduct", listProduct);
 				model.addAttribute("totalMoney", totalMoney);
 				model.addAttribute("totalPayment", totalPayment);
@@ -143,7 +145,6 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		
-		
 		return "redirect:/";
 	}
 	
@@ -158,7 +159,7 @@ public class OrderController {
 		try {
 			dto.setMemberNum(info.getMemberNum());
 			dto.setEmail(info.getEmail());
-			
+			dto.setDestMemo(dto.getNote());
 			
 			orderService.insertOrder(dto);
 			
