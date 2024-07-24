@@ -57,7 +57,8 @@
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT COUNT(*)
-		FROM member1
+		FROM member1 m1
+		LEFT OUTER JOIN member2 m2 ON m1.memberNum = m2.memberNum
 		<where>
 			<if test="kwd != null and kwd != '' ">
 				<include refid="where-list"/>
@@ -70,12 +71,14 @@
             failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
             nickname, userName, postalCode, area, membershipNum
         FROM member1 m1
-        JOIN member2 m2 ON m1.memberNum = m2.memberNum
+        LEFT OUTER JOIN member2 m2 ON m1.memberNum = m2.memberNum
         <where>
 			<if test="kwd != null and kwd != '' ">
 				<include refid="where-list"/>
 			</if>
 		</where>
+		ORDER BY memberNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 </mapper>
