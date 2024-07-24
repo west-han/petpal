@@ -38,7 +38,7 @@
                     <a href="${pageContext.request.contextPath}/admin/review/list" class="sub_menu--link" data-path="/review/list">리뷰 관리</a>
                 </li>
                 <li class="sub_menu--item">
-                    <a href="${pageContext.request.contextPath}/admin/inquiry/list" class="sub_menu--link" data-path="/inquiry/list">문의 관리</a>
+                    <a href="${pageContext.request.contextPath}/admin/onetoone/list" class="sub_menu--link" data-path="/inquiry/list">문의 관리</a>
                 </li>
             </ul>
         </li>
