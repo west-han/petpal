@@ -9,5 +9,5 @@ import com.shop.petpal.admin.domain.OnetooneManage;
 public interface OnetooneManageService {
 	public List<OnetooneManage> listOnetoone(Map<String, Object> map);
 	
-	
+	public void saveResponse(OnetooneManage onetooneManage);
 }

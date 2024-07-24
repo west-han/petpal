@@ -27,4 +27,9 @@ public class OnetooneServiceImpl implements OnetooneManageService{
 		return list;
 	}
 
+	@Override
+	public void saveResponse(OnetooneManage onetooneManage) {
+		mapper.updateOnetoone(onetooneManage);
+	}
+
 }

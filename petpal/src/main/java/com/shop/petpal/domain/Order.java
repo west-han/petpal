@@ -57,6 +57,7 @@ public class Order {
 	private List<Integer> priceOrigs;
 	private List<Integer> priceDiscounts;
 	private List<Integer> totalPrices;
+	private List<Integer> savePoints;
 	
 	private Long cartNum;
 	
@@ -431,6 +432,12 @@ public class Order {
 	}
 	public void setSavePoint(int savePoint) {
 		this.savePoint = savePoint;
+	}
+	public List<Integer> getSavePoints() {
+		return savePoints;
+	}
+	public void setSavePoints(List<Integer> savePoints) {
+		this.savePoints = savePoints;
 	}
 	
 	

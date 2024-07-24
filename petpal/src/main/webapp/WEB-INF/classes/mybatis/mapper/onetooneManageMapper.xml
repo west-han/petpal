@@ -11,13 +11,13 @@
 	join quesClass ques ON ques.classNum = qna.classNum
 	</select>
 	
-<!-- 	<update id="updateOnetoone" parameterType="com.shop.petpal.admin.domain.OnetooneManage">
+ 	<update id="updateOnetoone" parameterType="com.shop.petpal.admin.domain.OnetooneManage">
 		UPDATE qna
-		SET anssubject = #{anssubject}, ansregdate = sysdate,
+		SET ansSubject = #{ansSubject}, ansRegDate = sysdate,ansContent = #{ansContent}, answerNum = #{answerNum},isanswered=1 
+		WHERE num = #{num}
 	</update> 
-list 출력에 대한 select 문에도 qnaFile 테이블 관련 컬럼 dto 저장 안함
-update 쿼리는 미완
--->
+
+
 	
 
 </mapper>

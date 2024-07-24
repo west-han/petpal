@@ -4,6 +4,7 @@ public class OnetooneManage {
 	// 1대1 문의 DTO
 	private long num; // 글번호
 	private String subject; // 제목
+	private String content; // 내용
 	private String regDate; // 등록날짜
 	private String ansSubject; // 답변제목
 	private String ansContent; // 답변내용
@@ -18,17 +19,23 @@ public class OnetooneManage {
 	private String className; // 문의유형
 	
 	
+	// QnaFile 테이블
+	private long qnaFileNum;
+	private String qnaFileName;
+	
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public String getClassName() {
 		return className;
 	}
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	// QnaFile 테이블
-	private long qnaFileNum;
-	private String qnaFileName;
-	
-	
 	public int getIsanswered() {
 		return isanswered;
 	}
