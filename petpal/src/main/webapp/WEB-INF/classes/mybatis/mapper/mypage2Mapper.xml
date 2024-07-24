@@ -352,4 +352,31 @@
 		INSERT INTO ReviewFile(reviewFileNum,reviewFileName,orderDetailNum)
 		VALUES(reviewfile_seq.nextval,#{reviewFileName},#{orderDetailNum})
 	</insert>
+	
+	<!-- 사용자가 작성한 리뷰가 있는지 -->
+	<select id="findByReview" parameterType="com.shop.petpal.domain.Mypage2" resultType="com.shop.petpal.domain.Mypage2">
+	    SELECT *
+	    FROM Review
+	    WHERE memberNum = #{memberNum} and orderDetailNum = #{orderDetailNum}
+	</select>
+	
+	
+	<!-- myreview -->
+	<!-- 내가 쓴 리뷰 리스트 -->
+	<select id="selectReviewList" parameterType="long">
+		SELECT r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+			LISTAGG(rf.reviewFileName, ', ') WITHIN GROUP (ORDER BY rf.reviewFileName) AS reviewFileName,p.productNum,
+			p.species,p.thumbnail,p.productName
+		FROM 
+    	review r
+		LEFT JOIN 
+        ReviewFile rf ON r.orderDetailNum = rf.orderDetailNum
+   	 	LEFT JOIN
+        Product p ON r.productNum = p.productNum
+		WHERE r.memberNum = #{memberNum}
+		GROUP BY r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+		p.productNum,p.species,p.thumbnail,p.productName
+	</select>
+	
+	
 </mapper>

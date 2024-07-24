@@ -51,6 +51,8 @@ public class MyPageController2 {
 		try {
 			List<Mypage2> list = service.selectOrderList(info.getMemberNum());
 			
+			
+			
 			model.addAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +62,27 @@ public class MyPageController2 {
 		return ".myPage2.orderlist";
 	}
 	
-	
+	@GetMapping("findByReview")
+	@ResponseBody
+	public Map<String, Object> findByReview(@RequestParam(name = "orderDetailNum") long orderDetailNum,
+	                                        @RequestParam(name = "productNum") long productNum,
+	                                        HttpSession session) throws Exception {
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    if (info == null) {
+	        throw new Exception("로그인이 필요합니다.");
+	    }
+
+	    Map<String, Object> result = new HashMap<>();
+	    Mypage2 dto = new Mypage2();
+	    dto.setOrderDetailNum(orderDetailNum);
+	    dto.setProductNum(productNum);
+	    dto.setMemberNum(info.getMemberNum());
+
+	    boolean hasReview = service.hasReview(dto);
+	    result.put("hasReview", hasReview);
+
+	    return result;
+	}
 	@PostMapping("updateDetailState")
 	public String updateDetailState(HttpSession session, Mypage2 dto) throws Exception{
 		// TODO 구매확정
@@ -456,8 +478,16 @@ public class MyPageController2 {
 	}
 
 	@GetMapping("myreview")
-	public String myreviewForm() throws Exception {
+	public String myreviewForm(HttpSession session, Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
+	    if (info == null) {
+	        return "redirect:/member/login";
+	    }
+		
+		List<Mypage2> reviews = service.selectReviewList(info.getMemberNum());
+        model.addAttribute("reviews", reviews);
+		
 		return ".myPage2.myreview";
 	}
 	

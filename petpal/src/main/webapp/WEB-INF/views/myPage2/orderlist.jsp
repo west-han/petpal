@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>주문 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<link href="https://stackpath.bootstrapcnd.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcnd.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
 <style>
 body {
 	background-color: #f8f9fa;
@@ -24,7 +23,6 @@ h2 {
 
 a {
 	text-decoration: none;
-	color: inherit;
 }
 
 .review-item {
@@ -45,6 +43,13 @@ a {
 	width: 100%;
 	height: 40px;
 	margin-bottom: 10px;
+}
+.category-header {
+	list-style-type: none;
+	text-align: center;
+	padding: 10px 0;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 </style>
 </head>
@@ -98,7 +103,6 @@ a {
 					                                <h5 class="card-title">${item.productName}</h5>
 					                                <div class="review-item">
 					                                    <img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="주문한 사진">
-					                                    
 					                                </div>
 					                                <p class="card-text">
 					                                    <strong>가격:</strong> ${item.priceDiscount}원
@@ -120,10 +124,10 @@ a {
 					                                    	</form>
 					                                	</c:when>
 					                                	<c:when test="${item.detailState == 1}">
-					                                		<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reviewModal" onclick="openReviewModal('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
+					                                		<button class="btn btn-success" onclick="checkReview('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
 					                                	</c:when>
 					                                	<c:otherwise>
-					                                		
+					                                		<!-- 오류는 아무것도 표시하지 않음 -->
 					                                	</c:otherwise>
 					                                </c:choose>
 							
@@ -164,7 +168,6 @@ a {
 	          <div class="mb-3">
 	            <label for="content" class="form-label">내용</label>
 	            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
-	            
 	          </div>
 	          <div class="mb-3">
 	            <label for="reviewFiles" class="form-label">파일 업로드</label>
@@ -185,11 +188,32 @@ a {
 		return true;
 	}
 
+	function checkReview(orderDetailNum, productNum) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/myPage2/findByReview',
+			type: 'GET',
+			data: {
+				orderDetailNum: orderDetailNum,
+				productNum: productNum
+			},
+			success: function(response) {
+				if(response.hasReview) {
+					alert('작성한 리뷰가 있습니다.');
+				} else {
+					openReviewModal(orderDetailNum, productNum);
+				}
+			},
+			error: function() {
+				alert('리뷰 확인 중 오류가 발생했습니다.');
+			}
+		});
+	}
+
 	function openReviewModal(orderDetailNum, productNum) {
 		document.getElementById('reviewOrderDetailNum').value = orderDetailNum;
 		document.getElementById('reviewProductNum').value = productNum;
-		console.log(orderDetailNum)
-		console.log(productNum)
+		var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+		reviewModal.show();
 	}
 	</script>
 </body>

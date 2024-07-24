@@ -93,9 +93,54 @@ public class Mypage2 {
 	private int rating; // 평점
 	private String content; // 내용
 	private String reviewFileName; // 리뷰 사진
+	private List<String> reviewFileNameList; // 리뷰 사진 리스트 //내가 쓴 리뷰 리스트 전용
+	private String reviewDate; // 리뷰 작성 시간
+	private String answer; //답변 내용
+	private String answerDate; // 답변 시간
+	private int showReview; // 답변 숨김 여부
 	
 	
 	
+	public List<String> getReviewFileNameList() {
+		return reviewFileNameList;
+	}
+
+	public void setReviewFileNameList(List<String> reviewFileNameList) {
+		this.reviewFileNameList = reviewFileNameList;
+	}
+
+	public String getReviewDate() {
+		return reviewDate;
+	}
+
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public String getAnswerDate() {
+		return answerDate;
+	}
+
+	public void setAnswerDate(String answerDate) {
+		this.answerDate = answerDate;
+	}
+
+	public int getShowReview() {
+		return showReview;
+	}
+
+	public void setShowReview(int showReview) {
+		this.showReview = showReview;
+	}
+
 	public List<MultipartFile> getSelectFiles() {
 		return selectFiles;
 	}

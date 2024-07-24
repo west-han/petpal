@@ -2,6 +2,7 @@ package com.shop.petpal.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -417,6 +418,7 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	@Override
 	public void insertReview(Mypage2 dto, String pathname) throws Exception {
 	    try {
+	    	mapper.insertReview(dto);
 	        List<MultipartFile> files = dto.getSelectFiles();
 	        if (files != null && !files.isEmpty()) {
 	            for (MultipartFile file : files) {
@@ -430,7 +432,7 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	            }
 	        }
 	        
-	        mapper.insertReview(dto);
+	        
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        throw e;
@@ -440,7 +442,32 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	    }
 	}
 
-	
+	public boolean hasReview(Mypage2 dto) throws Exception {
+        try {
+            Mypage2 review = mapper.findByReview(dto);
+            return review != null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
-	
+	@Override
+	public List<Mypage2> selectReviewList(long memberNum) throws Exception {
+		List<Mypage2> list = null;
+		try {
+			list = mapper.selectReviewList(memberNum);
+			for (Mypage2 review : list) {
+	            if (review.getReviewFileName() != null) {
+	                review.setReviewFileNameList(Arrays.asList(review.getReviewFileName().split(", ")));
+	            }
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return list;
+		
+	}
 }
