@@ -34,10 +34,10 @@
 <div class="container">
     <div class="body-container">
         <div class="body-title">
-            <h3><i class="bi bi-chat-right-text"></i> 리뷰관리 </h3>
+            <h3><i class="bi bi-chat-right-text"></i> 1대1 문의관리 </h3>
         </div>
         
-        <div id="couponlistContainer">
+        <div id="onetoonelistContainer">
             <table class="table table-border table-list">
                 <thead>
                     <tr class="border-top border-dark table-light text-center">
@@ -55,9 +55,6 @@
                         <tr valign="middle" class="text-center">
                             <th>${dto.num}</th>
                             <th>${dto.className}</th>
-                        <!--    
-                        <th><a href="#" class="review-link" data-order="${dto.orderDetailNum}" data-name="${dto.productName}" data-content="${dto.content}">${dto.productName}</a></th>
-                        -->
                             <th>${dto.userName}</th>
                             <th>${dto.subject}</th>
                             <th>${dto.regDate}</th>
@@ -71,7 +68,7 @@
                                     </c:when>
                                 </c:choose>
                             </th>
-                            <th>${dto.answerDate}</th>
+                            <th>${dto.ansRegDate}</th>
                             
                         </tr>                   
                     </c:forEach>
