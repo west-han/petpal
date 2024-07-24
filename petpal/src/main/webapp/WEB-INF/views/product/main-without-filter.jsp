@@ -29,14 +29,17 @@
             </h2>
             <div class="category-box">
                 <ul class="list-h category-list">
-                	<li><a href="${pageContext.request.contextPath}/products/recent/${sessionScope.species}/0">전체</a></li>
+                	<li><a href="${pageContext.request.contextPath}/product/recent/${sessionScope.species}/0">전체</a></li>
                     <c:forEach items="${categories}" var="category">
-                    	<li><a href="${pageContext.request.contextPath}/products/recent/${sessionScope.species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
+                    	<li><a href="${pageContext.request.contextPath}/product/recent/${sessionScope.species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
                     </c:forEach>
                 </ul>
             </div>
             
             <div class="display-box list-h">
+            	<c:if test="${empty products}">
+            		<div style="margin: 0 auto; font-size: large;">등록된 상품이 없습니다.</div>
+            	</c:if>
             	<c:forEach items="${products}" var="product">
 	                <div class="product-box" onClick="location.href='${pageContext.request.contextPath}/product/${sessionScope.species}/${product.productNum}'">
 	                    <div class="product-img-box">
