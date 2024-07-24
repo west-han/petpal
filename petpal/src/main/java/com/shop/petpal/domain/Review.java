@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Review {
-	private long num;
+	private long orderDetailNum;
 	private long memberNum;
 	private String nickName;
 	private int rating;
@@ -26,11 +26,11 @@ public class Review {
 	private String optionValue;
 	private String optionValue2;
 	
-	public long getNum() {
-		return num;
+	public long getOrderDetailNum() {
+		return orderDetailNum;
 	}
-	public void setNum(long num) {
-		this.num = num;
+	public void setOrderDetailNum(long orderDetailNum) {
+		this.orderDetailNum = orderDetailNum;
 	}
 	public long getMemberNum() {
 		return memberNum;
