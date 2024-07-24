@@ -67,18 +67,36 @@
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.shop.petpal.domain.Member">
-		 SELECT m1.memberNum, email, regDate, notificationConsent, enabled,
+		 SELECT m1.memberNum, email, m1.regDate, notificationConsent, enabled,
             failureCount, lastLogin, TO_CHAR(birth, 'YYYY-MM-DD') birth, address1, address2, tel,
-            nickname, userName, postalCode, area, membershipNum
+            nickname, userName, postalCode, area, membershipNum,nvl(balance,0) balance
         FROM member1 m1
         LEFT OUTER JOIN member2 m2 ON m1.memberNum = m2.memberNum
+        LEFT OUTER JOIN (
+        	SELECT * FROM (
+            	SELECT pointNum, regDate, classify, point, balance, memberNum, 
+			    	RANK() OVER( PARTITION BY memberNum ORDER BY pointNum DESC) rank
+				FROM userPoint
+			) WHERE rank = 1
+		) op ON m1. memberNum = op.memberNum
         <where>
 			<if test="kwd != null and kwd != '' ">
 				<include refid="where-list"/>
 			</if>
 		</where>
-		ORDER BY memberNum DESC
+		ORDER BY m1.memberNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<insert id="updatePoints" parameterType="com.shop.petpal.domain.UserPoint">
+		INSERT INTO userPoint(pointNum, memberNum, regDate, classify, point, balance)
+		VALUES(userPoint_seq.NEXTVAL, #{memberNum}, SYSDATE, #{classify}, #{point},
+			NVL((SELECT balance FROM userPoint
+					WHERE memberNum = #{memberNum}
+					ORDER BY pointNum DESC
+					FETCH FIRST 1 ROWS ONLY ), 0) + #{point}
+		)
+    </insert>
+    
 	
 </mapper>

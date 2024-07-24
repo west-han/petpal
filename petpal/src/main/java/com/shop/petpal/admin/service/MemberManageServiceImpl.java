@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.shop.petpal.admin.mapper.MemberManageMapper;
 import com.shop.petpal.domain.Member;
+import com.shop.petpal.domain.UserPoint;
 
 @Service
 public class MemberManageServiceImpl implements MemberManageService {
@@ -81,5 +82,20 @@ public class MemberManageServiceImpl implements MemberManageService {
 		
 		return list;
 	}
+	// 포인트 관련 메서드 구현
+    @Override
+    public void updatePoints(Long memberNum, int point) {
+        try {
+        	UserPoint up = new UserPoint();
+        	up.setMemberNum(memberNum);
+        	up.setPoint(point);
+        	up.setClassify(1);
+        	
+            memberManageMapper.updatePoints(up);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }
 
