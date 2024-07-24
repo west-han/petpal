@@ -131,7 +131,7 @@
 				                        	${product.discountRate}
 				                        </span>
 				                        <strong class="text-discountedPrice">
-				                        	${product.price}
+				                        	${product.price - product.discountAmount}
 				                        </strong>
 			                        </p>
 		                        </c:if>
