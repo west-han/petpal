@@ -41,15 +41,6 @@ h2 {
 				<h5 class="card-title">주문 정보</h5>
 				<p class="card-text"><strong>주문 번호:</strong> ${orderDetails[0].orderNum}</p>
 				<p class="card-text"><strong>주문 날짜:</strong> ${orderDetails[0].orderDate}</p>
-				<p class="card-text"><strong>배송 상태:</strong>
-					<c:choose>
-						<c:when test="${orderDetails[0].detailState == 0}">결제완료</c:when>
-						<c:when test="${orderDetails[0].detailState == 1}">배송중</c:when>
-						<c:when test="${orderDetails[0].detailState == 2}">배송완료</c:when>
-						<c:when test="${orderDetails[0].detailState == 3}">구매확정</c:when>
-						<c:otherwise>알 수 없음</c:otherwise>
-					</c:choose>
-				</p>
 			</div>
 		</div>
 
@@ -62,6 +53,7 @@ h2 {
 		                <p class="card-text"><strong>옵션:</strong> ${dto.optionValue}</p>
 		                <p class="card-text"><strong>가격:</strong> ${dto.priceDiscount}원</p>
 		                <p class="card-text"><strong>수량:</strong> ${dto.amount}</p>
+		                
 		            </div>
 		        </div>
 		    </div>

@@ -60,6 +60,48 @@ public class MyPageController2 {
 		return ".myPage2.orderlist";
 	}
 	
+	
+	@PostMapping("updateDetailState")
+	public String updateDetailState(HttpSession session, Mypage2 dto) throws Exception{
+		// TODO 구매확정
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		long memberNum = info.getMemberNum();
+		
+		try {
+			dto.setMemberNum(memberNum);
+			service.updateDetailState(dto); // update와 포인트insert 총 2개 사용중
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/myPage2/orderlist";
+	}
+	
+	@PostMapping("writeReview")
+	public String insertReview(HttpSession session, Mypage2 dto) throws Exception{
+		// TODO 리뷰작성
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String root = session.getServletContext().getRealPath("/");
+        String path = root + "uploads" + File.separator + "reviewPhoto";
+        
+		
+		if(info == null) {
+        	return "redirect:/member/login";
+        }
+		
+		dto.setMemberNum(info.getMemberNum());
+		try {
+			service.insertReview(dto, path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/myPage2/orderlist";
+	}
+	
 	@GetMapping("orderDetail")
     public String getOrderDetail(@RequestParam("orderNum") String orderNum, Model model,
     		HttpSession session) throws Exception {
