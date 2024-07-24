@@ -99,7 +99,7 @@ $(function() {
 		
 		let optionNum2 = $(".requiredOption2").attr("data-optionNum2");
 		
-		let url = "${pageContext.request.contextPath}/product/listOptionDetailStock";
+		let url = "${pageContext.request.contextPath}/product/${sessionScope.species}/listOptionDetailStock";
 		$.get(url, {productNum:productNum, detailNum:detailNum}, function(data) {
 			$(data).each(function(index, item) {
 				let detailNum = item.detailNum2;
@@ -304,14 +304,14 @@ function sendOk(mode) {
 	
 	if(mode === "buy") {
 		f.method = "get";
-		f.action = "${pageContext.request.contextPath}/order/payment";
+		f.action = "${pageContext.request.contextPath}/order/${sessionScope.species}/payment";
 	} else {
 		if(! confirm("장바구니에 추가하시겠습니까? ")) {
 			return false;
 		}
 		
 		f.method = "post";
-		f.action = "${pageContext.request.contextPath}/myPage/insertCart";		
+		f.action = "${pageContext.request.contextPath}/myPage/${sessionScope.species}/insertCart";		
 	}
 	
 	f.submit();

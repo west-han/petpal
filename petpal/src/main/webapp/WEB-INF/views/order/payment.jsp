@@ -67,7 +67,7 @@ function sendOk() {
 	f.authDate.value = authDate;
 	
 	
-	f.action = "${pageContext.request.contextPath}/order/paymentOk";
+	f.action = "${pageContext.request.contextPath}/order/${sessionScope.species}/paymentOk";
     f.submit();
 }
 

@@ -50,7 +50,7 @@ function sendOk() {
 		}
 	});
 	
-	f.action = "${pageContext.request.contextPath}/order/payment";
+	f.action = "${pageContext.request.contextPath}/order/${sessionScope.species}/payment";
 	f.submit();
 }
 
@@ -66,12 +66,12 @@ function deleteSelect() {
 	}
 	
 	const f = document.cartForm;
-	f.action = "${pageContext.request.contextPath}/myPage/deleteSelectCart";
+	f.action = "${pageContext.request.contextPath}/myPage/${sessionScope.species}/deleteSelectCart";
 	f.submit();
 }
 
 function deleteOne(stockNum) {
-	location.href = '${pageContext.request.contextPath}/myPage/deleteOne?stockNum=' + stockNum;	
+	location.href = '${pageContext.request.contextPath}/myPage/${sessionScope.species}/deleteOne?stockNum=' + stockNum;	
 }
 
 
@@ -132,7 +132,7 @@ $(function() {
 
 function updateCart(stockNum, amount) {
     $.ajax({
-        url: '${pageContext.request.contextPath}/myPage/updateCart',
+        url: '${pageContext.request.contextPath}/myPage/${sessionScope.species}/updateCart',
         type: 'POST',
         data: {
             stockNum: stockNum,
@@ -238,7 +238,7 @@ function updateCart(stockNum, amount) {
 					 
 					<div class="buttons">
 						<input type="hidden" name="mode" value="cart">
-						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/main/main';"> 쇼핑 계속하기 </button>
+						<button type="button" class="btn go-main" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/';"> 쇼핑 계속하기 </button>
 						<button type="button" class="btn select-buy-btn" style="width: 200px;" onclick="sendOk();"> 선택상품 구매하기 </button>
 					</div>
 					

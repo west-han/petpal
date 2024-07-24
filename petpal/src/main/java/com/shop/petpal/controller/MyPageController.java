@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +25,9 @@ import com.shop.petpal.service.MyPageService;
 public class MyPageController {
 	@Autowired MyPageService service;
 	
-	@GetMapping("cart")
-	public String cartList(HttpSession session, Model model) throws Exception {
+	@GetMapping("{species}/cart")
+	public String cartList(@PathVariable(name = "species") Integer species,
+			HttpSession session, Model model) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		if(info != null) {
@@ -62,8 +64,10 @@ public class MyPageController {
 		return ".myPage.cart";
 	}
 	
-	@PostMapping("insertCart")
-	public String insertCart(Order dto, HttpSession session) throws Exception {
+	@PostMapping("{species}/insertCart")
+	public String insertCart(@PathVariable(name = "species") Integer species,
+			Order dto, 
+			HttpSession session) throws Exception {
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
@@ -77,12 +81,13 @@ public class MyPageController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/myPage/cart";
+		return "redirect:/myPage/{species}/cart";
 	}
 	
-	@PostMapping("deleteSelectCart")
-	public String deleteSelectCart(@RequestParam List<Long> nums,
-				HttpSession session) throws Exception {
+	@PostMapping("{species}/deleteSelectCart")
+	public String deleteSelectCart(@PathVariable(name = "species") Integer species,
+			@RequestParam List<Long> nums,
+			HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		try {
@@ -96,13 +101,14 @@ public class MyPageController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/myPage/cart";
+		return "redirect:/myPage/{species}/cart";
 	}
 	
 	
-	@GetMapping("deleteOne")
-	public String deleteCartOne(@RequestParam long stockNum,
-					HttpSession session) throws Exception {
+	@GetMapping("{species}/deleteOne")
+	public String deleteCartOne(@PathVariable(name = "species") Integer species,
+			@RequestParam long stockNum,
+			HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		try {
@@ -116,15 +122,16 @@ public class MyPageController {
 		}
 		
 		
-		return "redirect:/myPage/cart";
+		return "redirect:/myPage/{species}/cart";
 	}
 	
 	
-	@PostMapping("updateCart")
+	@PostMapping("{species}/updateCart")
 	@ResponseBody
-	public String updateCart(@RequestParam("stockNum") long stockNum,
-	                         @RequestParam("amount") int amount,
-	                         HttpSession session) throws Exception {
+	public String updateCart(@PathVariable(name = "species") Integer species,
+			@RequestParam("stockNum") long stockNum,
+	        @RequestParam("amount") int amount,
+	        HttpSession session) throws Exception {
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			

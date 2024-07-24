@@ -368,25 +368,22 @@ public class ProductController {
 	
 	
 	// ---------------- 상품 상세 페이지 ------------------
-	@GetMapping("listOptionDetailStock")
+	@GetMapping("{species}/listOptionDetailStock")
 	@ResponseBody
-	public List<Product> listOptionDetailStock(@RequestParam Map<String, Object> paramMap) {
+	public List<Product> listOptionDetailStock(@PathVariable(name = "species") Integer species,
+			@RequestParam(name = "paramMap") Map<String, Object> paramMap) {
 		List<Product> list = service.listOptionDetailStock(paramMap);
 		
 		return list;
 	}
 	
 	@GetMapping("{species}/{product}")
-	public String buyDetail(@PathVariable Integer species,
-			@PathVariable String product,
+	public String buyDetail(@PathVariable(name = "species") Integer species,
+			@PathVariable(name = "product") String product,
 			Model model, HttpSession session) throws Exception {
 		
 		try {
 			List<Map<String, Object>> categories = service.listCategory(species);
-			
-			if (species == null) {
-				species = 1;
-			}
 			
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
@@ -426,7 +423,6 @@ public class ProductController {
 			}
 			
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("species", species);
 			
 			List<Product> listStock = null;
 			if(dto.getOptionCount() < 2) {
@@ -452,7 +448,6 @@ public class ProductController {
 			
 			dto.setFileName(dto.getThumbnail());
 			listProductFile.add(0, dto);
-			
 			
 			model.addAttribute("dto", dto);
 			model.addAttribute("listProductFile", listProductFile);
