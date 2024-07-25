@@ -73,6 +73,13 @@ ul.inline-list li {
     margin-right: 10px;
 }
 </style>
+
+<script type="text/javascript">
+	function searchList() {
+		const f = document.searchForm2;
+		f.submit();
+	}
+</script>
 </head>
 <body>
     <div class="container mt-5">
@@ -98,6 +105,14 @@ ul.inline-list li {
             
             <div class="col-md-9 ms-5">
                 <h2>리뷰 관리</h2>
+                <form action="${pageContext.request.contextPath}/myPage2/myreview" method="get" name="searchForm2">
+					<div class="input-group mb-3">
+  						<input type="date" class="form-control" name="startDate" value="${startDate}"  placeholder="start">
+  						<button type="button" class="input-group-text" onclick="searchList();">검색</button>
+ 						<input type="date" class="form-control" name="endDate" value="${endDate}" placeholder="end">
+					</div>
+				</form>
+                
                 <c:forEach var="review" items="${reviews}">
                     <div class="review-item">
                         <c:if test="${not empty review.thumbnail}">
@@ -145,6 +160,8 @@ ul.inline-list li {
                         </div>
                     </div>
                 </c:forEach>
+                <div class="page-navigation">${dataCount == 0 ? "내가 쓴 리뷰가 없습니다." : paging}
+						</div>
             </div>
         </div>
     </div>

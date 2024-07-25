@@ -402,7 +402,7 @@
         Product p ON r.productNum = p.productNum
 		WHERE r.memberNum = #{memberNum}
 		<if test="startDate != null and endDate != null">
-			AND regDate BETWEEN #{startDate} AND #{endDate}
+			AND r.reviewDate BETWEEN #{startDate} AND #{endDate}
 		</if>
 		GROUP BY r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
 		p.productNum,p.species,p.thumbnail,p.productName

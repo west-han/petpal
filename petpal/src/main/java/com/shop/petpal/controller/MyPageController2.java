@@ -478,16 +478,70 @@ public class MyPageController2 {
 	}
 
 	@GetMapping("myreview")
-	public String myreviewForm(HttpSession session, Model model) throws Exception {
+	public String myreviewForm(@RequestParam(value = "page", defaultValue = "1") int current_page,
+            @RequestParam(defaultValue = "") String startDate,
+            @RequestParam(defaultValue = "") String endDate,
+            HttpServletRequest req,
+            HttpSession session, Model model) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+		
+		
 	    if (info == null) {
 	        return "redirect:/member/login";
 	    }
+	    
+	    long memberNum = info.getMemberNum();
+	    String cp = req.getContextPath();
 		
-		List<Mypage2> reviews = service.selectReviewList(info.getMemberNum());
+	    int size = 3;
+        int total_page;
+        int dataCount;
+        
+	    
+        dataCount = service.reviewDataCount(memberNum);
+        total_page = myUtil.pageCount(dataCount, size);
+        if (total_page < current_page) {
+            current_page = total_page;
+        }
+        int offset = (current_page - 1) * size;
+        if (offset < 0) offset = 0;
+        
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberNum", memberNum);
+        map.put("offset", offset);
+        map.put("size", size);
+	    
+        if (!startDate.isEmpty() && !endDate.isEmpty()) {
+            map.put("startDate", startDate);
+            map.put("endDate", endDate);
+        }
+        
+		// List<Mypage2> reviews = service.selectReviewList(info.getMemberNum());
+        
+        List<Mypage2> reviews = service.myReviewListPaged(map);
+        
+        
+        String query = "";
+        String listUrl = cp + "/myPage2/myreview";
+        
+        if (!startDate.isEmpty() && !endDate.isEmpty()) {
+            query = "startDate=" + URLEncoder.encode(startDate, "utf-8") + "&endDate=" + URLEncoder.encode(endDate, "utf-8");
+            listUrl = cp + "/myPage2/myreview?" + query;
+           
+        }
+        
+        String paging = myUtil.paging(current_page, total_page, listUrl);
+        
+        
         model.addAttribute("reviews", reviews);
-		
+        model.addAttribute("page", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("size", size);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("paging", paging);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        
 		return ".myPage2.myreview";
 	}
 	
