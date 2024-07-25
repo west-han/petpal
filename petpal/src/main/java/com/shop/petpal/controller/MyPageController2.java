@@ -189,14 +189,14 @@ public class MyPageController2 {
         long memberNum = info.getMemberNum(); // SessionInfo 객체에서 memberNum 가져오기
         String cp = req.getContextPath();
 
-        int size = 2;
+        int size = 10;
         int total_page;
         int dataCount;
         int totalPoint = 0;
         
         dataCount = service.pointDataCount(memberNum);
         total_page = myUtil.pageCount(dataCount, size);
-        service.myTotalPoint(memberNum);
+        totalPoint = service.myTotalPoint(memberNum);
         if (total_page < current_page) {
             current_page = total_page;
         }
@@ -217,12 +217,12 @@ public class MyPageController2 {
         List<Mypage2> list = service.myPointListPaged(map);
 
         String query = "";
-        String listUrl = cp + "/mypoint";
+        String listUrl = cp + "/myPage2/mypoint";
        
 
         if (!startDate.isEmpty() && !endDate.isEmpty()) {
             query = "startDate=" + URLEncoder.encode(startDate, "utf-8") + "&endDate=" + URLEncoder.encode(endDate, "utf-8");
-            listUrl = cp + "/mypoint?" + query;
+            listUrl = cp + "/myPage2/mypoint?" + query;
            
         }
 

@@ -72,16 +72,16 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	}
 
 	@Override
-	public void myTotalPoint(long memberNum) throws Exception {
-		
+	public int myTotalPoint(long memberNum) throws Exception {
+		int totalPoint = 0;
 		
 		try {
-			mapper.myTotalPoint(memberNum);
+			totalPoint = mapper.myTotalPoint(memberNum);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		
+		return totalPoint;
 	}
 
 	@Override

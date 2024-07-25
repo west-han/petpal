@@ -113,7 +113,7 @@ a {
 									<th>적립일</th>
 									<th>구분</th>
 									<th>적립금</th>
-									<th>소멸일</th>
+									
 								</tr>
 							</thead>
 							<tbody class="tbody text-center">
@@ -148,17 +148,17 @@ a {
                     							+ ${dto.point }
                 							</c:when>
 											<c:when test="${dto.classify == 2}">
-                    							- ${dto.point }
+                    							${dto.point }
                 							</c:when>
 											<c:when test="${dto.classify == 3}">
-                    							- ${dto.point }
+                    							${dto.point }
                 							</c:when>
 											<c:otherwise>
                     							오류
                 							</c:otherwise>
                 							</c:choose>
 										</td>
-										<td>2025.07.01</td>
+										
 									</tr>
 								</c:forEach>
 

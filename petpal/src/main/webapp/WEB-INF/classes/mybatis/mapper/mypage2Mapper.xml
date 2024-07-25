@@ -24,7 +24,7 @@
 	<!-- 포인트 리스트 날짜 검색 -->
 	<select id="myPointListPaged" parameterType="map"
 		resultType="com.shop.petpal.domain.Mypage2">
-		SELECT memberNum, TO_CHAR(regDate,'YYYY-MM-DD')regDate, classify, point, balance
+		SELECT memberNum, TO_CHAR(regDate,'YYYY-MM-DD hh24:mi:ss')regDate, classify, point, balance
 		FROM userPoint
 		WHERE memberNum = #{memberNum}
 		<if test="startDate != null and endDate != null">
@@ -35,14 +35,12 @@
 	</select>
 	
 	<!-- 포인트 총 금액 -->
-	<select id="myTotalPoint" parameterType="long" resultType="com.shop.petpal.domain.Mypage2">
+	<select id="myTotalPoint" parameterType="long" resultType="int">
 		SELECT BALANCE
 		FROM userPoint
-		WHERE regDate = (
-    	SELECT MAX(regDate)
-    	FROM userPoint
-		)
-		AND memberNum = #{memberNum}
+		WHERE memberNum = #{memberNum}
+    	ORDER BY TO_CHAR(regDate,'YYYY-MM-DD hh24:mi:ss') DESC
+        FETCH FIRST 1 ROWS ONLY
 	</select>
 
 
