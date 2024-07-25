@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shop.petpal.admin.service.MemberManageService;
 import com.shop.petpal.common.MyUtil;
 import com.shop.petpal.domain.Member;
+import com.shop.petpal.domain.UserPoint;
 
 @Controller
 public class MemberManageController {
@@ -48,6 +49,19 @@ public class MemberManageController {
     public ResponseEntity<Void> updateMember(@PathVariable(name = "memberNum") Long memberNum, @RequestBody Member member) {
         member.setMemberNum(memberNum);
         memberManageService.updateMember(member);
+        return ResponseEntity.ok().build();
+    }
+    
+    @PutMapping("/admin/member/points/{memberNum}")
+    @ResponseBody
+    public ResponseEntity<Void> updatePoints(@PathVariable(name = "memberNum") Long memberNum, @RequestBody UserPoint pointsData) {
+        
+    	try {
+    		memberManageService.updatePoints(memberNum, pointsData.getPoint());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
         return ResponseEntity.ok().build();
     }
     

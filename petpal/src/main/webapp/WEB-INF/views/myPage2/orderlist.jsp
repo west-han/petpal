@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>주문 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
 <style>
 body {
 	background-color: #f8f9fa;
@@ -72,60 +71,129 @@ a {
 
 			<div class="col-md-9 ms-5">
 				<h2>주문 내역</h2>
-					<c:set var="currentOrderNum" value="" />
-					<c:forEach var="dto" items="${list}">
-					    <c:if test="${currentOrderNum != dto.orderNum}">
-					        <c:set var="currentOrderNum" value="${dto.orderNum}" />
-					        <div class="card mb-3">
-					            <div class="card-header d-flex justify-content-between">
-					                <span class="align-middle">주문 번호: ${dto.orderNum}</span>
-					                <a class="btn btn-link" href="${pageContext.request.contextPath}/myPage2/orderDetail?orderNum=${dto.orderNum}">
-					                    주문 상세
-					                </a>
-					            </div>
-					            <div class="card-body">
-					                <c:forEach var="item" items="${list}">
-					                    <c:if test="${item.orderNum == currentOrderNum}">
-					                        <div class="row">
-					                            <div class="col-md-9">
-					                                <p class="card-text">
-					                                    <strong>주문 날짜:</strong> ${item.orderDate}
-					                                </p>
-					                                <p class="card-text">
-					                                    <strong>배송 상태:</strong> 
-					                                    <c:choose>
-					                                    	<c:when test="${item.orderState == 0}">결제완료</c:when>
-					                                    	<c:when test="${item.orderState == 1}">배송중</c:when>
-					                                    	<c:when test="${item.orderState == 2}">배송완료</c:when>
-					                                    	<c:when test="${item.orderState == 3}">구매확정</c:when>
-					                                    	<c:otherwise>알 수 없음</c:otherwise>
-					                                    </c:choose>
-					                                </p>
-					                                <h5 class="card-title">${item.productName}</h5>
-					                                <div class="review-item">
-					                                    <img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="주문한 사진">
-					                                </div>
-					                                <p class="card-text">
-					                                    <strong>가격:</strong> ${item.priceDiscount}원
-					                                </p>
-					                                <p class="card-text">
-					                                    <strong>구매한 갯수:</strong> ${item.amount}
-					                                </p>
-					                            </div>
-					                            <div class="col-md-3 button-column">
-					                                <button class="btn btn-primary mt-3">배송 조회</button>
-					                                <button class="btn btn-secondary">교환/반품 신청</button>
-					                                <button class="btn btn-success">리뷰 작성</button>
-					                            </div>
-					                        </div>
-					                    </c:if>
-					                </c:forEach>
-					            </div>
-					        </div>
-					    </c:if>
-					</c:forEach>
+				<c:set var="prevOrderNum" value="" />
+				<c:forEach var="dto" items="${list}">
+					<c:if test="${prevOrderNum != dto.orderNum}">
+						<c:set var="prevOrderNum" value="${dto.orderNum}" />
+						<div class="card mb-3">
+							<div class="card-header d-flex justify-content-between">
+								<span class="align-middle">주문 번호: ${dto.orderNum}</span>
+								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage2/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
+							</div>
+							<div class="card-body">
+								<c:forEach var="item" items="${list}">
+									<c:if test="${item.orderNum == dto.orderNum}">
+										<div class="row mb-2">
+											<div class="col-md-9">
+												<p class="card-text"><strong>주문 날짜:</strong> ${item.orderDate}</p>
+												<p class="card-text"><strong>배송 상태:</strong> ${item.orderStateMemo}</p>
+												<h5 class="card-title">${item.productName}</h5>
+												<div class="review-item">
+													<img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="주문한 사진">
+												</div>
+												<p class="card-text"><strong>가격:</strong> ${item.priceDiscount}원</p>
+												<p class="card-text"><strong>구매한 갯수:</strong> ${item.amount}</p>
+												<p class="card-text"><strong>옵션:</strong> ${item.optionValue}</p>
+											</div>
+											<div class="col-md-3 button-column">
+												<button class="btn btn-primary mt-3">배송 조회</button>
+												<button class="btn btn-secondary">교환/반품 신청</button>
+												<c:choose>
+													<c:when test="${item.detailState == 0 || item.detailState == 2}">
+														<form action="${pageContext.request.contextPath}/myPage2/updateDetailState" method="post">
+															<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
+															<input type="hidden" name="savePoint" value="${item.savePoint}">
+															<button type="submit" class="btn btn-success" onclick="return realBuy();">구매확정</button>
+														</form>
+													</c:when>
+													<c:when test="${item.detailState == 1}">
+														<button class="btn btn-success" onclick="checkReview('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
+													</c:when>
+												</c:choose>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
+
+	<!-- 리뷰 작성 모달 -->
+	<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="reviewModalLabel">리뷰 작성</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="${pageContext.request.contextPath}/myPage2/writeReview" method="post" enctype="multipart/form-data">
+	          <input type="hidden" name="orderDetailNum" id="reviewOrderDetailNum">
+	          <input type="hidden" name="productNum" id="reviewProductNum">
+	          <div class="mb-3">
+	            <label for="rating" class="form-label">평점</label>
+	            <select class="form-select" id="rating" name="rating" required>
+	              <option value="1">1</option>
+	              <option value="2">2</option>
+	              <option value="3">3</option>
+	              <option value="4">4</option>
+	              <option value="5">5</option>
+	            </select>
+	          </div>
+	          <div class="mb-3">
+	            <label for="content" class="form-label">내용</label>
+	            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+	          </div>
+	          <div class="mb-3">
+	            <label for="selectFiles" class="form-label">파일 업로드</label>
+	            <input class="form-control" type="file" id="selectFiles" name="selectFiles" multiple>
+	          </div>
+	          <button type="submit" class="btn btn-primary">리뷰 저장</button>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<script type="text/javascript">
+	function realBuy() {
+		if(!confirm('주문 확정 하시겠습니까')){
+	        return false;
+	    }
+		return true;
+	}
+
+	function checkReview(orderDetailNum, productNum) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/myPage2/findByReview',
+			type: 'GET',
+			data: {
+				orderDetailNum: orderDetailNum,
+				productNum: productNum
+			},
+			success: function(response) {
+				if(response.hasReview) {
+					alert('작성한 리뷰가 있습니다.');
+				} else {
+					openReviewModal(orderDetailNum, productNum);
+				}
+			},
+			error: function() {
+				alert('리뷰 확인 중 오류가 발생했습니다.');
+			}
+		});
+	}
+
+	function openReviewModal(orderDetailNum, productNum) {
+		document.getElementById('reviewOrderDetailNum').value = orderDetailNum;
+		document.getElementById('reviewProductNum').value = productNum;
+		var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+		reviewModal.show();
+	}
+	</script>
 </body>
 </html>

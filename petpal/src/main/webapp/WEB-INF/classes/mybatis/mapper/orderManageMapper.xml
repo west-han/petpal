@@ -198,7 +198,7 @@
 	
 	<insert id="insertUserPoint" parameterType="com.shop.petpal.domain.UserPoint">
 		INSERT INTO userPoint(pointNum, memberNum, regDate, classify, point, balance)
-			VALUES(userPoint_seq.NEXTVA, #{memberNum}, SYSDATE, #{classify}, #{point},
+			VALUES(userPoint_seq.NEXTVAL, #{memberNum}, SYSDATE, #{classify}, #{point},
 				NVL((SELECT balance FROM userPoint
 						WHERE memberNum = #{memberNum}
 						ORDER BY pointNum DESC

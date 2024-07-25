@@ -17,11 +17,11 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public List<Review> listReview2(Map<String, Object> map) {
+	public List<Review> listReview(Map<String, Object> map) {
 		List<Review> list = null;
 		
 		try {
-			list = mapper.listReview2(map);
+			list = mapper.listReview(map);
 			
 			
 			for(Review dto : list) {

@@ -9,19 +9,27 @@ function login() {
 
 
 function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	console.log("AJAX 요청 시작loved: ", url); // 디버깅 로그 추가
+    console.log("Methodloved: ", method); // 디버깅 로그 추가
+    console.log("Dataloved: ", formData); // 디버깅 로그 추가
+    
 	const settings = {
 			type: method,
 			data: formData,
 			dataType: dataType,
 			success: function(data) {
+				console.log("AJAX 성공 응답: ", data); // 디버깅 로그 추가
 				fn(data);
 			},
 			beforeSend: function(jqXHR) {
 				jqXHR.setRequestHeader('AJAX', true);
+				console.log("AJAX 요청 전송 중...loved"); // 디버깅 로그 추가
 			},
 			complete: function() {
+				console.log("AJAX 요청 완료loved"); // 디버깅 로그 추가
 			},
 			error: function(jqXHR) {
+				console.error("AJAX 요청 오류loved: ", jqXHR); // 디버깅 로그 추가
 				if(jqXHR.status === 403) {
 					login();
 					return false;
@@ -473,6 +481,7 @@ function sendOk(mode) {
 									</div>
 									<div>
 										<input type="hidden" name="mode" value="buy">
+										<input type="hidden" name="productNum" value="${dto.productNum}">
 										<c:choose>
 											<c:when test="${dto.totalStock < 1}">
 												<button type="button" class="btn btn-buySend"
@@ -498,7 +507,7 @@ function sendOk(mode) {
 						<li class="nav-item"><a class="nav-link tab-active"
 							href="#scrolld">상세정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="#scrollr">구매후기
-								<span class="title-reviewCount">(2)</span>
+								<span class="title-reviewCount">(${dto.reviewCount})</span>
 						</a></li>
 						<li class="nav-item"><a class="nav-link" href="#scrollq">문의하기
 								<span class="title-qnaCount">(3)</span>
@@ -543,19 +552,19 @@ function sendOk(mode) {
 
 						<div class="review" id="scrollr">
 							<div class="mt-3 fw-bold review-title">
-								<p>구매후기(2)</p>
+								<p class="title-reviewCount">구매후기(${dto.reviewCount})</p>
 							</div>
 
 							<div class="star-sort ms-3">
 								<div class="col pt-3 pb-3 star-box">
 									<div class="score-star review-score-star">
 										<c:forEach var="n" begin="1" end="5">
-											<c:set var="score" value="" />
-											<span class="item fs-2 on"> <i class="bi bi-star-fill"></i></span>
+											<c:set var="score" value="${dto.rating + ((dto.rating%1 >= 0.5) ? (1 - dto.rating % 1)%1 : -(dto.rating % 1))}" />
+											<span class="item fs-2 ${dto.rating >= n ? 'on' : ''}"> <i class="bi bi-star-fill"></i></span>
 										</c:forEach>
 									</div>
 									<div class="fs-2 ms-4 fw-bold">
-										<label class="review-score">4.5</label>
+										<label class="review-score">${dto.rating} / 5</label>
 									</div>
 								</div>
 								<div class="reviewSort-area">
@@ -569,47 +578,8 @@ function sendOk(mode) {
 								</div>
 							</div>
 
-							<div class="review-con">
-								<div class="review-content border-top">
-									<div class="review-top ms-3">
-										<div class="review-top-left">
-											<label> <c:forEach var="n" begin="1" end="5">
-													<i class="bi bi-star-fill"></i>
-												</c:forEach>
-											</label> <label> 캔따개 </label>
-										</div>
-										<div>2024.07.10</div>
-									</div>
-									<div class="review-option ms-3">옵션: [색상]그레이 [사이즈]S</div>
-									<div class="review-img-content ms-3">
-										<img
-											src="${pageContext.request.contextPath}/uploads/product/10.jpg"
-											class="img-buy">
-										<div>재질도 좋고 설치도 간편하고 견고한 것 같아요</div>
-									</div>
-								</div>
-
-								<div class="review-content border-top">
-									<div class="review-top ms-3">
-										<div class="review-top-left">
-											<label> <c:forEach var="n" begin="1" end="5">
-													<i class="bi bi-star-fill"></i>
-												</c:forEach>
-											</label> <label> 캔따개 </label>
-										</div>
-										<div>2024.07.10</div>
-									</div>
-									<div class="review-option ms-3">옵션: [색상]그레이 [사이즈]S</div>
-									<div class="review-img-content ms-3">
-										<img
-											src="${pageContext.request.contextPath}/uploads/product/10.jpg"
-											class="img-buy">
-										<div>재질도 좋고 설치도 간편하고 견고한 것 같아요</div>
-									</div>
-								</div>
-							</div>
+							<div class="list-review review-con"></div>
 						</div>
-						<div class="list-review"></div>
 
 						<div class="qna" id="scrollq">
 							<div class="qna-title">
@@ -637,55 +607,168 @@ function sendOk(mode) {
 </div>
 
 <script type="text/javascript">
-	$(window).scroll(function() {
-		if ($(this).scrollTop() > 300) {
-			$('.btn_gotop').show();
-		} else {
-			$('.btn_gotop').hide();
-		}
-	});
-
-	$('.btn_gotop').click(function() {
-		$('html, body').animate({
-			scrollTop : 0
-		}, 400);
-		return false;
-	});
-
-	function moreDetail() {
-		$('#detail').removeClass('hidden');
-		$('.detailMore').remove();
+$(window).scroll(function() {
+	if ($(this).scrollTop() > 300) {
+		$('.btn_gotop').show();
+	} else {
+		$('.btn_gotop').hide();
 	}
+});
 
-	$(document).ready(function() {
-		$('.nav-link').click(function() {
-			$('.nav-link').removeClass('tab-active');
-			$(this).addClass('tab-active');
-		});
+$('.btn_gotop').click(function() {
+	$('html, body').animate({
+		scrollTop : 0
+	}, 400);
+	return false;
+});
+
+function moreDetail() {
+	$('#detail').removeClass('hidden');
+	$('.detailMore').remove();
+}
+
+$(document).ready(function() {
+	$('.nav-link').click(function() {
+		$('.nav-link').removeClass('tab-active');
+		$(this).addClass('tab-active');
 	});
+});
 
-	$(window).scroll(function() {
-		if($(this).scrollTop() > 300) {
-			$('.btn_gotop').show();
-		} else {
-			$('.btn_gotop').hide();
-		}
+$(window).scroll(function() {
+	if($(this).scrollTop() > 300) {
+		$('.btn_gotop').show();
+	} else {
+		$('.btn_gotop').hide();
+	}
+});
+
+$('.btn_gotop').click(function() {
+	$('html, body').animate({
+		scrollTop : 0
+	}, 400);
+	return false;
+});
+
+function moreDetail() {
+	$('#detail').removeClass('hidden');
+	$('.detailMore').remove();
+}
+	
+$(function() {
+	$('.reviewSortNo').change(function() {
+		listReview(1);
 	});
+});
 
-	$('.btn_gotop').click(function() {
-		$('html, body').animate({
-			scrollTop : 0
-		}, 400);
-		return false;
-	});
+function listReview(page) {
+	let productNum = '${dto.productNum}';
+	let sortNo = $('.reviewSortNo').val();
+	let url = '${pageContext.request.contextPath}/productReview/list';
+	let query = 'productNum=' + productNum + '&pageNo=' + page + '&sortNo=' + sortNo;
+	
+	console.log("listReview 호출됨loved"); // 디버깅 로그 추가
+    console.log("URLloved: ", url); // 디버깅 로그 추가
+    console.log("Queryloved: ", query); // 디버깅 로그 추가
+	
+	
+	const fn = function(data) {
+		console.log("listReview 응답 데이터loved: ", data); // 디버깅 로그 추가
+		viewReview(data);
+	};
+	
+	ajaxFun(url, 'get', query, 'json', fn);
+}
 
-	function moreDetail() {
-		$('#detail').removeClass('hidden');
-		$('.detailMore').remove();
+function viewReview(data) {
+	console.log("viewReview 데이터 처리 시작loved: ", data); // 디버깅 로그 추가
+	
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	let size = data.size;
+	let paging = data.paging;
+	
+	if(dataCount > 0) {
+		$('.reviewSort-area').show();
+	} else {
+		$('.reviewSort-area').hide();
 	}
 	
+	let summary = data.summary;
+	printSummary(summary);
 	
+	let out = '';
+	for(let item of data.list) {
+		console.log("리뷰 항목loved: ", item); // 디버깅 로그 추가
+		
+		let orderDetailNum = item.orderDetailNum;
+		let nickName = item.nickName;
+		let rating = item.rating;
+		let content = item.content;
+		let reviewDate = item.reviewDate;
+		let answer = item.answer;
+		let answerDate = item.answerDate;
+		let listReviewFileName = item.listReviewFileName;
+
+		out += '<div class="review-content border-top">';
+		out += '	<div class="review-top ms-3">';
+		out += '		<div class="review-top-left">';
+		out += '			<label class="score-star"> ';
+		for(let i=1; i<=5; i++) {
+			out += '			<label class= "item  ' + (rating >= i ? 'on' : '') + '"><i class="bi bi-star-fill"></i></label>';
+		}
+		out += '			</label> ';
+		out += '			<label>' + nickName + '</label>';
+		out += '		</div>';
+		out += '		<div>' + reviewDate + '</div>';
+		out += '	</div>';
+		out += '	<div class="review-img-content ms-3 mt-2">';
+		out += '		<div>' + content + '</div>';
+		out += '	</div>';
+		if(listReviewFileName && listReviewFileName.length > 0) {
+			out += '<div>';
+				for(let f of listReviewFileName) {
+					out += '<img class="img-buy" src="${pageContext.request.contextPath}/uploads/review/'+f+'">';
+				}
+			out += '</div>';
+		}
+		out += '</div>';
+	}
 	
+	if(dataCount > 0) {
+		out += '<div class="page-navigation">' + paging + '</div>';
+	}
+	
+	$('.list-review').html(out);
+}
+	
+function printSummary(summary) {
+	let count = summary.count;
+	let ave = summary.ave;
+	
+	let score1 = summary.score1;
+	let score2 = summary.score2;
+	let score3 = summary.score3;
+	let score4 = summary.score4;
+	let score5 = summary.score5;
+	let scoreRate1 = summary.scoreRate1;
+	let scoreRate2 = summary.scoreRate2;
+	let scoreRate3 = summary.scoreRate3;
+	let scoreRate4 = summary.scoreRate4;
+	let scoreRate5 = summary.scoreRate5;
+	
+	$(".product-reviewCount").text(count);
+	let roundAve = Math.round(ave);
+	$(".title-reviewCount").text("("+count+")");
+	
+	$(".review-score-star .item").removeClass("on");
+	for(let i=1; i <= roundAve; i++) {
+		$(".review-score-star .item").eq(i-1).addClass("on");
+	}
+	$(".review-score").text(ave+" / 5");
+	
+
+}	
 </script>
 
 

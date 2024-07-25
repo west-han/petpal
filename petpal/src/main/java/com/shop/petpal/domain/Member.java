@@ -25,9 +25,17 @@ public class Member {
 	private String tel2;
 	private String tel3;
 	private String area;
+	private int balance;
 	
 	
-	
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
 	public String getArea() {
 		return area;
 	}
