@@ -22,8 +22,7 @@ h2 {
 }
 
 a {
-	text-decoration: none;
-	color: inherit;
+    text-decoration: none;
 }
 
 .review-item {
@@ -44,6 +43,13 @@ a {
 	width: 100%;
 	height: 40px;
 	margin-bottom: 10px;
+}
+.category-header {
+    list-style-type: none;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 </style>
 </head>
