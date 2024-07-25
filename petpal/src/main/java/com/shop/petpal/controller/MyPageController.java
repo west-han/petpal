@@ -19,11 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shop.petpal.domain.Order;
 import com.shop.petpal.domain.SessionInfo;
 import com.shop.petpal.service.MyPageService;
+import com.shop.petpal.service.ProductService;
 
 @Controller
 @RequestMapping("/myPage/*")
 public class MyPageController {
 	@Autowired MyPageService service;
+	
+	@Autowired
+    private ProductService productService;
 	
 	@GetMapping("{species}/cart")
 	public String cartList(@PathVariable(name = "species") Integer species,
@@ -50,12 +54,15 @@ public class MyPageController {
 			deliveryCharge = cartTotalPrice >= 20000 ? 0 : 3000;
 			paymentPrice =  cartTotalPrice + deliveryCharge;
 			
+			List<Map<String, Object>> categories = productService.listCategory(species);
+			
 			model.addAttribute("cartNsaledPrice",cartNsaledPrice);
 			model.addAttribute("cartSaledTotal",cartSaledTotal);
 			model.addAttribute("cartTotalPrice",cartTotalPrice);
 			model.addAttribute("deliveryCharge",deliveryCharge);
 			model.addAttribute("paymentPrice",paymentPrice);
 			model.addAttribute("list", list);
+			model.addAttribute("categories", categories);
 		} else {
 			return "redirect:/member/login";
 		}

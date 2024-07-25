@@ -424,13 +424,50 @@ label .item {
 	margin-right: 20px;
 }
 
-.qna .qna-title {
+.qna .qna-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	border-bottom: 3px solid #434347;
+}
+
+.qna .qna-title {
+	display: flex;
 }
 
 .qna .qna-title p {
 	font-size: 20px;
 	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.qna-bottom {
+	padding: 18px 16px;
+	border-bottom: 1px solid #DEE2E6;
+}
+
+.qna-bottom .qnaCon-top {
+	display: flex;
+	justify-content: space-between;
+}
+
+.qna-bottom .qnaCon-top .qnaCom {
+	margin-right: 10px;
+}
+
+.qna-bottom .qnaCon-top label, .qnaCon-bottom div {
+	font-size: 18px !important;
+}
+
+.qna-bottom .qnaCon-top .qnaCom {
+	background: #474747;
+	border-radius: 5px;
+	color: white;
+	padding: 3px 8px;
+}
+
+.qna-bottom .qnaCon-bottom {
+	margin-top: 15px;
 }
 
 .deleteReview, .notifyReview {
@@ -572,6 +609,8 @@ label .item {
 .pagination {
 	--bs-pagination-disabled-bg: none;
 }
+
+
 
 .btn_gotop {
 	display: none;

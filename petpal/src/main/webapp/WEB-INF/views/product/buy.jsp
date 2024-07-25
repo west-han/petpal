@@ -503,7 +503,7 @@ function sendOk(mode) {
 								<span class="title-reviewCount">구매후기(${dto.reviewCount})</span>
 						</a></li>
 						<li class="nav-item"><a class="nav-link" href="#scrollq">문의하기
-								<span class="title-qnaCount">(3)</span>
+								<span class="title-qnaCount">(${dto.questionCount})</span>
 						</a></li>
 					</ul>
 				</nav>
@@ -575,12 +575,37 @@ function sendOk(mode) {
 						</div>
 
 						<div class="qna" id="scrollq">
-							<div class="qna-title">
-								<p>문의</p>
+							<div class="qna-top">
+								<div class="qna-title">
+									<p>상품문의(1)</p>
+								</div>
+								<div class="p-2 text-end">
+									<button type="button" class="btnQuestion btn">문의 작성하기</button>
+								</div>
 							</div>
-
-							<div class="mt-3 p-2 text-end">
-								<button type="button" class="btnQuestion btn">문의 작성하기</button>
+							<div class="qna-bottom">
+								<div class="qnaCon-top">
+									<div>
+										<label class="qnaCom">답변완료</label>
+										<label class="qnaQNick">캔따개</label>
+									</div>
+									<label class="reviewCom">2024.07.22</label>
+								</div>
+								<div class="qnaCon-bottom">
+									<div class="qnaContent">재고는 언제...</div>
+								</div>
+							</div>
+							<div class="qna-bottom">
+								<div class="qnaCon-top">
+									<div>
+										<label class="qnaCom">답변완료</label>
+										<label class="qnaQNick">캔따개</label>
+									</div>
+									<label class="reviewCom">2024.07.22</label>
+								</div>
+								<div class="qnaCon-bottom">
+									<div class="qnaContent">재고는 언제...</div>
+								</div>
 							</div>
 						</div>
 
@@ -770,9 +795,10 @@ function printSummary(summary) {
 		$(".review-score-star .item").eq(i-1).addClass("on");
 	}
 	$(".review-score").text(ave+" / 5");
-	
-
 }	
+
+
+
 </script>
 
 

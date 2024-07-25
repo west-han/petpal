@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.mapper.QnAMapper">
+	<insert id="insertQnA" parameterType="com.shop.petpal.domain.QnA">
+		INSERT INTO productQna(qnaNum, secret, content, showQuestion, questionDate, productNum, memberNum)
+        VALUES(qna_seq.NEXTVAL, #{secret}, #{content}, 1, SYSDATE, #{productNum}, #{memberNum}) 
+	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+        FROM productQna
+        WHERE productNum = #{productNum} AND showQuestion = 1
+	</select>
+	
+	<select id="listQnA" parameterType="map" resultType="com.shop.petpal.domain.QnA">
+		SELECT q.qnaNum, q.memberNum, mn.nickName, q.secret, q.content, q.answer, m2.memberNum answerNum, mn2.nickName answerNick, 
+			 q.showQuestion, q.questionDate, q.answerDate
+		FROM productQna q
+		JOIN member1 m ON q.memberNum = m.memberNum	
+        JOIN member2 mn ON m.memberNum = mn.memberNum
+		LEFT OUTER JOIN member1 m2 ON answerNum = m2.memberNum
+        LEFT OUTER JOIN member2 mn2 ON m2.memberNum = mn2.memberNum
+		WHERE q.productNum = #{productNum} AND showQuestion = 1
+		ORDER BY q.qnaNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+</mapper>
