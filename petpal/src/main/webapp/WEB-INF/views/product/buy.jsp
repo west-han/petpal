@@ -9,27 +9,20 @@ function login() {
 
 
 function ajaxFun(url, method, formData, dataType, fn, file = false) {
-	console.log("AJAX 요청 시작loved: ", url); // 디버깅 로그 추가
-    console.log("Methodloved: ", method); // 디버깅 로그 추가
-    console.log("Dataloved: ", formData); // 디버깅 로그 추가
     
 	const settings = {
 			type: method,
 			data: formData,
 			dataType: dataType,
 			success: function(data) {
-				console.log("AJAX 성공 응답: ", data); // 디버깅 로그 추가
 				fn(data);
 			},
 			beforeSend: function(jqXHR) {
 				jqXHR.setRequestHeader('AJAX', true);
-				console.log("AJAX 요청 전송 중...loved"); // 디버깅 로그 추가
 			},
 			complete: function() {
-				console.log("AJAX 요청 완료loved"); // 디버깅 로그 추가
 			},
 			error: function(jqXHR) {
-				console.error("AJAX 요청 오류loved: ", jqXHR); // 디버깅 로그 추가
 				if(jqXHR.status === 403) {
 					login();
 					return false;
@@ -506,8 +499,8 @@ function sendOk(mode) {
 					<ul class="nav nav-tabs mt-3 pt-5" id="myTab">
 						<li class="nav-item"><a class="nav-link tab-active"
 							href="#scrolld">상세정보</a></li>
-						<li class="nav-item"><a class="nav-link" href="#scrollr">구매후기
-								<span class="title-reviewCount">(${dto.reviewCount})</span>
+						<li class="nav-item"><a class="nav-link" href="#scrollr">
+								<span class="title-reviewCount">구매후기(${dto.reviewCount})</span>
 						</a></li>
 						<li class="nav-item"><a class="nav-link" href="#scrollq">문의하기
 								<span class="title-qnaCount">(3)</span>
@@ -655,6 +648,12 @@ function moreDetail() {
 }
 	
 $(function() {
+	$('.reviewSortNo').ready(function() {
+		listReview(1);
+	});
+});	
+	
+$(function() {
 	$('.reviewSortNo').change(function() {
 		listReview(1);
 	});
@@ -666,13 +665,8 @@ function listReview(page) {
 	let url = '${pageContext.request.contextPath}/productReview/list';
 	let query = 'productNum=' + productNum + '&pageNo=' + page + '&sortNo=' + sortNo;
 	
-	console.log("listReview 호출됨loved"); // 디버깅 로그 추가
-    console.log("URLloved: ", url); // 디버깅 로그 추가
-    console.log("Queryloved: ", query); // 디버깅 로그 추가
-	
 	
 	const fn = function(data) {
-		console.log("listReview 응답 데이터loved: ", data); // 디버깅 로그 추가
 		viewReview(data);
 	};
 	
@@ -680,7 +674,6 @@ function listReview(page) {
 }
 
 function viewReview(data) {
-	console.log("viewReview 데이터 처리 시작loved: ", data); // 디버깅 로그 추가
 	
 	let dataCount = data.dataCount;
 	let pageNo = data.pageNo;
@@ -699,7 +692,6 @@ function viewReview(data) {
 	
 	let out = '';
 	for(let item of data.list) {
-		console.log("리뷰 항목loved: ", item); // 디버깅 로그 추가
 		
 		let orderDetailNum = item.orderDetailNum;
 		let nickName = item.nickName;
@@ -718,20 +710,32 @@ function viewReview(data) {
 			out += '			<label class= "item  ' + (rating >= i ? 'on' : '') + '"><i class="bi bi-star-fill"></i></label>';
 		}
 		out += '			</label> ';
-		out += '			<label>' + nickName + '</label>';
+		out += '			<label class="ms-4 review-nickName">' + nickName + '</label>';
 		out += '		</div>';
 		out += '		<div>' + reviewDate + '</div>';
 		out += '	</div>';
-		out += '	<div class="review-img-content ms-3 mt-2">';
+		out += '	<div class="review-img-content ms-3 mt-2 mb-2">';
 		out += '		<div>' + content + '</div>';
 		out += '	</div>';
 		if(listReviewFileName && listReviewFileName.length > 0) {
-			out += '<div>';
+			out += '<div class="review-imgbox">';
 				for(let f of listReviewFileName) {
-					out += '<img class="img-buy" src="${pageContext.request.contextPath}/uploads/review/'+f+'">';
+					out += '<img class="img-buy reviewImg" src="${pageContext.request.contextPath}/uploads/reviewPhoto/'+f+'">';
 				}
 			out += '</div>';
 		}
+		
+		if(answer) {
+			out += '  <div class="p-3 pt-0 mt-2">';
+			out += '    <div class="bg-light">';
+			out += '      <div class="p-3 pb-2">';
+			out += '        <label class="answer-content answer-nick px-2 me-2"> 관리자 </label> <label class="answer-content">' + answerDate + '</label>';
+			out += '      </div>';
+			out += '      <div class="answer-content answer-context p-3 pt-1">' + answer + '</div>';
+			out += '    </div>';
+			out += '  </div>';
+		}
+		
 		out += '</div>';
 	}
 	
@@ -759,7 +763,7 @@ function printSummary(summary) {
 	
 	$(".product-reviewCount").text(count);
 	let roundAve = Math.round(ave);
-	$(".title-reviewCount").text("("+count+")");
+	$(".title-reviewCount").text("구매후기("+count+")");
 	
 	$(".review-score-star .item").removeClass("on");
 	for(let i=1; i <= roundAve; i++) {

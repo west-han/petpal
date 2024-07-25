@@ -348,6 +348,7 @@ select, button {
 	display: inline-block;
 	text-decoration: none;
 	vertical-align: middle;
+	color: #BDBDBD;
 }
 
 .score-star .item:first-child {
@@ -356,6 +357,10 @@ select, button {
 
 .score-star .on {
 	color: #E4B075;
+}
+
+label .item {
+	width: 22px;
 }
 
 .reviewSort-area .reviewSortNo {
@@ -387,10 +392,8 @@ select, button {
 	margin-right: 15px;
 }
 
-.review-content .review-top-left label:last-child, .review-top div:last-child
-	{
-	color: #BDBDBD;
-	font-weight: bold;
+.review-content .review-top-left {
+	display: flex;
 }
 
 .review-content .review-top-left i {
@@ -528,11 +531,47 @@ select, button {
 		rgba(255, 255, 255, 0.98) 91%, #ffffff);
 }
 
+.review-imgbox {
+	margin-left: 16px;
+}
 
+.reviewImg {
+	width: 130px;
+	height: 130px;
+	border-radius: 10px;
+}
 
+.review-nickName {
+	vertical-align: middle;
+}
 
+.answer-content {
+	font-size: 16px;
+}
 
+.answer-context {
+	padding-left: 8px;
+}
 
+.answer-nick {
+	background: #474747;
+	border-radius: 5px;
+	color: white;
+}
+
+.page-link {
+	border: none;
+	color: #434347;
+}
+
+.active > .page-link {
+	background: #434347;
+	border-radius: 50%;
+}
+
+.pagination {
+	--bs-pagination-disabled-bg: none;
+}
 
 .btn_gotop {
 	display: none;
