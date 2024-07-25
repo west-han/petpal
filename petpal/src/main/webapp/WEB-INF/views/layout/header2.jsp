@@ -56,8 +56,8 @@ window.addEventListener('load', function() {
         <div class="more">
             <div class="more">
                 <c:choose>
-                    <c:when test="${sessionScope.member != null && sessionScope.member.authority == 'admin'}">
-                        <a href="${pageContext.request.contextPath}/admin/main/main"><img src="${pageContext.request.contextPath}/resources/images/admin.png" alt="관리자페이지"></a>
+                    <c:when test="${not empty sessionScope.member && sessionScope.member.authority == 'ADMIN'}">
+                        <a href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/resources/images/admin.png" alt="관리자페이지"></a>
                         <a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/images/logout.png" alt="로그아웃"></a>
                     </c:when>
                     <c:when test="${empty sessionScope.member}">
