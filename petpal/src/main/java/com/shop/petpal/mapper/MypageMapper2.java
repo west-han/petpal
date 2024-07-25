@@ -58,5 +58,7 @@ public interface MypageMapper2 {
 	
 	public Mypage2 findByReview(Mypage2 dto) throws SQLException; // 내가 작성한 리뷰 찾기
 	public List<Mypage2> selectReviewList(long memberNum) throws SQLException; // 내가 작성한 리뷰 리스트
+	public int reviewDataCount(long memberNum) throws SQLException; // 페이징 데이터 카운트
+	public List<Mypage2> myReviewListPaged(Map<String, Object> params) throws SQLException;
 	
 }

@@ -380,5 +380,34 @@
 		p.productNum,p.species,p.thumbnail,p.productName
 	</select>
 	
+	<!-- 리뷰 페이징처리 카운트 -->
+	<select id="reviewDataCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM review
+		WHERE memberNum = #{memberNum}
+	</select>
+	
+	
+	<!-- 리뷰 페이징 -->
+	<select id="myReviewListPaged" parameterType="map"
+		resultType="com.shop.petpal.domain.Mypage2">
+		SELECT r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+			LISTAGG(rf.reviewFileName, ', ') WITHIN GROUP (ORDER BY rf.reviewFileName) AS reviewFileName,p.productNum,
+			p.species,p.thumbnail,p.productName
+		FROM 
+    	review r
+		LEFT JOIN 
+        ReviewFile rf ON r.orderDetailNum = rf.orderDetailNum
+   	 	LEFT JOIN
+        Product p ON r.productNum = p.productNum
+		WHERE r.memberNum = #{memberNum}
+		<if test="startDate != null and endDate != null">
+			AND regDate BETWEEN #{startDate} AND #{endDate}
+		</if>
+		GROUP BY r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+		p.productNum,p.species,p.thumbnail,p.productName
+        ORDER BY reviewDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 	
 </mapper>

@@ -51,6 +51,9 @@ a {
     font-weight: bold;
     font-size: 1.2em;
 }
+.mypage{
+	text-align: center;
+}
 </style>
 </head>
 <body>
