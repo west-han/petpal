@@ -46,7 +46,7 @@
 	                        <img src="${pageContext.request.contextPath}/uploads/product/${product.thumbnail}" alt="이미지">
 	                    </div>
 	                    <div class="product-info">
-	                        <p class="text-brand">브랜드</p>
+	                        <p class="text-brand">${product.brand}</p>
 	                        <p class="text-name">${product.productName}</p>
 	                        <c:if test="${product.discountRate == 0}">
 	                        	<strong class="text-discountedPrice">
