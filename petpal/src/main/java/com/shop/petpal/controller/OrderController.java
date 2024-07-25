@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +35,9 @@ public class OrderController {
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping("payment")
-	public String paymentForm(@RequestParam List<Long> productNums,
+	@RequestMapping("{species}/payment")
+	public String paymentForm(@PathVariable(name = "species") Integer species,
+			@RequestParam List<Long> productNums,
 			@RequestParam List<Long> stockNums,
 			@RequestParam List<Integer> buyAmounts,
 			@RequestParam(defaultValue = "buy") String mode,
@@ -65,7 +67,6 @@ public class OrderController {
 					map.put("productNum", productNums.get(i));
 					list.add(map);
 				}
-				
 				
 				
 				Order order = new Order();
@@ -100,6 +101,9 @@ public class OrderController {
 				    
 					totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
 					totalDiscountPrice += dto.getDiscountAmount();
+					
+					dto.setPriceDiscount(buyAmounts.get(i) * dto.getDiscountAmount());
+					
 					if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
 						deliveryCharge = dto.getDeliveryCharge();
 					}
@@ -118,10 +122,10 @@ public class OrderController {
 				Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
 				List<Mypage2> memberDest = orderService.findByMemberDest(info.getMemberNum());
 				
+				
 				model.addAttribute("productOrderNumber", productOrderNumber);
 				model.addAttribute("orderUser", orderUser);
 				model.addAttribute("productOrderName", productOrderName);
-				
 				model.addAttribute("listProduct", listProduct);
 				model.addAttribute("totalMoney", totalMoney);
 				model.addAttribute("totalPayment", totalPayment);
@@ -143,14 +147,14 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		
-		
 		return "redirect:/";
 	}
 	
 	
 	
-	@PostMapping("paymentOk")
-	public String paymentSubmit(@RequestParam(defaultValue = "buy") String mode,
+	@PostMapping("{species}/paymentOk")
+	public String paymentSubmit(@PathVariable(name = "species") Integer species,
+			@RequestParam(defaultValue = "buy") String mode,
 				Order dto, RedirectAttributes reAttr,
 				HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -158,7 +162,7 @@ public class OrderController {
 		try {
 			dto.setMemberNum(info.getMemberNum());
 			dto.setEmail(info.getEmail());
-			
+			dto.setDestMemo(dto.getNote());
 			
 			orderService.insertOrder(dto);
 			
@@ -176,7 +180,7 @@ public class OrderController {
 			reAttr.addFlashAttribute("title", "상품 결제 완료");
 			reAttr.addFlashAttribute("message", "정상처리");
 			
-			return "redirect:/order/done";
+			return "redirect:/order/{species}/done";
 			
 		} catch (Exception e) {
 		}
@@ -185,8 +189,9 @@ public class OrderController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("done")
-	public String done(@ModelAttribute("title") String title, 
+	@GetMapping("{species}/done")
+	public String done(@PathVariable(name = "species") Integer species,
+			@ModelAttribute("title") String title, 
 			@ModelAttribute("message") String message
 			) throws Exception {
 		if (message == null || message.length() == 0) { 

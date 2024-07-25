@@ -5,11 +5,7 @@
 
 
 <style type="text/css">
-.body-container {
-    max-width: 1300px;
-    margin-top: 140px;
-    margin-left: 80px;
-}
+
 .body-title h3 {
     font-size: 26px;
 }

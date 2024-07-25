@@ -15,7 +15,7 @@ window.addEventListener('load', function() {
 		
 		f.kwd.value = f.kwd.value.trim().replaceAll(' ', '');
 		
-		f.action = '${pageContext.request.contextPath}/products/search/${sessionScope.species}/0/0';
+		f.action = '${pageContext.request.contextPath}/product/search/${sessionScope.species}/0/0';
 		
 		f.submit();
 	});
@@ -63,7 +63,7 @@ window.addEventListener('load', function() {
 					            <a href="${pageContext.request.contextPath}/myPage2/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
 					            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림"></a>
 					            <a href="${pageContext.request.contextPath}/myPage2/orderlist"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
-					            <a href="${pageContext.request.contextPath}/myPage/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
+					            <a href="${pageContext.request.contextPath}/myPage/${sessionScope.species}/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
 					        </c:otherwise>
 					    </c:choose>
 					</div>
@@ -78,16 +78,16 @@ window.addEventListener('load', function() {
                             <img src="${pageContext.request.contextPath}/resources/images/menu.png" ><p style="padding-left: 5px;">카테고리</p>
                         </button>
                         <div class="dropdown-content">
-                        	<a href="${pageContext.request.contextPath}/products/category/${species}">전체</a>
+                        	<a href="${pageContext.request.contextPath}/product/category/${species}">전체</a>
                            <c:forEach items="${categories}" var="category">
-                           	<a href="${pageContext.request.contextPath}/products/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a>
+                           	<a href="${pageContext.request.contextPath}/product/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a>
                            </c:forEach>
                         </div>
                     </div>
                     <div class="line"></div>
                     <div class="menu2">
-                        <span><a href="${pageContext.request.contextPath}/products/recent/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/new.png" ><p>신상품</p></a></span>
-                        <span><a href="${pageContext.request.contextPath}/products/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
+                        <span><a href="${pageContext.request.contextPath}/product/recent/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/new.png" ><p>신상품</p></a></span>
+                        <span><a href="${pageContext.request.contextPath}/product/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
                         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>기획 상품</p></a></span>
                         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/love.png"><p>맞춤 상품</p></a></span>
                          <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>

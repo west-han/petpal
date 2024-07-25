@@ -175,7 +175,7 @@ main .menu-item:hover {
     cursor: pointer;
 }
 
-main ul.list-v > li:hover, ul.list-h > li:hover {
+main ul.list-v > li > a:hover, ul.list-h > li > a:hover {
     color: #E4B075;
     cursor: pointer;
 }
@@ -225,4 +225,45 @@ main i.order:hover {
 
 main .product-box:hover {
 	cursor: pointer;
+}
+
+p {
+	margin: 0;
+}
+
+.text-brand {
+	font-size: 13px;
+	font-weight: 900;
+}
+
+p.text-name {
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+
+.text-price {
+	font-size: 13px;
+	color: #A1A1A1;
+	text-decoration: line-through;
+}
+
+.text-discountRate {
+	color: #EA333E;
+	margin-right: 4px;
+}
+.text-discountRate::after {
+	content: '%';
+}
+
+.text-discountedPrice {
+	font-weight: 900;
+}
+
+.text-discountedPrice::after {
+	content: '원';
+}
+
+.text-rate {
+	font-size: 12px;
+	color: #A1A1A1;
 }

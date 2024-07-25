@@ -9,9 +9,9 @@
                 <div class="side-box">
                     <h4>카테고리</h4>
                     <ul class="list-v category">
-                        <li><a class="${parentCategory == 0 ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/${mode}/${sessionScope.species}/0${query}">전체</a></li>
+                        <li><a class="${parentCategory == 0 ? 'selected' : ''}" href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/0${query}">전체</a></li>
                         <c:forEach items="${categories}" var="category">
-                        	<li><a class="${parentCategory == category.CATEGORYNUM ? 'selected' : ''}" href="${pageContext.request.contextPath}/products/${mode}/${sessionScope.species}/${category.CATEGORYNUM}/0${query}">${category.CATEGORYNAME}</a></li>
+                        	<li><a class="${parentCategory == category.CATEGORYNUM ? 'selected' : ''}" href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/${category.CATEGORYNUM}/0${query}">${category.CATEGORYNAME}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -66,7 +66,7 @@
                         <li>
                         	<a
                         		${parentCategory == 0 || categoryNum == 0 ? 'class="selected"' : ''}
-                        		href="${pageContext.request.contextPath}/products/${mode}/${sessionScope.species}/${empty parentCategory ? '' : parentCategory += '/'}0${query}"
+                        		href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/${empty parentCategory ? '' : parentCategory += '/'}0${query}"
                         	>
                         		전체
                         	</a>
@@ -76,13 +76,13 @@
                         		<c:if test="${empty subCategory.PARENTCATEGORY}">
                         			<a
                         				class="${parentCategory == subCategory.CATEGORYNUM ? 'selected' : ''}"
-                        				href="${pageContext.request.contextPath}/products/${mode}/${sessionScope.species}/${subCategory.CATEGORYNUM}${query}">${subCategory.CATEGORYNAME}
+                        				href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/${subCategory.CATEGORYNUM}${query}">${subCategory.CATEGORYNAME}
                         			</a>
                         		</c:if>
                         		<c:if test="${not empty subCategory.PARENTCATEGORY}">
                         			<a 
 	                        			class="${categoryNum == subCategory.CATEGORYNUM ? 'selected' : ''}"
-	                        			href="${pageContext.request.contextPath}/products/${mode}/${sessionScope.species}/${subCategory.PARENTCATEGORY}/${subCategory.CATEGORYNUM}${query}">${subCategory.CATEGORYNAME}
+	                        			href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/${subCategory.PARENTCATEGORY}/${subCategory.CATEGORYNUM}${query}">${subCategory.CATEGORYNAME}
 	                        		</a>
                         		</c:if>
                         	</li>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="display-box list-h">
                 	<c:if test="${empty products}">
-                		<div>등록된 상품이 없습니다.</div>
+                		<div style="margin: 0 auto; font-size: large;">등록된 상품이 없습니다.</div>
                 	</c:if>
                 	<c:forEach items="${products}" var="product">
 	                    <div class="product-box" onclick="location.href='${pageContext.request.contextPath}/product/${sessionScope.species}/${product.productNum}';"> 
@@ -117,11 +117,29 @@
 	                            <img src="${pageContext.request.contextPath}/uploads/product/${product.thumbnail}" alt="이미지">
 	                        </div>
 	                        <div class="product-info">
-	                            <p>${product.brand}</p>
-	                            <p>${product.productName}</p>
-	                            <p>${product.price}</p>
-	                            <p>${product.discountRate}/판매가</p>
-	                            <p>평점</p>
+	                            <p class="text-brand">${product.brand}</p>
+		                        <p class="text-name">${product.productName}</p>
+		                        <c:if test="${product.discountRate == 0}">
+		                        	<strong class="text-discountedPrice">
+		                        		${product.price}
+		                        	</strong>
+		                        </c:if>
+		                        <c:if test="${product.discountRate != 0}">
+			                        <p class="text-price">${product.price}</p>
+			                        <p>
+			                        	<span class="text-discountRate">
+				                        	${product.discountRate}
+				                        </span>
+				                        <strong class="text-discountedPrice">
+				                        	${product.price - product.discountAmount}
+				                        </strong>
+			                        </p>
+		                        </c:if>
+		                        <!-- 평점은 별에 색 채워서 표시 -->
+		                        <p class="text-rate">
+		                        	<span>${product.rating}</span>
+		                        	<span>(${product.reviewCount})</span>
+		                        </p>
 	                        </div>
 	                    </div>
                 	</c:forEach>

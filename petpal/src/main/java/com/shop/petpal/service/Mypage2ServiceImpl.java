@@ -2,14 +2,17 @@ package com.shop.petpal.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.petpal.common.FileManager;
+import com.shop.petpal.common.OrderState;
 import com.shop.petpal.domain.Member;
 import com.shop.petpal.domain.Mypage2;
 import com.shop.petpal.mapper.MypageMapper2;
@@ -27,7 +30,8 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	
 	@Autowired
 	private FileManager fileManager;
-
+	
+	
 	@Override
 	public List<Mypage2> myPointList(long memberNum) {
 		List<Mypage2> list = new ArrayList<Mypage2>();
@@ -374,6 +378,10 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		List<Mypage2> list = null;
 		try {
 			list = mapper.selectOrderList(memberNum);
+			for (Mypage2 mypage2 : list) {
+				mypage2.setDetailStateMemo(OrderState.DETAILSTATEINFO[mypage2.getDetailState()]);
+				mypage2.setOrderStateMemo(OrderState.ORDERSTATEINFO[mypage2.getOrderState()]);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -386,11 +394,80 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		List<Mypage2> list = null;
 		try {
 			list = mapper.findByOrderNum(orderNum);
+			for (Mypage2 mypage2 : list) {
+				mypage2.setDetailStateMemo(OrderState.DETAILSTATEINFO[mypage2.getDetailState()]);
+				mypage2.setOrderStateMemo(OrderState.ORDERSTATEINFO[mypage2.getOrderState()]);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 
-	
+	@Override
+	public void updateDetailState(Mypage2 dto) throws Exception {
+		try {
+			mapper.updateDetailState(dto); // orderDetailNum을 기준으로 주문확정(1) 상태로 업데이트
+			mapper.insertPoint(dto); // savePoint 기준으로 포인트 지급
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void insertReview(Mypage2 dto, String pathname) throws Exception {
+	    try {
+	    	mapper.insertReview(dto);
+	        List<MultipartFile> files = dto.getSelectFiles();
+	        if (files != null && !files.isEmpty()) {
+	            for (MultipartFile file : files) {
+	                String saveFilename = fileManager.doFileUpload(file, pathname);
+	                if (saveFilename == null) {
+	                    continue;
+	                }
+	                
+	                dto.setReviewFileName(saveFilename);
+	                mapper.insertReviewFile(dto);
+	            }
+	        }
+	        
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw e;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+	}
+
+	public boolean hasReview(Mypage2 dto) throws Exception {
+        try {
+            Mypage2 review = mapper.findByReview(dto);
+            return review != null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+	@Override
+	public List<Mypage2> selectReviewList(long memberNum) throws Exception {
+		List<Mypage2> list = null;
+		try {
+			list = mapper.selectReviewList(memberNum);
+			for (Mypage2 review : list) {
+	            if (review.getReviewFileName() != null) {
+	                review.setReviewFileNameList(Arrays.asList(review.getReviewFileName().split(", ")));
+	            }
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return list;
+		
+	}
 }

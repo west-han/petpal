@@ -85,13 +85,12 @@ public class OrderServiceImpl implements OrderService {
 				
 				dto.setPricePay(dto.getPricePays().get(i));
 				dto.setPriceOrig(dto.getPriceOrigs().get(i));
-				dto.setPriceDiscount(dto.getPriceDiscounts().get(i));
 				dto.setTotalPrice(dto.getTotalPrices().get(i));
 				dto.setStockNum(dto.getStockNums().get(i));
-				
+				dto.setSavePoint(dto.getSavePoints().get(i));
+				dto.setPriceDiscount(dto.getPriceDiscounts().get(i));
 				
 				mapper.insertOrderDetail(dto);
-				
 				
 				mapper.updateProductStock(dto);
 			}	

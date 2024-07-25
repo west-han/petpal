@@ -10,7 +10,7 @@ import com.shop.petpal.admin.domain.OnetooneManage;
 import com.shop.petpal.admin.mapper.OnetooneManageMapper;
 
 @Service
-public class OnetooneServiceImpl implements OnetooneManageService{
+public class OnetooneManageServiceImpl implements OnetooneManageService{
 	@Autowired
 	private OnetooneManageMapper mapper;
 	
@@ -25,6 +25,11 @@ public class OnetooneServiceImpl implements OnetooneManageService{
 		
 		
 		return list;
+	}
+
+	@Override
+	public void saveResponse(OnetooneManage onetooneManage) {
+		mapper.updateOnetoone(onetooneManage);
 	}
 
 }

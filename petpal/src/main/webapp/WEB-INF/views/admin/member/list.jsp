@@ -17,11 +17,15 @@
         $(document).ready(function() {
             $('.close, .btn-secondary').on('click', function() {
                 $('#editModal').modal('hide'); 
+                $('#pointModal').modal('hide'); 
             });
 
             $(window).on('click', function(event) {
                 if ($(event.target).is('#editModal')) {
                     $('#editModal').modal('hide'); 
+                }
+                if ($(event.target).is('#pointModal')) {
+                    $('#pointModal').modal('hide'); 
                 }
             });
         });
@@ -48,10 +52,14 @@
                 $('#membershipNum').val(data.membershipNum);
             });
         }
-        function searchList() {
-        	const f = document.searchForm;
-        	alert('ok');
-        	f.submit();
+
+        function editPoints(memberNum,balance) {
+        	$('#pointMemberNum').val(memberNum);
+        	$('#currentPoints').val(balance);
+        	
+            $('#pointModal').modal('show'); 
+
+            
         }
 
         function saveChanges() {
@@ -87,7 +95,33 @@
                     alert("회원 정보 수정에 실패했습니다.");
                 }
             });
-            
+        }
+
+        function savePoints() {
+            const pointsData = {
+                memberNum: $('#pointMemberNum').val(),
+                point: $('#points').val()
+            };
+
+            $.ajax({
+                url: "${pageContext.request.contextPath}/admin/member/points/" + pointsData.memberNum,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(pointsData),
+                success: function() {
+                    $('#pointModal').modal('hide');
+                    location.reload(); 
+                },
+                error: function() {
+                    alert("포인트 수정에 실패했습니다.");
+                }
+            });
+        }
+
+        function searchList() {
+            const f = document.searchForm;
+            alert('ok');
+            f.submit();
         }
     </script>
 </head>
@@ -117,29 +151,29 @@
                             <td>${dto.birth}</td>
                             <td>${dto.regDate}</td>
                             <td><button class="btn btn-primary" onclick="editCustomer(${dto.memberNum})">수정</button></td>
-                            <td><button class="btn btn-primary" onclick="editCustomer(${dto.memberNum})">포인트</button></td>
+                            <td><button class="btn btn-primary" onclick="editPoints(${dto.memberNum},${dto.balance})">포인트</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
             <div class="page-box">
-            	${paging}
+                ${paging}
             </div>
             <div class="search">
-            	<form name="searchForm" action="${pageContext.request.contextPath}/admin/member/list" method="post">
-	                <select id="searchField" class="form-control d-inline w-auto">
-						<option value="email" ${schType=="email"?"selected":""}>이메일</option>
-						<option value="memberNum" ${schType=="memberNum"?"selected":""}>회원번호</option>
-						<option value="userName" ${schType=="userName"?"selected":""}>이름</option>
-					</select>
-					<input type="text" id="searchQuery" name="kwd" value="${kwd}" class="form-control d-inline w-auto">
-	                <button class="btn btn-primary" onclick="searchList()">검색</button>
-            	</form>
+                <form name="searchForm" action="${pageContext.request.contextPath}/admin/member/list" method="post">
+                    <select id="searchField" class="form-control d-inline w-auto">
+                        <option value="email" ${schType=="email"?"selected":""}>이메일</option>
+                        <option value="memberNum" ${schType=="memberNum"?"selected":""}>회원번호</option>
+                        <option value="userName" ${schType=="userName"?"selected":""}>이름</option>
+                    </select>
+                    <input type="text" id="searchQuery" name="kwd" value="${kwd}" class="form-control d-inline w-auto">
+                    <button class="btn btn-primary" onclick="searchList()">검색</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Edit Modal -->
     <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -216,6 +250,37 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="saveChanges()">저장</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Point Modal -->
+    <div id="pointModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">포인트 관리</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="pointMemberNum" name="memberNum">
+                        <div class="form-group">
+                            <label for="currentPoints">현재 포인트:</label>
+                            <input type="text" class="form-control" id="currentPoints" name="balance" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                            <label for="points">지급할 포인트:</label>
+                            <input type="text" class="form-control" id="points" name="points">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="savePoints()">저장</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                 </div>
             </div>

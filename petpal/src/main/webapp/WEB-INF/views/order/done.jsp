@@ -18,7 +18,7 @@
 	                </div>
  
                     <div class="main-btn">
-                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">메인화면</button>
+                       <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/${sessionScope.species}';">메인화면</button>
                     </div>
                 </div>
 

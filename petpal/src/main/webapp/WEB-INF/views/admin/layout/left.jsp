@@ -7,7 +7,7 @@
             <div class="greeting">안녕하세요! <span class="highlight">ADMIN</span>님<br>오늘도 즐거운 하루 되세요 :)</div>
         </li>
         <li class="menu--item" data-path="/order">
-            <a href="/order" class="menu--link" title="주문 / 배송 관리">
+            <a href="${pageContext.request.contextPath}/admin/order/status" class="menu--link" title="주문 / 배송 관리">
                 <i class="menu--icon fa-solid fa-box"></i>
                 <span class="menu--label">주문 / 배송 관리</span>
             </a>
@@ -38,7 +38,7 @@
                     <a href="${pageContext.request.contextPath}/admin/review/list" class="sub_menu--link" data-path="/review/list">리뷰 관리</a>
                 </li>
                 <li class="sub_menu--item">
-                    <a href="${pageContext.request.contextPath}/admin/inquiry/list" class="sub_menu--link" data-path="/inquiry/list">문의 관리</a>
+                    <a href="${pageContext.request.contextPath}/admin/onetoone/list" class="sub_menu--link" data-path="/inquiry/list">문의 관리</a>
                 </li>
             </ul>
         </li>

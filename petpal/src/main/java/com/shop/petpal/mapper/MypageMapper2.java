@@ -51,6 +51,12 @@ public interface MypageMapper2 {
 	// 주문내역
 	public List<Mypage2> selectOrderList(long memberNum) throws SQLException; // 나의 주문 내역
 	public List<Mypage2> findByOrderNum(String orderNum) throws SQLException; // 상세주문내역
+	public void updateDetailState(Mypage2 dto) throws SQLException; // 주문 확정 update
+	public void insertPoint(Mypage2 dto) throws SQLException; // 주문 확정시 포인트 지급
+	public void insertReview(Mypage2 dto) throws SQLException; // 리뷰 작성
+	public void insertReviewFile(Mypage2 dto)throws SQLException; // 리뷰 파일
 	
+	public Mypage2 findByReview(Mypage2 dto) throws SQLException; // 내가 작성한 리뷰 찾기
+	public List<Mypage2> selectReviewList(long memberNum) throws SQLException; // 내가 작성한 리뷰 리스트
 	
 }

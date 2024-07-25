@@ -51,12 +51,9 @@ function sendOk() {
 	let p = Number(f.payment.value) - usedPoint;  
 	f.payment.value = p;
 	
-	f.orderState.value = 0;
+	f.orderState.value = 1;
     f.point.value = usedPoint;
-    f.optionName.value = "${dto.optionName}";
-    f.optionValue.value = "${dto.optionValue}";
-    f.optionName2.value = "${dto.optionName2}";
-    f.optionValue2.value = "${dto.optionValue2}";
+    
 	
 	let payClassify = 0;
 	let cardName = "삼성카드";
@@ -70,7 +67,7 @@ function sendOk() {
 	f.authDate.value = authDate;
 	
 	
-	f.action = "${pageContext.request.contextPath}/order/paymentOk";
+	f.action = "${pageContext.request.contextPath}/order/${sessionScope.species}/paymentOk";
     f.submit();
 }
 
@@ -154,12 +151,10 @@ $(function(){
 									<input type="hidden" name="buyAmounts" value="${dto.amount}">
 									<input type="hidden" name="pricePays" value="${dto.pricePay}">
 									<input type="hidden" name="priceOrigs" value="${dto.priceOrig}">
-									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
 									<input type="hidden" name="totalPrices" value="${dto.totalPrice}">
 									<input type="hidden" name="totalSavePoint" value="${dto.totalSavePoint}">
-									<input type="hidden" name="savePoint" value="${dto.savePoint}">
-									<input type="hidden" name="priceDiscount" value="${dto.discountAmount}">
-									
+									<input type="hidden" name="savePoints" value="${dto.savePoint}">
+									<input type="hidden" name="priceDiscounts" value="${dto.priceDiscount}">
 									
 									
 								</td>
@@ -204,10 +199,6 @@ $(function(){
 					
 					<input type="hidden" name="orderState" value="">
 				    <input type="hidden" name="point" value="">
-				    <input type="hidden" name="optionName" value="">
-				    <input type="hidden" name="optionValue" value="">
-				    <input type="hidden" name="optionName2" value="">
-				    <input type="hidden" name="optionValue2" value="">
 					 
 					<div class="destination-info">
 						<div class="destination-title">배송지 정보</div>

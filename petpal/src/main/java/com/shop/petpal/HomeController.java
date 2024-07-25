@@ -1,31 +1,27 @@
 package com.shop.petpal;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.shop.petpal.service.ProductListService;
 import com.shop.petpal.domain.Product;
+import com.shop.petpal.service.ProductService;
 
 @Controller
 public class HomeController {
     @Autowired
-    private ProductListService productListService;
+    private ProductService productService;
      
     @RequestMapping(value = {"/", "/{species}"}, method = RequestMethod.GET)
     public String home(@PathVariable(name = "species", required = false) Integer species, Model model, HttpSession session) {
@@ -37,7 +33,7 @@ public class HomeController {
         session.setAttribute("species", species);
         
         // 카테고리 리스트 가져오기
-        List<Map<String, Object>> categories = productListService.listCategory(species);
+        List<Map<String, Object>> categories = productService.listCategory(species);
         
         // 신상품 4개 가져오기 위한 파라미터 설정
         Map<String, Object> recentParams = new HashMap<>();
@@ -46,7 +42,7 @@ public class HomeController {
         recentParams.put("endNum", 4);
         
         // 신상품 리스트 가져오기
-        List<Product> recentProducts = productListService.listRecentProducts(recentParams);
+        List<Product> recentProducts = productService.listRecentProducts(recentParams);
 
         // 베스트 상품 8개 가져오기 위한 파라미터 설정
         Map<String, Object> bestParams = new HashMap<>();
@@ -55,7 +51,7 @@ public class HomeController {
         bestParams.put("endNum", 8);
         
         // 베스트 상품 리스트 가져오기
-        List<Product> bestProducts = productListService.listBestProducts(bestParams);
+        List<Product> bestProducts = productService.listBestProducts(bestParams);
         
         // 모델에 데이터 추가
         model.addAttribute("categories", categories);

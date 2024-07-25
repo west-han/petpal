@@ -3,11 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
-.body-container {
-    max-width: 1300px;
-    margin-top: 140px;
-    margin-left: 80px;
-}
+
 .body-title h3{
     font-size: 26px;
 }

@@ -233,7 +233,7 @@
 		    odi.address2,
 		    odi.destMemo,
 		    dsi.stateNum,
-		    dsi.detailState,
+		    od.detailState,
 		    dsi.stateMemo,
 		    dsi.detailStateDate,
 		    dc.deliveryName,
@@ -254,11 +254,12 @@
 		    p.discountRate,
 		    p.thumbnail,
 		    po.payment,
-            po.usedPoint
+		    po.usedPoint,
+		    po.orderState
 		FROM
 		    OrderDetail od
 		    JOIN ProductStock ps ON od.stockNum = ps.stockNum
-		    JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
+		    LEFT JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
 		    JOIN ProductOrder po ON od.orderNum = po.orderNum
 		    LEFT JOIN OrderDelivery odi ON po.orderNum = odi.orderNum
 		    LEFT JOIN DetailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
@@ -268,6 +269,9 @@
 		    JOIN Product p ON ps.productNum = p.productNum
 		WHERE
 		    po.memberNum = #{memberNum}
+		ORDER BY
+      	po.orderDate desc, po.orderNum, od.orderDetailNum
+
 	</select>
 	
 	
@@ -291,7 +295,7 @@
 		    odi.address2,
 		    odi.destMemo,
 		    dsi.stateNum,
-		    dsi.detailState,
+		    od.detailState,
 		    dsi.stateMemo,
 		    dsi.detailStateDate,
 		    dc.deliveryName,
@@ -325,4 +329,57 @@
 		WHERE
 		    po.orderNum  = #{orderNum}
 	</select>
+	
+	<!-- 구매 확정 -->
+	<update id="updateDetailState" parameterType="com.shop.petpal.domain.Mypage2">
+		update orderDetail set detailState = 1
+		where orderDetailNum = #{orderDetailNum}
+	</update>
+	
+	<!-- 구매 확정시 포인트 지급 -->
+	<insert id="insertPoint">
+		INSERT INTO userPoint(pointNum, regDate, classify, point, balance, memberNum)
+		VALUES (userPoint_seq.NEXTVAL, SYSDATE, 0, #{savePoint},
+			(SELECT COALESCE(SUM(point), 0) + #{savePoint} 
+		FROM userPoint 
+		WHERE memberNum = #{memberNum}),#{memberNum})
+	</insert>
+	
+	<!-- 리뷰작성 -->
+	<insert id="insertReview" parameterType="com.shop.petpal.domain.Mypage2">
+		INSERT INTO Review(orderDetailNum,rating,content,reviewDate,memberNum,productNum)
+		VALUES(#{orderDetailNum},#{rating},#{content},SYSDATE,#{memberNum},#{productNum})
+	</insert>
+	<!-- 리뷰 파일 -->
+	<insert id="insertReviewFile" parameterType="com.shop.petpal.domain.Mypage2">
+		INSERT INTO ReviewFile(reviewFileNum,reviewFileName,orderDetailNum)
+		VALUES(reviewfile_seq.nextval,#{reviewFileName},#{orderDetailNum})
+	</insert>
+	
+	<!-- 사용자가 작성한 리뷰가 있는지 -->
+	<select id="findByReview" parameterType="com.shop.petpal.domain.Mypage2" resultType="com.shop.petpal.domain.Mypage2">
+	    SELECT *
+	    FROM Review
+	    WHERE memberNum = #{memberNum} and orderDetailNum = #{orderDetailNum}
+	</select>
+	
+	
+	<!-- myreview -->
+	<!-- 내가 쓴 리뷰 리스트 -->
+	<select id="selectReviewList" parameterType="long">
+		SELECT r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+			LISTAGG(rf.reviewFileName, ', ') WITHIN GROUP (ORDER BY rf.reviewFileName) AS reviewFileName,p.productNum,
+			p.species,p.thumbnail,p.productName
+		FROM 
+    	review r
+		LEFT JOIN 
+        ReviewFile rf ON r.orderDetailNum = rf.orderDetailNum
+   	 	LEFT JOIN
+        Product p ON r.productNum = p.productNum
+		WHERE r.memberNum = #{memberNum}
+		GROUP BY r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+		p.productNum,p.species,p.thumbnail,p.productName
+	</select>
+	
+	
 </mapper>
