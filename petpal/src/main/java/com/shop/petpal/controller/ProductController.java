@@ -392,7 +392,7 @@ public class ProductController {
 			Product dto = service.findById(productNum);
 			
 			if(dto == null || dto.getShowSpecial() == 1) {
-				return "redirect:/main/main";
+				return "redirect:/";
 			}	
 			
 			int membershipNum = 1;

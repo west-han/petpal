@@ -12,7 +12,7 @@ public interface MypageMapper2 {
 	public List<Mypage2> myPointList(long memberNum) throws SQLException;
 	public int pointDataCount(long memberNum) throws SQLException;
 	public List<Mypage2> myPointListPaged(Map<String, Object> params) throws SQLException;
-	public void myTotalPoint(long memberNum) throws SQLException;
+	public int myTotalPoint(long memberNum) throws SQLException;
 	
 	// 회원정보 수정
 	public Member findByMemberNum(long memberNum); // 회원정보 가져오기
@@ -58,5 +58,7 @@ public interface MypageMapper2 {
 	
 	public Mypage2 findByReview(Mypage2 dto) throws SQLException; // 내가 작성한 리뷰 찾기
 	public List<Mypage2> selectReviewList(long memberNum) throws SQLException; // 내가 작성한 리뷰 리스트
+	public int reviewDataCount(long memberNum) throws SQLException; // 페이징 데이터 카운트
+	public List<Mypage2> myReviewListPaged(Map<String, Object> params) throws SQLException;
 	
 }

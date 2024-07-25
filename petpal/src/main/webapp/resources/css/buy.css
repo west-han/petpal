@@ -348,6 +348,7 @@ select, button {
 	display: inline-block;
 	text-decoration: none;
 	vertical-align: middle;
+	color: #BDBDBD;
 }
 
 .score-star .item:first-child {
@@ -356,6 +357,10 @@ select, button {
 
 .score-star .on {
 	color: #E4B075;
+}
+
+label .item {
+	width: 22px;
 }
 
 .reviewSort-area .reviewSortNo {
@@ -387,10 +392,8 @@ select, button {
 	margin-right: 15px;
 }
 
-.review-content .review-top-left label:last-child, .review-top div:last-child
-	{
-	color: #BDBDBD;
-	font-weight: bold;
+.review-content .review-top-left {
+	display: flex;
 }
 
 .review-content .review-top-left i {
@@ -421,13 +424,50 @@ select, button {
 	margin-right: 20px;
 }
 
-.qna .qna-title {
+.qna .qna-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	border-bottom: 3px solid #434347;
+}
+
+.qna .qna-title {
+	display: flex;
 }
 
 .qna .qna-title p {
 	font-size: 20px;
 	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.qna-bottom {
+	padding: 18px 16px;
+	border-bottom: 1px solid #DEE2E6;
+}
+
+.qna-bottom .qnaCon-top {
+	display: flex;
+	justify-content: space-between;
+}
+
+.qna-bottom .qnaCon-top .qnaCom {
+	margin-right: 10px;
+}
+
+.qna-bottom .qnaCon-top label, .qnaCon-bottom div {
+	font-size: 18px !important;
+}
+
+.qna-bottom .qnaCon-top .qnaCom {
+	background: #474747;
+	border-radius: 5px;
+	color: white;
+	padding: 3px 8px;
+}
+
+.qna-bottom .qnaCon-bottom {
+	margin-top: 15px;
 }
 
 .deleteReview, .notifyReview {
@@ -528,9 +568,47 @@ select, button {
 		rgba(255, 255, 255, 0.98) 91%, #ffffff);
 }
 
+.review-imgbox {
+	margin-left: 16px;
+}
 
+.reviewImg {
+	width: 130px;
+	height: 130px;
+	border-radius: 10px;
+}
 
+.review-nickName {
+	vertical-align: middle;
+}
 
+.answer-content {
+	font-size: 16px;
+}
+
+.answer-context {
+	padding-left: 8px;
+}
+
+.answer-nick {
+	background: #474747;
+	border-radius: 5px;
+	color: white;
+}
+
+.page-link {
+	border: none;
+	color: #434347;
+}
+
+.active > .page-link {
+	background: #434347;
+	border-radius: 50%;
+}
+
+.pagination {
+	--bs-pagination-disabled-bg: none;
+}
 
 
 

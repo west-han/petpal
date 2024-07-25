@@ -72,16 +72,16 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 	}
 
 	@Override
-	public void myTotalPoint(long memberNum) throws Exception {
-		
+	public int myTotalPoint(long memberNum) throws Exception {
+		int totalPoint = 0;
 		
 		try {
-			mapper.myTotalPoint(memberNum);
+			totalPoint = mapper.myTotalPoint(memberNum);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		
+		return totalPoint;
 	}
 
 	@Override
@@ -469,5 +469,31 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		
 		return list;
 		
+	}
+
+	@Override
+	public int reviewDataCount(long memberNum) throws Exception {
+		// TODO 리뷰 페이징 처리 데이터 갯수
+		int dataCount = 0;
+		try {
+			dataCount = mapper.reviewDataCount(memberNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dataCount;
+	}
+
+	@Override
+	public List<Mypage2> myReviewListPaged(Map<String, Object> params) throws Exception {
+		List<Mypage2> list = new ArrayList<>();
+        
+        try {
+            list = mapper.myReviewListPaged(params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return list;
 	}
 }

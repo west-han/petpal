@@ -41,12 +41,7 @@
     	const f = document.memberForm;
     	let str;
     	
-    	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(str)) {
-            alert("유효한 이메일을 입력해주세요.");
-            f.email.focus();
-            return;
-        }
+    	
         
         if ($('#userEmailValid').val() !== 'true') {
             alert("이메일 중복 체크를 해주세요");

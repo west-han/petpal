@@ -77,7 +77,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 170px 10px 170px;
 }
 
 a {
@@ -154,7 +154,7 @@ p.name {
 
 .head2 {
     display: flex;
-    padding: 10px 60px 10px 260px;
+    padding: 10px 170px 10px 170px;
     align-items: center;
     font-family: 'MangoDdobak-B';
     font-weight: 700;
@@ -236,6 +236,11 @@ p.name {
     text-align: center;
     
 }
+.dropdown .login-before{
+	width: 50px;
+	height:50px; 
+	
+}
 
 .dropdown-content a:hover {
     background-color: #007BFF;
@@ -278,6 +283,11 @@ p.name {
 .signup-button:hover {
     background-color: #E4B075;
     color: #fff;
+}
+.admindown img{
+	width: 50px;
+	height:50px; 
+	
 }
 
 .line {

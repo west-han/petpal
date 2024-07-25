@@ -69,6 +69,7 @@ public class Mypage2 {
 	private int total_quantity; // 총 수량 (주문 상세)
 	private String deliveryName; // 택배사 이름
 	private String destMemo; // 택배 메모
+	private int discountAmount; // 할인가(할인된 가격아님)
 
 	private long orderDetailNum; // 주문 상세 번호
 	private int amount; // 수량
@@ -101,6 +102,14 @@ public class Mypage2 {
 	
 	
 	
+	public int getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(int discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
 	public List<String> getReviewFileNameList() {
 		return reviewFileNameList;
 	}

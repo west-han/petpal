@@ -18,7 +18,7 @@ public class OnetooneManageServiceImpl implements OnetooneManageService{
 	public List<OnetooneManage> listOnetoone(Map<String, Object> map) {
 		List<OnetooneManage> list = null;
 		try {
-			list = mapper.listonetoone(map);
+			list = mapper.listonetoonePaged(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,6 +30,18 @@ public class OnetooneManageServiceImpl implements OnetooneManageService{
 	@Override
 	public void saveResponse(OnetooneManage onetooneManage) {
 		mapper.updateOnetoone(onetooneManage);
+	}
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.dataCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

@@ -24,16 +24,19 @@ import com.shop.petpal.domain.Order;
 import com.shop.petpal.domain.SessionInfo;
 import com.shop.petpal.service.MemberService;
 import com.shop.petpal.service.OrderService;
+import com.shop.petpal.service.ProductService;
 
 @Controller
 @RequestMapping("/order/*")
 public class OrderController {
-	
 	@Autowired
 	private OrderService orderService;
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+    private ProductService productService;
 	
 	@RequestMapping("{species}/payment")
 	public String paymentForm(@PathVariable(name = "species") Integer species,
@@ -122,6 +125,7 @@ public class OrderController {
 				Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
 				List<Mypage2> memberDest = orderService.findByMemberDest(info.getMemberNum());
 				
+				List<Map<String, Object>> categories = productService.listCategory(species);
 				
 				model.addAttribute("productOrderNumber", productOrderNumber);
 				model.addAttribute("orderUser", orderUser);
@@ -135,6 +139,7 @@ public class OrderController {
 				model.addAttribute("memberDest", memberDest);
 				model.addAttribute("deliveryCharge", deliveryCharge);
 				model.addAttribute("mode", mode);
+				model.addAttribute("categories", categories);
 				
 			} else {
 				return "redirect:/member/login";
@@ -192,11 +197,15 @@ public class OrderController {
 	@GetMapping("{species}/done")
 	public String done(@PathVariable(name = "species") Integer species,
 			@ModelAttribute("title") String title, 
-			@ModelAttribute("message") String message
-			) throws Exception {
+			@ModelAttribute("message") String message,
+			Model model) throws Exception {
 		if (message == null || message.length() == 0) { 
 			return "redirect:/";
 		}
+		
+		List<Map<String, Object>> categories = productService.listCategory(species);
+		model.addAttribute("categories", categories);
+		
 		
 		return ".order.done";
 	}

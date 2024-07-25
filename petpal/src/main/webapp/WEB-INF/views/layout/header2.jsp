@@ -40,7 +40,6 @@ window.addEventListener('load', function() {
         </div>
     </div>
     <div id="head1">
-        <div style="width: 200px;"></div>
         <div class="logo-container">
             <a href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/resources/images/logo.png">
@@ -54,22 +53,25 @@ window.addEventListener('load', function() {
             </form>
         </div>
         <div class="more">
-            <div class="more">
                 <c:choose>
+                
                     <c:when test="${not empty sessionScope.member && sessionScope.member.authority == 'ADMIN'}">
+                    	<div class="admindown">
                         <a href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/resources/images/admin.png" alt="관리자페이지"></a>
                         <a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/images/logout.png" alt="로그아웃"></a>
+                    	</div>
                     </c:when>
+                    
                     <c:when test="${empty sessionScope.member}">
                         <div class="dropdown">
-                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
+                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/person2.png" alt="사용자" class="login-before"></a>
                             <div class="dropdown-content">
                                 <a href="${pageContext.request.contextPath}/member/login" class="dropdown-button login-button">로그인</a>
                                 <a href="${pageContext.request.contextPath}/member/join" class="dropdown-button signup-button">회원가입</a>
                             </div>
                         </div>
-                        <a href="${pageContext.request.contextPath}/member/login"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
                     </c:when>
+                    
                     <c:otherwise>
                         <a href="${pageContext.request.contextPath}/myPage2/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
                         <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림"></a>
@@ -82,11 +84,10 @@ window.addEventListener('load', function() {
                         </div>
                         <a href="${pageContext.request.contextPath}/myPage/${sessionScope.species}/cart"><img src="${pageContext.request.contextPath}/resources/images/cart.png" alt="장바구니"></a>
                     </c:otherwise>
+                    
                 </c:choose>
             </div>
         </div>
-        <div style="width:200px;"></div>
-    </div>
     <nav class="head2">
         <div class="menu">
             <div class="dropdown">
@@ -115,6 +116,5 @@ window.addEventListener('load', function() {
                 <option value="2" ${sessionScope.species == 2 ? 'selected' : ''}>고양이</option>
             </select>
         </div>
-        <div style="width: 200px;"></div>
     </nav>
 </header>

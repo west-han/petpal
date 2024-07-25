@@ -22,8 +22,7 @@ h2 {
 }
 
 a {
-	text-decoration: none;
-	color: inherit;
+    text-decoration: none;
 }
 
 .review-item {
@@ -44,6 +43,16 @@ a {
 	width: 100%;
 	height: 40px;
 	margin-bottom: 10px;
+}
+.category-header {
+    list-style-type: none;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.mypage{
+	text-align: center;
 }
 </style>
 </head>
@@ -87,11 +96,15 @@ a {
 											<div class="col-md-9">
 												<p class="card-text"><strong>주문 날짜:</strong> ${item.orderDate}</p>
 												<p class="card-text"><strong>배송 상태:</strong> ${item.orderStateMemo}</p>
-												<h5 class="card-title">${item.productName}</h5>
+												<a class="fs-5" href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
+					                                ${item.productName}	
+					                            </a>
 												<div class="review-item">
-													<img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="주문한 사진">
+													<a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
+					                                    <img class="review-item" src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
+					                                </a>
 												</div>
-												<p class="card-text"><strong>가격:</strong> ${item.priceDiscount}원</p>
+												<p class="card-text"><strong>가격:</strong> ${item.price - item.discountAmount}원</p>
 												<p class="card-text"><strong>구매한 갯수:</strong> ${item.amount}</p>
 												<p class="card-text"><strong>옵션:</strong> ${item.optionValue}</p>
 											</div>

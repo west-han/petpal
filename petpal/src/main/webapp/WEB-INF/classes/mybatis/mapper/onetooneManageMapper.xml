@@ -2,14 +2,6 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.petpal.admin.mapper.OnetooneManageMapper">
-	<select id="listonetoone" resultType="com.shop.petpal.admin.domain.OnetooneManage">
-	select qna.num,qna.subject,qna.content,qna.regdate,qna.anssubject,qna.anscontent,qna.ansregdate,qna.photo,
-        qna.isanswered,qna.membernum,qna.classnum,qna.answernum,ques.className,m2.userName
-	from qna qna
-	join member1 m1 ON m1.memberNum = qna.memberNum
-	join member2 m2 ON m1.memberNum = m2.memberNum
-	join quesClass ques ON ques.classNum = qna.classNum
-	</select>
 	
  	<update id="updateOnetoone" parameterType="com.shop.petpal.admin.domain.OnetooneManage">
 		UPDATE qna
@@ -17,7 +9,41 @@
 		WHERE num = #{num}
 	</update> 
 
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM qna
+		<where>
+			<choose>
+				<when test="gubun==1">
+					isanswered = 0
+				</when>
+				<when test="gubun==2">
+					isanswered = 1
+				</when>
+			</choose>
+		</where>
+	</select>
 
+	<select id="listonetoonePaged" resultType="com.shop.petpal.admin.domain.OnetooneManage">
+	select qna.num,qna.subject,qna.content,qna.regdate,qna.anssubject,qna.anscontent,qna.ansregdate,qna.photo,
+        qna.isanswered,qna.membernum,qna.classnum,qna.answernum,ques.className,m2.userName
+	from qna qna
+	join member1 m1 ON m1.memberNum = qna.memberNum
+	join member2 m2 ON m1.memberNum = m2.memberNum
+	join quesClass ques ON ques.classNum = qna.classNum
+		<where>
+			<choose>
+				<when test="gubun==1">
+					isanswered = 0
+				</when>
+				<when test="gubun==2">
+					isanswered = 1
+				</when>
+			</choose>
+		</where>	
+	ORDER BY regDate DESC
+	OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 	
 
 </mapper>
