@@ -7,6 +7,7 @@ public class SessionInfo {
 	private String nickname;
 	private int membershipNum;
 	private String email;
+	private String authority;
 
 	public String getEmail() {
 		return email;
@@ -47,4 +48,13 @@ public class SessionInfo {
 	public void setMembershipNum(int membershipNum) {
 		this.membershipNum = membershipNum;
 	}
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+	
 }
