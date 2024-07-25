@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
 body {
-	
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'MangoDdobak-B';
     font-weight: 400;
 }
+
 @font-face {
     /*굵기 : 300 400 700*/
     font-family: 'MangoDdobak-B';
@@ -22,6 +22,7 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+
 header {
     width: 100%;
 }
@@ -41,8 +42,9 @@ header {
     color: #000;
     font-weight: bold;
 }
-.event-left p{
-	margin-bottom: 0;
+
+.event-left p {
+    margin-bottom: 0;
 }
 
 .event-right {
@@ -53,22 +55,23 @@ header {
     width: 50%;
     color: #000;
     font-weight: bold;
-
 }
+
 .event-right p {
     margin: 0 10px;
-    
 }
-.event-right a{
-    
+
+.event-right a {
     display: flex;
     align-items: center;
     gap: 5px; /* 이미지와 텍스트 사이의 간격 */
 }
+
 .event-right p:last-child {
     font-size: 12px;
     color: gray;
 }
+
 #head1 {
     width: 100%;
     display: flex;
@@ -76,25 +79,31 @@ header {
     align-items: center;
     padding: 10px 20px;
 }
+
 a {
     text-decoration: none;
     color: black;
 }
+
 a:hover {
     text-decoration: none;
     color: black;
 }
-#head1 a{
+
+#head1 a {
     font-family: 'Cafe24Meongi-W-v1.0';
-    font-size: 58px;
+    
 }
-p.name{
-	margin-bottom: 0;
+
+p.name {
+    margin-bottom: 0;
+    font-size: 58px;
 }
 
 #head1 .logo-container {
     display: flex;
     align-items: center;
+    font-size: 58px;
 }
 
 #head1 .logo-container img {
@@ -106,7 +115,9 @@ p.name{
     margin-left: 10px;
     font-size: 24px;
     display: inline-block;
+    font-size: 58px;
 }
+
 .logo-container .name .highlight {
     color: #E4B075;
 }
@@ -115,6 +126,7 @@ p.name{
     position: relative;
     display: flex;
     align-items: center;
+    font-size: 58px;
 }
 
 .search input {
@@ -124,17 +136,16 @@ p.name{
     font-size: 18px;
     border-radius: 15px;
     border-color: #646464;
- 	 outline: none;
+    outline: none;
 }
 
 .search img {
     position: absolute;
     right: 30px;
-    object-fit:cover;
+    object-fit: cover;
     top: 25px;
     width: 50px;
 }
-
 
 .more img {
     width: 30px;
@@ -183,7 +194,6 @@ p.name{
     margin: 0; /* 텍스트 주변의 여백 제거 */
 }
 
-
 /*카테고리 드롭다운*/
 /* Dropdown Styles */
 .dropdown {
@@ -204,30 +214,70 @@ p.name{
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
     z-index: 1;
+    padding: 10px 0;
+    font-family: 'MangoDdobak-B';
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+    color: #333;
+    padding: 10px 16px;
     text-decoration: none;
     display: block;
-    font-family: "Do Hyeon", sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 5px 10px;
+    text-align: center;
+    
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #007BFF;
+    color: #fff;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.dropdown:hover .dropbtn p {
-    color: #E4B075;
+.dropdown a img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.dropdown a img:hover {
+    transform: scale(1.1);
+}
+
+/* Specific styles for login and signup buttons */
+.login-button {
+    background-color: #f0f0f0;
+    color: #007BFF;
+    font-size: 30px;
+}
+
+.signup-button {
+    background-color: #f0f0f0;
+    color: #28a745;
+    font-size: 30px;
+}
+
+.login-button:hover {
+    background-color: #E4B075;
+    color: #fff;
+}
+
+.signup-button:hover {
+    background-color: #E4B075;
+    color: #fff;
 }
 
 .line {

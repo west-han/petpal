@@ -54,6 +54,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		info.setUserName(member.getUserName());
 		info.setNickname(member.getNickname());
 		info.setEmail(member.getEmail());
+		info.setAuthority(member.getAuthority());
 		
 		session.setAttribute("member", info);
 		
