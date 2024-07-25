@@ -130,7 +130,7 @@ main .page-box a, a:link, a:visited {
     text-decoration: none;
 }
 
-main .dropdown {
+main .dropdown-petpal {
     position: relative;
     width: 100px;
 }
@@ -159,12 +159,12 @@ main .menu-shown > .menu-item {
     display: block;
 }
 
-main .dropdown-button, .menu-item {
+main .dropdown-button-petpal, .menu-item {
     background: white;
     padding: 5px;
 }
 
-main .dropdown-button {
+main .dropdown-button-petpal {
     border: 1px solid #434347;
     width: 80%;
     border-radius: 5px;

@@ -91,9 +91,9 @@
                 </div>
                 <div class="sort-box list-h">
                     <span>전체 <strong>${dataCount}</strong>개</span>
-                    <div class="dropdown">
+                    <div class="dropdown-petpal">
                         <div class="list-h">
-                            <button class="dropdown-button">
+                            <button class="dropdown-button-petpal">
                                 등록일
                             </button>
                             <i class="order bi fs-5 bi-arrow-${empty param.order || param.order == 'desc' ? 'down' : 'up'}" data-order="${empty param.order ? 'desc' : param.order}"></i>
@@ -169,7 +169,7 @@ window.addEventListener('load', function() {
 	const sortCriteria = {price: '가격', sales: '판매량', regDate: '등록일', rating: '평점', reviewCount: '후기수'};
 	document.querySelector('.title').innerText = document.querySelector('.category .selected').innerText;
 	if ('${param.sortBy}') {
-		document.querySelector('.dropdown-button').innerText = sortCriteria['${param.sortBy}'];
+		document.querySelector('.dropdown-button-petpal').innerText = sortCriteria['${param.sortBy}'];
 		document.querySelector('.menu-item[data-sortBy=${param.sortBy}]').remove();
 	}
 
@@ -177,7 +177,7 @@ window.addEventListener('load', function() {
 		e.stopPropagation();
 		
 		const menu = document.querySelector('.dropdown-menu-petpal');
-		if (e.target != document.querySelector('.dropdown-button')) {
+		if (e.target != document.querySelector('.dropdown-button-petpal')) {
 			
 			if (menu.classList.contains('menu-shown')) {
 				menu.classList.toggle('menu-hidden');
@@ -262,8 +262,8 @@ function toggleAttr(attrNum, dtlNum) {
 }
 
 window.addEventListener('load', function() {
-    document.querySelector('button.dropdown-button').addEventListener('click', function(e) {
-    	const menu = e.target.closest('div.dropdown').querySelector('.dropdown-menu-petpal');
+    document.querySelector('button.dropdown-button-petpal').addEventListener('click', function(e) {
+    	const menu = e.target.closest('div.dropdown-petpal').querySelector('.dropdown-menu-petpal');
 
         menu.classList.toggle('menu-hidden');
         menu.classList.toggle('menu-shown');
