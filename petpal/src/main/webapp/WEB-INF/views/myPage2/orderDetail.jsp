@@ -7,7 +7,7 @@
 <title>주문 상세</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcnd.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <style>
 body {
 	background-color: #f8f9fa;
@@ -51,9 +51,8 @@ h2 {
 		            <div>
 		                <h5 class="card-title">${dto.productName}</h5>
 		                <p class="card-text"><strong>옵션:</strong> ${dto.optionValue}</p>
-		                <p class="card-text"><strong>가격:</strong> ${dto.priceDiscount}원</p>
+		                <p class="card-text"><strong>가격:</strong> ${dto.price - dto.discountAmount}원</p>
 		                <p class="card-text"><strong>수량:</strong> ${dto.amount}</p>
-		                
 		            </div>
 		        </div>
 		    </div>
@@ -65,7 +64,7 @@ h2 {
 				<p class="card-text"><strong>총 상품 가격:</strong> 
 					<c:set var="totalProductPrice" value="0" />
 					<c:forEach var="dto" items="${orderDetails}">
-						<c:set var="itemTotal" value="${dto.amount * dto.priceDiscount}" />
+						<c:set var="itemTotal" value="${dto.amount * (dto.price - dto.discountAmount)}" />
 						<c:set var="totalProductPrice" value="${totalProductPrice + itemTotal}" />
 					</c:forEach>
 					${totalProductPrice}원
