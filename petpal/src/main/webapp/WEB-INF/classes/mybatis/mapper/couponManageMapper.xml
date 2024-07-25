@@ -6,6 +6,7 @@
 	SELECT cp.couponnum,cp.couponName,cp.discountrate,cp.minpayment,cp.validity,cg.categorynum, cg.categoryname
 	from coupon cp
 	join category cg on cp.categorynum = cg.categorynum
+	order by couponnum desc
 	</select>	
 	
 	<insert id="insertCoupon" parameterType="com.shop.petpal.admin.domain.CouponManage">

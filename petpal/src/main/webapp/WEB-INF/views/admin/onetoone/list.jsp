@@ -4,8 +4,7 @@
 
 
 <style type="text/css">
-
-.body-title h3{
+.body-title h3 {
     font-size: 26px;
 }
 .filters {
@@ -33,60 +32,25 @@
             <h3><i class="bi bi-chat-right-text"></i> 1대1 문의관리 </h3>
         </div>
         
-        <div id="onetoonelistContainer">
-            <table class="table table-border table-list">
-                <thead>
-                    <tr class="border-top border-dark table-light text-center">
-                        <th>글번호</th>
-                        <th>문의유형</th>
-                        <th>회원이름</th>
-                        <th>제목</th>
-                        <th>문의날짜</th>
-                        <th>답변여부</th>
-                        <th>답변등록일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="dto" items="${list}" varStatus="status">
-                        <tr valign="middle" class="text-center">
-                            <th>${dto.num}</th>
-                            <th>${dto.className}</th>
-                            <th>${dto.userName}</th>
-                            <th>
-                            <a href="#" 
-                            class="onetoone-link" 
-                            data-num="${dto.num}" 
-                            data-subject="${dto.subject}" 
-                            data-className="${dto.className}" 
-                            data-content="${dto.content}"
-                            data-ansSubject="${dto.ansSubject}"
-                            data-ansContent="${dto.ansContent}"
-                            >
-                            ${dto.subject}
-                            </a>
-                            </th>
-                            <th>${dto.regDate}</th>
-                            <th>
-                                <c:choose>
-                                    <c:when test="${dto.isanswered == 0}">
-                                        미답변
-                                    </c:when>
-                                    <c:when test="${dto.isanswered != 0}">
-                                        답변 완료
-                                    </c:when>
-                                </c:choose>
-                            </th>
-                            <th>${dto.ansRegDate}</th>
-                            
-                        </tr>                   
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-     </div>
-</div>
+        <!-- Tabs for filtering -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="tab" type="button" role="tab" aria-controls="0" aria-selected="true">전체</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="unanswered-tab" data-bs-toggle="tab" data-bs-target="tab" type="button" role="tab" aria-controls="1" aria-selected="false">미답변</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="tab" type="button" role="tab" aria-controls="2" aria-selected="false">답변 완료</button>
+            </li>
+        </ul>
 
-<div class="modal fade" id="onetooneModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="tab-content mt-3" id="myTabContent">
+        </div>
+      </div>
+ </div>
+ 
+ <div class="modal fade" id="onetooneModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -125,53 +89,52 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
+ 
+ <script type="text/javascript">
 $(document).ready(function() {
-    $('.onetoone-link').on('click', function(e) {
-        e.preventDefault();
-        var num = $(this).data('num');
-        var onetoonesubject = $(this).data('subject');
-        var className = $(this).data('classname');
-        var onetooneContent = $(this).data('content');
-		var ansSubject = $(this).data('anssubject');
-		var onetooneResponse = $(this).data('anscontent');
+	$('.tab-content').on('click', '.onetoone-link', function(){
+	       var num = $(this).data('num');
+	        var onetoonesubject = $(this).data('subject');
+	        var className = $(this).data('classname');
+	        var onetooneContent = $(this).data('content');
+	        var ansSubject = $(this).data('anssubject');
+	        var onetooneResponse = $(this).data('anscontent');
+
+	        $('#onetooneResponse').val(onetooneResponse);
+	        $('#ansSubject').val(ansSubject);
+	        $('#numHidden').val(num);
+	        $('#num').val(num + ' / ' + className);
+	        $('#onetoonesubject').val(onetoonesubject);
+	        $('#onetooneContent').val(onetooneContent);
+	        $('#onetooneModal .modal-title').text('1대1 문의 답변');
+	        $('#onetooneModal').modal('show');
 		
-		$('#onetooneResponse').val(onetooneResponse);
-		$('#ansSubject').val(ansSubject);
-        $('#numHidden').val(num);
-        $('#num').val(num + ' / ' + className);
-        $('#onetoonesubject').val(onetoonesubject); // 여기서 변수명을 올바르게 참조합니다.
-        $('#onetooneContent').val(onetooneContent);
-        $('#onetooneModal .modal-title').text('1대1 문의 답변'); // 여기서도 변수명을 올바르게 참조합니다.
-        $('#onetooneModal').center().modal('show');
-    });
+	});
 
     $('#saveResponse').on('click', function() {
-        var num = $('#numHidden').val(); // numHidden 값을 사용해야 합니다.
-        var ansSubject = $('#ansSubject').val(); // 여기서 변수명을 올바르게 참조합니다.
+        var num = $('#numHidden').val();
+        var ansSubject = $('#ansSubject').val();
         var ansContent = $('#onetooneResponse').val();
-        var ansRegDate = new Date().toISOString().split('T')[0]; // 현재 날짜를 ISO 포맷으로 설정
+        var ansRegDate = new Date().toISOString().split('T')[0];
 
         $.ajax({
             url: '${pageContext.request.contextPath}/admin/onetoone/saveResponse',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ 
-                num: num, 
-                ansRegDate: ansRegDate, 
-                ansContent: ansContent, 
-                ansSubject: ansSubject // 여기서 변수명을 올바르게 참조합니다.
+            data: JSON.stringify({
+                num: num,
+                ansRegDate: ansRegDate,
+                ansContent: ansContent,
+                ansSubject: ansSubject
             }),
             success: function(data) {
                 alert('답변이 등록되었습니다.');
                 $('#onetooneModal').modal('hide');
-                location.reload(); // 새로고침하여 업데이트된 내용을 반영
+                location.reload();
             },
             error: function(xhr, status, error) {
                 if (xhr.status === 401) {
                     location.href = '${pageContext.request.contextPath}/member/login';
-                    // alert('AJAX : 로그인이 필요합니다.');
                 } else {
                     alert('답변 등록 중 오류가 발생했습니다.');
                     console.log(data);
@@ -180,5 +143,68 @@ $(document).ready(function() {
         });
     });
 });
+
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+	listQna(1);
+	
+    $("button[role='tab']").on("click", function(e){
+		listQna(1);
+    });
+});
+
+function listQna(page) {
+	const $tab = $("button[role='tab'].active");
+	let gubun = $tab.attr("aria-controls");
+	
+	let url = '${pageContext.request.contextPath}/admin/onetoone/qnaList';
+	let formData = {pageNo:page, gubun:gubun};
+	
+	
+	const fn = function(data) {
+		$('.tab-content').html(data);
+	}
+	
+	ajaxFun(url, "get", formData, "text", fn);
+}
+
 </script>
 
+ 
