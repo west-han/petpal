@@ -577,36 +577,14 @@ function sendOk(mode) {
 						<div class="qna" id="scrollq">
 							<div class="qna-top">
 								<div class="qna-title">
-									<p>상품문의(1)</p>
+									<p class="title-qnaCount">상품문의(${dto.questionCount})</p>
 								</div>
 								<div class="p-2 text-end">
 									<button type="button" class="btnQuestion btn">문의 작성하기</button>
 								</div>
 							</div>
-							<div class="qna-bottom">
-								<div class="qnaCon-top">
-									<div>
-										<label class="qnaCom">답변완료</label>
-										<label class="qnaQNick">캔따개</label>
-									</div>
-									<label class="reviewCom">2024.07.22</label>
-								</div>
-								<div class="qnaCon-bottom">
-									<div class="qnaContent">재고는 언제...</div>
-								</div>
-							</div>
-							<div class="qna-bottom">
-								<div class="qnaCon-top">
-									<div>
-										<label class="qnaCom">답변완료</label>
-										<label class="qnaQNick">캔따개</label>
-									</div>
-									<label class="reviewCom">2024.07.22</label>
-								</div>
-								<div class="qnaCon-bottom">
-									<div class="qnaContent">재고는 언제...</div>
-								</div>
-							</div>
+							<div class="list-question"></div>
+						
 						</div>
 
 						<div class="mt-1 p-2 list-question"></div>
@@ -620,6 +598,44 @@ function sendOk(mode) {
 				</a>
 
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="questionDialogModal" tabindex="-1" 
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="questionDialogModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="questionDialogModalLabel">상품 문의 하기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="qna-form p-2">
+					<form name="questionForm">
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold">문의사항</span>
+							</div>
+							<div class="col-3 text-end">
+								<input type="checkbox" name="secret" id="secret1" class="form-check-input" 
+									value="0">
+								<label class="form-check-label" for="secret1">비공개</label>
+							</div>
+						</div>
+						<div class="p-1">
+							<input type="hidden" name="productNum" value="${dto.productNum}">
+							<textarea name="content" id="content" class="form-control"></textarea>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btnQuestionSendOk">등록</button>
+				<button type="button" class="btn btn-secondary btnQuestionSendCancel" data-bs-dismiss="modal">취소</button>
+			</div>			
 		</div>
 	</div>
 </div>
@@ -798,6 +814,126 @@ function printSummary(summary) {
 }	
 
 
+
+function listQnA(page) {
+	let productNum = '${dto.productNum}';
+	let url = '${pageContext.request.contextPath}/qna/list';
+	let query = 'productNum=' + productNum + "&pageNo=" + page;
+	
+	const fn = function(data) {
+		printQnA(data);
+	};
+}
+
+function printQnA(data) {
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	let size = data.size;
+	let paging = data.paging;
+	
+	$('.title-qnaCount').html('(' + dataCount + ')');
+	let out = '';
+	for(let item of data.list) {
+		let qnaNum = item.qnaNum;
+		let nickName = item.nickName;
+		let content = item.content;
+		let questionDate = item.questionDate;
+		let answer = item.answer;
+		let answerDate = item.answerDate;
+		let answerState = answerDate ? '<label>답변완료</label>' : '<label>답변대기</label>';
+		let secret = item.secret;
+		
+		out += '<div class="qna-bottom">';
+		out += '	<div class="qnaCon-top">';
+		out += '			<div>';
+		out += '				<label class="qnaCom">' + answerState + '</label>';
+		out += '				<label class="qnaQNick">' + nickName + '</label>';
+		out += '			</div>';
+		out += '			<label class="reviewCom">' + questionDate + '</label>';
+		out += '	</div>';
+		out += '	<div class="qnaCon-bottom">';
+		out += '		<div class="qnaContent">' + content + '</div>';
+		if(answer) {
+			out += '	<div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
+		}
+		out += '	</div>';
+		if(answer) {
+			out += '<div class="p-3 pt-0 answer-content" style="display: none;">';
+			out += '	<div class="bg-light">';
+			out += '    	<div class="p-3 pb-0">';
+			out += '        	<label class="px-2"> 관리자 </label> <label>' + answerDate + '</label>';
+			out += '		</div>';
+			out += '		<div class="p-3 pt-1">' + answer + '</div>';
+			out += '	</div>';
+			out += '</div>';
+		}
+		out += '</div>';
+	}
+	if(dataCount > 0) {
+		out += '<div class="page-navigation">' + paging + '</div>';
+	}
+	
+	$('.list-question').html(out);
+	
+}
+
+$(function() {
+	$('.list-question').on('click', 'btnAnswerView', function() {
+		const $btn = $(this);
+		
+		const $EL = $(this).closest(".qnaCon-bottom").next(".answer-content");
+		if($EL.is(':visible')) {
+			$btn.html(' <i class="bi bi-chevron-down"></i> ');
+			$EL.hide(100);
+		} else {
+			$btn.html(' <i class="bi bi-chevron-up"></i> ');
+			$EL.show(100);
+		}
+	});
+});
+
+$(function(){
+	$('.btnQuestion').click(function(){
+		$("#questionDialogModal").modal("show");
+	});
+
+	$('.btnQuestionSendOk').click(function(){
+		const f = document.questionForm;
+		let s;
+		
+		s = f.content.value.trim();
+		if( ! s ) {
+			alert("문의 사항을 입력하세요.")	;
+			f.content.focus();
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/qna/write";
+		let query = new FormData(f); 
+		
+		const fn = function(data) {
+			if(data.state === "true") {
+				f.reset();
+				
+				$("#questionDialogModal").modal("hide");
+				
+				listQnA(1);
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn, true);
+	});
+	
+	
+	$('.btnQuestionSendCancel').click(function(){
+		const f = document.questionForm;
+		f.reset();
+		
+		$("#questionDialogModal").modal("hide");
+	});	
+	
+});
 
 </script>
 

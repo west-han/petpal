@@ -29,11 +29,9 @@ public class QnAController {
 	
 	@PostMapping("write")
 	public Map<String, Object> writeOk(QnA dto, HttpSession session) throws Exception {
-		Map<String, Object> model = new HashMap<String, Object>();
-		
 		String state = "true";
+		
 		try {
-			
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			dto.setMemberNum(info.getMemberNum());
 			
@@ -42,6 +40,7 @@ public class QnAController {
 		} catch (Exception e) {
 			state = "false";
 		}
+		Map<String, Object> model = new HashMap<String, Object>();
 		
 		model.put("state", state);
 		return model;
