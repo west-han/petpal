@@ -161,6 +161,7 @@
                             <label class="fs-6 fw-light text-decoration-line-through">30,000원</label>
                         </div>
                     </div>
+                    
                 </a>
                 <a href="${pageContext.request.contextPath}/product/1/146" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/7.jpg');">
                     <div class="p-2">
