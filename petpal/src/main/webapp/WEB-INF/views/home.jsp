@@ -90,99 +90,100 @@
                 <a href="#"><span>더보기 ></span></a>
             </div>
             <div class="product">
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/custom1.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/69" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/1.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            펫트리움 쓱쓱 젤리 클리퍼
+                            펫베오 5초 순면 핸즈프리 리드줄 소라
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">7%</label>
-                            <label class="fs-5 pe-2 fw-semibold">13,900원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">14,900원</label>
+                            <label class="fs-5 pe-2 text-danger">32%</label>
+                            <label class="fs-5 pe-2 fw-semibold">13,000원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">19,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/2.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/141" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/2.png');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            세븐펫 오래오래 터키츄 링 20개입
+                            웨어러블 UFO 강아지 자동리드줄 2세대
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">54%</label>
-                            <label class="fs-5 pe-2 fw-semibold">58,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">26,900원</label>
+                            <label class="fs-5 pe-2 text-danger">30%</label>
+                            <label class="fs-5 pe-2 fw-semibold">37,000원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">53,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/3.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/142" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/3.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            아띠지기 아띠트릿 단호박 40g
+                            러프웨어 탑로프 목줄 블루 S
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">34%</label>
-                            <label class="fs-5 pe-2 fw-semibold">9,900원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">15,000원</label>
+                            <label class="fs-5 pe-2 text-danger">19%</label>
+                            <label class="fs-5 pe-2 fw-semibold">38,900원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">48,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/4.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/143" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/4.png');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            츄통령 저염황태채 40g
+                            젠틀우프 워크하드 목줄 올리브
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">35%</label>
-                            <label class="fs-5 pe-2 fw-semibold">10,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">6,500원</label>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/5.jpg');">
-                    <div class="p-2">
-                        <div class="text-truncate fw-semibold pb-1">
-                            개과천선 노멜 애견방석 다크카키
-                        </div>
-                        <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">68%</label>
-                            <label class="fs-5 pe-2 fw-semibold">130,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">42,000원</label>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/6.jpg');">
-                    <div class="p-2">
-                        <div class="text-truncate fw-semibold pb-1">
-                            구루구루 슬림핏 펫 매트 롤형 크림
-                        </div>
-                        <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">10%</label>
-                            <label class="fs-5 pe-2 fw-semibold">49,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">44,100원</label>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/7.jpg');">
-                    <div class="p-2">
-                        <div class="text-truncate fw-semibold pb-1">
-                            페디칼 웰빙죽 소고기&전복 12개입
-                        </div>
-                        <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">10%</label>
+                            <label class="fs-5 pe-2 text-danger">32%</label>
                             <label class="fs-5 pe-2 fw-semibold">24,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">21,600원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">34,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/8.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/144" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/5.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            38.5℃ 눈 건강에 좋은 루테인 아스잔틴 한스푼 60g
+                            로이코 트릿토이
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">17%</label>
-                            <label class="fs-5 pe-2 fw-semibold">30,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">25,000원</label>
+                            <label class="fs-5 pe-2 text-danger">36%</label>
+                            <label class="fs-5 pe-2 fw-semibold">89,000원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">139,000원</label>
+                        </div>
+                    </div>
+                </a>
+                <a href="${pageContext.request.contextPath}/product/1/145" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/6.jpg');">
+                    <div class="p-2">
+                        <div class="text-truncate fw-semibold pb-1">
+                            펫홀릭 노즈워크 주말농장
+                        </div>
+                        <div class="pb-1">
+                            <label class="fs-5 pe-2 text-danger">12%</label>
+                            <label class="fs-5 pe-2 fw-semibold">26,500원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">30,000원</label>
+                        </div>
+                    </div>
+                    
+                </a>
+                <a href="${pageContext.request.contextPath}/product/1/146" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/7.jpg');">
+                    <div class="p-2">
+                        <div class="text-truncate fw-semibold pb-1">
+                           에코펫위드 꽈배기 노즈워크
+                        </div>
+                        <div class="pb-1">
+                            <label class="fs-5 pe-2 text-danger">49%</label>
+                            <label class="fs-5 pe-2 fw-semibold">5,000원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">9,900원</label>
+                        </div>
+                    </div>
+                </a>
+                <a href="${pageContext.request.contextPath}/product/1/40" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/8.png');">
+                    <div class="p-2">
+                        <div class="text-truncate fw-semibold pb-1">
+                            이즈칸 독 퍼포먼스 어덜트 6.5kg
+                        </div>
+                        <div class="pb-1">
+                            <label class="fs-5 pe-2 text-danger">18%</label>
+                            <label class="fs-5 pe-2 fw-semibold">44,500원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">54,000원</label>
                         </div>
                     </div>
                 </a>
@@ -259,99 +260,93 @@
                 <a href="#"><span>더보기 ></span></a>
             </div>
             <div class="product">
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special1.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/147" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/11.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 1
+                            패리스독 펫츠플레이 미디움볼 라텍스토이 3종세트
+                        </div>
+                        <div class="pb-1">
+                            <label class="fs-5 pe-2 fw-semibold">10,000원</label>
+                        </div>
+                    </div>
+                </a>
+                <a href="${pageContext.request.contextPath}/product/1/148" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/22.jpg');">
+                    <div class="p-2">
+                        <div class="text-truncate fw-semibold pb-1">
+                            미밍코 핑크볼 3개입
+                        </div>
+                        <div class="pb-1">
+                            <label class="fs-5 pe-2 fw-semibold">14,000원</label>
+                        </div>
+                    </div>
+                </a>
+                <a href="${pageContext.request.contextPath}/product/1/149" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/33.jpg');">
+                    <div class="p-2">
+                        <div class="text-truncate fw-semibold pb-1">
+                            패리스독 굿모닝 라텍스토이 4종세트
+                        </div>
+                        <div class="pb-1">
+                            <label class="fs-5 pe-2 fw-semibold">11,500원</label>
+                        </div>
+                    </div>
+                </a>
+                <a href="${pageContext.request.contextPath}/product/1/150" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/44.png');">
+                    <div class="p-2">
+                        <div class="text-truncate fw-semibold pb-1">
+                            도기맨 풀리데코 장난감 토끼
                         </div>
                         <div class="pb-1">
                             <label class="fs-5 pe-2 text-danger">15%</label>
-                            <label class="fs-5 pe-2 fw-semibold">12,750원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">15,000원</label>
+                            <label class="fs-5 pe-2 fw-semibold">5,500원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">6,500원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special2.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/151" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/55.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 2
+                            크레용펫 당근 실타래 로프토이
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">25%</label>
-                            <label class="fs-5 pe-2 fw-semibold">18,750원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">25,000원</label>
+                            <label class="fs-5 pe-2 text-danger">5%</label>
+                            <label class="fs-5 pe-2 fw-semibold">1,900원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">2,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special3.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/152" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/66.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 3
+                            [키니키니X어프어프]DOT FLOWER BEAR HARNESS-NAVY(하네스-H형)
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">35%</label>
-                            <label class="fs-5 pe-2 fw-semibold">22,750원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">35,000원</label>
+                            <label class="fs-5 pe-2 text-danger">20%</label>
+                            <label class="fs-5 pe-2 fw-semibold">34,500원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">43,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special4.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/153" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/77.jpg');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 4
+                            펫츠랜드 루나 프릴 하네스 밀키블루
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">45%</label>
-                            <label class="fs-5 pe-2 fw-semibold">24,750원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">45,000원</label>
+                            <label class="fs-5 pe-2 text-danger">38%</label>
+                            <label class="fs-5 pe-2 fw-semibold">14,900원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">24,000원</label>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special5.jpg');">
+                <a href="${pageContext.request.contextPath}/product/1/154" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/88.png');">
                     <div class="p-2">
                         <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 5
+                            해리스힐 메쉬원버튼 입마개 그레이
                         </div>
                         <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">55%</label>
-                            <label class="fs-5 pe-2 fw-semibold">22,500원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">50,000원</label>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special6.jpg');">
-                    <div class="p-2">
-                        <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 6
-                        </div>
-                        <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">65%</label>
-                            <label class="fs-5 pe-2 fw-semibold">21,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">60,000원</label>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special7.jpg');">
-                    <div class="p-2">
-                        <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 7
-                        </div>
-                        <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">75%</label>
-                            <label class="fs-5 pe-2 fw-semibold">17,500원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">70,000원</label>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="item" style="background-image: url('${pageContext.request.contextPath}/resources/images/special8.jpg');">
-                    <div class="p-2">
-                        <div class="text-truncate fw-semibold pb-1">
-                            기획 상품 8
-                        </div>
-                        <div class="pb-1">
-                            <label class="fs-5 pe-2 text-danger">85%</label>
-                            <label class="fs-5 pe-2 fw-semibold">12,000원</label>
-                            <label class="fs-6 fw-light text-decoration-line-through">80,000원</label>
+                            <label class="fs-5 pe-2 text-danger">10%</label>
+                            <label class="fs-5 pe-2 fw-semibold">8,900원</label>
+                            <label class="fs-6 fw-light text-decoration-line-through">9,900원</label>
                         </div>
                     </div>
                 </a>
