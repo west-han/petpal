@@ -138,6 +138,7 @@
                         <th>이름</th>
                         <th>생년월일</th>
                         <th>가입날짜</th>
+                        <th>잔여포인트</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -150,6 +151,7 @@
                             <td>${dto.userName}</td>
                             <td>${dto.birth}</td>
                             <td>${dto.regDate}</td>
+                            <td>${dto.balance}</td>
                             <td><button class="btn btn-primary" onclick="editCustomer(${dto.memberNum})">수정</button></td>
                             <td><button class="btn btn-primary" onclick="editPoints(${dto.memberNum},${dto.balance})">포인트</button></td>
                         </tr>

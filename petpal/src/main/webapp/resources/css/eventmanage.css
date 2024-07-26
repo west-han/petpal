@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'MangoDdobak-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Meongi-W-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-W-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+.body-container {
+    font-family: 'MangoDdobak-B';
+    max-width: 1500px;
+    margin-left: 0;
+}
+
+.body-title h3 {
+    font-size: 26px;
+}
+
+.customer-info-management {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 0;
+}
+
+.customer-info-management h2 {
+    font-family: 'MangoDdobak-B';
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.customer-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.customer-info-table th, .customer-info-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.customer-info-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.customer-info-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.action-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.action-btn:hover {
+    background-color: #45a049;
+}
+
+body .page-box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+body .page-box span, body .page-box a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+body .page-box span, body .page-box a:hover {
+	color: #E4B075;
+}
+
+body .page-box a, a:link, a:visited {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.search {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.search-field, .search-query, .search-btn {
+    padding: 10px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.search-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #45a049;
+}
+
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.search .form-control {
+    border-radius: 20px;
+}
+
+.search .btn {
+    border-radius: 20px;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-footer .btn {
+    margin-left: 10px;
+}

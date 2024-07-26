@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.petpal.admin.mapper.EventManageMapper">
+
+	<insert id="insertEvent" parameterType="com.shop.petpal.admin.domain.EventManage">
+		INSERT INTO eventPage(num, subject, thumbnail, content, 
+			startDate, endDate, memberNum)
+		VALUES (eventPage_seq.NEXTVAL, #{subject}, #{thumbnail},#{content},
+			TO_DATE(#{startDate}, 'YYYY-MM-DD'), 
+			TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS'), #{memberNum})
+	</insert>
+	
+	<!-- 파일 -->
+	<insert id="insertEventFile" parameterType="com.shop.petpal.admin.domain.EventManage">
+		INSERT INTO eventFile(eventFileNum, eventFileName, num)
+		VALUES (EVENTFILE_seq.NEXTVAL, #{eventFileName}, #{num})
+	</insert>
+	
+	<!-- 글개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM eventPage
+	</select>
+	
+	<!-- 글리스트 -->
+	<select id="listEvent" parameterType="map" resultType="com.shop.petpal.admin.domain.EventManage">
+		SELECT num, subject, thumbnail, content, 
+			startDate, endDate, memberNum
+		FROM eventPage
+		ORDER BY endDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 글보기 -->
+	<select id="findByNum" parameterType="Long" resultType="com.shop.petpal.admin.domain.EventManage">
+		SELECT num, subject, thumbnail, content, 
+			startDate, endDate, memberNum
+		FROM eventPage	
+		WHERE num = #{num}
+	</select>
+
+	<!-- 파일 보기 -->
+    <select id="findEventFileByNum" parameterType="Long" resultType="com.shop.petpal.admin.domain.EventManage">
+        SELECT eventFileNum, eventFileName, num
+        FROM eventFile
+        WHERE eventFileNum = #{eventFileNum}   
+    </select>
+	
+	<!-- 글 수정 -->
+	<update id="updateEvent" parameterType="com.shop.petpal.admin.domain.EventManage">
+		UPDATE eventPage SET subject=#{subject}, thumbnail=#{thumbnail}, content=#{content},
+				startDate=TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS'),
+				endDate=TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS')
+		WHERE num = #{num}
+	</update>
+	
+	<!-- 글삭제 -->
+	<delete id="deleteEvent" parameterType="long">
+		DELETE FROM eventPage WHERE num = #{num}
+	</delete>
+	<delete id="deleteEventFile" parameterType="map">
+		DELETE FROM eventPage WHERE ${field} = #{num}
+	</delete>
+
+</mapper>
