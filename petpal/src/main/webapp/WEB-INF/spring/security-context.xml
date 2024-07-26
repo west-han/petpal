@@ -23,6 +23,7 @@
         </headers>
         
         <!-- 모든 접근자를 항상 승인 -->
+        <!-- 상품 조회 화면 접근 제한 해제 -->
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/1" access="permitAll"/>
         <intercept-url pattern="/2" access="permitAll"/>
@@ -39,11 +40,12 @@
         <intercept-url pattern="/member/userNicknameCheck" access="permitAll"/>
         
         
-        <!-- 상품 조회 화면 접근 제한 해제 -->
-        <intercept-url pattern="/products/**" access="permitAll"/>
         <intercept-url pattern="/product/**" access="permitAll"/>
+        <intercept-url pattern="/productReview/**" access="permitAll"/>
+        <intercept-url pattern="/qna/**" access="permitAll"/>
         
         <intercept-url pattern="/resources/**" access="permitAll"/>
+        <intercept-url pattern="/uploads/reviewPhoto/**" access="permitAll"/>
         <intercept-url pattern="/uploads/image/**" access="permitAll"/>
         <intercept-url pattern="/uploads/product/**" access="permitAll"/>
         
