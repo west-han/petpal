@@ -29,9 +29,9 @@ public class ProductController {
 	
 	@GetMapping(value = {"recent", "recent/{species}", "recent/{species}/{categoryNum}"})
 	public String listRecentProducts(
-			@PathVariable(required = false) Integer species,
-			@PathVariable(required = false) Integer categoryNum,
-			@RequestParam(defaultValue = "1") int currentPage,
+			@PathVariable(name="species", required = false) Integer species,
+			@PathVariable(name="categoryNum", required = false) Integer categoryNum,
+			@RequestParam(name="currentPage", defaultValue = "1") int currentPage,
 			HttpSession session,
 			Model model) {
 
@@ -70,9 +70,9 @@ public class ProductController {
 	
 	@GetMapping(value = {"best", "best/{species}", "best/{species}/{categoryNum}"})
 	public String listBestProducts(
-			@PathVariable(required = false) Integer species,
-			@PathVariable(required = false) Integer categoryNum,
-			@RequestParam(defaultValue = "1") int currentPage,
+			@PathVariable(name="species", required = false) Integer species,
+			@PathVariable(name="categoryNum", required = false) Integer categoryNum,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
 			HttpSession session,
 			Model model) {
 
@@ -112,9 +112,9 @@ public class ProductController {
 	@GetMapping(value = {"category", "category/{species}", "category/{species}/{parentCategory}",
 			"category/{species}/{parentCategory}/{categoryNum}"})
 	public String listCategorizedProducts(
-			@PathVariable(required = false) Integer species,
-			@PathVariable(required = false) Integer parentCategory,
-			@PathVariable(required = false) Integer categoryNum,
+			@PathVariable(name="species", required = false) Integer species,
+			@PathVariable(name="parentCategory", required = false) Integer parentCategory,
+			@PathVariable(name="categoryNum", required = false) Integer categoryNum,
 			@RequestParam(value = "page", defaultValue = "1") int currentPage,
 			@RequestParam(value = "pageSize", defaultValue = "30") int pageSize,
 			@RequestParam Map<String, Object> params,
@@ -191,9 +191,9 @@ public class ProductController {
 	@PostMapping(value = {"search", "search/{species}", "search/{species}/{parentCategory}",
 	"search/{species}/{parentCategory}/{categoryNum}"})
 	public String search(
-		@PathVariable(required = false) Integer species,
-		@PathVariable(required = false) Integer parentCategory,
-		@PathVariable(required = false) Integer categoryNum,
+		@PathVariable(name="species", required = false) Integer species,
+		@PathVariable(name="parentCategory", required = false) Integer parentCategory,
+		@PathVariable(name="categoryNum", required = false) Integer categoryNum,
 		@RequestParam(value = "page", defaultValue = "1") int currentPage,
 		@RequestParam(value = "pageSize", defaultValue = "30") int pageSize,
 		@RequestParam Map<String, Object> params,
@@ -256,9 +256,9 @@ public class ProductController {
 	@GetMapping(value = {"search", "search/{species}", "search/{species}/{parentCategory}",
 			"search/{species}/{parentCategory}/{categoryNum}"})
 	public String listSearchResult(
-			@PathVariable(required = false) Integer species,
-			@PathVariable(required = false) Integer parentCategory,
-			@PathVariable(required = false) Integer categoryNum,
+			@PathVariable(name="species", required = false) Integer species,
+			@PathVariable(name="parentCategory", required = false) Integer parentCategory,
+			@PathVariable(name="categoryNum", required = false) Integer categoryNum,
 			@RequestParam(value = "page", defaultValue = "1") int currentPage,
 			@RequestParam(value = "pageSize", defaultValue = "30") int pageSize,
 			@RequestParam Map<String, Object> params,
