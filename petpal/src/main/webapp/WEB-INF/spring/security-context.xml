@@ -39,10 +39,14 @@
         <intercept-url pattern="/member/userEmailCheck" access="permitAll"/>
         <intercept-url pattern="/member/userNicknameCheck" access="permitAll"/>
         
-        
-        <intercept-url pattern="/product/**" access="permitAll"/>
+        <intercept-url pattern="/product/1/**" access="permitAll"/>
+        <intercept-url pattern="/product/2/**" access="permitAll"/>
+        <intercept-url pattern="/product/search/**" access="permitAll"/>
+        <intercept-url pattern="/product/category/**" access="permitAll"/>
+        <intercept-url pattern="/product/best/**" access="permitAll"/>
+        <intercept-url pattern="/product/recent/**" access="permitAll"/>
         <intercept-url pattern="/productReview/**" access="permitAll"/>
-        <intercept-url pattern="/qna/**" access="permitAll"/>
+        <intercept-url pattern="/qna/list" access="permitAll"/>
         
         <intercept-url pattern="/resources/**" access="permitAll"/>
         <intercept-url pattern="/uploads/reviewPhoto/**" access="permitAll"/>
