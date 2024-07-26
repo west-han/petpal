@@ -496,4 +496,16 @@ public class Mypage2ServiceImpl implements Mypage2Service {
         
         return list;
 	}
+
+	@Override
+	public void updateCancel(Mypage2 dto) throws Exception {
+		// TODO 주문 취소
+		
+		try {
+			mapper.updateCancel(dto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
