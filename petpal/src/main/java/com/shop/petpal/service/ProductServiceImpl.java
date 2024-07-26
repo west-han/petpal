@@ -233,4 +233,44 @@ public class ProductServiceImpl implements ProductService {
         }
         return dataCount;
     }
+
+	@Override
+	public void insertLike(Map<String, Object> map) throws Exception {
+		try {
+			mapper.insertLike(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void deleteLike(Map<String, Object> map) throws Exception {
+		try {
+			mapper.deleteLike(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public boolean userProductLiked(Map<String, Object> map) {
+		boolean result = false;
+		
+		try {
+			Product dto = mapper.userProductLiked(map);
+			if(dto != null) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
 }

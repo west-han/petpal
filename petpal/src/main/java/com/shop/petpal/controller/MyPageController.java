@@ -34,38 +34,35 @@ public class MyPageController {
 			HttpSession session, Model model) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
-		if(info != null) {
-			List<Order> list = service.listCart(info.getMemberNum());
+	
+		List<Order> list = service.listCart(info.getMemberNum());
+		
+		int deliveryCharge = 0;
+		int cartNsaledPrice = 0;
+		int cartSaledTotal = 0;
+		int cartTotalPrice = 0;
+		int paymentPrice = 0;
+		
+		for(Order dto : list) {
+			cartNsaledPrice += dto.getPriceOrig() * dto.getAmount();
+			cartSaledTotal += dto.getDiscountAmount() * dto.getAmount();
+			cartTotalPrice += dto.getPricePay();
 			
-			int deliveryCharge = 0;
-			int cartNsaledPrice = 0;
-			int cartSaledTotal = 0;
-			int cartTotalPrice = 0;
-			int paymentPrice = 0;
-			
-			for(Order dto : list) {
-				cartNsaledPrice += dto.getPriceOrig() * dto.getAmount();
-				cartSaledTotal += dto.getDiscountAmount() * dto.getAmount();
-				cartTotalPrice += dto.getPricePay();
-				
-				deliveryCharge = dto.getDeliveryCharge();
-			}
-			
-			deliveryCharge = cartTotalPrice >= 20000 ? 0 : 3000;
-			paymentPrice =  cartTotalPrice + deliveryCharge;
-			
-			List<Map<String, Object>> categories = productService.listCategory(species);
-			
-			model.addAttribute("cartNsaledPrice",cartNsaledPrice);
-			model.addAttribute("cartSaledTotal",cartSaledTotal);
-			model.addAttribute("cartTotalPrice",cartTotalPrice);
-			model.addAttribute("deliveryCharge",deliveryCharge);
-			model.addAttribute("paymentPrice",paymentPrice);
-			model.addAttribute("list", list);
-			model.addAttribute("categories", categories);
-		} else {
-			return "redirect:/member/login";
+			deliveryCharge = dto.getDeliveryCharge();
 		}
+		
+		deliveryCharge = cartTotalPrice >= 20000 ? 0 : 3000;
+		paymentPrice =  cartTotalPrice + deliveryCharge;
+		
+		List<Map<String, Object>> categories = productService.listCategory(species);
+		
+		model.addAttribute("cartNsaledPrice",cartNsaledPrice);
+		model.addAttribute("cartSaledTotal",cartSaledTotal);
+		model.addAttribute("cartTotalPrice",cartTotalPrice);
+		model.addAttribute("deliveryCharge",deliveryCharge);
+		model.addAttribute("paymentPrice",paymentPrice);
+		model.addAttribute("list", list);
+		model.addAttribute("categories", categories);
 		
 		
 		return ".myPage.cart";
@@ -78,12 +75,9 @@ public class MyPageController {
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
-			if(info != null) {
-				dto.setMemberNum(info.getMemberNum());
-				service.insertCart(dto);
-			} else {
-				return "redirect:/member/login";
-			}
+			dto.setMemberNum(info.getMemberNum());
+			service.insertCart(dto);
+			
 			
 		} catch (Exception e) {
 		}
@@ -142,7 +136,6 @@ public class MyPageController {
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			
-			if (info != null) {
 				Order dto = new Order();
 				dto.setStockNum(stockNum);
 				dto.setAmount(amount);
@@ -151,9 +144,7 @@ public class MyPageController {
 				
 				service.updateCart(dto);
 				return "success";
-			} else {
-				return "redirect:/member/login";
-			}
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/";

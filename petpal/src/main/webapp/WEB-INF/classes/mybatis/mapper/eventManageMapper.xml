@@ -1,66 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.petpal.admin.mapper.EventManageMapper">
-
-	<insert id="insertEvent" parameterType="com.shop.petpal.admin.domain.EventManage">
-		INSERT INTO eventPage(num, subject, thumbnail, content, 
-			startDate, endDate, memberNum)
-		VALUES (eventPage_seq.NEXTVAL, #{subject}, #{thumbnail},#{content},
-			TO_DATE(#{startDate}, 'YYYY-MM-DD'), 
-			TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS'), #{memberNum})
-	</insert>
-	
-	<!-- 파일 -->
-	<insert id="insertEventFile" parameterType="com.shop.petpal.admin.domain.EventManage">
-		INSERT INTO eventFile(eventFileNum, eventFileName, num)
-		VALUES (EVENTFILE_seq.NEXTVAL, #{eventFileName}, #{num})
-	</insert>
-	
-	<!-- 글개수 -->
-	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0)
-		FROM eventPage
-	</select>
-	
-	<!-- 글리스트 -->
-	<select id="listEvent" parameterType="map" resultType="com.shop.petpal.admin.domain.EventManage">
-		SELECT num, subject, thumbnail, content, 
-			startDate, endDate, memberNum
-		FROM eventPage
-		ORDER BY endDate DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
-	</select>
-	
-	<!-- 글보기 -->
-	<select id="findByNum" parameterType="Long" resultType="com.shop.petpal.admin.domain.EventManage">
-		SELECT num, subject, thumbnail, content, 
-			startDate, endDate, memberNum
-		FROM eventPage	
-		WHERE num = #{num}
-	</select>
-
-	<!-- 파일 보기 -->
-    <select id="findEventFileByNum" parameterType="Long" resultType="com.shop.petpal.admin.domain.EventManage">
-        SELECT eventFileNum, eventFileName, num
-        FROM eventFile
-        WHERE eventFileNum = #{eventFileNum}   
+    
+    <!-- 시퀀스 값을 가져오는 SQL 문 -->
+    <select id="eventSeq" resultType="long">
+        SELECT eventPage_seq.NEXTVAL FROM dual
     </select>
-	
-	<!-- 글 수정 -->
-	<update id="updateEvent" parameterType="com.shop.petpal.admin.domain.EventManage">
-		UPDATE eventPage SET subject=#{subject}, thumbnail=#{thumbnail}, content=#{content},
-				startDate=TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS'),
-				endDate=TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS')
-		WHERE num = #{num}
-	</update>
-	
-	<!-- 글삭제 -->
-	<delete id="deleteEvent" parameterType="long">
-		DELETE FROM eventPage WHERE num = #{num}
-	</delete>
-	<delete id="deleteEventFile" parameterType="map">
-		DELETE FROM eventPage WHERE ${field} = #{num}
-	</delete>
+
+    <!-- 게시글 작성 -->
+    <insert id="insertEvent" parameterType="com.shop.petpal.admin.domain.EventManage">
+        INSERT INTO eventPage(num, subject, thumbnail, content, startDate, endDate, memberNum)
+        VALUES (#{num}, #{subject}, #{thumbnail,jdbcType=VARCHAR}, #{content},
+                TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS'),
+                TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS'), #{memberNum})
+    </insert>
+    
+    <!-- 파일 정보 삽입 -->
+    <insert id="insertEventFile" parameterType="com.shop.petpal.admin.domain.EventManage">
+        INSERT INTO eventFile(eventFileNum, eventFilename, num)
+        VALUES (eventFile_seq.NEXTVAL, #{eventFilename}, #{num})
+    </insert>
+
+    <!-- 게시글 목록 -->
+    <select id="listEvent" parameterType="map" resultType="com.shop.petpal.admin.domain.EventManage">
+        SELECT num, subject, thumbnail, content, startDate, endDate, memberNum
+        FROM eventPage
+        ORDER BY endDate DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+    </select>
+
+    <!-- 게시글 수 -->
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        SELECT COUNT(*)
+        FROM eventPage
+    </select>
+
+    <!-- 게시글 상세보기 -->
+    <select id="findByNum" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
+        SELECT num, subject, thumbnail, content, startDate, endDate, memberNum
+        FROM eventPage
+        WHERE num = #{num}
+    </select>
+
+    <!-- 파일 정보 보기 -->
+    <select id="findEventFileByNum" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
+        SELECT eventFileNum, eventFilename, num
+        FROM eventFile
+        WHERE eventFileNum = #{eventFileNum}
+    </select>
+
+    <!-- 게시글 수정 -->
+    <update id="updateEvent" parameterType="com.shop.petpal.admin.domain.EventManage">
+        UPDATE eventPage
+        SET subject = #{subject}, thumbnail = #{thumbnail,jdbcType=VARCHAR}, content = #{content},
+            startDate = TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS'),
+            endDate = TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS')
+        WHERE num = #{num}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteEvent" parameterType="long">
+        DELETE FROM eventPage WHERE num = #{num}
+    </delete>
+
+    <!-- 파일 삭제 -->
+    <delete id="deleteEventFile" parameterType="long">
+        DELETE FROM eventFile WHERE eventFileNum = #{eventFileNum}
+    </delete>
 
 </mapper>

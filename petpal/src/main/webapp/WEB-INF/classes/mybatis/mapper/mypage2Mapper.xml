@@ -362,6 +362,13 @@
 	    WHERE memberNum = #{memberNum} and orderDetailNum = #{orderDetailNum}
 	</select>
 	
+	<!-- 주문 취소 -->
+	<update id="updateCancel" parameterType="com.shop.petpal.domain.Mypage2">
+		UPDATE orderDetail
+		SET detailState = 3
+		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
+	</update>
+	
 	
 	<!-- myreview -->
 	<!-- 내가 쓴 리뷰 리스트 -->

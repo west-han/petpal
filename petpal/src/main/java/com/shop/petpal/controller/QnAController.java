@@ -21,6 +21,7 @@ import com.shop.petpal.service.QnAService;
 @RestController
 @RequestMapping("/qna/*")
 public class QnAController {
+	
 	@Autowired
 	private QnAService service;
 	
@@ -33,6 +34,7 @@ public class QnAController {
 		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
 			dto.setMemberNum(info.getMemberNum());
 			
 			service.insertQnA(dto);
@@ -60,7 +62,7 @@ public class QnAController {
 			int dataCount = 0;
 			
 			map.put("productNum", productNum);
-			dataCount = service.dataCount(map);
+			
 			
 			int total_page = myUtil.pageCount(dataCount, size);
 			if(current_page > total_page) {
@@ -76,8 +78,9 @@ public class QnAController {
 			map.put("offset", offset);
 			
 			List<QnA> list = service.listQnA(map);
+			
 			for(QnA dto : list) {
-				if(dto.getSecret() == 0 && (info == null || info.getAuthority() != "admin" && dto.getMemberNum() != info.getMemberNum())) {
+				if(dto.getSecret() == 0 && (info == null ||  dto.getMemberNum() != info.getMemberNum())) {
 					dto.setContent("비밀글입니다. <i class='bi bi-file-lock2'></i>");
 					dto.setAnswer("");
 					
@@ -86,17 +89,20 @@ public class QnAController {
 			
 			String paging = myUtil.pagingFunc(current_page, total_page, "listQnA");
 			
-			map.put("size", size);
-			map.put("total_page", total_page);
-			map.put("dataCount", dataCount);
-			map.put("pageNo", current_page);
-			map.put("paging", paging);
-			map.put("list", list);
+			dataCount = service.dataCount(map);
+			
+			model.put("size", size);
+			model.put("total_page", total_page);
+			model.put("dataCount", dataCount);
+			model.put("pageNo", current_page);
+			model.put("paging", paging);
+			model.put("list", list);
 			
 			
+
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
 		return model;
 	}
 }

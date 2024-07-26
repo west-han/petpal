@@ -62,6 +62,20 @@ public class MyPageController2 {
 		return ".myPage2.orderlist";
 	}
 	
+	
+	@PostMapping("updateCancel")
+	public String updateCancel(Mypage2 dto) throws Exception {
+		
+		try {
+			service.updateCancel(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/myPage2/orderlist";
+	}
+	
 	@GetMapping("findByReview")
 	@ResponseBody
 	public Map<String, Object> findByReview(@RequestParam(name = "orderDetailNum") long orderDetailNum,

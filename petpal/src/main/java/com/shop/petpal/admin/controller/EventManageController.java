@@ -1,5 +1,6 @@
 package com.shop.petpal.admin.controller;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.petpal.admin.domain.EventManage;
 import com.shop.petpal.admin.service.EventManageService;
@@ -46,7 +48,7 @@ public class EventManageController {
             kwd = URLDecoder.decode(kwd, "utf-8");
         }
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("schType", schType);
         map.put("kwd", kwd);
 
@@ -60,7 +62,7 @@ public class EventManageController {
         }
 
         int offset = (current_page - 1) * size;
-        if(offset < 0) offset = 0;
+        if (offset < 0) offset = 0;
 
         map.put("offset", offset);
         map.put("size", size);
@@ -97,22 +99,45 @@ public class EventManageController {
     
     @GetMapping("/admin/event/write")
     public String writeForm(Model model) {
-    	model.addAttribute("mode", "write");
-    	
-    	return ".admin.event.write";
+        model.addAttribute("mode", "write");
+        return ".admin.event.write";
     }
     
     @PostMapping("/admin/event/write")
-	public String writeSubmit(
-			EventManage dto, HttpSession session) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
+    public String writeSubmit(
+            EventManage dto, HttpSession session) throws Exception {
 
-		try {
+        SessionInfo info = (SessionInfo) session.getAttribute("member");
+        try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "event";
+
 			dto.setMemberNum(info.getMemberNum());
-			service.insertEvent(dto);
+			service.insertEvent(dto, pathname);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		return "redirect:/admin/event/list";
-	}
+        return "redirect:/admin/event/list";
+    }
+
+    @PostMapping("/admin/event/deleteFile")
+    @ResponseBody
+    public Map<String, Object> deleteFile(
+            @RequestParam long fileNum,
+            HttpSession session) {
+        String root = session.getServletContext().getRealPath("/");
+        String path = root + "uploads" + File.separator + "event";
+        String state = "true";
+        
+        try {
+            service.deleteFile(fileNum, path);
+        } catch (Exception e) {
+            state = "false";
+        }
+        
+        Map<String, Object> model = new HashMap<>();
+        model.put("state", state);
+        return model;
+    }
 }

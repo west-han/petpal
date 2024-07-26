@@ -95,7 +95,13 @@ a {
 				<h2>주문 내역</h2>
 				<c:set var="prevOrderNum" value="" />
 				<c:forEach var="dto" items="${list}">
-					<c:if test="${prevOrderNum != dto.orderNum}">
+					<c:set var="skipOrder" value="false" />
+					<c:forEach var="checkItem" items="${list}">
+						<c:if test="${checkItem.orderNum == dto.orderNum && checkItem.detailState == 3}">
+							<c:set var="skipOrder" value="true" />
+						</c:if>
+					</c:forEach>
+					<c:if test="${prevOrderNum != dto.orderNum && !skipOrder}">
 						<c:set var="prevOrderNum" value="${dto.orderNum}" />
 						<div class="card mb-3">
 							<div class="card-header d-flex justify-content-between align-items-center">
@@ -104,8 +110,8 @@ a {
 							</div>
 							<div class="card-body">
 								<c:forEach var="item" items="${list}">
-									<c:if test="${item.orderNum == dto.orderNum}">
-									
+									<c:if test="${item.orderNum == dto.orderNum && item.detailState != 3}">
+									<!-- 같은 주문번호로 묶여진 1개의 div 박스 -->
 									<div class="bg-light mb-2 p-3">
 										<div class="row mb-2">
 											<div class="col-md-9">
@@ -127,7 +133,18 @@ a {
 											</div>
 											<div class="col-md-3 button-column align-bottom mt-5">
 												<button class="btn btn-primary mt-3">배송 조회</button>
-												<button class="btn btn-secondary">교환/반품 신청</button>
+												<c:choose>
+													<c:when test="${item.orderState == 0 || item.orderState == 1}">
+														<form action="${pageContext.request.contextPath}/myPage2/updateCancel" method="post">
+															<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
+															<input type="hidden" name="orderNum" value="${item.orderNum}">
+															<button type="submit" class="btn btn-secondary" onclick="return realCancel();">주문취소</button>
+														</form>
+													</c:when>
+													<c:when test="${item.orderState == 2 || item.orderState == 3 || item.orderState == 4 || item.orderState == 5}">
+														<button class="btn btn-secondary">교환/반품 신청</button>
+													</c:when>
+												</c:choose>
 												<c:choose>
 													<c:when test="${item.detailState == 0 || item.detailState == 2}">
 														<form action="${pageContext.request.contextPath}/myPage2/updateDetailState" method="post">
@@ -194,6 +211,12 @@ a {
 	<script type="text/javascript">
 	function realBuy() {
 		if(!confirm('주문 확정 하시겠습니까')){
+	        return false;
+	    }
+		return true;
+	}
+	function realCancel() {
+		if(!confirm('주문을 취소 하시겠습니까?')){
 	        return false;
 	    }
 		return true;

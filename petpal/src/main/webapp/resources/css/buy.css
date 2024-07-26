@@ -431,11 +431,11 @@ label .item {
 	border-bottom: 3px solid #434347;
 }
 
-.qna .qna-title {
+.qna .qna-title, .title-qna-con {
 	display: flex;
 }
 
-.qna .qna-title p {
+.qna .qna-title p, div {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 0;
@@ -514,6 +514,8 @@ label .item {
 	border: 1px solid #c2c2c2;
 	cursor: pointer;
 }
+
+
 
 .deleteQuestion, .notifyQuestion {
 	cursor: pointer;

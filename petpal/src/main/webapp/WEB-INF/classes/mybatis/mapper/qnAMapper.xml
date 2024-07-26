@@ -14,13 +14,12 @@
 	</select>
 	
 	<select id="listQnA" parameterType="map" resultType="com.shop.petpal.domain.QnA">
-		SELECT q.qnaNum, q.memberNum, mn.nickName, q.secret, q.content, q.answer, m2.memberNum answerNum, mn2.nickName answerNick, 
-			 q.showQuestion, q.questionDate, q.answerDate
+		SELECT qnaNum, q.memberNum, nickName, secret, content, answer, m2.memberNum answerNum, 
+			 productNum, showQuestion, questionDate, answerDate
 		FROM productQna q
 		JOIN member1 m ON q.memberNum = m.memberNum	
         JOIN member2 mn ON m.memberNum = mn.memberNum
 		LEFT OUTER JOIN member1 m2 ON answerNum = m2.memberNum
-        LEFT OUTER JOIN member2 mn2 ON m2.memberNum = mn2.memberNum
 		WHERE q.productNum = #{productNum} AND showQuestion = 1
 		ORDER BY q.qnaNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
