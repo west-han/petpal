@@ -12,4 +12,5 @@ public interface ReviewManageMapper {
 	
 	public List<ReviewManage> listReview(Map<String, Object> map);
 	public void updateReview(ReviewManage reviewmanage);
+	public int dataCount(Map<String, Object> map);
 }

@@ -9,6 +9,18 @@
 	JOIN member2 m2 ON m1.memberNum = m2.memberNum
     JOIN product p ON rv.productNum = p.productNum
     JOIN orderDetail detail ON detail.orderDetailNum = rv.orderDetailNum	
+		<where>
+			<choose>
+				<when test="gubun==1">
+					rv.answerNum is null
+				</when>
+				<when test="gubun==2">
+					rv.answerNum is not null
+				</when>
+			</choose>
+		</where>
+	 order by reviewDate DESC
+	 OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>	
 	
 	<update id="updateReview" parameterType="com.shop.petpal.admin.domain.ReviewManage">
@@ -16,5 +28,24 @@
         SET answer = #{answer}, answerDate = sysdate, answerNum = #{answerNum}
         WHERE orderDetailNum = #{orderDetailNum}
     </update>
+    
+    
+    <select id="dataCount" parameterType="map" resultType="Integer">
+    	SELECT NVL(COUNT(*),0)
+    	FROM review
+    	<where>
+    		<choose>
+    			<when test="gubun==1">
+    				answerNum is null
+    			</when>
+    			<when test="gubun==2">
+    				answerNum is not null
+    			</when>
+    		</choose>
+    	</where>	
+    </select>
+    
+    
+    
 	
 </mapper>

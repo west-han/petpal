@@ -30,6 +30,19 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 	public void saveResponse(ReviewManage reviewManage) {
 		mapper.updateReview(reviewManage);
 	}
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.dataCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 	
 	

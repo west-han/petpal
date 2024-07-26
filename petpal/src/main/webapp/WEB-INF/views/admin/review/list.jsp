@@ -33,149 +33,18 @@
         <!-- Tabs for filtering -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="unanswered-tab" data-bs-toggle="tab" data-bs-target="#unanswered" type="button" role="tab" aria-controls="unanswered" aria-selected="true">미답변</button>
+                <button class="nav-link active" id="unanswered-tab" data-bs-toggle="tab" data-bs-target="tab" type="button" role="tab" aria-controls="1" aria-selected="true">미답변</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="#answered" type="button" role="tab" aria-controls="answered" aria-selected="false">답변 완료</button>
+                <button class="nav-link" id="answered-tab" data-bs-toggle="tab" data-bs-target="tab" type="button" role="tab" aria-controls="2" aria-selected="false">답변 완료</button>
             </li>
         </ul>
 
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="unanswered" role="tabpanel" aria-labelledby="unanswered-tab">
-                <!-- Unanswered reviews table -->
-                <div id="unansweredContainer">
-                    <table class="table table-border table-list">
-                        <thead>
-                            <tr class="border-top border-dark table-light text-center">
-                                <th>평점</th>
-                                <th>회원이름</th>
-                                <th>상품이름</th>
-                                <th>수량</th>
-                                <th>리뷰등록일</th>
-                                <th>답변자번호</th>
-                                <th>답변등록일</th>
-                                <th>관리자숨김여부</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="dto" items="${list}" varStatus="status">
-                                <c:if test="${dto.answerNum == 0}">
-                                    <tr valign="middle" class="text-center">
-                                        <th>${dto.rating}</th>
-                                        <th>${dto.userName}</th>
-                                        <th>
-                                            <a href="#" class="review-link" data-order="${dto.orderDetailNum}" data-name="${dto.productName}" data-content="${dto.content}">
-                                                ${dto.productName}
-                                            </a>
-                                        </th>
-                                        <th>${dto.amount}</th>
-                                        <th>${dto.reviewDate}</th>
-                                        <th>미답변</th>
-                                        <th>${dto.answerDate}</th>
-                                        <th>
-                                            <c:choose>
-                                                <c:when test="${dto.showReview == 1}">
-                                                    공개
-                                                </c:when>
-                                                <c:when test="${dto.showReview == 0}">
-                                                    비공개
-                                                </c:when>
-                                            </c:choose>
-                                        </th>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="tab-content mt-3" id="myTabContent"></div>
 
-            <div class="tab-pane fade" id="answered" role="tabpanel" aria-labelledby="answered-tab">
-                <!-- Answered reviews table -->
-                <div id="answeredContainer">
-                    <table class="table table-border table-list">
-                        <thead>
-                            <tr class="border-top border-dark table-light text-center">
-                                <th>평점</th>
-                                <th>회원이름</th>
-                                <th>상품이름</th>
-                                <th>수량</th>
-                                <th>리뷰등록일</th>
-                                <th>답변자번호</th>
-                                <th>답변등록일</th>
-                                <th>관리자숨김여부</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="dto" items="${list}" varStatus="status">
-                                <c:if test="${dto.answerNum != 0}">
-                                    <tr valign="middle" class="text-center">
-                                        <th>${dto.rating}</th>
-                                        <th>${dto.userName}</th>
-                                        <th>
-                                            <a href="#" class="review-link" data-order="${dto.orderDetailNum}" data-name="${dto.productName}" data-content="${dto.content}">
-                                                ${dto.productName}
-                                            </a>
-                                        </th>
-                                        <th>${dto.amount}</th>
-                                        <th>${dto.reviewDate}</th>
-                                        <th>${dto.answerNum}</th>
-                                        <th>${dto.answerDate}</th>
-                                        <th>
-                                            <c:choose>
-                                                <c:when test="${dto.showReview == 1}">
-                                                    공개
-                                                </c:when>
-                                                <c:when test="${dto.showReview == 0}">
-                                                    비공개
-                                                </c:when>
-                                            </c:choose>
-                                        </th>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <table class="table table-borderless">
-            <tr>
-                <td width="150">
-                    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/review/list';">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </button>
-                </td>
-                <td align="center">
-                    <form class="row justify-content-center" name="searchForm" action="${pageContext.request.contextPath}/admin/review/" method="post">
-                        <div class="col-auto p-1">
-                            <select name="schType" class="form-select">
-                                <option value="all" selected>평점+</option>
-                                <option value="productNum">상품이름</option>
-                                <option value="userName">회원이름</option>
-                                <option value="showReview">숨김여부</option>
-                            </select>
-                        </div>
-                        <div class="col-auto p-1">
-                            <input type="text" name="kwd" value="" class="form-control">
-                            <input type="hidden" name="size" value="">
-                            <input type="hidden" name="parentNum" value="">
-                            <input type="hidden" name="categoryNum" value="">
-                            <input type="hidden" name="productShow" value="">
-                        </div>
-                        <div class="col-auto p-1">
-                            <button type="button" class="btn btn-light" onclick="searchList()">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-        </table>
+            
+        </div>  
     </div>
-</div>
-
 <!-- 모달 창 HTML -->
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -259,4 +128,66 @@ $(document).ready(function() {
         });
     });
 });
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+	listReview(1);
+	
+    $("button[role='tab']").on("click", function(e){
+    	listReview(1);
+    });
+});
+
+function listReview(page) {
+	const $tab = $("button[role='tab'].active");
+	let gubun = $tab.attr("aria-controls");
+	
+	let url = '${pageContext.request.contextPath}/admin/review/reviewList';
+	let formData = {pageNo:page, gubun:gubun};
+	
+	const fn = function(data) {
+		$('.tab-content').html(data);
+	}
+	
+	ajaxFun(url, "get", formData, "text", fn);
+}
+
+
+
 </script>
