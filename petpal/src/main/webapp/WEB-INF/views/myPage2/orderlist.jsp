@@ -54,6 +54,19 @@ a {
 .mypage{
 	text-align: center;
 }
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    height: 100%;
+}
+
+.button-column button, .button-column form {
+    width: 100%;
+}
+
 </style>
 </head>
 <body>
@@ -85,13 +98,15 @@ a {
 					<c:if test="${prevOrderNum != dto.orderNum}">
 						<c:set var="prevOrderNum" value="${dto.orderNum}" />
 						<div class="card mb-3">
-							<div class="card-header d-flex justify-content-between">
-								<span class="align-middle">주문 번호: ${dto.orderNum}</span>
+							<div class="card-header d-flex justify-content-between align-items-center">
+								<span class="align-middle order-number">주문 번호: ${dto.orderNum}</span>
 								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage2/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
 							</div>
 							<div class="card-body">
 								<c:forEach var="item" items="${list}">
 									<c:if test="${item.orderNum == dto.orderNum}">
+									
+									<div class="bg-light mb-2 p-3">
 										<div class="row mb-2">
 											<div class="col-md-9">
 												<p class="card-text"><strong>주문 날짜:</strong> ${item.orderDate}</p>
@@ -106,9 +121,11 @@ a {
 												</div>
 												<p class="card-text"><strong>가격:</strong> ${item.price - item.discountAmount}원</p>
 												<p class="card-text"><strong>구매한 갯수:</strong> ${item.amount}</p>
-												<p class="card-text"><strong>옵션:</strong> ${item.optionValue}</p>
+												<c:if test="${not empty item.optionValue}">
+											        <p class="card-text"><strong>옵션:</strong> ${item.optionValue}</p>
+											    </c:if>
 											</div>
-											<div class="col-md-3 button-column">
+											<div class="col-md-3 button-column align-bottom mt-5">
 												<button class="btn btn-primary mt-3">배송 조회</button>
 												<button class="btn btn-secondary">교환/반품 신청</button>
 												<c:choose>
@@ -125,6 +142,8 @@ a {
 												</c:choose>
 											</div>
 										</div>
+									</div>
+									
 									</c:if>
 								</c:forEach>
 							</div>

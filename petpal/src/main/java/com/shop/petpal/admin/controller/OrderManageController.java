@@ -125,6 +125,7 @@ public class OrderManageController {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("state", state);
+		model.put("orderStatus", paramMap.get("orderStatus"));
 		return model;
 	}
 	
