@@ -7,17 +7,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.petpal.admin.domain.EventManage;
 import com.shop.petpal.admin.service.EventManageService;
 import com.shop.petpal.common.MyUtil;
+import com.shop.petpal.domain.SessionInfo;
 
 @Controller
 public class EventManageController {
@@ -91,4 +94,25 @@ public class EventManageController {
 
         return ".admin.event.list";
     }
+    
+    @GetMapping("/admin/event/write")
+    public String writeForm(Model model) {
+    	model.addAttribute("mode", "write");
+    	
+    	return ".admin.event.write";
+    }
+    
+    @PostMapping("/admin/event/write")
+	public String writeSubmit(
+			EventManage dto, HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		try {
+			dto.setMemberNum(info.getMemberNum());
+			service.insertEvent(dto);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/admin/event/list";
+	}
 }

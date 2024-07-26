@@ -17,7 +17,6 @@ public class EventManage {
 	private String etime;
 	private long memberNum;
 	
-	
 	public String getSday() {
 		return sday;
 	}

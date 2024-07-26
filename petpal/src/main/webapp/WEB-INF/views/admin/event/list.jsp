@@ -63,7 +63,7 @@
                 </tbody>
             </table>
             <div>
-                <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/write';">이벤트 등록</button>
+                <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/event/write';">이벤트 등록</button>
             </div>
             <div class="page-box">
                 <c:if test="${dataCount == 0}">
