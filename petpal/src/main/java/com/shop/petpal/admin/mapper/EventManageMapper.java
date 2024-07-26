@@ -7,6 +7,7 @@ import java.util.Map;
 import com.shop.petpal.admin.domain.EventManage;
 
 public interface EventManageMapper {
+	public long eventSeq();
 	// CRUD: CREATE, READ, UPDATE, DELETE
 	
 	// CREATE
@@ -35,5 +36,6 @@ public interface EventManageMapper {
 	// DELETE
 	// 게시글 삭제
 	public void deleteEvent(long num) throws SQLException;
-	public void deleteEventFile(Map<String, Object> map) throws SQLException;
+	public void deleteEventFile(long fileNum) throws SQLException;
+	
 }
