@@ -241,7 +241,7 @@ $(function(){
 				<form class="row text-center" name="invoiceNumberForm">
 					<div class="col-auto p-1">
 						<select name="deliveryName" class="form-select">
-							<c:forEach var="vo" items="${listDeliveryCompany}">
+							<c:forEach var="vo" items="${deliveryCompanyList}">
 								<option>${vo.DELIVERYNAME}</option>
 							</c:forEach>
 						</select>
