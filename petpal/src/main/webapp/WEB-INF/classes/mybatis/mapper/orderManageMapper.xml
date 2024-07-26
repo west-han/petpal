@@ -147,7 +147,7 @@
 	
 	<update id="updateOrderInvoiceNumber">
 		UPDATE productOrder SET orderState = #{orderState}, orderStateDate = SYSDATE,
-			deliveryName = #{deliveryName}, invoiceNumber = #{invoiceNumber}
+			deliveryNum = #{deliveryNum}, invoiceNumber = #{invoiceNumber}
 		WHERE orderNum = #{orderNum}
 	</update>
 	

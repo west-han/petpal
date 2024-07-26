@@ -240,9 +240,9 @@ $(function(){
 			<div class="modal-body pt-1">
 				<form class="row text-center" name="invoiceNumberForm">
 					<div class="col-auto p-1">
-						<select name="deliveryName" class="form-select">
+						<select name="deliveryNum" class="form-select">
 							<c:forEach var="vo" items="${deliveryCompanyList}">
-								<option>${vo.DELIVERYNAME}</option>
+								<option value="${vo.DELIVERYNUM}">${vo.DELIVERYNAME}</option>
 							</c:forEach>
 						</select>
 					</div>

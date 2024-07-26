@@ -130,11 +130,11 @@ public class OrderManageServiceImpl implements OrderManageService {
 			if (mode.equals("state")) {
 				mapper.updateOrderState(map);
 			} else if (mode.equals("invoiceNumber")) {
-				// mapper.updateOrderInvoiceNumber(map);
+				mapper.updateOrderInvoiceNumber(map);
 			} else if (mode.equals("delivery")) {
 				mapper.updateOrderState(map);
 			} else if (mode.equals("cancelAmount")) {
-				// mapper.updateCancelAmount(map);
+				mapper.updateCancelAmount(map);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,9 +155,9 @@ public class OrderManageServiceImpl implements OrderManageService {
 				cancelAmount = Integer.parseInt((String)map.get("cancelAmount"));
 			}
 			
-			// mapper.updateOrderDetailState(map);
+			mapper.updateOrderDetailState(map);
 			
-			// mapper.insertDetailStateInfo(map);
+			mapper.insertDetailStateInfo(map);
 			
 			if (detailState == 3 || detailState == 5 || detailState == 12) {
 				cancelAmount += priceOrig;
