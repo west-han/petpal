@@ -38,10 +38,10 @@
         const f = document.eventForm;
         let mode = "${mode}";
 
-    	let str = f.title.value;
+    	let str = f.subject.value;
         if(!str) {
             alert("제목을 입력하세요. ");
-            f.title.focus();
+            f.subject.focus();
             return false;
         }
 
@@ -111,7 +111,7 @@
 					<tr> 
 						<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 						<td> 
-							<input type="text" name="title" maxlength="100" class="form-control" value="${dto.title}">
+							<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject}">
 						</td>
 					</tr>
 	
