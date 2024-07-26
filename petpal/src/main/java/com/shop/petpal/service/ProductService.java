@@ -12,6 +12,9 @@ public interface ProductService {
 	public List<Product> listProductOption(long productNum);
 	public List<Product> listOptionDetail(long productNum);
 	public List<Product> listOptionDetailStock(Map<String, Object> map);
+	public void insertLike(Map<String, Object> map) throws Exception;
+	public void deleteLike(Map<String, Object> map) throws Exception;
+	public boolean userProductLiked(Map<String, Object> map);
 
 	public List<Map<String, Object>> listCategory(Integer species);
 	public List<Map<String, Object>> listSubCategory(Map<String, Object> map);

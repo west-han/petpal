@@ -50,101 +50,97 @@ public class OrderController {
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
-			if(info != null) {
-				Member orderUser = memberService.findById(info.getMemberNum());
-				
-				String productOrderNumber = null;
-				String productOrderName = "";
-				int totalMoney = 0;
-				int deliveryCharge = 0;
-				int totalPayment = 0;
-				int totalSavePoint = 0;
-				int totalDiscountPrice = 0;
-				
-				productOrderNumber = orderService.productOrderNumber();
-				
-				List<Map<String, Long>> list = new ArrayList<Map<String,Long>>();
-				for(int i = 0; i < stockNums.size(); i++) {
-					Map<String, Long> map = new HashMap<String, Long>();
-					map.put("stockNum", stockNums.get(i));
-					map.put("productNum", productNums.get(i));
-					list.add(map);
-				}
-				
-				
-				Order order = new Order();
-				order.setTotalSavePoint(totalSavePoint);
-				
-				List<Order> listProduct = orderService.listOrderProduct(list);
-				
-				for(int i = 0; i < listProduct.size(); i++) {
-					Order dto = listProduct.get(i);
-					dto.setAmount(buyAmounts.get(i));
-					dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice()); 
-					
-					double savePointMultiplier;
-				    if (info.getMembershipNum() == 1) {
-				        savePointMultiplier = 0.01;
-				    } else if (info.getMembershipNum() == 2) {
-				        savePointMultiplier = 0.02;
-				    } else if (info.getMembershipNum() == 3) {
-				        savePointMultiplier = 0.03;
-				    } else {
-				        savePointMultiplier = 0.04;
-				    }
-				    
-				    int calculatedSavePoint = (int)(buyAmounts.get(i) * dto.getTotalPrice() * savePointMultiplier);
-				    dto.setSavePoint(calculatedSavePoint);
-				    totalSavePoint += calculatedSavePoint; 
-				    
-				    System.out.println("Product " + i + ": Amount = " + buyAmounts.get(i) + 
-		                       ", TotalPrice = " + dto.getTotalPrice() + 
-		                       ", SavePointMultiplier = " + savePointMultiplier + 
-		                       ", savePoint = " + calculatedSavePoint);
-				    
-					totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
-					totalDiscountPrice += dto.getDiscountAmount();
-					
-					dto.setPriceDiscount(buyAmounts.get(i) * dto.getDiscountAmount());
-					
-					if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
-						deliveryCharge = dto.getDeliveryCharge();
-					}
-				}
-				
-				productOrderName = listProduct.get(0).getProductName();
-				if(listProduct.size() > 1) {
-					productOrderName += " 외 " + (listProduct.size() - 1) + "건";
-				}
-				
-				deliveryCharge = totalMoney >= 20000 ? 0 : deliveryCharge;
-				
-				totalPayment = totalMoney + deliveryCharge;
-				
-				
-				Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
-				List<Mypage2> memberDest = orderService.findByMemberDest(info.getMemberNum());
-				
-				List<Map<String, Object>> categories = productService.listCategory(species);
-				
-				model.addAttribute("productOrderNumber", productOrderNumber);
-				model.addAttribute("orderUser", orderUser);
-				model.addAttribute("productOrderName", productOrderName);
-				model.addAttribute("listProduct", listProduct);
-				model.addAttribute("totalMoney", totalMoney);
-				model.addAttribute("totalPayment", totalPayment);
-				model.addAttribute("totalSavePoint", totalSavePoint);
-				model.addAttribute("totalDiscountPrice", totalDiscountPrice);
-				model.addAttribute("userPoint", userPoint);
-				model.addAttribute("memberDest", memberDest);
-				model.addAttribute("deliveryCharge", deliveryCharge);
-				model.addAttribute("mode", mode);
-				model.addAttribute("categories", categories);
-				
-			} else {
-				return "redirect:/member/login";
+		
+			Member orderUser = memberService.findById(info.getMemberNum());
+			
+			String productOrderNumber = null;
+			String productOrderName = "";
+			int totalMoney = 0;
+			int deliveryCharge = 0;
+			int totalPayment = 0;
+			int totalSavePoint = 0;
+			int totalDiscountPrice = 0;
+			
+			productOrderNumber = orderService.productOrderNumber();
+			
+			List<Map<String, Long>> list = new ArrayList<Map<String,Long>>();
+			for(int i = 0; i < stockNums.size(); i++) {
+				Map<String, Long> map = new HashMap<String, Long>();
+				map.put("stockNum", stockNums.get(i));
+				map.put("productNum", productNums.get(i));
+				list.add(map);
 			}
 			
+			
+			Order order = new Order();
+			order.setTotalSavePoint(totalSavePoint);
+			
+			List<Order> listProduct = orderService.listOrderProduct(list);
+			
+			for(int i = 0; i < listProduct.size(); i++) {
+				Order dto = listProduct.get(i);
+				dto.setAmount(buyAmounts.get(i));
+				dto.setPricePay(buyAmounts.get(i) * dto.getTotalPrice()); 
+				
+				double savePointMultiplier;
+			    if (info.getMembershipNum() == 1) {
+			        savePointMultiplier = 0.01;
+			    } else if (info.getMembershipNum() == 2) {
+			        savePointMultiplier = 0.02;
+			    } else if (info.getMembershipNum() == 3) {
+			        savePointMultiplier = 0.03;
+			    } else {
+			        savePointMultiplier = 0.04;
+			    }
+			    
+			    int calculatedSavePoint = (int)(buyAmounts.get(i) * dto.getTotalPrice() * savePointMultiplier);
+			    dto.setSavePoint(calculatedSavePoint);
+			    totalSavePoint += calculatedSavePoint; 
+			    
+			    System.out.println("Product " + i + ": Amount = " + buyAmounts.get(i) + 
+	                       ", TotalPrice = " + dto.getTotalPrice() + 
+	                       ", SavePointMultiplier = " + savePointMultiplier + 
+	                       ", savePoint = " + calculatedSavePoint);
+			    
+				totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
+				totalDiscountPrice += dto.getDiscountAmount();
+				
+				dto.setPriceDiscount(buyAmounts.get(i) * dto.getDiscountAmount());
+				
+				if(i == 0 || deliveryCharge > dto.getDeliveryCharge()) {
+					deliveryCharge = dto.getDeliveryCharge();
+				}
+			}
+			
+			productOrderName = listProduct.get(0).getProductName();
+			if(listProduct.size() > 1) {
+				productOrderName += " 외 " + (listProduct.size() - 1) + "건";
+			}
+			
+			deliveryCharge = totalMoney >= 20000 ? 0 : deliveryCharge;
+			
+			totalPayment = totalMoney + deliveryCharge;
+			
+			
+			Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
+			List<Mypage2> memberDest = orderService.findByMemberDest(info.getMemberNum());
+			
+			List<Map<String, Object>> categories = productService.listCategory(species);
+			
+			model.addAttribute("productOrderNumber", productOrderNumber);
+			model.addAttribute("orderUser", orderUser);
+			model.addAttribute("productOrderName", productOrderName);
+			model.addAttribute("listProduct", listProduct);
+			model.addAttribute("totalMoney", totalMoney);
+			model.addAttribute("totalPayment", totalPayment);
+			model.addAttribute("totalSavePoint", totalSavePoint);
+			model.addAttribute("totalDiscountPrice", totalDiscountPrice);
+			model.addAttribute("userPoint", userPoint);
+			model.addAttribute("memberDest", memberDest);
+			model.addAttribute("deliveryCharge", deliveryCharge);
+			model.addAttribute("mode", mode);
+			model.addAttribute("categories", categories);
+				
 			return ".order.payment";
 			
 			

@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -398,6 +401,8 @@ public class ProductController {
 			int membershipNum = 1;
 	        if (info != null) {
 	            membershipNum = info.getMembershipNum();
+	        } else {
+	        	membershipNum = 1;
 	        }
 
 	        dto.setMembershipNum(membershipNum);
@@ -423,6 +428,15 @@ public class ProductController {
 			}
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+			
+			if(info != null) {
+				map.put("productNum", productNum);
+				map.put("memberNum", info.getMemberNum());
+				
+				boolean userProductLiked = service.userProductLiked(map);
+				model.addAttribute("userProductLiked", userProductLiked);
+			}
+			
 			
 			List<Product> listStock = null;
 			if(dto.getOptionCount() < 2) {
@@ -455,6 +469,7 @@ public class ProductController {
 			model.addAttribute("listOptionDetail", listOptionDetail);
 			model.addAttribute("categories", categories);
 			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/";
@@ -462,4 +477,39 @@ public class ProductController {
 		
 		return ".product.buy";
 	}
+	
+	@PostMapping("insertLike")
+	@ResponseBody
+	public Map<String, Object> insertLike(@RequestParam long productNum, 
+			@RequestParam boolean userLiked, 
+			HttpSession session,
+			HttpServletRequest req,
+			HttpServletResponse resp) throws Exception {
+		String state = "true";
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNum", productNum);
+		map.put("memberNum", info.getMemberNum());
+		
+		try {
+			if(userLiked) {
+				service.deleteLike(map);
+			} else {
+				service.insertLike(map);
+			}
+		} catch (DuplicateKeyException e) {
+			state = "liked";
+		} catch (Exception e) {
+			
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
 }

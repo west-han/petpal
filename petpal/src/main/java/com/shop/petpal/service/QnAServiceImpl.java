@@ -30,7 +30,8 @@ public class QnAServiceImpl implements QnAService {
 		int result = 0;
 		
 		try {
-			mapper.dataCount(map);
+			result = mapper.dataCount(map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

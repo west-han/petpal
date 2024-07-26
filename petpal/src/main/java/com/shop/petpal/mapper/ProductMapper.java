@@ -1,5 +1,6 @@
 package com.shop.petpal.mapper;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,9 @@ public interface ProductMapper {
 	public List<Product> listProductOption(long productNum);
 	public List<Product> listOptionDetail(long productNum);
 	public List<Product> listOptionDetailStock(Map<String, Object> map);
+	public void insertLike(Map<String, Object> map) throws SQLException;
+	public void deleteLike(Map<String, Object> map) throws SQLException;
+	public Product userProductLiked(Map<String, Object> map);
 
 	// --------------- 상품 목록 ----------------
 	// NOTE: 필요한 페이지 - 신상품 목록, 베스트상품 목록, 카테고리별 상품 목록(+검색결과),

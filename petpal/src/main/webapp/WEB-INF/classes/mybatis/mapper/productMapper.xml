@@ -92,6 +92,23 @@
 		ORDER BY ps.detailNum1, ps.detailNum2
 	</select>
 	
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO wishList(productNum, memberNum) 
+		VALUES(#{productNum}, #{memberNum})
+	</insert>
+	
+	<delete id="deleteLike">
+		DELETE FROM wishList
+		WHERE productNum = #{productNum} AND memberNum = #{memberNum}
+	</delete>
+	
+	<select id="userProductLiked" parameterType="map" resultType="com.shop.petpal.domain.Product">
+		select productNum, memberNum
+        FROM wishList
+        WHERE productNum = #{productNum} AND memberNum = #{memberNum}
+	</select>
+	
+	
 	<!-- 상품 목록 -->
 	<select id="listCategory" parameterType="Integer" resultType="map">
 		SELECT categoryNum, categoryName, sortOrder, species
@@ -296,4 +313,5 @@
 	        </if>
 	    </where>
 	</select>
+	
 </mapper>

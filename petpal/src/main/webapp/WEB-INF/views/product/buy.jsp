@@ -463,8 +463,8 @@ function sendOk(mode) {
 
 							<div class="buttons">
 								<div class="button-wish">
-									<button type="button" class="wish btn-productBlind">
-										<i class="bi bi-heart"></i>
+									<button type="button" class="wish">
+										<i class="bi ${userLiked ? 'bi-heart-fill' : 'bi-heart'}"></i>
 									</button>
 								</div>
 								<div class="button-buy">
@@ -577,17 +577,15 @@ function sendOk(mode) {
 						<div class="qna" id="scrollq">
 							<div class="qna-top">
 								<div class="qna-title">
-									<p class="title-qnaCount">상품문의(${dto.questionCount})</p>
+									<div class="title-qna-con">상품문의 <p class="title-qnaCount">(${dto.questionCount})</p> </div>
 								</div>
 								<div class="p-2 text-end">
 									<button type="button" class="btnQuestion btn">문의 작성하기</button>
 								</div>
 							</div>
 							<div class="list-question"></div>
-						
 						</div>
 
-						<div class="mt-1 p-2 list-question"></div>
 					</div>
 				</div>
 
@@ -619,9 +617,9 @@ function sendOk(mode) {
 								<span class="fw-bold">문의사항</span>
 							</div>
 							<div class="col-3 text-end">
-								<input type="checkbox" name="secret" id="secret1" class="form-check-input" 
-									value="0">
+								<input type="checkbox" name="secret-input" id="secret1" class="form-check-input">
 								<label class="form-check-label" for="secret1">비공개</label>
+								<input type="hidden" name="secret" value="1">
 							</div>
 						</div>
 						<div class="p-1">
@@ -689,16 +687,16 @@ function moreDetail() {
 }
 	
 $(function() {
-	$('.reviewSortNo').ready(function() {
-		listReview(1);
-	});
+	listReview(1);
+	listQnA(1);
 });	
 	
-$(function() {
+$(function() { 
 	$('.reviewSortNo').change(function() {
 		listReview(1);
 	});
 });
+
 
 function listReview(page) {
 	let productNum = '${dto.productNum}';
@@ -715,7 +713,6 @@ function listReview(page) {
 }
 
 function viewReview(data) {
-	
 	let dataCount = data.dataCount;
 	let pageNo = data.pageNo;
 	let total_page = data.total_page;
@@ -813,28 +810,31 @@ function printSummary(summary) {
 	$(".review-score").text(ave+" / 5");
 }	
 
-
-
 function listQnA(page) {
 	let productNum = '${dto.productNum}';
 	let url = '${pageContext.request.contextPath}/qna/list';
-	let query = 'productNum=' + productNum + "&pageNo=" + page;
-	
+	let query = 'productNum=' + productNum + '&pageNo=' + page;
+	 
 	const fn = function(data) {
-		printQnA(data);
+		printQuestion(data);
 	};
+
+	ajaxFun(url, 'get', query, 'json', fn);
 }
 
-function printQnA(data) {
+function printQuestion(data) {
 	let dataCount = data.dataCount;
 	let pageNo = data.pageNo;
 	let total_page = data.total_page;
 	let size = data.size;
 	let paging = data.paging;
 	
-	$('.title-qnaCount').html('(' + dataCount + ')');
+	$('.title-qnaCount').html(' (' + dataCount + ')');
+	
 	let out = '';
+	
 	for(let item of data.list) {
+		
 		let qnaNum = item.qnaNum;
 		let nickName = item.nickName;
 		let content = item.content;
@@ -852,7 +852,7 @@ function printQnA(data) {
 		out += '			</div>';
 		out += '			<label class="reviewCom">' + questionDate + '</label>';
 		out += '	</div>';
-		out += '	<div class="qnaCon-bottom">';
+		out += '	<div class="qnaCon-bottom row">';
 		out += '		<div class="qnaContent">' + content + '</div>';
 		if(answer) {
 			out += '	<div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
@@ -879,10 +879,10 @@ function printQnA(data) {
 }
 
 $(function() {
-	$('.list-question').on('click', 'btnAnswerView', function() {
+	$('.list-question').on('click', '.btnAnswerView', function() {
 		const $btn = $(this);
 		
-		const $EL = $(this).closest(".qnaCon-bottom").next(".answer-content");
+		const $EL = $(this).closest(".row").next(".answer-content");
 		if($EL.is(':visible')) {
 			$btn.html(' <i class="bi bi-chevron-down"></i> ');
 			$EL.hide(100);
@@ -908,6 +908,8 @@ $(function(){
 			f.content.focus();
 			return false;
 		}
+		
+		f.secret.value = $('#secret1').is(':checked') ? '0' : '1';
 		
 		let url = "${pageContext.request.contextPath}/qna/write";
 		let query = new FormData(f); 
@@ -935,10 +937,35 @@ $(function(){
 	
 });
 
+
+
+$(function() {
+	$('.wish').click(function() {
+		
+		const $i = $(this).find('i');
+		let userLiked = $i.hasClass('bi-heart-fill');
+		
+		let url = '${pageContext.request.contextPath}/product/insertLike';
+		let productNum = '${dto.productNum}';
+		let query = 'productNum=' + productNum + '&userLiked=' + userLiked;
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === 'true') {
+				if( userLiked ) {
+					$i.removeClass('bi-heart-fill').addClass('bi-heart');
+				} else {
+					$i.removeClass('bi-heart').addClass('bi-heart-fill');
+				}
+				
+			} else if(state === 'liked') {
+				alert('이미 찜한 상품입니다.');
+			} else if(state === "false") {
+				alert('찜목록 등록에 실패하였습니다.');
+			}
+		};
+		ajaxFun(url, 'post', query, 'json', fn);
+	});
+});
+
 </script>
-
-
-
-
-
-
