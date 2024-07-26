@@ -125,19 +125,21 @@
 		                        	</strong>
 		                        </c:if>
 		                        <c:if test="${product.discountRate != 0}">
-			                        <p class="text-price">${product.price}</p>
+			                        <p class="text-price">
+			                        	<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/>
+			                        </p>
 			                        <p>
 			                        	<span class="text-discountRate">
 				                        	${product.discountRate}
 				                        </span>
 				                        <strong class="text-discountedPrice">
-				                        	${product.price - product.discountAmount}
+				                        	<fmt:formatNumber value="${product.price - product.discountAmount}" type="currency" currencySymbol=""/>
 				                        </strong>
 			                        </p>
 		                        </c:if>
 		                        <!-- 평점은 별에 색 채워서 표시 -->
 		                        <p class="text-rate">
-		                        	<span>${product.rating}</span>
+		                        	<span><fmt:formatNumber value="${product.rating}" pattern="0.00"/></span>
 		                        	<span>(${product.reviewCount})</span>
 		                        </p>
 	                        </div>
