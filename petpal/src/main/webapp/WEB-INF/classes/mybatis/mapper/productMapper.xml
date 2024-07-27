@@ -252,13 +252,13 @@
 		  	AND NVL(r.rating, 0) &gt;= #{minRating}
 		  </if>
 		  <if test="attributes != null">
-			AND EXISTS (
-			      SELECT 1 
-			      FROM productAttribute pa 
-			      WHERE pa.productNum = p.productNum 
-			        AND pa.attrDtlNum IN 
-			            <foreach collection="attributes" item="attr" open="(" close=")" separator=",">#{attr}</foreach>
-			  )
+			<foreach collection="attributes" item="dtl">
+	            	AND p.productNum IN (
+	            		SELECT pa.productnum
+	            		FROM productAttribute pa
+	            		WHERE pa.attrDtlNum = #{dtl}
+	            	)
+            </foreach>
 		  </if>
 		  <if test="kwd != null">
 		  	AND INSTR(REPLACE(TRIM(p.productName), ' ', ''), #{kwd}) != 0
@@ -300,13 +300,13 @@
 	                 WHERE productNum = p.productNum) &gt;= #{minRating}
 	        </if>
 	        <if test="attributes != null">
-	            AND EXISTS (
-	                SELECT 1 
-	                FROM productAttribute pa 
-	                WHERE pa.productNum = p.productNum 
-	                  AND pa.attrDtlNum IN 
-	                      <foreach collection="attributes" item="attr" open="(" close=")" separator=",">#{attr}</foreach>
-	            )
+	            <foreach collection="attributes" item="dtl">
+	            	AND p.productNum IN (
+	            		SELECT pa.productnum
+	            		FROM productAttribute pa
+	            		WHERE pa.attrDtlNum = #{dtl}
+	            	)
+	            </foreach>
 	        </if>
 	        <if test="kwd != null">
 	        	AND INSTR(REPLACE(TRIM(p.productName), ' ', ''), #{kwd}) != 0
