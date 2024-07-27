@@ -146,12 +146,4 @@ public class EventManage {
     public void setEventFileNum(long eventFileNum) {
         this.eventFileNum = eventFileNum;
     }
-
-    public String getEventFilename() {
-        return eventFileName;
-    }
-
-    public void setEventFilename(String eventFilename) {
-        this.eventFileName = eventFilename;
-    }
 }

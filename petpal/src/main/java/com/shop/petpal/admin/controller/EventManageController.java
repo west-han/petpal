@@ -1,6 +1,7 @@
 package com.shop.petpal.admin.controller;
 
 import java.io.File;
+
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -120,6 +121,29 @@ public class EventManageController {
 
         return "redirect:/admin/event/list";
     }
+    @GetMapping("delete")
+	public String deleteEvent(@RequestParam long num,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			HttpSession session) throws Exception {
+
+		kwd = URLDecoder.decode(kwd, "utf-8");
+		String query = "page=" + page;
+		if (kwd.length() != 0) {
+			query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+		}
+
+		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "notice";
+			service.deleteEvent(num, pathname);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/admin/event/list?" + query;
+	}
+
 
     @PostMapping("/admin/event/deleteFile")
     @ResponseBody

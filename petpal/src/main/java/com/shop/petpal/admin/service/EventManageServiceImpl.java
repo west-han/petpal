@@ -1,5 +1,6 @@
 package com.shop.petpal.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class EventManageServiceImpl implements EventManageService{
 	 						continue;
 	 					}
 	
-	 					dto.setEventFilename(eventFileName);
+	 					dto.setEventFileName(eventFileName);
 	
 	 					mapper.insertEventFile(dto);
 	 				}
@@ -62,26 +63,60 @@ public class EventManageServiceImpl implements EventManageService{
             throw e;
         }
     }
-
+    
+    public List<EventManage> listEventFile(long num){
+    	List<EventManage> listFile = null;
+    	
+    	try {
+			listFile = mapper.listEventFile(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	return listFile;
+    }
+    
+    //글 자체를 삭제할 때 (파일도 같이 날라감)
     @Override
     public void deleteEvent(long num, String pathname) throws Exception {
         try {
-            mapper.deleteEvent(num);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+		// 파일 지우기
+			List<EventManage> listFile = listEventFile(num);
+			if (listFile != null) {
+				for (EventManage dto : listFile) {
+					fileManager.doFileDelete(dto.getEventFileName(), pathname);
+				}
+			}
+
+			// 파일 테이블 내용 지우기
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("field", "num");
+			map.put("num", num);
+			mapper.deleteEventFile(map);
+
+			// 게시글 지우기
+			mapper.deleteEvent(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
         }
     }
 
+    //수정화면에서 파일 1개 삭제할때 사용할곳
     @Override
     public void deleteFile(long fileNum, String pathname) throws Exception {
         try {
             EventManage dto = mapper.findEventFileByNum(fileNum);
-            if (dto != null && dto.getEventFilename() != null) {
-                fileManager.doFileDelete(dto.getEventFilename(), pathname);
+            if (dto != null && dto.getEventFileName() != null) {
+                fileManager.doFileDelete(dto.getEventFileName(), pathname);
             }
 
-            mapper.deleteEventFile(fileNum);
+            Map<String, Object> map = new HashMap<String, Object>();
+            
+            map.put("field", "eventFileNum");
+            map.put("num", fileNum);
+            
+            mapper.deleteEventFile(map);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

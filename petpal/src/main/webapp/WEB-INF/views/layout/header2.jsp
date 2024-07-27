@@ -48,7 +48,7 @@ window.addEventListener('load', function() {
         </div>
         <div class="search">
             <form name="searchForm" action="" method="get">
-                <input name="kwd" type="text" placeholder="어떤 상품을 찾고있개 ?" value="${not empty param.kwd ? param.kwd : ''}">
+                <input name="kwd" type="text" placeholder="어떤 상품을 찾고있${sessionScope.species == 1 ? '개' : '냥'}?" value="${not empty param.kwd ? param.kwd : ''}">
                 <a><img class="searchButton" src="${pageContext.request.contextPath}/resources/images/search.png"></a>
             </form>
         </div>

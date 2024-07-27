@@ -31,6 +31,13 @@
         ORDER BY endDate DESC
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
     </select>
+    
+    <!-- 파일 목록 -->
+    <select id="listEventFile" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
+    	SELECT num, eventfilename, eventfilenum FROM eventFile
+    	WHERE num = #{num}
+    
+    </select>
 
     <!-- 게시글 수 -->
     <select id="dataCount" parameterType="map" resultType="Integer">
@@ -67,8 +74,8 @@
     </delete>
 
     <!-- 파일 삭제 -->
-    <delete id="deleteEventFile" parameterType="long">
-        DELETE FROM eventFile WHERE eventFileNum = #{eventFileNum}
+    <delete id="deleteEventFile" parameterType="map">
+        DELETE FROM eventFile WHERE ${field} = #{num}
     </delete>
 
 </mapper>

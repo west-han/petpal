@@ -26,7 +26,9 @@ public interface EventManageMapper {
 	public EventManage findEventByNum(long num);
 	// 파일 내용 보기
     public EventManage findEventFileByNum(long eventFileNum);
-	
+	// 파일 목록 보기
+    public List<EventManage> listEventFile(long num);
+    
 	
 	// UPDATE
 	// 게시글 수정
@@ -36,6 +38,6 @@ public interface EventManageMapper {
 	// DELETE
 	// 게시글 삭제
 	public void deleteEvent(long num) throws SQLException;
-	public void deleteEventFile(long fileNum) throws SQLException;
+	public void deleteEventFile(Map<String, Object> map) throws SQLException;
 	
 }
