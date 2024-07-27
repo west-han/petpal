@@ -561,7 +561,8 @@ label .item {
 .detailMore:before {
 	content: '';
 	position: absolute;
-	top: -90px; // 맞게 조절 left : 120px;
+	top: -90px; /* 맞게 조절 */
+	left : 120px;
 	display: block;
 	width: 1300px;
 	height: 96px;

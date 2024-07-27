@@ -170,33 +170,28 @@
 	<!-- TODO: 리뷰가 없는 상품은 출력하지 않도록 수정 -->
 	<!-- 베스트 상품 -->
 	<select id="listBestProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
-		SELECT productNum, productName, productClass, price, discountRate, discountAmount, 
-                    thumbnail, species, brand, regDate, sales, reviewCount, rating
-		FROM (SELECT outter.*, ROWNUM rnum
-		    FROM (SELECT p.productNum, productName, productClass, price, discountRate, discountAmount, 
-                    thumbnail, p.species, brand, regDate, NVL(sales, 0) sales, 
-                    NVL(reviewCount, 0) reviewCount, NVL(rating, 0) rating
-		        FROM (SELECT od.productNum, NVL(COUNT(*), 0) sales,
-		        		NVL(COUNT(rating), 0) reviewCount, NVL(AVG(rating), 0) rating
-		            FROM orderDetail od
-		            LEFT OUTER JOIN review r
-		                ON od.productNum = r.productNum
-		            GROUP BY od.productNum
-		        ) inner
-		        RIGHT OUTER JOIN product p
-		            ON p.productNum = inner.productNum
-		        <if test="categoryNum != null and categoryNum != 0">
-                LEFT OUTER JOIN category c
-                    ON p.categoryNum = c.categoryNum
-		        </if>
-		        WHERE p.species = #{species}
-		        <if test="categoryNum != null and categoryNum != 0">
-		        AND c.parentCategory = #{categoryNum}
-		        </if>
-		        ORDER BY sales DESC, rating DESC
-		    ) outter WHERE ROWNUM &lt;= #{endNum}
-		) WHERE rnum &gt;= #{startNum}
+		SELECT p.productNum, productName, productClass, price, discountRate, discountAmount, 
+                    thumbnail, species, brand, regDate,
+                    NVL(sales, 0) sales, NVL(reviewCount, 0) reviewCount, NVL(rating, 0) rating
+		FROM product p
+		<if test="categoryNum != null and categoryNum != 0">
+		LEFT OUTER JOIN category c
+			ON p.categoryNum = c.categoryNum
+		</if>	
+		LEFT OUTER JOIN
+			(SELECT productNum, NVL(COUNT(orderDetailNum), 0) sales
+			 FROM orderDetail
+			 GROUP BY (productNum)) od ON p.productNum = od.productNum
+		LEFT OUTER JOIN
+			(SELECT productNum, NVL(COUNT(rating), 0) reviewCount, NVL(AVG(rating), 0) rating
+			 FROM review
+			 GROUP BY productNum) r ON p.productNum = r.productNum
+		WHERE p.species = #{species}
+			<if test="categoryNum != null and categoryNum != 0">
+			AND c.parentCategory = #{categoryNum}
+			</if>
 		ORDER BY sales DESC, rating DESC
+		FETCH FIRST #{endNum} ROWS ONLY
 	</select>
 	
 	<select id="listAttribute" parameterType="map" resultType="map">

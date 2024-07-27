@@ -159,6 +159,7 @@
 const pageSize = 30;
 const dataCount = '${dataCount}';
 const currentPage = '${currentPage}' ? '${currentPage}' : 1;
+let totalPage = 1;
 
 const replaceParam = (url, param, value) => {
 	url.searchParams.delete(param);
@@ -191,9 +192,7 @@ window.addEventListener('load', function() {
 });
 
 window.addEventListener('load', function() {
-	let pageCount = 1;
-	
-	totalPage = countPage(dataCount, pageSize);
+	let totalPage = countPage(dataCount, pageSize);
 	let paging = pagingUrl(currentPage, totalPage, location.href.replaceAll(/page=[0-9]+/g, ""));
 	
 	document.querySelector('.page-box').innerHTML = paging;
