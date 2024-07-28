@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class Mypage2 {
+public class Mypage {
 	private long pointNum; // 포인트 적립 번호
 	private String regDate; // 포인트날짜 // 쿠폰발급일
 	private int classify; // 포인트상태 구매적립(0)/이벤트적립 (1)/ 사용(2)/소멸(3)

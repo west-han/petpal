@@ -75,17 +75,17 @@ a {
 				<h3 class="mypage">마이페이지</h3>
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
-					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage2/orderlist">주문 내역/배송 조회</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불 내역</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
+					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage/orderlist">주문 내역/배송 조회</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/cancel-return-change">취소/반품/교환/환불 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mycoupon">쿠폰함</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypet">나의 펫</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mymodify">내 정보</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myaddress">나의 배송지</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/likelist">찜 리스트</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mypet">나의 펫</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mymodify">내 정보</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myaddress">나의 배송지</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/likelist">찜 리스트</a></li>
 					<li class="category-header">my 활동</li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myreview">리뷰관리</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
 				</ul>
 			</div>
@@ -107,7 +107,7 @@ a {
 						<div class="card mb-3">
 							<div class="card-header d-flex justify-content-between align-items-center">
 								<span class="align-middle order-number">주문 번호: ${dto.orderNum}</span>
-								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage2/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
+								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
 							</div>
 							<div class="card-body">
 								<c:forEach var="item" items="${list}">
@@ -138,7 +138,7 @@ a {
 												<button class="btn btn-primary mt-3">배송 조회</button>
 												<c:choose>
 													<c:when test="${item.orderState == 0 || item.orderState == 1}">
-														<form action="${pageContext.request.contextPath}/myPage2/updateCancel" method="post">
+														<form action="${pageContext.request.contextPath}/myPage/updateCancel" method="post">
 															<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
 															<input type="hidden" name="orderNum" value="${item.orderNum}">
 															<button type="submit" class="btn btn-secondary" onclick="return realCancel();">주문취소</button>
@@ -150,7 +150,7 @@ a {
 												</c:choose>
 												<c:choose>
 													<c:when test="${item.detailState == 0 || item.detailState == 2}">
-														<form action="${pageContext.request.contextPath}/myPage2/updateDetailState" method="post">
+														<form action="${pageContext.request.contextPath}/myPage/updateDetailState" method="post">
 															<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
 															<input type="hidden" name="savePoint" value="${item.savePoint}">
 															<button type="submit" class="btn btn-success" onclick="return realBuy();">구매확정</button>
@@ -183,7 +183,7 @@ a {
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        <form action="${pageContext.request.contextPath}/myPage2/writeReview" method="post" enctype="multipart/form-data">
+	        <form action="${pageContext.request.contextPath}/myPage/writeReview" method="post" enctype="multipart/form-data">
 	          <input type="hidden" name="orderDetailNum" id="reviewOrderDetailNum">
 	          <input type="hidden" name="productNum" id="reviewProductNum">
 	          <div class="mb-3">
@@ -265,7 +265,7 @@ a {
 
 	function checkReview(orderDetailNum, productNum) {
 		$.ajax({
-			url: '${pageContext.request.contextPath}/myPage2/findByReview',
+			url: '${pageContext.request.contextPath}/myPage/findByReview',
 			type: 'GET',
 			data: {
 				orderDetailNum: orderDetailNum,
@@ -301,11 +301,11 @@ a {
 
 	function toggleExchangeReturn(type) {
 		if (type === 'exchange') {
-			document.getElementById('exchangeReturnForm').action = "${pageContext.request.contextPath}/myPage2/updateChange";
+			document.getElementById('exchangeReturnForm').action = "${pageContext.request.contextPath}/myPage/updateChange";
 			document.getElementById('returnSection').style.display = 'none';
 			document.getElementById('exchangeSection').style.display = 'block';
 		} else {
-			document.getElementById('exchangeReturnForm').action = "${pageContext.request.contextPath}/myPage2/updateReturn";
+			document.getElementById('exchangeReturnForm').action = "${pageContext.request.contextPath}/myPage/updateReturn";
 			document.getElementById('returnSection').style.display = 'block';
 			document.getElementById('exchangeSection').style.display = 'none';
 		}

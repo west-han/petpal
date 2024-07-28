@@ -3,7 +3,7 @@ package com.shop.petpal.service;
 import java.util.List;
 import java.util.Map;
 
-import com.shop.petpal.domain.Mypage2;
+import com.shop.petpal.domain.Mypage;
 import com.shop.petpal.domain.Order;
 
 public interface OrderService {
@@ -16,8 +16,8 @@ public interface OrderService {
 	public Order findByProduct(long productNum);
 	public Order findByOptionDetail(long detailNum);
 	
-	public Mypage2 findByUserPoint(long memberNum);
-	public List<Mypage2> findByMemberDest(long memberNum);
+	public Mypage findByUserPoint(long memberNum);
+	public List<Mypage> findByMemberDest(long memberNum);
 	
 	public void deleteCart(Map<String, Object> map) throws Exception;
 }

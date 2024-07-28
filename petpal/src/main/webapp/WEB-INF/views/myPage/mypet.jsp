@@ -127,17 +127,17 @@ a {
 				<h3 class="mypage">마이페이지</h3>
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/orderlist">주문 내역/배송 조회</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불 내역</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/orderlist">주문 내역/배송 조회</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/cancel-return-change">취소/반품/교환/환불 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mycoupon">쿠폰함</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
-					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage2/mypet">나의 펫</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/mymodify">내 정보</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myaddress">나의 배송지</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/likelist">찜 리스트</a></li>
+					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage/mypet">나의 펫</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mymodify">내 정보</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myaddress">나의 배송지</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/likelist">찜 리스트</a></li>
 					<li class="category-header">my 활동</li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myreview">리뷰관리</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
 				</ul>
 			</div>
@@ -169,7 +169,7 @@ a {
 										<div class="pet-button-group">
 											<button class="btn btn-primary" onclick="changeRepresentative(${pet.petNum})">대표 동물로 설정</button>
 											<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editPetModal_${pet.petNum}">펫 수정</button>
-											<form action="${pageContext.request.contextPath}/myPage2/deleteMemberPet" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+											<form action="${pageContext.request.contextPath}/myPage/deleteMemberPet" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 												<input type="hidden" name="petNum" value="${pet.petNum}">
 												<button type="submit" class="btn btn-danger">펫 삭제</button>
 											</form>
@@ -201,7 +201,7 @@ a {
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
-								<form class="pet-form mt-4" id="addPetForm" action="${pageContext.request.contextPath}/myPage2/insertMemberPet" method="post" enctype="multipart/form-data">
+								<form class="pet-form mt-4" id="addPetForm" action="${pageContext.request.contextPath}/myPage/insertMemberPet" method="post" enctype="multipart/form-data">
 									<div class="form-group">
 										<label for="petSpecies">종류</label><br>
 										<input type="radio" id="dog_add" name="petSpecies" value="1" onchange="loadBreeds(1, 'add')">
@@ -268,7 +268,7 @@ a {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="pet-form mt-4" id="editPetForm_${pet.petNum}" action="${pageContext.request.contextPath}/myPage2/updateMemberPet" method="post" enctype="multipart/form-data">
+                    <form class="pet-form mt-4" id="editPetForm_${pet.petNum}" action="${pageContext.request.contextPath}/myPage/updateMemberPet" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="petNum" value="${pet.petNum}">
                         <div class="form-group">
                             <label for="petType_${pet.petNum}">종류</label><br>
@@ -335,7 +335,7 @@ a {
 	function loadBreeds(species, petNum) {
 	    console.log("loadBreeds 호출됨, species: " + species + ", petNum: " + petNum);
 	    $.ajax({
-	        url: '${pageContext.request.contextPath}/myPage2/breed',
+	        url: '${pageContext.request.contextPath}/myPage/breed',
 	        type: 'GET',
 	        data: { petSpecies: species },
 	        success: function(data) {
@@ -400,7 +400,7 @@ a {
 	// 대표 동물 설정
 	function changeRepresentative(petNum) {
     $.ajax({
-        url: '${pageContext.request.contextPath}/myPage2/setInsertRegPet',
+        url: '${pageContext.request.contextPath}/myPage/setInsertRegPet',
         type: 'POST',
         data: { petNum: petNum },
         success: function(response) {

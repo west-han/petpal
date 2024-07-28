@@ -65,4 +65,455 @@
 		</if>
 	
 	</delete>
+	
+	
+	
+	<!-- mypoint -->
+	<!-- 포인트 리스트 -->
+	<select id="myPointList" parameterType="long"
+		resultType="com.shop.petpal.domain.Mypage">
+		SELECT memberNum, regDate, classify, point, balance
+		FROM
+		userPoint
+		WHERE memberNum = #{memberNum}
+	</select>
+
+	<!-- 페이징처리를 위한 데이터 갯수 -->
+	<select id="pointDataCount" parameterType="long"
+		resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM userPoint
+		WHERE memberNum = #{memberNum}
+	</select>
+
+	<!-- 포인트 리스트 날짜 검색 -->
+	<select id="myPointListPaged" parameterType="map"
+		resultType="com.shop.petpal.domain.Mypage">
+		SELECT memberNum, TO_CHAR(regDate,'YYYY-MM-DD hh24:mi:ss')regDate, classify, point, balance
+		FROM userPoint
+		WHERE memberNum = #{memberNum}
+		<if test="startDate != null and endDate != null">
+			AND regDate BETWEEN #{startDate} AND #{endDate}
+		</if>
+		ORDER BY regDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 포인트 총 금액 -->
+	<select id="myTotalPoint" parameterType="long" resultType="int">
+		SELECT BALANCE
+		FROM userPoint
+		WHERE memberNum = #{memberNum}
+    	ORDER BY TO_CHAR(regDate,'YYYY-MM-DD hh24:mi:ss') DESC
+        FETCH FIRST 1 ROWS ONLY
+	</select>
+
+
+	<!-- mymodify -->
+	<!-- 회원정보 찾기 -->
+	<select id="findByMemberNum" parameterType="long" resultType="com.shop.petpal.domain.Member">
+        SELECT TO_CHAR(birth,'YYYY-MM-DD')birth,address1,address2,tel,nickname,userName,postalcode 
+        FROM member2
+        WHERE memberNum = #{memberNum}
+    </select>
+	<select id="findByMemberEmail" parameterType="String" resultType="com.shop.petpal.domain.Member">
+        SELECT * FROM member1
+        WHERE email = #{email}
+    </select>
+	<!-- 회원정보 수정 Member의 도메인을 사용 -->
+	<update id="updateMember" parameterType="com.shop.petpal.domain.Member">
+		UPDATE member2
+		SET 
+			birth = #{birth},
+			tel = #{tel},
+			nickname = #{nickname},
+			userName = #{userName}
+		WHERE memberNum = #{memberNum}
+	</update>
+	
+	<!-- 비밀번호 수정 -->
+	<update id="updateMemberPassword" parameterType="com.shop.petpal.domain.Member">
+   		UPDATE member1
+    	SET password = #{password}
+    	WHERE memberNum = #{memberNum}
+	</update>
+	
+	
+	
+	<!-- myaddress -->
+	<!-- 나의 배송지 리스트 -->
+	<select id="selectAllList" parameterType="long" resultType="com.shop.petpal.domain.Mypage">
+		SELECT destNum,recipientName,defaultDest,tel,postalCode,address1,address2,note,memberNum
+		FROM memberDest
+		WHERE memberNum = #{memberNum}
+	</select>
+	
+	<!-- 배송지 삭제 -->
+	<delete id="deleteDest" parameterType="com.shop.petpal.domain.Mypage">
+		DELETE FROM memberDest
+		WHERE memberNum = #{memberNum}
+		AND
+		destNum = #{destNum}
+	</delete>	
+	
+	<!-- 배송지 추가 -->
+	<insert id="insertDest" parameterType="com.shop.petpal.domain.Mypage">
+		INSERT INTO memberDest(destNum,recipientName,defaultDest,tel,
+			postalCode,address1,address2,note,memberNum)
+		VALUES(memberdest_seq.NEXTVAL,#{recipientName},#{defaultDest},#{tel},
+			#{postalCode},#{address1},#{address2},#{note, jdbcType=VARCHAR},#{memberNum})
+	</insert>
+	
+	<!-- 배송지 수정(모든 배송지 일반 배송지로 변경) -->
+	<update id="updateDefaultDest" parameterType="long">
+		UPDATE memberDest set defaultdest = 1
+		WHERE memberNum = #{memberNum}
+	</update>
+	
+	<!-- 배송지 수정 -->
+	<update id="updateDest" parameterType="com.shop.petpal.domain.Mypage">
+        UPDATE memberDest
+        SET recipientName = #{recipientName}, defaultDest = #{defaultDest}, tel = #{tel},
+            postalCode = #{postalCode}, address1 = #{address1}, address2 = #{address2}, note = #{note, jdbcType=VARCHAR}
+        WHERE memberNum = #{memberNum} AND destNum = #{destNum}
+    </update>
+    
+    
+    <!-- mycoupon -->
+    <!-- 나의 쿠폰 리스트 -->
+    <select id="selectMemberCoupon" parameterType="long" resultType="com.shop.petpal.domain.Mypage">
+    	SELECT m.couponNum,m.memberNum,TO_CHAR(m.regDate,'YYYY-MM-DD') AS regDate,state,validity,couponName,discountRate,minPayment
+		FROM memberCoupon m
+		JOIN Coupon c
+		ON m.couponNum = c.couponNum
+		WHERE memberNum = #{memberNum}
+		ORDER BY m.regDate DESC
+    </select>
+	
+	
+	
+	<!-- mypet -->
+	<!-- 나의 펫 리스트 -->
+	<select id="selectMemberPet" parameterType="long" resultType="com.shop.petpal.domain.Mypage">
+		SELECT p.petNum, p.petName, p.petPhoto, p.petBirth, p.petGender, p.petWeight,
+           p.bodyShape, p.petRegNum, p.memberNum, p.breedNum, b.breedName,b.species
+    		FROM Pet p
+    		JOIN Breed b ON b.breedNum = p.breedNum
+   			WHERE memberNum = #{memberNum}
+	</select>
+	
+	<select id="selectBreed" resultType="com.shop.petpal.domain.Mypage">
+		SELECT breedNum,species,breedName
+		FROM Breed
+		WHERE species = #{species}
+	</select>
+	
+	<!-- 펫 추가 -->
+    <insert id="insertMemberPet" parameterType="com.shop.petpal.domain.Mypage">
+        INSERT INTO Pet(petNum, petName, petPhoto, petBirth, petGender,
+            petWeight, bodyShape, petRegNum, memberNum, breedNum)
+        VALUES (pet_seq.nextval, #{petName}, #{petPhoto, jdbcType=VARCHAR}, 
+            #{petBirth, jdbcType=DATE}, #{petGender, jdbcType=INTEGER}, 
+            #{petWeight, jdbcType=DOUBLE}, #{bodyShape, jdbcType=INTEGER}, 
+            #{petRegNum, jdbcType=VARCHAR}, #{memberNum, jdbcType=INTEGER}, #{breedNum, jdbcType=INTEGER})
+    </insert>
+    
+	<!-- 펫 수정 -->
+	<update id="updateMemberPet" parameterType="com.shop.petpal.domain.Mypage">
+	    UPDATE pet
+	    SET petName = #{petName},
+	        <if test="petPhoto != null">petPhoto = #{petPhoto, jdbcType=VARCHAR},</if>
+	        <if test="petBirth != null">petBirth = #{petBirth, jdbcType=DATE},</if>
+	        <if test="petGender != null">petGender = #{petGender, jdbcType=INTEGER},</if>
+	        <if test="petWeight != null">petWeight = #{petWeight, jdbcType=DOUBLE},</if>
+	        <if test="bodyShape != null">bodyShape = #{bodyShape, jdbcType=INTEGER},</if>
+	        <if test="petRegNum != null">petRegNum = #{petRegNum, jdbcType=VARCHAR},</if>
+	        <if test="breedNum != null">breedNum = #{breedNum, jdbcType=INTEGER}</if>	      
+	    WHERE petNum = #{petNum} AND memberNum = #{memberNum}
+	</update>
+	
+	<!-- 펫 삭제 -->
+	<delete id="deleteMemberPet" parameterType="com.shop.petpal.domain.Mypage">
+    DELETE FROM pet
+    WHERE petNum = #{petNum} AND memberNum = #{memberNum}
+	</delete>
+	
+	<!-- 대표동물삭제 -->
+	<delete id="deleteRegPet" parameterType="long">
+	DELETE FROM repPet
+	WHERE memberNum = #{memberNum}
+	</delete>
+	
+	<!-- 대표동물등록 -->
+	<insert id="insertRegPet" parameterType="com.shop.petpal.domain.Mypage">
+		INSERT INTO repPet (memberNum, petNum) 
+		VALUES (#{memberNum}, #{petNum})
+	</insert>
+	
+	<!-- 대표동물 -->
+	<select id="selectRepPet" parameterType="long" resultType="java.lang.Long">
+		SELECT petNum
+		FROM repPet
+		WHERE memberNum = #{memberNum}
+	</select>
+	
+	
+	<!-- likelist -->
+	<!-- 찜 리스트 -->
+	<select id="selectWishListProducts" resultType="com.shop.petpal.domain.Mypage" parameterType="long">
+	    SELECT p.productNum, p.productName, p.thumbnail, p.price
+	    FROM wishList w
+	    JOIN Product p ON w.productNum = p.productNum
+	    WHERE w.memberNum = #{memberNum}
+	</select>
+	
+	<!-- 찜 삭제 -->
+	<delete id="deleteWishListProducts" parameterType="com.shop.petpal.domain.Mypage">
+		DELETE FROM wishList
+		WHERE productNum = #{productNum} and memberNum=#{memberNum}
+	</delete>
+	
+	
+	<!-- orderlist -->
+	<!-- 주문내역 리스트 -->
+	<select id="selectOrderList" resultType="com.shop.petpal.domain.Mypage" parameterType="long">
+		SELECT
+		    od.orderDetailNum,
+		    od.amount,
+		    od.priceOrig,
+		    od.priceDiscount,
+		    od.pricePay,
+		    od.savePoint,
+		    od.orderNum,
+		    ps.stockNum,
+		    ps.productNum,
+		    odt.optionValue,
+		    po.memberNum,
+		    odi.recipientName,
+		    odi.tel,
+		    odi.postalCode,
+		    odi.address1,
+		    odi.address2,
+		    odi.destMemo,
+		    dsi.stateNum,
+		    od.detailState,
+		    dsi.stateMemo,
+		    dsi.detailStateDate,
+		    dc.deliveryName,
+		    dc.deliveryTel,
+		    pd.payClassify,
+		    pd.cardName,
+		    pd.authNumber,
+		    pd.authDate,
+		    pc.cancelAmount,
+		    pc.candleDate,
+		    po.orderDate,
+		    po.totalMoney,
+		    p.productName,
+		    p.species,
+		    p.price,
+		    p.deliveryCharge,
+		    p.discountAmount,
+		    p.discountRate,
+		    p.thumbnail,
+		    po.payment,
+		    po.usedPoint,
+		    po.orderState
+		FROM
+		    OrderDetail od
+		    JOIN ProductStock ps ON od.stockNum = ps.stockNum
+		    LEFT JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
+		    JOIN ProductOrder po ON od.orderNum = po.orderNum
+		    LEFT JOIN OrderDelivery odi ON po.orderNum = odi.orderNum
+		    LEFT JOIN DetailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
+		    LEFT JOIN DeliveryCompany dc ON po.deliveryNum = dc.deliveryNum
+		    LEFT JOIN PayDetail pd ON po.orderNum = pd.orderNum
+		    LEFT JOIN PayCancel pc ON po.orderNum = pc.orderNum
+		    JOIN Product p ON ps.productNum = p.productNum
+		WHERE
+		    po.memberNum = #{memberNum}
+		ORDER BY
+      	po.orderDate desc, po.orderNum, od.orderDetailNum
+
+	</select>
+	
+	
+	<select id="findByOrderNum" resultType="com.shop.petpal.domain.Mypage" parameterType="String">
+		SELECT
+		    od.orderDetailNum,
+		    od.amount,
+		    od.priceOrig,
+		    od.priceDiscount,
+		    od.pricePay,
+		    od.savePoint,
+		    od.orderNum,
+		    ps.stockNum,
+		    ps.productNum,
+		    odt.optionValue,
+		    po.memberNum,
+		    odi.recipientName,
+		    odi.tel,
+		    odi.postalCode,
+		    odi.address1,
+		    odi.address2,
+		    odi.destMemo,
+		    dsi.stateNum,
+		    od.detailState,
+		    dsi.stateMemo,
+		    dsi.detailStateDate,
+		    dc.deliveryName,
+		    dc.deliveryTel,
+		    pd.payClassify,
+		    pd.cardName,
+		    pd.authNumber,
+		    pd.authDate,
+		    pc.cancelAmount,
+		    pc.candleDate,
+		    po.orderDate,
+		    po.totalMoney,
+		    p.productName,
+		    p.species,
+		    p.price,
+		    po.deliveryCharge,
+		    p.discountAmount,
+		    p.discountRate,
+		    p.thumbnail,
+		    po.usedPoint
+		FROM
+		    OrderDetail od
+		    JOIN ProductStock ps ON od.stockNum = ps.stockNum
+		    LEFT JOIN OptionDetail odt ON ps.detailNum1 = odt.detailNum OR ps.detailNum2 = odt.detailNum
+		    JOIN ProductOrder po ON od.orderNum = po.orderNum
+		    LEFT JOIN OrderDelivery odi ON po.orderNum = odi.orderNum
+		    LEFT JOIN DetailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
+		    LEFT JOIN DeliveryCompany dc ON po.deliveryNum = dc.deliveryNum
+		    LEFT JOIN PayDetail pd ON po.orderNum = pd.orderNum
+		    LEFT JOIN PayCancel pc ON po.orderNum = pc.orderNum
+		    JOIN Product p ON ps.productNum = p.productNum
+		WHERE
+		    po.orderNum  = #{orderNum}
+	</select>
+	
+	<!-- 구매 확정 -->
+	<update id="updateDetailState" parameterType="com.shop.petpal.domain.Mypage">
+		update orderDetail set detailState = 1
+		where orderDetailNum = #{orderDetailNum}
+	</update>
+	
+	<!-- 구매 확정시 포인트 지급 -->
+	<insert id="insertPoint">
+		INSERT INTO userPoint(pointNum, regDate, classify, point, balance, memberNum)
+		VALUES (userPoint_seq.NEXTVAL, SYSDATE, 0, #{savePoint},
+			(SELECT COALESCE(SUM(point), 0) + #{savePoint} 
+		FROM userPoint 
+		WHERE memberNum = #{memberNum}),#{memberNum})
+	</insert>
+	
+	<!-- 리뷰작성 -->
+	<insert id="insertReview" parameterType="com.shop.petpal.domain.Mypage">
+		INSERT INTO Review(orderDetailNum,rating,content,reviewDate,memberNum,productNum)
+		VALUES(#{orderDetailNum},#{rating},#{content},SYSDATE,#{memberNum},#{productNum})
+	</insert>
+	<!-- 리뷰 파일 -->
+	<insert id="insertReviewFile" parameterType="com.shop.petpal.domain.Mypage">
+		INSERT INTO ReviewFile(reviewFileNum,reviewFileName,orderDetailNum)
+		VALUES(reviewfile_seq.nextval,#{reviewFileName},#{orderDetailNum})
+	</insert>
+	
+	<!-- 사용자가 작성한 리뷰가 있는지 -->
+	<select id="findByReview" parameterType="com.shop.petpal.domain.Mypage" resultType="com.shop.petpal.domain.Mypage">
+	    SELECT *
+	    FROM Review
+	    WHERE memberNum = #{memberNum} and orderDetailNum = #{orderDetailNum}
+	</select>
+	
+	<!-- 주문 취소(관리자 만들어지면 수정해야함) -->
+	<update id="updateCancel" parameterType="com.shop.petpal.domain.Mypage">
+		UPDATE orderDetail
+		SET detailState = 3
+		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
+	</update>
+	
+	<!-- 주문 교환(관리자 만들어지면 수정해야함) -->
+	<update id="updateChange" parameterType="com.shop.petpal.domain.Mypage">
+		UPDATE orderDetail
+		SET detailState = 6
+		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
+	</update>
+	
+	<!-- 주문 반품(관리자 만들어지면 수정해야함) -->
+	<update id="updateReturn" parameterType="com.shop.petpal.domain.Mypage">
+		UPDATE orderDetail
+		SET detailState = 10
+		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
+	</update>
+	
+	<!-- cancel-return-change -->
+	<!-- 취소/반품/교환 리스트 -->
+	<select id="cancelReturnChangeList" parameterType="long">
+	    SELECT
+	        od.orderDetailNum, od.amount, od.priceOrig, od.priceDiscount,
+	        od.pricePay, od.savePoint, od.orderNum, od.detailState,
+	        po.memberNum, po.orderDate, po.totalMoney, po.usedPoint,
+	        po.usedCoupon, po.deliveryCharge, po.payment, 
+	        p.productName, p.productNum, p.species, p.price, p.discountAmount, p.thumbnail
+	    FROM
+	        orderDetail od
+	    JOIN
+	        productOrder po ON od.orderNum = po.orderNum
+	    LEFT JOIN
+	        product p ON od.productNum = p.productNum
+	    WHERE
+	        od.detailState IN (3, 4, 5, 6, 7, 8, 10, 11, 12, 14) 
+	        AND po.memberNum = #{memberNum}
+	    ORDER BY
+	        po.orderDate DESC
+	</select>
+
+	<!-- myreview -->
+	<!-- 내가 쓴 리뷰 리스트 -->
+	<select id="selectReviewList" parameterType="long">
+		SELECT r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+			LISTAGG(rf.reviewFileName, ', ') WITHIN GROUP (ORDER BY rf.reviewFileName) AS reviewFileName,p.productNum,
+			p.species,p.thumbnail,p.productName
+		FROM 
+    	review r
+		LEFT JOIN 
+        ReviewFile rf ON r.orderDetailNum = rf.orderDetailNum
+   	 	LEFT JOIN
+        Product p ON r.productNum = p.productNum
+		WHERE r.memberNum = #{memberNum}
+		GROUP BY r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+		p.productNum,p.species,p.thumbnail,p.productName
+	</select>
+	
+	<!-- 리뷰 페이징처리 카운트 -->
+	<select id="reviewDataCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM review
+		WHERE memberNum = #{memberNum}
+	</select>
+	
+	
+	<!-- 리뷰 페이징 -->
+	<select id="myReviewListPaged" parameterType="map"
+		resultType="com.shop.petpal.domain.Mypage">
+		SELECT r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+			LISTAGG(rf.reviewFileName, ', ') WITHIN GROUP (ORDER BY rf.reviewFileName) AS reviewFileName,p.productNum,
+			p.species,p.thumbnail,p.productName
+		FROM 
+    	review r
+		LEFT JOIN 
+        ReviewFile rf ON r.orderDetailNum = rf.orderDetailNum
+   	 	LEFT JOIN
+        Product p ON r.productNum = p.productNum
+		WHERE r.memberNum = #{memberNum}
+		<if test="startDate != null and endDate != null">
+			AND r.reviewDate BETWEEN #{startDate} AND #{endDate}
+		</if>
+		GROUP BY r.orderDetailNum,r.rating,r.content,r.answer,r.reviewDate,r.answerDate,r.productNum,r.showReview,
+		p.productNum,p.species,p.thumbnail,p.productName
+        ORDER BY reviewDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 </mapper>
