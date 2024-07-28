@@ -1,7 +1,6 @@
 package com.shop.petpal.admin.controller;
 
 import java.io.File;
-
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -37,10 +36,10 @@ public class EventManageController {
     @GetMapping("/admin/event/list")
     public String event(
             @RequestParam(value = "page", defaultValue = "1") int current_page,
-            @RequestParam(defaultValue = "email") String schType,
-            @RequestParam(defaultValue = "") String kwd,
+            @RequestParam(defaultValue = "email" ,name = "schType") String schType,
+            @RequestParam(defaultValue = "" ,name = "kwd") String kwd,
             HttpServletRequest req, Model model) throws Exception {
-        
+
         int size = 10;
         int total_page = 0;
         int dataCount = 0;
@@ -97,6 +96,7 @@ public class EventManageController {
 
         return ".admin.event.list";
     }
+
     
     @GetMapping("/admin/event/write")
     public String writeForm(Model model) {
@@ -121,11 +121,13 @@ public class EventManageController {
 
         return "redirect:/admin/event/list";
     }
-    @GetMapping("delete")
-	public String deleteEvent(@RequestParam long num,
-			@RequestParam String page,
-			@RequestParam(defaultValue = "all") String schType,
-			@RequestParam(defaultValue = "") String kwd,
+    
+    
+    @GetMapping("/admin/event/delete")
+	public String deleteEvent(@RequestParam ( name ="num") long num,
+			@RequestParam(name = "page", defaultValue = "1") String page,
+			@RequestParam(name ="schType",defaultValue = "all") String schType,
+			@RequestParam(name ="kwd",defaultValue = "") String kwd,
 			HttpSession session) throws Exception {
 
 		kwd = URLDecoder.decode(kwd, "utf-8");
@@ -144,11 +146,10 @@ public class EventManageController {
 		return "redirect:/admin/event/list?" + query;
 	}
 
-
-    @PostMapping("/admin/event/deleteFile")
+    @PostMapping("deleteFile")
     @ResponseBody
     public Map<String, Object> deleteFile(
-            @RequestParam long fileNum,
+            @RequestParam(name = "fileNum") long fileNum,
             HttpSession session) {
         String root = session.getServletContext().getRealPath("/");
         String path = root + "uploads" + File.separator + "event";
