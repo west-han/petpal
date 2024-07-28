@@ -107,7 +107,7 @@ window.addEventListener('load', function() {
                 <span><a href="${pageContext.request.contextPath}/product/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
                 <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>기획 상품</p></a></span>
                 <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/love.png"><p>맞춤 상품</p></a></span>
-                <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
+                <span><a href="${pageContext.request.contextPath}/event/list"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
             </div>
         </div>
         <div class="pet-dropdown">
