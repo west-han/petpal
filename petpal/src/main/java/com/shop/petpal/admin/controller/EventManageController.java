@@ -32,7 +32,7 @@ public class EventManageController {
     @Autowired
     @Qualifier("myUtilGeneral")
     private MyUtil myUtil;
-    
+
     @GetMapping("/admin/event/list")
     public String event(
             @RequestParam(value = "page", defaultValue = "1") int current_page,
@@ -106,9 +106,14 @@ public class EventManageController {
     
     @PostMapping("/admin/event/write")
     public String writeSubmit(
-            EventManage dto, HttpSession session) throws Exception {
+            EventManage dto, HttpSession session, Model model) throws Exception {
 
         SessionInfo info = (SessionInfo) session.getAttribute("member");
+        if (info == null) {
+            model.addAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
+
         try {
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + "uploads" + File.separator + "event";

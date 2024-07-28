@@ -20,8 +20,8 @@
     
     <!-- 파일 정보 삽입 -->
     <insert id="insertEventFile" parameterType="com.shop.petpal.admin.domain.EventManage">
-        INSERT INTO eventFile(eventFileNum, eventFilename, num)
-        VALUES (eventFile_seq.NEXTVAL, #{eventFilename}, #{num})
+        INSERT INTO eventFile(eventFileNum, eventFileName, num)
+        VALUES (eventFile_seq.NEXTVAL, #{eventFileName}, #{num})
     </insert>
 
     <!-- 게시글 목록 -->
@@ -34,9 +34,8 @@
     
     <!-- 파일 목록 -->
     <select id="listEventFile" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
-    	SELECT num, eventfilename, eventfilenum FROM eventFile
-    	WHERE num = #{num}
-    
+        SELECT num, eventFileName, eventFileNum FROM eventFile
+        WHERE num = #{num}
     </select>
 
     <!-- 게시글 수 -->
@@ -54,7 +53,7 @@
 
     <!-- 파일 정보 보기 -->
     <select id="findEventFileByNum" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
-        SELECT eventFileNum, eventFilename, num
+        SELECT eventFileNum, eventFileName, num
         FROM eventFile
         WHERE eventFileNum = #{eventFileNum}
     </select>
