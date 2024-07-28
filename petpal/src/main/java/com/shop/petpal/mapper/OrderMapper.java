@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.shop.petpal.domain.Mypage2;
+import com.shop.petpal.domain.Mypage;
 import com.shop.petpal.domain.Order;
 
 @Mapper
@@ -16,7 +16,7 @@ public interface OrderMapper {
 	public void insertOrderDetail(Order dto) throws SQLException;
 	public void insertPayDetail(Order dto) throws SQLException;
 	public void insertOrderDelivery(Order dto) throws SQLException;
-	public void insertUserPoint(Mypage2 dto) throws SQLException;
+	public void insertUserPoint(Mypage dto) throws SQLException;
 	
 	public void updateProductStock(Order dto) throws SQLException;
 	public List<Order> listOrderProduct(List<Map<String, Long>> list);
@@ -24,6 +24,6 @@ public interface OrderMapper {
 	public Order findByOrderDetail(long orderDetailNum);
 	public Order findByProduct(long productNum);
 	public Order findByOptionDetail(long detailNum);
-	public Mypage2 findByUserPoint(long memberNum);
-	public List<Mypage2> findByMemberDest(long memberNum);
+	public Mypage findByUserPoint(long memberNum);
+	public List<Mypage> findByMemberDest(long memberNum);
 }

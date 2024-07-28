@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shop.petpal.domain.Mypage2;
+import com.shop.petpal.domain.Mypage;
 import com.shop.petpal.domain.Order;
 import com.shop.petpal.mapper.MyPageMapper;
 import com.shop.petpal.mapper.OrderMapper;
@@ -98,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
 				LocalDateTime now = LocalDateTime.now();
 				String dateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 					
-				Mypage2 point = new Mypage2();
+				Mypage point = new Mypage();
 				point.setMemberNum(dto.getMemberNum());
 				point.setPoint(-dto.getUsedPoint());
 				point.setClassify(2);
@@ -189,8 +189,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Mypage2 findByUserPoint(long memberNum) {
-		Mypage2 dto = null;
+	public Mypage findByUserPoint(long memberNum) {
+		Mypage dto = null;
 		
 		try {
 			dto = mapper.findByUserPoint(memberNum);
@@ -214,8 +214,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Mypage2> findByMemberDest(long memberNum) {
-		List<Mypage2> list = null;
+	public List<Mypage> findByMemberDest(long memberNum) {
+		List<Mypage> list = null;
 		
 		try {
 			list = mapper.findByMemberDest(memberNum);

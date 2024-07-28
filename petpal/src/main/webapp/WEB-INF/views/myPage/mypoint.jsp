@@ -65,28 +65,28 @@ a {
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/orderlist">주문
+						href="${pageContext.request.contextPath}/myPage/orderlist">주문
 							내역/배송 조회</a></li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/cancel-return-change">취소/반품/교환/환불
+						href="${pageContext.request.contextPath}/myPage/cancel-return-change">취소/반품/교환/환불
 							내역</a></li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/mycoupon">쿠폰함</a></li>
+						href="${pageContext.request.contextPath}/myPage/mycoupon">쿠폰함</a></li>
 					<li class="list-group-item active"><a
-						href="${pageContext.request.contextPath}/myPage2/mypoint">적립금</a></li>
+						href="${pageContext.request.contextPath}/myPage/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/mypet">나의 펫</a></li>
+						href="${pageContext.request.contextPath}/myPage/mypet">나의 펫</a></li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/mymodify">내
+						href="${pageContext.request.contextPath}/myPage/mymodify">내
 							정보</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage2/myaddress">나의 배송지</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myaddress">나의 배송지</a></li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/likelist">찜
+						href="${pageContext.request.contextPath}/myPage/likelist">찜
 							리스트</a></li>
 					<li class="category-header">my 활동</li>
 					<li class="list-group-item"><a
-						href="${pageContext.request.contextPath}/myPage2/myreview">리뷰관리</a></li>
+						href="${pageContext.request.contextPath}/myPage/myreview">리뷰관리</a></li>
 					<li class="list-group-item"><a
 						href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
 				</ul>
@@ -97,7 +97,7 @@ a {
 				<div class="total-points">
 					<h3>적립금 총액: ${totalPoint}</h3>					
 				</div>
-				<form action="${pageContext.request.contextPath}/myPage2/mypoint" method="get" name="searchForm2">
+				<form action="${pageContext.request.contextPath}/myPage/mypoint" method="get" name="searchForm2">
 					<div class="input-group mb-3">
   						<input type="date" class="form-control" name="startDate" value="${startDate}"  placeholder="start">
   						<button type="button" class="input-group-text" onclick="searchList();">검색</button>

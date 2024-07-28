@@ -33,7 +33,7 @@
 			#{address1}, #{address2, jdbcType=VARCHAR}, #{destMemo, jdbcType=VARCHAR})
 	</insert>
 	
-	<insert id="insertUserPoint" parameterType="com.shop.petpal.domain.Mypage2">
+	<insert id="insertUserPoint" parameterType="com.shop.petpal.domain.Mypage">
 		INSERT INTO userPoint(pointNum, memberNum, regDate, classify, point, balance)
 		VALUES(userPoint_seq.NEXTVAL, #{memberNum}, SYSDATE, #{classify}, #{point}, 
 			NVL((SELECT balance FROM userPoint
@@ -112,7 +112,7 @@
 		WHERE od.detailNum = #{detailNum}
 	</select>
 	
-	<select id="findByUserPoint" parameterType="Long" resultType="com.shop.petpal.domain.Mypage2">
+	<select id="findByUserPoint" parameterType="Long" resultType="com.shop.petpal.domain.Mypage">
 		SELECT pointNum, memberNum, regDate, classify, point, balance
 		FROM userPoint
 		WHERE memberNum = #{memberNum}
@@ -120,7 +120,7 @@
 		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
-	<select id="findByMemberDest" parameterType="Long" resultType="com.shop.petpal.domain.Mypage2">
+	<select id="findByMemberDest" parameterType="Long" resultType="com.shop.petpal.domain.Mypage">
 		SELECT destNum, recipientName, defaultDest, tel, postalCode, address1, address2, note, memberNum
 		FROM memberDest
 		WHERE memberNum = #{memberNum}

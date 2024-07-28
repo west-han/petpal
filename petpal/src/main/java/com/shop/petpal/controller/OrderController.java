@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.petpal.domain.Member;
-import com.shop.petpal.domain.Mypage2;
+import com.shop.petpal.domain.Mypage;
 import com.shop.petpal.domain.Order;
 import com.shop.petpal.domain.SessionInfo;
 import com.shop.petpal.service.MemberService;
@@ -122,8 +122,8 @@ public class OrderController {
 			totalPayment = totalMoney + deliveryCharge;
 			
 			
-			Mypage2 userPoint = orderService.findByUserPoint(info.getMemberNum());
-			List<Mypage2> memberDest = orderService.findByMemberDest(info.getMemberNum());
+			Mypage userPoint = orderService.findByUserPoint(info.getMemberNum());
+			List<Mypage> memberDest = orderService.findByMemberDest(info.getMemberNum());
 			
 			List<Map<String, Object>> categories = productService.listCategory(species);
 			
