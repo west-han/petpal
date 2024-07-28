@@ -110,6 +110,14 @@ a {
 	display: flex;
 	justify-content: center;
 }
+.pet-button-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -158,7 +166,7 @@ a {
 										<c:if test="${representativePetNum != null && pet.petNum == representativePetNum}">
 										<p class="text-dark">대표 동물</p>
 										</c:if>
-										<div class="button-group">
+										<div class="pet-button-group">
 											<button class="btn btn-primary" onclick="changeRepresentative(${pet.petNum})">대표 동물로 설정</button>
 											<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editPetModal_${pet.petNum}">펫 수정</button>
 											<form action="${pageContext.request.contextPath}/myPage2/deleteMemberPet" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
