@@ -13,23 +13,6 @@
     </style>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/eventmanage.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.close, .btn-secondary').on('click', function() {
-                $('#editModal').modal('hide'); 
-                $('#pointModal').modal('hide'); 
-            });
-
-            $(window).on('click', function(event) {
-                if ($(event.target).is('#editModal')) {
-                    $('#editModal').modal('hide'); 
-                }
-                if ($(event.target).is('#pointModal')) {
-                    $('#pointModal').modal('hide'); 
-                }
-            });
-        });
-    </script>
 </head>
 <body>
     <div id="mainOverlay" class="overlay"></div>
@@ -57,7 +40,7 @@
                             <td>${dto.endDate}</td>
                             <td>${dto.memberNum}</td>
                             <td><button class="btn btn-primary" onclick="location.href='${articleUrl}&num=${dto.num}'">수정</button></td>
-                            <td><button class="btn btn-danger" onclick="location.href='${cp}/admin/event/delete?num=${dto.num}'">삭제</button></td>
+                            <td><button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/event/delete?num=${dto.num}'">삭제</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
