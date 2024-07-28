@@ -45,7 +45,7 @@
     </select>
 
     <!-- 게시글 상세보기 -->
-    <select id="findByNum" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
+    <select id="findEventByNum" parameterType="long" resultType="com.shop.petpal.admin.domain.EventManage">
         SELECT num, subject, thumbnail, content, startDate, endDate, memberNum
         FROM eventPage
         WHERE num = #{num}

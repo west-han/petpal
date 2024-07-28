@@ -170,4 +170,32 @@ public class EventManageController {
         model.put("state", state);
         return model;
     }
+    @GetMapping("/admin/event/article")
+    public String article(@RequestParam(name = "num") long num,
+            @RequestParam(name = "page") String page,
+            @RequestParam(name = "schType", defaultValue = "all") String schType,
+            @RequestParam(name = "kwd", defaultValue = "") String kwd,
+            Model model) throws Exception {
+
+        kwd = URLDecoder.decode(kwd, "utf-8");
+
+        String query = "page=" + page;
+        if (kwd.length() != 0) {
+            query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+        }
+
+        EventManage dto = service.findByNum(num);
+        if (dto == null) {
+            return "redirect:/admin/event/list?" + query;
+        }
+
+        List<EventManage> listFile = service.listEventFile(num);
+
+        model.addAttribute("dto", dto);
+        model.addAttribute("listFile", listFile);
+        model.addAttribute("page", page);
+        model.addAttribute("query", query);
+
+        return ".admin.event.article";
+    }
 }

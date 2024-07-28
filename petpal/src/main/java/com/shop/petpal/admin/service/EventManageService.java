@@ -16,6 +16,7 @@ public interface EventManageService {
 	
 	public EventManage findByNum(long num);
 
+	public List<EventManage> listEventFile(long num);
 	public EventManage findByPrev(Map<String, Object> map);
 	public EventManage findByNext(Map<String, Object> map);
 	
