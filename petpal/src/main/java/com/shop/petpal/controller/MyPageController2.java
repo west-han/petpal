@@ -65,7 +65,7 @@ public class MyPageController2 {
 	
 	@PostMapping("updateCancel")
 	public String updateCancel(Mypage2 dto) throws Exception {
-		
+		// TODO : 취소
 		try {
 			service.updateCancel(dto);
 		} catch (Exception e) {
@@ -75,6 +75,35 @@ public class MyPageController2 {
 		
 		return "redirect:/myPage2/orderlist";
 	}
+	@PostMapping("updateChange")
+	public String updateChange(Mypage2 dto) throws Exception {
+		// TODO : 교환
+		try {
+			service.updateChange(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/myPage2/orderlist";
+	}
+	
+	@PostMapping("updateReturn")
+	public String updateReturn(Mypage2 dto) throws Exception {
+		// TODO : 반품
+		try {
+			service.updateReturn(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/myPage2/orderlist";
+	}
+	
+	
+	
+	
 	
 	@GetMapping("findByReview")
 	@ResponseBody
@@ -160,8 +189,21 @@ public class MyPageController2 {
 	
 
 	@GetMapping("cancel-return-change")
-	public String ancelreturnchangeForm() throws Exception {
-
+	public String ancelreturnchangeForm(HttpSession session, Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    if (info == null) {
+	        return "redirect:/member/login";
+	    }
+	    
+	    long memberNum = info.getMemberNum();
+		try {
+			List<Mypage2> list = service.cancelReturnChangeList(memberNum);
+			
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return ".myPage2.cancel-return-change";
 	}
 

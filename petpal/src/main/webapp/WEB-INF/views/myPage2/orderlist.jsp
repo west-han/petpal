@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>주문 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-
 <style>
 body {
 	background-color: #f8f9fa;
@@ -96,11 +95,13 @@ a {
 				<c:set var="prevOrderNum" value="" />
 				<c:forEach var="dto" items="${list}">
 					<c:set var="skipOrder" value="false" />
-					<c:forEach var="checkItem" items="${list}">
-						<c:if test="${checkItem.orderNum == dto.orderNum && checkItem.detailState == 3}">
-							<c:set var="skipOrder" value="true" />
-						</c:if>
-					</c:forEach>
+						<c:forEach var="checkItem" items="${list}">
+						    <c:if test="${checkItem.orderNum == dto.orderNum && (checkItem.detailState == 3 || checkItem.detailState == 4 || checkItem.detailState == 5 || 
+						    checkItem.detailState == 6 || checkItem.detailState == 7 || checkItem.detailState == 8 || checkItem.detailState == 10 || 
+						    checkItem.detailState == 11 || checkItem.detailState == 12 || checkItem.detailState == 14)}">
+						        <c:set var="skipOrder" value="true" />
+						    </c:if>
+						</c:forEach>
 					<c:if test="${prevOrderNum != dto.orderNum && !skipOrder}">
 						<c:set var="prevOrderNum" value="${dto.orderNum}" />
 						<div class="card mb-3">
@@ -110,7 +111,9 @@ a {
 							</div>
 							<div class="card-body">
 								<c:forEach var="item" items="${list}">
-									<c:if test="${item.orderNum == dto.orderNum && item.detailState != 3}">
+									<c:if test="${item.orderNum == dto.orderNum && !(item.detailState == 3 || item.detailState == 4 || item.detailState == 5 ||
+									 item.detailState == 6 || item.detailState == 7 || item.detailState == 8 || item.detailState == 10 || item.detailState == 11 || 
+									 item.detailState == 12 || item.detailState == 14)}">
 									<!-- 같은 주문번호로 묶여진 1개의 div 박스 -->
 									<div class="bg-light mb-2 p-3">
 										<div class="row mb-2">
@@ -142,7 +145,7 @@ a {
 														</form>
 													</c:when>
 													<c:when test="${item.orderState == 2 || item.orderState == 3 || item.orderState == 4 || item.orderState == 5}">
-														<button class="btn btn-secondary">교환/반품 신청</button>
+														<button class="btn btn-secondary" onclick="openExchangeReturnModal('${item.orderDetailNum}', '${item.orderNum}', '${item.price - item.discountAmount}')">교환/반품 신청</button>
 													</c:when>
 												</c:choose>
 												<c:choose>
@@ -208,6 +211,43 @@ a {
 	  </div>
 	</div>
 
+	<!-- 교환/반품 신청 모달 -->
+	<div class="modal fade" id="exchangeReturnModal" tabindex="-1" aria-labelledby="exchangeReturnModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exchangeReturnModalLabel">교환/반품 신청</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="exchangeReturnForm" method="post">
+	          <input type="hidden" name="orderDetailNum" id="exchangeReturnOrderDetailNum">
+	          <input type="hidden" name="orderNum" id="exchangeReturnOrderNum">
+	          <div class="mb-3">
+	            <label for="exchangeReturnType" class="form-label">교환/반품 선택</label>
+	            <div>
+	              <input type="radio" id="exchange" name="exchangeReturnType" value="exchange" onclick="toggleExchangeReturn('exchange')" required>
+	              <label for="exchange">교환</label>
+	              <input type="radio" id="return" name="exchangeReturnType" value="return" onclick="toggleExchangeReturn('return')">
+	              <label for="return">반품</label>
+	            </div>
+	          </div>
+	          <div id="returnSection" style="display: none;">
+	            <p class="card-text"><strong>환불 예상 금액:</strong> <span id="refundAmount"></span>원</p>
+	          </div>
+	          <div id="exchangeSection" style="display: none;">
+	            <div class="mb-3">
+	              <label for="exchangeReason" class="form-label">교환 사유</label>
+	              <textarea class="form-control" id="exchangeReason" name="exchangeReason" rows="3"></textarea>
+	            </div>
+	          </div>
+	          <button type="submit" class="btn btn-primary" id="exchangeReturnSubmit">신청</button>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 	<script type="text/javascript">
 	function realBuy() {
 		if(!confirm('주문 확정 하시겠습니까')){
@@ -215,8 +255,9 @@ a {
 	    }
 		return true;
 	}
+
 	function realCancel() {
-		if(!confirm('주문을 취소 하시겠습니까?')){
+		if(!confirm('주문 취소 하시겠습니까')){
 	        return false;
 	    }
 		return true;
@@ -248,6 +289,26 @@ a {
 		document.getElementById('reviewProductNum').value = productNum;
 		var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
 		reviewModal.show();
+	}
+
+	function openExchangeReturnModal(orderDetailNum, orderNum, refundAmount) {
+		document.getElementById('exchangeReturnOrderDetailNum').value = orderDetailNum;
+		document.getElementById('exchangeReturnOrderNum').value = orderNum;
+		document.getElementById('refundAmount').textContent = refundAmount;
+		var exchangeReturnModal = new bootstrap.Modal(document.getElementById('exchangeReturnModal'));
+		exchangeReturnModal.show();
+	}
+
+	function toggleExchangeReturn(type) {
+		if (type === 'exchange') {
+			document.getElementById('exchangeReturnForm').action = "${pageContext.request.contextPath}/myPage2/updateChange";
+			document.getElementById('returnSection').style.display = 'none';
+			document.getElementById('exchangeSection').style.display = 'block';
+		} else {
+			document.getElementById('exchangeReturnForm').action = "${pageContext.request.contextPath}/myPage2/updateReturn";
+			document.getElementById('returnSection').style.display = 'block';
+			document.getElementById('exchangeSection').style.display = 'none';
+		}
 	}
 	</script>
 </body>

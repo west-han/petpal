@@ -508,4 +508,42 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}
 		
 	}
+
+	@Override
+	public void updateChange(Mypage2 dto) throws Exception {
+		// TODO 주문 교환
+		try {
+			mapper.updateChange(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateReturn(Mypage2 dto) throws Exception {
+		// TODO 주문 반품
+		
+		try {
+			mapper.updateReturn(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public List<Mypage2> cancelReturnChangeList(long memberNum) throws Exception {
+		List<Mypage2> list = null;
+		try {
+			list = mapper.cancelReturnChangeList(memberNum);
+			for (Mypage2 mypage2 : list) {
+				mypage2.setDetailStateMemo(OrderState.DETAILSTATEINFO[mypage2.getDetailState()]);
+				mypage2.setOrderStateMemo(OrderState.ORDERSTATEINFO[mypage2.getOrderState()]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		return list;
+	}
 }
