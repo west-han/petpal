@@ -480,15 +480,13 @@ public class ProductController {
 	
 	@PostMapping("insertLike")
 	@ResponseBody
-	public Map<String, Object> insertLike(@RequestParam long productNum, 
-			@RequestParam boolean userLiked, 
+	public Map<String, Object> insertLike(@RequestParam(name = "productNum") long productNum, 
+			@RequestParam(name = "userLiked") boolean userLiked, 
 			HttpSession session,
 			HttpServletRequest req,
 			HttpServletResponse resp) throws Exception {
 		String state = "true";
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("productNum", productNum);

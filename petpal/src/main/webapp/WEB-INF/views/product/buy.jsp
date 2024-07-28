@@ -631,8 +631,8 @@ function sendOk(mode) {
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary btnQuestionSendOk">등록</button>
-				<button type="button" class="btn btn-secondary btnQuestionSendCancel" data-bs-dismiss="modal">취소</button>
+				<button type="button" class="btn btnQuestionSendOk">등록</button>
+				<button type="button" class="btn btnQuestionSendCancel" data-bs-dismiss="modal">취소</button>
 			</div>			
 		</div>
 	</div>
@@ -841,16 +841,17 @@ function printQuestion(data) {
 		let questionDate = item.questionDate;
 		let answer = item.answer;
 		let answerDate = item.answerDate;
-		let answerState = answerDate ? '<label>답변완료</label>' : '<label>답변대기</label>';
+		let answerState = answerDate ? '<label class="answer-done">답변완료 </label>' : '<label class="answer-wait">답변대기 </label>';
 		let secret = item.secret;
 		
 		out += '<div class="qna-bottom">';
 		out += '	<div class="qnaCon-top">';
 		out += '			<div>';
 		out += '				<label class="qnaCom">' + answerState + '</label>';
+		out += '				<label>|</label>';
 		out += '				<label class="qnaQNick">' + nickName + '</label>';
 		out += '			</div>';
-		out += '			<label class="reviewCom">' + questionDate + '</label>';
+		out += '			<label class="qnaDate">' + questionDate + '</label>';
 		out += '	</div>';
 		out += '	<div class="qnaCon-bottom row">';
 		out += '		<div class="qnaContent">' + content + '</div>';
@@ -861,10 +862,10 @@ function printQuestion(data) {
 		if(answer) {
 			out += '<div class="p-3 pt-0 answer-content" style="display: none;">';
 			out += '	<div class="bg-light">';
-			out += '    	<div class="p-3 pb-0">';
-			out += '        	<label class="px-2"> 관리자 </label> <label>' + answerDate + '</label>';
+			out += '    	<div class="p-3 pb-0 qna-answer-top">';
+			out += '        	<label class="px-2 qnaAnserNick"> 관리자 </label> <label class="qna-answer-date">' + answerDate + '</label>';
 			out += '		</div>';
-			out += '		<div class="p-3 pt-1">' + answer + '</div>';
+			out += '		<div class="p-3 pt-1 qna-answer-content">' + answer + '</div>';
 			out += '	</div>';
 			out += '</div>';
 		}
@@ -872,6 +873,7 @@ function printQuestion(data) {
 	}
 	if(dataCount > 0) {
 		out += '<div class="page-navigation">' + paging + '</div>';
+		
 	}
 	
 	$('.list-question').html(out);

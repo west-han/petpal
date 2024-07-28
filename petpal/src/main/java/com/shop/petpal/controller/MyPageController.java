@@ -101,7 +101,7 @@ public class MyPageController {
 	
 	@PostMapping("{species}/deleteSelectCart")
 	public String deleteSelectCart(@PathVariable(name = "species") Integer species,
-			@RequestParam List<Long> nums,
+			@RequestParam(name = "nums") List<Long> nums,
 			HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
@@ -122,7 +122,7 @@ public class MyPageController {
 	
 	@GetMapping("{species}/deleteOne")
 	public String deleteCartOne(@PathVariable(name = "species") Integer species,
-			@RequestParam long stockNum,
+			@RequestParam(name = "stockNum") long stockNum,
 			HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
@@ -144,8 +144,8 @@ public class MyPageController {
 	@PostMapping("{species}/updateCart")
 	@ResponseBody
 	public String updateCart(@PathVariable(name = "species") Integer species,
-			@RequestParam("stockNum") long stockNum,
-	        @RequestParam("amount") int amount,
+			@RequestParam(name = "stockNum") long stockNum,
+	        @RequestParam(name = "amount") int amount,
 	        HttpSession session) throws Exception {
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");

@@ -40,10 +40,10 @@ public class OrderController {
 	
 	@RequestMapping("{species}/payment")
 	public String paymentForm(@PathVariable(name = "species") Integer species,
-			@RequestParam List<Long> productNums,
-			@RequestParam List<Long> stockNums,
-			@RequestParam List<Integer> buyAmounts,
-			@RequestParam(defaultValue = "buy") String mode,
+			@RequestParam(name = "productNums") List<Long> productNums,
+			@RequestParam(name = "stockNums") List<Long> stockNums,
+			@RequestParam(name = "buyAmounts") List<Integer> buyAmounts,
+			@RequestParam(name = "mode",defaultValue = "buy") String mode,
 			HttpSession session,
 			Model model) throws Exception {
 		
@@ -96,11 +96,6 @@ public class OrderController {
 			    int calculatedSavePoint = (int)(buyAmounts.get(i) * dto.getTotalPrice() * savePointMultiplier);
 			    dto.setSavePoint(calculatedSavePoint);
 			    totalSavePoint += calculatedSavePoint; 
-			    
-			    System.out.println("Product " + i + ": Amount = " + buyAmounts.get(i) + 
-	                       ", TotalPrice = " + dto.getTotalPrice() + 
-	                       ", SavePointMultiplier = " + savePointMultiplier + 
-	                       ", savePoint = " + calculatedSavePoint);
 			    
 				totalMoney += buyAmounts.get(i) * dto.getTotalPrice(); // totalPrice : 할인된 상품가격 * 개수 
 				totalDiscountPrice += dto.getDiscountAmount();
@@ -155,7 +150,7 @@ public class OrderController {
 	
 	@PostMapping("{species}/paymentOk")
 	public String paymentSubmit(@PathVariable(name = "species") Integer species,
-			@RequestParam(defaultValue = "buy") String mode,
+			@RequestParam(name = "mode", defaultValue = "buy") String mode,
 				Order dto, RedirectAttributes reAttr,
 				HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");

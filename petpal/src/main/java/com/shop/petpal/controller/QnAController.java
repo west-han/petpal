@@ -49,8 +49,8 @@ public class QnAController {
 	}
 	
 	@GetMapping("list")
-	public Map<String, Object> list(@RequestParam long productNum, 
-			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+	public Map<String, Object> list(@RequestParam(name = "productNum") long productNum, 
+			@RequestParam(name = "pageNo", value = "pageNo", defaultValue = "1") int current_page,
 			HttpSession session) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
@@ -63,6 +63,7 @@ public class QnAController {
 			
 			map.put("productNum", productNum);
 			
+			dataCount = service.dataCount(map);
 			
 			int total_page = myUtil.pageCount(dataCount, size);
 			if(current_page > total_page) {
@@ -80,16 +81,14 @@ public class QnAController {
 			List<QnA> list = service.listQnA(map);
 			
 			for(QnA dto : list) {
-				if(dto.getSecret() == 0 && (info == null ||  dto.getMemberNum() != info.getMemberNum())) {
-					dto.setContent("비밀글입니다. <i class='bi bi-file-lock2'></i>");
+				if(dto.getSecret() == 0 && (info == null || (info.getAuthority() != "admin" &&  dto.getMemberNum() != info.getMemberNum()))) {
+					dto.setContent("<i class=\"bi bi-lock-fill\"></i> 비밀글입니다.");
 					dto.setAnswer("");
 					
 				}
 			}
 			
 			String paging = myUtil.pagingFunc(current_page, total_page, "listQnA");
-			
-			dataCount = service.dataCount(map);
 			
 			model.put("size", size);
 			model.put("total_page", total_page);

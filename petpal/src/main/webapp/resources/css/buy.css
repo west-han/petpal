@@ -435,7 +435,7 @@ label .item {
 	display: flex;
 }
 
-.qna .qna-title p, .qna .qna-title div {
+.qna .qna-title p {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 0;
@@ -452,22 +452,14 @@ label .item {
 }
 
 .qna-bottom .qnaCon-top .qnaCom {
-	margin-right: 10px;
+	margin-right: 13px;
 }
 
-.qna-bottom .qnaCon-top label, .qnaCon-bottom div {
-	font-size: 18px !important;
-}
-
-.qna-bottom .qnaCon-top .qnaCom {
-	background: #474747;
-	border-radius: 5px;
-	color: white;
-	padding: 3px 8px;
-}
 
 .qna-bottom .qnaCon-bottom {
-	margin-top: 15px;
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .deleteReview, .notifyReview {
@@ -515,7 +507,51 @@ label .item {
 	cursor: pointer;
 }
 
+.qnaContent {
+	font-size: 20px !important;
+}
 
+.qnaQNick, .qnaCom, .qnaDate, .title-qna-con {
+	font-size: 18px !important;
+}
+
+.qnaQNick {
+	margin-left: 13px;
+}
+
+.qna-answer-top {
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+}
+
+.answer-content {
+	font-size: 16px;
+}
+
+.answer-context {
+	padding-left: 8px;
+}
+
+.answer-nick, .qnaAnserNick {
+	background: #474747;
+	border-radius: 5px;
+	color: white;
+}
+
+.answer-done {
+	color: #E4B075;
+}
+
+.answer-wait {
+	color: #BDBDBD;
+}
+
+.qna-answer-content {
+	padding-left: 24px !important;
+	margin-top: 20px;
+	font-size: 20px;
+}
 
 .deleteQuestion, .notifyQuestion {
 	cursor: pointer;
@@ -561,8 +597,7 @@ label .item {
 .detailMore:before {
 	content: '';
 	position: absolute;
-	top: -90px; /* 맞게 조절 */
-	left : 120px;
+	top: -90px; // 맞게 조절 left : 120px;
 	display: block;
 	width: 1300px;
 	height: 96px;
@@ -585,19 +620,6 @@ label .item {
 	vertical-align: middle;
 }
 
-.answer-content {
-	font-size: 16px;
-}
-
-.answer-context {
-	padding-left: 8px;
-}
-
-.answer-nick {
-	background: #474747;
-	border-radius: 5px;
-	color: white;
-}
 
 .page-link {
 	border: none;
@@ -613,7 +635,14 @@ label .item {
 	--bs-pagination-disabled-bg: none;
 }
 
+.btnQuestionSendOk {
+	background: #474747;
+	color: white;
+}
 
+.btnQuestionSendCancel {
+	border: 1px solid #BDBDBD;
+}
 
 .btn_gotop {
 	display: none;
