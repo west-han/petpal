@@ -362,14 +362,28 @@
 	    WHERE memberNum = #{memberNum} and orderDetailNum = #{orderDetailNum}
 	</select>
 	
-	<!-- 주문 취소 -->
+	<!-- 주문 취소(관리자 만들어지면 수정해야함) -->
 	<update id="updateCancel" parameterType="com.shop.petpal.domain.Mypage2">
 		UPDATE orderDetail
 		SET detailState = 3
 		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
 	</update>
 	
+	<!-- 주문 교환(관리자 만들어지면 수정해야함) -->
+	<update id="updateChange" parameterType="com.shop.petpal.domain.Mypage2">
+		UPDATE orderDetail
+		SET detailState = 6
+		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
+	</update>
 	
+	<!-- 주문 반품(관리자 만들어지면 수정해야함) -->
+	<update id="updateReturn" parameterType="com.shop.petpal.domain.Mypage2">
+		UPDATE orderDetail
+		SET detailState = 10
+		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
+	</update>
+	
+
 	<!-- myreview -->
 	<!-- 내가 쓴 리뷰 리스트 -->
 	<select id="selectReviewList" parameterType="long">

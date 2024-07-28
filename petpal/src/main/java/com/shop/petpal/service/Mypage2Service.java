@@ -49,6 +49,9 @@ public interface Mypage2Service {
 	public List<Mypage2> findByOrderNum(String orderNum) throws Exception; // 상세주문내역
 	public void updateDetailState(Mypage2 dto) throws Exception; // 주문확정 업데이트
 	public void updateCancel(Mypage2 dto) throws Exception; // 주문 취소
+	public void updateChange(Mypage2 dto) throws Exception; // 주문 교환
+	public void updateReturn(Mypage2 dto) throws Exception; // 주문 반품
+	
 	
 	public void insertReview(Mypage2 dto, String pathname) throws Exception; // 리뷰 및 리뷰 파일 insert
 	public boolean hasReview(Mypage2 dto)throws Exception; // 내가 작성한 리뷰 찾기

@@ -508,4 +508,26 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}
 		
 	}
+
+	@Override
+	public void updateChange(Mypage2 dto) throws Exception {
+		// TODO 주문 교환
+		try {
+			mapper.updateChange(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateReturn(Mypage2 dto) throws Exception {
+		// TODO 주문 반품
+		
+		try {
+			mapper.updateReturn(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

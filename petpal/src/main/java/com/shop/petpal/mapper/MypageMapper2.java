@@ -56,6 +56,8 @@ public interface MypageMapper2 {
 	public void insertReview(Mypage2 dto) throws SQLException; // 리뷰 작성
 	public void insertReviewFile(Mypage2 dto)throws SQLException; // 리뷰 파일
 	public void updateCancel(Mypage2 dto) throws SQLException;// 주문 취소
+	public void updateChange(Mypage2 dto) throws SQLException;// 주문 반품
+	public void updateReturn(Mypage2 dto) throws SQLException;// 주문 환불
 	
 	public Mypage2 findByReview(Mypage2 dto) throws SQLException; // 내가 작성한 리뷰 찾기
 	public List<Mypage2> selectReviewList(long memberNum) throws SQLException; // 내가 작성한 리뷰 리스트
