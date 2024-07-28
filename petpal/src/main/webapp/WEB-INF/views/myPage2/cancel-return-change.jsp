@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Page - 리뷰 관리</title>
+<title>My Page - 취소/반품/교환/환불 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 body {
@@ -13,7 +13,6 @@ body {
 }
 
 a {
-	
 	text-decoration: none;
 }
 
@@ -78,36 +77,40 @@ h2 {
 
 			<div class="col-md-9 ms-5">
 				<h2>취소/반품/교환/환불 내역</h2>
-				<div class="card mb-3">
-					<div class="card-header">주문번호 : 12345678</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-9">
-								<p class="card-text">
-									<strong>취소 날짜:</strong> 2024.07.09
-								</p>
-								<h5 class="card-title">상품 이름</h5>
-								<p class="card-text">
-									<strong>가격:</strong> 20,000원
-								</p>
-								<p class="card-text">
-									<strong>구매한 갯수:</strong> 2
-								</p>
-							</div>
-							<div class="col-md-3 mt-3 button-column"
-								style="text-align: center;">
-								<a href="#" class="btn btn-success">상세 조회</a>
-								<p class="card-text">
-									<strong>취소 상태:</strong> 처리중
-								</p>
+				<c:forEach var="dto" items="${list}">
+					<div class="card mb-3">
+						<div class="card-header">주문번호 : ${dto.orderNum}</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-9">
+									
+									<h5 class="card-title">${dto.productName}</h5>
+									<p class="card-text">
+										<strong>가격:</strong> ${dto.price - dto.discountAmount}원
+									</p>
+									<p class="card-text">
+										<strong>구매한 갯수:</strong> ${dto.amount}
+									</p>
+								</div>
+								<div class="col-md-3 mt-3 button-column" style="text-align: center;">
+									<a href="#" class="btn btn-success" onclick="inquiry();">상세 조회</a>
+									<p class="card-text">
+										<strong>상태:</strong> 
+										${dto.detailStateMemo}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- 추가적인 취소/반품/교환/환불 내역 카드 -->
+				</c:forEach>
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		function inquiry() {
+			alert("만들어져있는 기능이 아닙니다.")
+		}
+	
+	</script>
 </body>
 </html>

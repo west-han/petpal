@@ -530,4 +530,20 @@ public class Mypage2ServiceImpl implements Mypage2Service {
 		}
 		
 	}
+
+	@Override
+	public List<Mypage2> cancelReturnChangeList(long memberNum) throws Exception {
+		List<Mypage2> list = null;
+		try {
+			list = mapper.cancelReturnChangeList(memberNum);
+			for (Mypage2 mypage2 : list) {
+				mypage2.setDetailStateMemo(OrderState.DETAILSTATEINFO[mypage2.getDetailState()]);
+				mypage2.setOrderStateMemo(OrderState.ORDERSTATEINFO[mypage2.getOrderState()]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		return list;
+	}
 }

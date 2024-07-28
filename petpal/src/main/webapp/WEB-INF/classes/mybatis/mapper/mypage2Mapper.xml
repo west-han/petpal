@@ -383,6 +383,27 @@
 		WHERE orderDetailNum=#{orderDetailNum} AND orderNum = #{orderNum}
 	</update>
 	
+	<!-- cancel-return-change -->
+	<!-- 취소/반품/교환 리스트 -->
+	<select id="cancelReturnChangeList" parameterType="long">
+	    SELECT
+	        od.orderDetailNum, od.amount, od.priceOrig, od.priceDiscount,
+	        od.pricePay, od.savePoint, od.orderNum, od.detailState,
+	        po.memberNum, po.orderDate, po.totalMoney, po.usedPoint,
+	        po.usedCoupon, po.deliveryCharge, po.payment, 
+	        p.productName, p.productNum, p.species, p.price, p.discountAmount, p.thumbnail
+	    FROM
+	        orderDetail od
+	    JOIN
+	        productOrder po ON od.orderNum = po.orderNum
+	    LEFT JOIN
+	        product p ON od.productNum = p.productNum
+	    WHERE
+	        od.detailState IN (3, 4, 5, 6, 7, 8, 10, 11, 12, 14) 
+	        AND po.memberNum = #{memberNum}
+	    ORDER BY
+	        po.orderDate DESC
+	</select>
 
 	<!-- myreview -->
 	<!-- 내가 쓴 리뷰 리스트 -->

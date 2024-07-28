@@ -189,8 +189,21 @@ public class MyPageController2 {
 	
 
 	@GetMapping("cancel-return-change")
-	public String ancelreturnchangeForm() throws Exception {
-
+	public String ancelreturnchangeForm(HttpSession session, Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    if (info == null) {
+	        return "redirect:/member/login";
+	    }
+	    
+	    long memberNum = info.getMemberNum();
+		try {
+			List<Mypage2> list = service.cancelReturnChangeList(memberNum);
+			
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return ".myPage2.cancel-return-change";
 	}
 

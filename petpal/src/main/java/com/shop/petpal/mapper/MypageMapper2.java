@@ -27,10 +27,8 @@ public interface MypageMapper2 {
 	public int updateDefaultDest(long memberNum) throws SQLException; // 나의 모든 배송지 1(일반배송지)로 바꿈
 	public void updateDest(Mypage2 dto) throws SQLException; // 배송지 수정
 	
-	
 	// 쿠폰 리스트
 	public List<Mypage2> selectMemberCoupon(long memberNum) throws SQLException; //나의 쿠폰 리스트
-	
 	
 	// 펫 정보
 	public List<Mypage2> selectMemberPet(long memberNum) throws SQLException; // 펫 정보
@@ -59,6 +57,10 @@ public interface MypageMapper2 {
 	public void updateChange(Mypage2 dto) throws SQLException;// 주문 반품
 	public void updateReturn(Mypage2 dto) throws SQLException;// 주문 환불
 	
+	// 취소 반품 교환 리스트
+	public List<Mypage2> cancelReturnChangeList(long memberNum) throws SQLException;
+	
+	// 리뷰
 	public Mypage2 findByReview(Mypage2 dto) throws SQLException; // 내가 작성한 리뷰 찾기
 	public List<Mypage2> selectReviewList(long memberNum) throws SQLException; // 내가 작성한 리뷰 리스트
 	public int reviewDataCount(long memberNum) throws SQLException; // 페이징 데이터 카운트
