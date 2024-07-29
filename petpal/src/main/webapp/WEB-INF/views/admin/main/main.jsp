@@ -45,11 +45,16 @@
             show: false
           },
           data: [
-            { value: 1048, name: 'Search Engine' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
-            { value: 300, name: 'Video Ads' }
+            { value: 36, name: '사료' },
+            { value: 28, name: '간식' },
+            { value: 17, name: '목욕용품' },
+            { value: 13, name: '케어용품' },
+            { value: 10, name: '건강관리' },
+            { value: 10, name: '위생/배변' },
+            { value: 7, name: '장난감' },
+            { value: 6, name: '산책/이동장' },
+            { value: 5, name: '하우스/스탭' },
+            { value: 2, name: '급식기/급수기' }
           ]
         }
       ]
