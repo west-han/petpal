@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Event Detail</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
 <style type="text/css">
 .body-main {
     max-width: 900px;
@@ -77,7 +76,7 @@
                         <c:if test="${not empty list}">
                             <c:forEach var="vo" items="${list}" varStatus="status">
                                 <p class="file-item">
-                                    <span class="icon">&#128194;</span> <!-- 폴더 아이콘 -->
+                                    <span class="icon">&#128194;</span> 
                                     <a href="${pageContext.request.contextPath}/admin/eventManage/download?fileNum=${vo.eventFileNum}">${vo.eventFileName}</a>
                                 </p>
                             </c:forEach>
@@ -93,6 +92,5 @@
     </div>
 </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
