@@ -7,10 +7,15 @@
                 </div>
         
         <div class="logout">
-            <a href="${pageContext.request.contextPath}/member/logout">
-                <i class="fas fa-sign-out-alt"></i> 로그아웃
+            <a href="${pageContext.request.contextPath}/">
+                <i class="bi bi-house-fill">메인&nbsp;&nbsp;</i> 
             </a>
+            <a href="${pageContext.request.contextPath}/member/logout">
+                <i class="fas fa-sign-out-alt">로그아웃</i> 
+            </a>
+            
         </div>
+        
     </div>
     <div class="header2">
     	<div class="info-header">
