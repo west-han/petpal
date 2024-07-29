@@ -525,23 +525,6 @@ function sendOk(mode) {
 							</div>
 						</div>
 
-						<div class="recomm-product">
-							<div class="recomm-title">비슷한 상품</div>
-							<div class="recomm-imgs">
-								<c:forEach var="n" begin="1" end="6">
-									<div class="recomm-img">
-										<img
-											src="${pageContext.request.contextPath}/uploads/product/10.jpg"
-											class="img-buy">
-										<div>제품이름</div>
-										<div class="d-flex recomm-price">
-											<span>할인율%</span> <span>가격</span>
-										</div>
-									</div>
-
-								</c:forEach>
-							</div>
-						</div>
 
 						<div class="review" id="scrollr">
 							<div class="mt-3 fw-bold review-title">

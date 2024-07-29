@@ -433,10 +433,9 @@ public class ProductController {
 				map.put("productNum", productNum);
 				map.put("memberNum", info.getMemberNum());
 				
-				boolean userProductLiked = service.userProductLiked(map);
-				model.addAttribute("userProductLiked", userProductLiked);
+				boolean userLiked = service.userProductLiked(map);
+				model.addAttribute("userLiked", userLiked);
 			}
-			
 			
 			List<Product> listStock = null;
 			if(dto.getOptionCount() < 2) {
@@ -468,6 +467,7 @@ public class ProductController {
 			model.addAttribute("listProductOption", listProductOption);
 			model.addAttribute("listOptionDetail", listOptionDetail);
 			model.addAttribute("categories", categories);
+			
 			
 			
 		} catch (Exception e) {
