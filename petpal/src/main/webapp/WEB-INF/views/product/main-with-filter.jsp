@@ -121,7 +121,7 @@
 		                        <p class="text-name">${product.productName}</p>
 		                        <c:if test="${product.discountRate == 0}">
 		                        	<strong class="text-discountedPrice">
-		                        		${product.price}
+		                        		<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/>
 		                        	</strong>
 		                        </c:if>
 		                        <c:if test="${product.discountRate != 0}">

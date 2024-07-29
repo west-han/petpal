@@ -29,9 +29,9 @@
             </h2>
             <div class="category-box">
                 <ul class="list-h category-list">
-                	<li><a href="${pageContext.request.contextPath}/product/recent/${sessionScope.species}/0">전체</a></li>
+                	<li><a href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/0">전체</a></li>
                     <c:forEach items="${categories}" var="category">
-                    	<li><a href="${pageContext.request.contextPath}/product/recent/${sessionScope.species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
+                    	<li><a href="${pageContext.request.contextPath}/product/${mode}/${sessionScope.species}/${category.CATEGORYNUM}">${category.CATEGORYNAME}</a></li>
                     </c:forEach>
                 </ul>
             </div>
@@ -50,7 +50,7 @@
 	                        <p class="text-name">${product.productName}</p>
 	                        <c:if test="${product.discountRate == 0}">
 	                        	<strong class="text-discountedPrice">
-	                        		${product.price}
+	                        		<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/>
 	                        	</strong>
 	                        </c:if>
 	                        <c:if test="${product.discountRate != 0}">
