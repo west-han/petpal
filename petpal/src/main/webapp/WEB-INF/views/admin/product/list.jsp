@@ -177,7 +177,7 @@ $(function(){
             dataType: "html",
             success: function(response) {
                 $('.modal-productStock').html(response);
-                //$('#productStockDialogModal').modal('show');
+                $('#productStockDialogModal').modal('show');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error:", textStatus, errorThrown);
