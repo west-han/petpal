@@ -47,11 +47,15 @@ h2 {
 		<c:forEach var="dto" items="${orderDetails}">
 		    <div class="card mb-3">
 		        <div class="card-body d-flex">
-		            <a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
-						<img class="review-item" src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
+		            <a href="${pageContext.request.contextPath}/product/${dto.species}/${dto.productNum}">
+						<img class="review-item" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}" alt="주문한 사진">
 					</a>
 		            <div>
-		                <h5 class="card-title">${dto.productName}</h5>
+		                <h5 class="card-title">
+						    <a href="${pageContext.request.contextPath}/product/${dto.species}/${dto.productNum}">
+						        ${dto.productName}
+						    </a>
+						</h5>
 		                <p class="card-text"><strong>옵션:</strong> ${dto.optionValue}</p>
 		                <p class="card-text"><strong>가격:</strong> ${dto.price - dto.discountAmount}원</p>
 		                <p class="card-text"><strong>수량:</strong> ${dto.amount}</p>

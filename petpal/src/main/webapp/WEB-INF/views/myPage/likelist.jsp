@@ -89,8 +89,8 @@ a {
                     <div class="wishlist-item">
                         <a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
 					       <img class="review-item" src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
-					    </a>
-                        <div class="item-details">
+					     </a>
+                        <div class="item-details" onclick="location.href='${pageContext.request.contextPath}/product/${item.species}/${item.productNum}';">
                             <h5 class="item-title">${item.productName}</h5>
                             <p class="item-price">₩<fmt:formatNumber value="${item.price}" pattern="#,###"/></p>
                         </div>
