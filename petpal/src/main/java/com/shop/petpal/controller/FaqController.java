@@ -9,9 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FaqController {
 	
 	@GetMapping("faq")
-	public String orderlistForm() throws Exception {
+	public String feqForm() throws Exception {
 		
 		
 		return ".faq.faq";
 	}
+	
+	@GetMapping("onetoone")
+	public String onetonoeForm() throws Exception {
+		
+		
+		return ".faq.onetoone";
+	}
+	
+	@GetMapping("notice")
+	public String noticeForm() throws Exception {
+		
+		
+		return ".faq.notice";
+	}
+	
+	
+	
 }
