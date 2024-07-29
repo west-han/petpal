@@ -59,7 +59,7 @@
                     <c:if test="${not empty dto.thumbnail}">
                         <img src="${pageContext.request.contextPath}/uploads/event/${dto.thumbnail}" alt="Thumbnail">
                     </c:if>
-                    <a href="${pageContext.request.contextPath}/admin/event/article?num=${dto.num}&page=${page}">${dto.subject}</a>
+                    <a href="${pageContext.request.contextPath}/event/article?num=${dto.num}&page=${page}">${dto.subject}</a>
                 </div>
             </c:forEach>
         </div>

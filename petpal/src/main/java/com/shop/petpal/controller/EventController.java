@@ -95,4 +95,23 @@ public class EventController {
         }
         return sb.toString();
     }
+    
+    
+    
+    @GetMapping("/event/article")
+    public String eventArticleForm(@RequestParam("num") long num, Model model ) {
+    	
+    	try {
+			EventManage dto = service.findByNum(num);
+			List<EventManage> list = service.listEventFile(num);
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	return ".event.article";
+    }
+    
 }

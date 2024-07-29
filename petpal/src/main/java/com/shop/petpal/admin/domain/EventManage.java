@@ -17,6 +17,8 @@ public class EventManage {
     private String eday;
     private String etime;
     private long memberNum;
+    private String userName;
+    
     
     private List<MultipartFile> selectEventFile;
     
@@ -31,7 +33,15 @@ public class EventManage {
         return num;
     }
 
-    public MultipartFile getThumbnailFile() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public MultipartFile getThumbnailFile() {
 		return thumbnailFile;
 	}
 

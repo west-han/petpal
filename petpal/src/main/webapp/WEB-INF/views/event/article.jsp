@@ -2,63 +2,97 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Event Detail</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+    max-width: 900px;
 }
 
-.table-article img { max-width: 650px; }
-.file-item { padding: 7px; margin-bottom: 3px; border: 1px solid #ced4da; color: #777777; }
+.table-article img {
+    max-width: 650px;
+    display: block;
+    margin: 0 auto;
+}
+
+.file-item {
+    padding: 7px;
+    margin-bottom: 3px;
+    border: 1px solid #ced4da;
+    color: #777777;
+    display: flex;
+    align-items: center;
+}
+
+.file-item span {
+    margin-right: 10px;
+    color: #6c757d;
+}
+
+.body-title {
+    margin-bottom: 20px;
+}
+
+.table-article {
+    border: none; 
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+}
 </style>
+</head>
+<body>
 
-
-<div class="body-container">
-    <div class="body-title">
-		<h2><i class="fas fa-clipboard-list"></i> 공지사항 </h2>
+<div class="container">
+    <div class="body-container">
+        <div class="body-title">
+            <h2>이벤트 &#x1F389;</h2> 
+        </div>
+        
+        <div class="body-main p-3 mx-auto m-5">
+            <table class="table table-border table-article">
+                <tr>
+                    <td class="h2">
+                        ${dto.subject}
+                    </td>
+                </tr>
+                
+                <tr style="border-bottom:none;">
+                    <td colspan="2" valign="top" height="200">
+                        ${dto.content}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <c:if test="${not empty list}">
+                            <c:forEach var="vo" items="${list}" varStatus="status">
+                                <p class="file-item">
+                                    <span class="icon">&#128194;</span> <!-- 폴더 아이콘 -->
+                                    <a href="${pageContext.request.contextPath}/admin/eventManage/download?fileNum=${vo.eventFileNum}">${vo.eventFileName}</a>
+                                </p>
+                            </c:forEach>
+                        </c:if>
+                    </td>
+                </tr>                
+            </table>
+            
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/event/list';">리스트</button>
+            </div>
+        </div>
     </div>
-    
-    <div class="body-main">
-
-		<table class="table table-border table-article">
-			</thead>
-			
-			<tbody>
-				<tr>
-					<td width="50%" align="left">
-						이름 : ${dto.userName}
-					</td>
-				</tr>
-				
-				<tr style="border-bottom:none;">
-					<td colspan="2" valign="top" height="200">
-						${dto.content}
-					</td>
-				</tr>
-				
-				<tr>
-					<td colspan="2">
-						<c:forEach var="vo" items="${listFile}" varStatus="status">
-							<p class="file-item">
-								<i class="fa-regular fa-folder-open"></i>
-								<a href="${pageContext.request.contextPath}/admin/eventManage/download?fileNum=${vo.fileNum}">${vo.originalFilename}</a>
-								
-							</p>
-						</c:forEach>
-					</td>
-				</tr>				
-				
-			</tbody>
-		</table>
-			
-		<table class="table">
-			<tr>
-				
-				<td align="right">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/list?${query}';">리스트</button>
-				</td>
-			</tr>
-		</table>
-		
-	</div>
 </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
