@@ -78,7 +78,7 @@ window.addEventListener('load', function() {
                         <div class="dropdown">
                             <a href="#"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
                             <div class="dropdown-content">
-                                <a href="${pageContext.request.contextPath}/myPage2/orderlist" class="dropdown-button login-button">마이페이지</a>
+                                <a href="${pageContext.request.contextPath}/myPage/orderlist" class="dropdown-button login-button">마이페이지</a>
                                 <a href="${pageContext.request.contextPath}/member/logout" class="dropdown-button signup-button">로그아웃</a>
                             </div>
                         </div>
@@ -89,32 +89,43 @@ window.addEventListener('load', function() {
             </div>
         </div>
     <nav class="head2">
-        <div class="menu">
-            <div class="dropdown">
-                <button class="dropbtn">
-                    <img src="${pageContext.request.contextPath}/resources/images/menu.png"><p style="padding-left: 5px;">카테고리</p>
-                </button>
-                <div class="dropdown-content">
-                    <a href="${pageContext.request.contextPath}/product/category/${species}">전체</a>
-                    <c:forEach items="${categories}" var="category">
-                        <a href="${pageContext.request.contextPath}/product/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="line"></div>
-            <div class="menu2">
-                <span><a href="${pageContext.request.contextPath}/product/recent/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/new.png"><p>신상품</p></a></span>
-                <span><a href="${pageContext.request.contextPath}/product/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
-                <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>기획 상품</p></a></span>
-                <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/love.png"><p>맞춤 상품</p></a></span>
-                <span><a href="${pageContext.request.contextPath}/event/list"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
+    <div class="menu">
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img src="${pageContext.request.contextPath}/resources/images/menu.png"><p style="padding-left: 5px;">카테고리</p>
+            </button>
+            <div class="dropdown-content">
+                <a href="${pageContext.request.contextPath}/product/category/${species}">전체</a>
+                <c:forEach items="${categories}" var="category">
+                    <a href="${pageContext.request.contextPath}/product/category/${species}/${category.CATEGORYNUM}/0">${category.CATEGORYNAME}</a>
+                </c:forEach>
             </div>
         </div>
-        <div class="pet-dropdown">
-            <select id="pet-selector" name="species">
-                <option value="1" ${sessionScope.species == 1 ? 'selected' : ''}>강아지</option>
-                <option value="2" ${sessionScope.species == 2 ? 'selected' : ''}>고양이</option>
-            </select>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img src="${pageContext.request.contextPath}/resources/images/customer.png"><p style="padding-left: 5px;">고객센터</p>
+            </button>
+            <div class="dropdown-content">
+                <a href="${pageContext.request.contextPath}/">공지사항</a>
+                <a href="${pageContext.request.contextPath}/">1:1문의</a>
+                <a href="${pageContext.request.contextPath}/">FAQ</a>
+            </div>
         </div>
-    </nav>
+    </div>
+    <div class="line"></div>
+    <div class="menu2">
+        <span><a href="${pageContext.request.contextPath}/product/recent/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/new.png"><p>신상품</p></a></span>
+        <span><a href="${pageContext.request.contextPath}/product/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
+        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>기획 상품</p></a></span>
+        <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/love.png"><p>맞춤 상품</p></a></span>
+        <span><a href="${pageContext.request.contextPath}/event/list"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
+    </div>
+    <div class="pet-dropdown">
+        <select id="pet-selector" name="species">
+            <option value="1" ${sessionScope.species == 1 ? 'selected' : ''}>강아지</option>
+            <option value="2" ${sessionScope.species == 2 ? 'selected' : ''}>고양이</option>
+        </select>
+    </div>
+</nav>
+
 </header>

@@ -63,7 +63,7 @@ public class EventController {
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", getPaging(current_page, total_page, "/events"));
 
-        return "/event/list";
+        return ".event.list";
     }
 
     private String getPaging(int current_page, int total_page, String url) {

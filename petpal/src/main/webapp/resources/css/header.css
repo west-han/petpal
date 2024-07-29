@@ -210,6 +210,20 @@ p.name {
     font-size: 16px;
     font-family: 'MangoDdobak-B';
 }
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn2 {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'MangoDdobak-B';
+}
 
 .dropdown-content {
     display: none;
