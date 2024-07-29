@@ -107,7 +107,7 @@ window.addEventListener('load', function() {
             </button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/faq/notice">공지사항</a>
-                <a href="${pageContext.request.contextPath}/faq/onetoone">1:1문의</a>
+                <a href="${pageContext.request.contextPath}/onetoone/list">1:1문의</a>
                 <a href="${pageContext.request.contextPath}/faq/faq">FAQ</a>
             </div>
         </div>

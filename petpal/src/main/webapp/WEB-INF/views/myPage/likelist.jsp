@@ -87,7 +87,9 @@ a {
                 <h2>찜 리스트</h2>
                 <c:forEach var="item" items="${wishList}">
                     <div class="wishlist-item">
-                        <img src="${pageContext.request.contextPath}/uploads/${item.thumbnail}" alt="상품 이미지">
+                        <a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
+					       <img class="review-item" src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
+					    </a>
                         <div class="item-details">
                             <h5 class="item-title">${item.productName}</h5>
                             <p class="item-price">₩<fmt:formatNumber value="${item.price}" pattern="#,###"/></p>
