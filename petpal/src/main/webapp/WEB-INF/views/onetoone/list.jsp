@@ -107,7 +107,7 @@
 							<a class="subject" href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</div>
 						<div class="w-25 con-right">
-							<div>${dto.userName}</div>
+							<div style="min-width: 100px;" class="text-center">${dto.userName}</div>
 							<c:choose>
 								<c:when test="${dto.isAnswered == 0}">
 									<div>답변대기</div>
