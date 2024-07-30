@@ -113,7 +113,7 @@ ul.inline-list li {
                 <c:forEach var="review" items="${reviews}">
                     <div class="review-item">
                         <c:if test="${not empty review.thumbnail}">
-                            <img src="${pageContext.request.contextPath}/uploads/${review.thumbnail}" alt="상품 이미지">
+                            <img src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="이미지">
                         </c:if>
                         <div class="item-details">
                             <div class="star-rating">
