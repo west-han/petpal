@@ -7,6 +7,9 @@
 <title>주문 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
+body {
+	background-color: #f8f9fa;
+}
 
 h2 {
 	margin-bottom: 20px;
@@ -28,8 +31,8 @@ a {
 }
 
 .review-item img {
-	width: 100px;
-	height: 100px;
+	width: 150px; /* 이미지 크기를 키움 */
+	height: 150px; /* 이미지 크기를 키움 */
 	object-fit: cover;
 	margin-right: 20px;
 }
@@ -114,25 +117,29 @@ a {
 									<!-- 같은 주문번호로 묶여진 1개의 div 박스 -->
 									<div class="bg-light mb-2 p-3">
 										<div class="row mb-2">
-											<div class="col-md-9">
+											<div class="col-md-12">
 												<p class="card-text"><strong>주문 날짜:</strong> ${item.orderDate}</p>
 												<p class="card-text"><strong>배송 상태:</strong> ${item.orderStateMemo}</p>
+											</div>
+										</div>
+										<div class="row mb-2">
+											<div class="col-md-3 review-item">
+												<a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
+					                                    <img src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
+					                                </a>
+											</div>
+											<div class="col-md-6 p-3">
 												<a class="fs-5" href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
 					                                ${item.productName}	
 					                            </a>
-												<div class="review-item">
-													<a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
-					                                    <img class="review-item" src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
-					                                </a>
-												</div>
 												<p class="card-text"><strong>가격:</strong> ${item.price - item.discountAmount}원</p>
 												<p class="card-text"><strong>구매한 갯수:</strong> ${item.amount}</p>
 												<c:if test="${not empty item.optionValue}">
 											        <p class="card-text"><strong>옵션:</strong> ${item.optionValue}</p>
 											    </c:if>
 											</div>
-											<div class="col-md-3 button-column align-bottom mt-5">
-												<button class="btn btn-primary mt-3">배송 조회</button>
+											<div class="col-md-3 button-column align-bottom">
+												<button class="btn btn-secondary mt-3">배송 조회</button>
 												<c:choose>
 													<c:when test="${item.orderState == 0 || item.orderState == 1}">
 														<form action="${pageContext.request.contextPath}/myPage/updateCancel" method="post">
@@ -150,11 +157,11 @@ a {
 														<form action="${pageContext.request.contextPath}/myPage/updateDetailState" method="post">
 															<input type="hidden" name="orderDetailNum" value="${item.orderDetailNum}">
 															<input type="hidden" name="savePoint" value="${item.savePoint}">
-															<button type="submit" class="btn btn-success" onclick="return realBuy();">구매확정</button>
+															<button type="submit" class="btn btn-secondary" onclick="return realBuy();">구매확정</button>
 														</form>
 													</c:when>
 													<c:when test="${item.detailState == 1}">
-														<button class="btn btn-success" onclick="checkReview('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
+														<button class="btn btn-secondary" onclick="checkReview('${item.orderDetailNum}', '${item.productNum}')">리뷰 작성</button>
 													</c:when>
 												</c:choose>
 											</div>
