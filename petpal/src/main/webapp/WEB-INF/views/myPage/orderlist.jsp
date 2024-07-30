@@ -72,17 +72,17 @@ a {
 				<h3 class="mypage">마이페이지</h3>
 				<ul class="list-group">
 					<li class="category-header">my 쇼핑</li>
-					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage/orderlist">주문 내역/배송 조회</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/cancel-return-change">취소/반품/교환/환불 내역</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mycoupon">쿠폰함</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mypoint">적립금</a></li>
+					<li class="list-group-item active"><a href="${pageContext.request.contextPath}/myPage/${species}/orderlist">주문 내역/배송 조회</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/cancel-return-change">취소/반품/교환/환불 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/mycoupon">쿠폰함</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/mypoint">적립금</a></li>
 					<li class="category-header">my 정보</li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mypet">나의 펫</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/mymodify">내 정보</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myaddress">나의 배송지</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/likelist">찜 리스트</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/mypet">나의 펫</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/mymodify">내 정보</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/myaddress">나의 배송지</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/likelist">찜 리스트</a></li>
 					<li class="category-header">my 활동</li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/myreview">리뷰관리</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/myreview">리뷰관리</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
 				</ul>
 			</div>
@@ -104,7 +104,7 @@ a {
 						<div class="card mb-3">
 							<div class="card-header d-flex justify-content-between align-items-center">
 								<span class="align-middle order-number">주문 번호: ${dto.orderNum}</span>
-								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
+								<a class="btn btn-link" href="${pageContext.request.contextPath}/myPage/${sessionScope.species}/orderDetail?orderNum=${dto.orderNum}">주문 상세</a>
 							</div>
 							<div class="card-body">
 								<c:forEach var="item" items="${list}">

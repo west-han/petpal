@@ -167,8 +167,9 @@ public class MyPageController {
 	
 	
 
-	@GetMapping("orderlist")
-	public String orderlistForm(HttpSession session, Model model) throws Exception {
+	@GetMapping("{species}/orderlist")
+	public String orderlistForm(HttpSession session, Model model,
+			@PathVariable(name = "species") Integer species) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		if(info == null) {
@@ -177,10 +178,12 @@ public class MyPageController {
 		
 		try {
 			List<Mypage> list = service.selectOrderList(info.getMemberNum());
+			List<Map<String, Object>> categories = productService.listCategory(species);
 			
 			
 			
 			model.addAttribute("list", list);
+			model.addAttribute("categories", categories);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -191,8 +194,14 @@ public class MyPageController {
 	
 	
 	@PostMapping("updateCancel")
-	public String updateCancel(Mypage dto) throws Exception {
+	public String updateCancel(Mypage dto, HttpSession session) throws Exception {
 		// TODO : 취소
+		Integer species = (Integer)session.getAttribute("species");
+		
+		if (species == null) {
+			species = 1;
+			session.setAttribute("species", species);
+		}
 		try {
 			service.updateCancel(dto);
 		} catch (Exception e) {
@@ -200,11 +209,17 @@ public class MyPageController {
 		}
 		
 		
-		return "redirect:/myPage/orderlist";
+		return "redirect:/myPage/"+ species +"/orderlist";
 	}
 	@PostMapping("updateChange")
-	public String updateChange(Mypage dto) throws Exception {
+	public String updateChange(Mypage dto, HttpSession session) throws Exception {
 		// TODO : 교환
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		try {
 			service.updateChange(dto);
 		} catch (Exception e) {
@@ -212,12 +227,18 @@ public class MyPageController {
 		}
 		
 		
-		return "redirect:/myPage/orderlist";
+		return "redirect:/myPage/"+ species + "/orderlist";
 	}
 	
 	@PostMapping("updateReturn")
-	public String updateReturn(Mypage dto) throws Exception {
+	public String updateReturn(Mypage dto, HttpSession session) throws Exception {
 		// TODO : 반품
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		try {
 			service.updateReturn(dto);
 		} catch (Exception e) {
@@ -225,7 +246,7 @@ public class MyPageController {
 		}
 		
 		
-		return "redirect:/myPage/orderlist";
+		return "redirect:/myPage/"+ species +"/orderlist";
 	}
 	
 	
@@ -257,6 +278,12 @@ public class MyPageController {
 	public String updateDetailState(HttpSession session, Mypage dto) throws Exception{
 		// TODO 구매확정
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		if(info == null) {
         	return "redirect:/member/login";
         }
@@ -270,7 +297,7 @@ public class MyPageController {
 		}
 		
 		
-		return "redirect:/myPage/orderlist";
+		return "redirect:/myPage/"+ species +"/orderlist";
 	}
 	
 	@PostMapping("writeReview")
@@ -279,7 +306,12 @@ public class MyPageController {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		String root = session.getServletContext().getRealPath("/");
         String path = root + "uploads" + File.separator + "reviewPhoto";
-        
+        Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		
 		if(info == null) {
         	return "redirect:/member/login";
@@ -291,19 +323,22 @@ public class MyPageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/myPage/orderlist";
+		return "redirect:/myPage/"+ species +"/orderlist";
 	}
 	
-	@GetMapping("orderDetail")
+	@GetMapping("{species}/orderDetail")
     public String getOrderDetail(@RequestParam("orderNum") String orderNum, Model model,
-    		HttpSession session) throws Exception {
+    		HttpSession session,
+    		@PathVariable(name = "species") Integer species) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		if(info == null) {
         	return "redirect:/member/login";
         }
 		try {
 			List<Mypage> orderDetails = service.findByOrderNum(orderNum);
+			List<Map<String, Object>> categories = productService.listCategory(species);
 			model.addAttribute("orderDetails", orderDetails);
+			model.addAttribute("categories", categories);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -315,8 +350,9 @@ public class MyPageController {
 	
 	
 
-	@GetMapping("cancel-return-change")
-	public String ancelreturnchangeForm(HttpSession session, Model model) throws Exception {
+	@GetMapping("{species}/cancel-return-change")
+	public String ancelreturnchangeForm(HttpSession session, Model model,
+			@PathVariable(name = "species") Integer species) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 	    if (info == null) {
 	        return "redirect:/member/login";
@@ -325,6 +361,8 @@ public class MyPageController {
 	    long memberNum = info.getMemberNum();
 		try {
 			List<Mypage> list = service.cancelReturnChangeList(memberNum);
+			List<Map<String, Object>> categories = productService.listCategory(species);
+			model.addAttribute("categories", categories);
 			
 			model.addAttribute("list", list);
 		} catch (Exception e) {
@@ -334,9 +372,10 @@ public class MyPageController {
 		return ".myPage.cancel-return-change";
 	}
 
-	@GetMapping("mycoupon")
+	@GetMapping("{species}/mycoupon")
 	public String mycouponForm(HttpSession session,
-			 Model model) throws Exception {
+			 Model model,
+			 @PathVariable(name = "species") Integer species) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		if(info == null) {
         	return "redirect:/member/login";
@@ -344,7 +383,8 @@ public class MyPageController {
 		
 		try {
 			 List<Mypage> list = service.selectMemberCoupon(info.getMemberNum());
-			 
+			 List<Map<String, Object>> categories = productService.listCategory(species);
+			 model.addAttribute("categories", categories);
 			 model.addAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -354,16 +394,17 @@ public class MyPageController {
 		return ".myPage.mycoupon";
 	}
 
-	@GetMapping("mypoint")
+	@GetMapping("{species}/mypoint")
     public String mypointFrom(HttpSession session,
                               @RequestParam(value = "page", defaultValue = "1") int current_page,
                               @RequestParam(defaultValue = "") String startDate,
                               @RequestParam(defaultValue = "") String endDate,
                               HttpServletRequest req,
-                              Model model) throws Exception {
+                              Model model,
+                              @PathVariable(name = "species") Integer species) throws Exception {
         // 마이페이지 포인트리스트
         SessionInfo info = (SessionInfo) session.getAttribute("member");
-        
+	    
         if(info == null) {
         	return "redirect:/member/login";
         }
@@ -398,19 +439,24 @@ public class MyPageController {
         }
 
         List<Mypage> list = service.myPointListPaged(map);
-
+        if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
         String query = "";
-        String listUrl = cp + "/myPage/mypoint";
+        String listUrl = cp + "/myPage/"+ species +"/mypoint";
        
 
         if (!startDate.isEmpty() && !endDate.isEmpty()) {
+        	
             query = "startDate=" + URLEncoder.encode(startDate, "utf-8") + "&endDate=" + URLEncoder.encode(endDate, "utf-8");
-            listUrl = cp + "/myPage/mypoint?" + query;
+            listUrl = cp + "/myPage/"+ species +"/mypoint?" + query;
            
         }
 
+        List<Map<String, Object>> categories = productService.listCategory(species);
         String paging = myUtil.paging(current_page, total_page, listUrl);
-
+        model.addAttribute("categories", categories);
         model.addAttribute("list", list);
         
         model.addAttribute("page", current_page);
@@ -425,9 +471,10 @@ public class MyPageController {
         return ".myPage.mypoint";
     }
 
-	@GetMapping("mypet")
+	@GetMapping("{species}/mypet")
 	public String mypetFrom(Model model,
-			 HttpSession session) throws Exception {
+			 HttpSession session,
+			 @PathVariable(name = "species") Integer species) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		if(info == null) {
@@ -439,7 +486,8 @@ public class MyPageController {
 			Long representativePetNum = service.selectRepPet(info.getMemberNum());
 		    // 현재 대표 동물 정보 조회
 		    service.selectRepPet(info.getMemberNum());
-			
+		    List<Map<String, Object>> categories = productService.listCategory(species);
+		    model.addAttribute("categories", categories);
 			model.addAttribute("list", list);
 			model.addAttribute("representativePetNum", representativePetNum);
 		} catch (Exception e) {
@@ -458,6 +506,9 @@ public class MyPageController {
         String path = root + "uploads" + File.separator + "petPhotos";
 
         SessionInfo info = (SessionInfo) session.getAttribute("member");
+        
+	    
+	   
 
         try {
             dto.setMemberNum(info.getMemberNum());
@@ -466,7 +517,7 @@ public class MyPageController {
             e.printStackTrace();
         }
 
-        return "redirect:/myPage/mypet";
+        return "redirect:/myPage/"+ dto.getSpecies() +"/mypet";
     }
 	
 	@PostMapping("updateMemberPet")
@@ -475,6 +526,9 @@ public class MyPageController {
 	    String path = root + "uploads" + File.separator + "petPhotos";
 	    
 	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    
+	    
+	    
 	    try {
 	    	dto.setMemberNum(info.getMemberNum());
 	        service.updateMemberPet(dto, path);
@@ -482,7 +536,7 @@ public class MyPageController {
 	        e.printStackTrace();
 	    }
 
-	    return "redirect:/myPage/mypet";
+	    return "redirect:/myPage/"+ dto.getSpecies() +"/mypet";
 	}
 	
 	@PostMapping("deleteMemberPet")
@@ -492,14 +546,17 @@ public class MyPageController {
 	    
 	    SessionInfo info = (SessionInfo) session.getAttribute("member");
 	    
+	    
+	    
 	    try {
 			dto.setMemberNum(info.getMemberNum());
+			
 			service.deleteMemberPet(dto, path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/myPage/mypet";
+		return "redirect:/myPage/" + dto.getSpecies() + "/mypet";
 	}
 	
 	@PostMapping("/setInsertRegPet")
@@ -526,7 +583,7 @@ public class MyPageController {
         return service.selectBreed(species);
     }
 
-	@GetMapping("mymodify")
+	@GetMapping("{species}/mymodify")
 	public String mymodifyFrom(Model model, HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		if(info == null) {
@@ -566,6 +623,12 @@ public class MyPageController {
 	
 	@PostMapping("updateMember")
 	public String updateMemberSubmit(Member dto, HttpSession session) {
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			if (info == null) {
@@ -580,7 +643,7 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/myPage/mymodify";
+		return "redirect:/myPage/"+ species +"/mymodify";
 	}
 	
 	@PostMapping("updatePassWord")
@@ -593,16 +656,23 @@ public class MyPageController {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
+		
 		memberDto.setMemberNum(info.getMemberNum());
 		// 현재 비밀번호 확인
 	    if (!service.isPasswordCheck(info.getEmail(), currentPassword)) {
 	        reAttr.addFlashAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
-	        return "redirect:/myPage/mymodify";
+	        return "redirect:/myPage/"+ species + "/mymodify";
 	    }
 		
 		if (!newPassword.equals(confirmPassword)) {
 	        reAttr.addFlashAttribute("message", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-	        return "redirect:/myPage/mymodify";
+	        return "redirect:/myPage/"+ species + "/mymodify";
 	    }
 		
 		
@@ -620,11 +690,12 @@ public class MyPageController {
 		
 		reAttr.addFlashAttribute("message", sb.toString());
 		
-		return "redirect:/myPage/mymodify";
+		return "redirect:/myPage/"+ species + "/mymodify";
 	}
 
-	@GetMapping("likelist")
-	public String likelistFrom(HttpSession session, Model model) throws Exception {
+	@GetMapping("{species}/likelist")
+	public String likelistFrom(HttpSession session, Model model,
+			@PathVariable(name = "species") Integer species) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
 		if (info == null) {
@@ -633,7 +704,8 @@ public class MyPageController {
 		
 		try {
 			 List<Mypage> wishList = service.selectWishListProducts(info.getMemberNum());
-			 
+			 List<Map<String, Object>> categories = productService.listCategory(species);
+			 model.addAttribute("categories", categories);
 			 model.addAttribute("wishList", wishList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -645,7 +717,12 @@ public class MyPageController {
 	@PostMapping("deleteWishList")
 	public String deleteWishList(Mypage dto, HttpSession session) {
 	    SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 	    if (info == null) {
 	        return "redirect:/member/login";
 	    }
@@ -657,17 +734,21 @@ public class MyPageController {
 	        e.printStackTrace();
 	    }
 
-	    return "redirect:/myPage/likelist";
+	    return "redirect:/myPage/"+ species +"/likelist";
 	}
 
-	@GetMapping("myreview")
+	@GetMapping("{species}/myreview")
 	public String myreviewForm(@RequestParam(value = "page", defaultValue = "1") int current_page,
             @RequestParam(defaultValue = "") String startDate,
             @RequestParam(defaultValue = "") String endDate,
             HttpServletRequest req,
-            HttpSession session, Model model) throws Exception {
+            HttpSession session, Model model,
+            @PathVariable(name = "species") Integer species) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		
 	    if (info == null) {
 	        return "redirect:/member/login";
@@ -705,16 +786,17 @@ public class MyPageController {
         
         
         String query = "";
-        String listUrl = cp + "/myPage/myreview";
+        String listUrl = cp + "/myPage/"+ species +"/myreview";
         
         if (!startDate.isEmpty() && !endDate.isEmpty()) {
             query = "startDate=" + URLEncoder.encode(startDate, "utf-8") + "&endDate=" + URLEncoder.encode(endDate, "utf-8");
-            listUrl = cp + "/myPage/myreview?" + query;
+            listUrl = cp + "/myPage/"+ species +"/myreview?" + query;
            
         }
         
         String paging = myUtil.paging(current_page, total_page, listUrl);
-        
+        List<Map<String, Object>> categories = productService.listCategory(species);
+        model.addAttribute("categories", categories);
         
         model.addAttribute("reviews", reviews);
         model.addAttribute("page", current_page);
@@ -728,9 +810,10 @@ public class MyPageController {
 		return ".myPage.myreview";
 	}
 	
-	@GetMapping("myaddress")
+	@GetMapping("{species}/myaddress")
 	public String myaddressForm(HttpSession session,
-			Model model) throws Exception{
+			Model model,
+			@PathVariable(name = "species") Integer species) throws Exception{
 		
 		try {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -740,7 +823,8 @@ public class MyPageController {
 		}
 			
 		List<Mypage> list = service.selectAllList(info.getMemberNum());
-			
+		List<Map<String, Object>> categories = productService.listCategory(species);
+		model.addAttribute("categories", categories);	
 		model.addAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -753,6 +837,12 @@ public class MyPageController {
     public String addAddress(Mypage dto, HttpSession session,
                              @RequestParam(defaultValue = "1") int defaultDest) throws Exception {
         SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
         dto.setMemberNum(info.getMemberNum());
         dto.setDefaultDest(defaultDest); // 기본 배송지 설정 값을 DTO에 설정
         
@@ -764,17 +854,24 @@ public class MyPageController {
         }
         
 
-        return "redirect:/myPage/myaddress";
+        return "redirect:/myPage/"+ species +"/myaddress";
     }
 	
 	@PostMapping("deleteAddress")
     public String deleteAddress(@RequestParam long destNum, HttpSession session) throws Exception {
         SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
+
         Mypage dto = new Mypage();
         dto.setMemberNum(info.getMemberNum());
         dto.setDestNum(destNum);
         service.deleteDest(dto);
-        return "redirect:/myPage/myaddress";
+        return "redirect:/myPage/"+ species +"/myaddress";
     }
 	
 	@PostMapping("updateAddress")
@@ -786,7 +883,12 @@ public class MyPageController {
 		dto.setMemberNum(info.getMemberNum());
 		dto.setDestNum(destNum);
 		dto.setDefaultDest(defaultDest);
-		
+		Integer species = (Integer)session.getAttribute("species");
+	    
+	    if (species == null) {
+	    	species = 1;
+	    	session.setAttribute("species", species);
+	    }
 		if(defaultDest == 1) {
 			service.updateDest(dto);
 		}else if(defaultDest == 0) {
@@ -794,7 +896,7 @@ public class MyPageController {
 			service.updateDest(dto);
 		}
 		
-		return "redirect:/myPage/myaddress";
+		return "redirect:/myPage/"+ species +"/myaddress";
 	}
 
 	

@@ -81,7 +81,7 @@ window.addEventListener('load', function() {
                         <div class="dropdown">
                             <a href="#"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
                             <div class="dropdown-content">
-                                <a href="${pageContext.request.contextPath}/myPage/orderlist" class="dropdown-button login-button">마이페이지</a>
+                                <a href="${pageContext.request.contextPath}/myPage/${species}/orderlist" class="dropdown-button login-button">마이페이지</a>
                                 <a href="${pageContext.request.contextPath}/member/logout" class="dropdown-button signup-button">로그아웃</a>
                             </div>
                         </div>
