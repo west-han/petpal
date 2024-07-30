@@ -58,7 +58,7 @@ window.addEventListener('load', function() {
                     <c:when test="${not empty sessionScope.member && sessionScope.member.authority == 'ADMIN'}">
                     	<div class="admindown">
                         <a href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/resources/images/admin.png" alt="관리자페이지"></a>
-                        <a href="${pageContext.request.contextPath}/myPage/orderlist" class="">
+                        <a href="${pageContext.request.contextPath}/myPage/${species}/orderlist" class="">
                         	<img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자">
                         </a>
                         <a href="${pageContext.request.contextPath}/member/logout"><img src="${pageContext.request.contextPath}/resources/images/logout.png" alt="로그아웃"></a>
@@ -76,7 +76,7 @@ window.addEventListener('load', function() {
                     </c:when>
                     
                     <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/myPage/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
+                        <a href="${pageContext.request.contextPath}/myPage/${species}/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
                         <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/bell.png" alt="알림"></a>
                         <div class="dropdown">
                             <a href="#"><img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자"></a>
