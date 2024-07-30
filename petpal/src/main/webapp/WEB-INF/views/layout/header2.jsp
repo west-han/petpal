@@ -107,7 +107,7 @@ window.addEventListener('load', function() {
         
     </div>
     <div class="line"></div>
-    <div class="menu2">
+    <div class="menu2 ms-3">
         <span><a href="${pageContext.request.contextPath}/product/recent/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/new.png"><p>신상품</p></a></span>
         <span><a href="${pageContext.request.contextPath}/product/best/${species}/0"><img src="${pageContext.request.contextPath}/resources/images/best.png"><p>베스트</p></a></span>
         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>기획 상품</p></a></span>
