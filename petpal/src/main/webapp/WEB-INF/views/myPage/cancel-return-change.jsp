@@ -8,9 +8,7 @@
 <title>My Page - 취소/반품/교환/환불 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
-body {
-	background-color: #f8f9fa;
-}
+
 
 a {
 	text-decoration: none;

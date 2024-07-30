@@ -12,9 +12,7 @@
 <!-- Font Awesome CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style type="text/css">
-body {
-	background-color: #f8f9fa;
-}
+
 
 h3 {
 	margin-bottom: 20px;

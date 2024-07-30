@@ -6,12 +6,8 @@
 <meta charset="UTF-8">
 <title>주문 상세</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcnd.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
 <style>
-body {
-	background-color: #f8f9fa;
-}
 
 h2 {
 	margin-bottom: 20px;

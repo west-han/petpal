@@ -7,9 +7,6 @@
 <title>My Page - 리뷰 관리</title>
 
 <style type="text/css">
-body {
-    background-color: #f8f9fa;
-}
 
 h2, h3 {
     margin-bottom: 20px;

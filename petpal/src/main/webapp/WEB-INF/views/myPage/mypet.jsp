@@ -10,9 +10,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <style>
-body {
-	background-color: #f8f9fa;
-}
+
 
 h3, h2 {
 	margin-bottom: 20px;

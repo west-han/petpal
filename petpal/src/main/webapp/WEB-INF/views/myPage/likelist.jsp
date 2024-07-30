@@ -9,9 +9,7 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <style type="text/css">
-body {
-    background-color: #f8f9fa;
-}
+
 
 h2, h3 {
     margin-bottom: 20px;

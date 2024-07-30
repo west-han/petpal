@@ -8,9 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 배송지</title>
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+        
         .container {
             margin-top: 50px;
         }

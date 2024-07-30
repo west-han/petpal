@@ -7,9 +7,6 @@
 <meta charset="UTF-8">
 <title>My Page - 적립금</title>
 <style type="text/css">
-body {
-	background-color: #f8f9fa;
-}
 
 h3 {
 	margin-bottom: 20px;

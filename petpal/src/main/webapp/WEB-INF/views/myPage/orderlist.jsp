@@ -7,9 +7,6 @@
 <title>주문 내역</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
-body {
-	background-color: #f8f9fa;
-}
 
 h2 {
 	margin-bottom: 20px;

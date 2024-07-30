@@ -104,16 +104,7 @@ window.addEventListener('load', function() {
                 </c:forEach>
             </div>
         </div>
-        <div class="dropdown">
-            <button class="dropbtn">
-                <img src="${pageContext.request.contextPath}/resources/images/customer.png"><p style="padding-left: 5px;">고객센터</p>
-            </button>
-            <div class="dropdown-content">
-                <a href="${pageContext.request.contextPath}/faq/notice">공지사항</a>
-                <a href="${pageContext.request.contextPath}/onetoone/list">1:1문의</a>
-                <a href="${pageContext.request.contextPath}/faq/faq">FAQ</a>
-            </div>
-        </div>
+        
     </div>
     <div class="line"></div>
     <div class="menu2">
@@ -122,6 +113,16 @@ window.addEventListener('load', function() {
         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/saleTag.png"><p>기획 상품</p></a></span>
         <span><a href="#"><img src="${pageContext.request.contextPath}/resources/images/love.png"><p>맞춤 상품</p></a></span>
         <span><a href="${pageContext.request.contextPath}/event/list"><img src="${pageContext.request.contextPath}/resources/images/present.png"><p>이벤트</p></a></span>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <span style="padding-left: 5px; font-size: 14px"><img src="${pageContext.request.contextPath}/resources/images/customer.png"><p>고객센터</p></span>
+            </button>
+            <div class="dropdown-content">
+                <a href="${pageContext.request.contextPath}/faq/notice">공지사항</a>
+                <a href="${pageContext.request.contextPath}/onetoone/list">1:1문의</a>
+                <a href="${pageContext.request.contextPath}/faq/faq">FAQ</a>
+            </div>
+        </div>
     </div>
     <div class="pet-dropdown">
         <select id="pet-selector" name="species">
