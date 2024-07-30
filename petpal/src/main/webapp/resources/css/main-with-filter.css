@@ -259,14 +259,6 @@ p.text-name {
 	font-weight: 900;
 }
 
-.text-discountedPrice::after {
-	content: '원';
-}
-
-.text-price::after {
-	content: '원';
-}
-
 .text-rate {
 	font-size: 12px;
 	color: #A1A1A1;

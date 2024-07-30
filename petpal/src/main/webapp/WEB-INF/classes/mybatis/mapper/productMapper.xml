@@ -171,7 +171,7 @@
 	<!-- 베스트 상품 -->
 	<select id="listBestProducts" parameterType="map" resultType="com.shop.petpal.domain.Product">
 		SELECT p.productNum, productName, productClass, price, discountRate, discountAmount, 
-                    thumbnail, species, brand, regDate,
+                    thumbnail, p.species, brand, regDate,
                     NVL(sales, 0) sales, NVL(reviewCount, 0) reviewCount, NVL(rating, 0) rating
 		FROM product p
 		<if test="categoryNum != null and categoryNum != 0">

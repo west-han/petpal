@@ -121,19 +121,19 @@
 		                        <p class="text-name">${product.productName}</p>
 		                        <c:if test="${product.discountRate == 0}">
 		                        	<strong class="text-discountedPrice">
-		                        		<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/>
+		                        		<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/> 원
 		                        	</strong>
 		                        </c:if>
 		                        <c:if test="${product.discountRate != 0}">
 			                        <p class="text-price">
-			                        	<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/>
+			                        	<fmt:formatNumber value="${product.price}" type="currency" currencySymbol=""/> 원
 			                        </p>
 			                        <p>
 			                        	<span class="text-discountRate">
 				                        	${product.discountRate}
 				                        </span>
 				                        <strong class="text-discountedPrice">
-				                        	<fmt:formatNumber value="${product.price - product.discountAmount}" type="currency" currencySymbol=""/>
+				                        	<fmt:formatNumber value="${product.price - product.discountAmount}" type="currency" currencySymbol=""/> 원
 				                        </strong>
 			                        </p>
 		                        </c:if>
