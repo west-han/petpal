@@ -31,10 +31,10 @@ a {
 }
 
 .review-item img {
-	width: 150px; /* 이미지 크기를 키움 */
-	height: 150px; /* 이미지 크기를 키움 */
+	width: 200px; /* 이미지 크기를 키움 */
+	height: 200px; /* 이미지 크기를 키움 */
 	object-fit: cover;
-	margin-right: 20px;
+	margin: 5px;
 }
 
 .button-column button {
@@ -125,7 +125,7 @@ a {
 										<div class="row mb-2">
 											<div class="col-md-3 review-item">
 												<a href="${pageContext.request.contextPath}/product/${item.species}/${item.productNum}">
-					                                    <img src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="주문한 사진">
+					                                    <img src="${pageContext.request.contextPath}/uploads/product/${item.thumbnail}" alt="이미지">
 					                                </a>
 											</div>
 											<div class="col-md-6 p-3">
