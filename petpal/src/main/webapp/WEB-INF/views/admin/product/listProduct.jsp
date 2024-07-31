@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
 </head>
 <body>
 	<table class="table table-border table-list">
@@ -29,8 +30,10 @@
                 <td>${dto.productNum}</td>
                 <td>${dto.categoryName}</td>
                 <td class="product-subject left">
-                    <img src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
-                    <a href="#"><label>${dto.productName}</label></a>
+                	<div class="d-flex flex-row">
+	                    <img src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}" style="width:60px;height:60px">
+	                    <a href="#" class="ms-3 productName mt-3"><label>${dto.productName}</label></a>
+                	</div>
                 </td>
                 <td>${dto.price}</td>
                 <td>${dto.discountRate}%</td>
