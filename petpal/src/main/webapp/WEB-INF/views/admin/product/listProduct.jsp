@@ -32,7 +32,7 @@
                 <td class="product-subject left">
                 	<div class="d-flex flex-row">
 	                    <img src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}" style="width:60px;height:60px">
-	                    <a href="#" class="ms-3 productName mt-3"><label>${dto.productName}</label></a>
+	                    <a href="${pageContext.request.contextPath}/product/${dto.species}/${dto.productNum}" class="ms-3 productName mt-3"><label>${dto.productName}</label></a>
                 	</div>
                 </td>
                 <td>${dto.price}</td>

@@ -37,7 +37,6 @@ public class OnetooneController {
 			HttpSession session,
 			Model model) throws Exception {
 		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		String cp = req.getContextPath();
 		
 		int size = 10;
@@ -45,7 +44,6 @@ public class OnetooneController {
 		int dataCount = 0;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberNum", info.getMemberNum());
 		
 		dataCount = service.dataCount(map);
 		if (dataCount != 0) {

@@ -53,6 +53,8 @@
         <intercept-url pattern="/uploads/image/**" access="permitAll"/>
         <intercept-url pattern="/uploads/product/**" access="permitAll"/>
         
+        <intercept-url pattern="/onetoone/list" access="permitAll"/>
+        
         <!-- admin 페이지 -->
         <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN' , 'ROLE_EMP')"/>
         
