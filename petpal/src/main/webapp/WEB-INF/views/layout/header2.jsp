@@ -58,7 +58,7 @@ window.addEventListener('load', function() {
                     <c:when test="${not empty sessionScope.member && sessionScope.member.authority == 'ADMIN'}">
                     	<div class="admindown">
                     	<a href="${pageContext.request.contextPath}/myPage/${species}/likelist"><img src="${pageContext.request.contextPath}/resources/images/heart.png" alt="찜하기"></a>
-                        <a href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/resources/images/admin.png" alt="관리자페이지"></a>
+                        <a href="${pageContext.request.contextPath}/admin/main"><img src="${pageContext.request.contextPath}/resources/images/admin.png" alt="관리자페이지"></a>
                         <a href="${pageContext.request.contextPath}/myPage/${species}/orderlist" class="">
                         	<img src="${pageContext.request.contextPath}/resources/images/person.png" alt="사용자">
                         </a>
