@@ -360,7 +360,7 @@ $(function(){
                         <td>${dto.productNum}</td>
                         <td>${dto.categoryName}</td>
                         <td class="product-subject left">
-                            <img src="${pageContext.request.contextPath}/uploads/product/admin">
+                            <img src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
                             ${dto.productName}
                         </td>
                         <td>${dto.price}</td>
