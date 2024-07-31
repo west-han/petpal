@@ -23,7 +23,7 @@
                     <a href="${pageContext.request.contextPath}/admin/product/list" class="sub_menu--link" data-path="/product/list">상품 관리</a>
                 </li>
                 <li class="sub_menu--item">
-                    <a href="${pageContext.request.contextPath}/admin/product/special" class="sub_menu--link" data-path="/product/special">특가 관리</a>
+                    <a href="${pageContext.request.contextPath}/admin" class="sub_menu--link" data-path="/product/special">특가 관리</a>
                 </li>
             </ul>
         </li>
@@ -50,7 +50,7 @@
             </label>
             <ul class="sub_menu">
                 <li class="sub_menu--item">
-                    <a href="${pageContext.request.contextPath}/admin/notification/list" class="sub_menu--link" data-path="/notification/list">알림 관리</a>
+                    <a href="${pageContext.request.contextPath}/admin" class="sub_menu--link" data-path="/notification/list">알림 관리</a>
                 </li>
                 <li class="sub_menu--item">
                     <a href="${pageContext.request.contextPath}/admin/event/list" class="sub_menu--link" data-path="/event/list">이벤트 관리</a>
@@ -74,14 +74,14 @@
         </li>
 
         <li class="menu--item" data-path="/notice">
-            <a href="${pageContext.request.contextPath}/admin/notice/list" class="menu--link" title="공지 사항">
+            <a href="${pageContext.request.contextPath}/admin" class="menu--link" title="공지 사항">
                 <i class="menu--icon fa-solid fa-headset"></i>
                 <span class="menu--label">공지 사항</span>
             </a>
         </li>
 
         <li class="menu--item" data-path="/sales">
-            <a href="${pageContext.request.contextPath}/admin/sales" class="menu--link" title="매출 현황">
+            <a href="${pageContext.request.contextPath}/admin" class="menu--link" title="매출 현황">
                 <i class="menu--icon fa-solid fa-chart-line"></i>
                 <span class="menu--label">매출 현황</span>
             </a>
