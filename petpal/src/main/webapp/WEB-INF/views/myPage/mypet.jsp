@@ -136,7 +136,7 @@ a {
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/likelist">찜 리스트</a></li>
 					<li class="category-header">my 활동</li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/myPage/${species}/myreview">리뷰관리</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}">1대1 문의 내역</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/onetoone/list">1대1 문의 내역</a></li>
 				</ul>
 			</div>
 
