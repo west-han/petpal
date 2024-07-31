@@ -173,10 +173,10 @@ public class Product {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	public Long getParentCategory() {
+	public long getParentCategory() {
 		return parentCategory;
 	}
-	public void setParentCategory(Long parentCategory) {
+	public void setParentCategory(long parentCategory) {
 		this.parentCategory = parentCategory;
 	}
 	public long getFileNum() {
@@ -209,10 +209,10 @@ public class Product {
 	public void setQuestionCount(int questionCount) {
 		this.questionCount = questionCount;
 	}
-	public Long getOptionNum() {
+	public long getOptionNum() {
 		return optionNum;
 	}
-	public void setOptionNum(Long optionNum) {
+	public void setOptionNum(long optionNum) {
 		this.optionNum = optionNum;
 	}
 	public String getOptionName() {
@@ -221,10 +221,10 @@ public class Product {
 	public void setOptionName(String optionName) {
 		this.optionName = optionName;
 	}
-	public Long getDetailNum() {
+	public long getDetailNum() {
 		return detailNum;
 	}
-	public void setDetailNum(Long detailNum) {
+	public void setDetailNum(long detailNum) {
 		this.detailNum = detailNum;
 	}
 	public String getOptionValue() {
@@ -233,10 +233,10 @@ public class Product {
 	public void setOptionValue(String optionValue) {
 		this.optionValue = optionValue;
 	}
-	public Long getOptionNum2() {
+	public long getOptionNum2() {
 		return optionNum2;
 	}
-	public void setOptionNum2(Long optionNum2) {
+	public void setOptionNum2(long optionNum2) {
 		this.optionNum2 = optionNum2;
 	}
 	public String getOptionName2() {
@@ -245,10 +245,10 @@ public class Product {
 	public void setOptionName2(String optionName2) {
 		this.optionName2 = optionName2;
 	}
-	public Long getDetailNum2() {
+	public long getDetailNum2() {
 		return detailNum2;
 	}
-	public void setDetailNum2(Long detailNum2) {
+	public void setDetailNum2(long detailNum2) {
 		this.detailNum2 = detailNum2;
 	}
 	public String getOptionValue2() {
