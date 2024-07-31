@@ -4,7 +4,6 @@
 
 <div>
 	<div class="mt-3">
-	<h1>123213</h1>
 		<div class="p-3 shadow bg-body rounded">
 			<p class="fs-6 fw-semibold mb-0">${productName}</p> 
 		</div>

@@ -290,12 +290,12 @@ $(function(){
         </div>
 
         <div class="filters">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="species" id="speciesRadio1" value="1" checked>
+            <div class="form-check text-center" style="min-width: 80px">
+                <input class="form-check-input mt-2" type="radio" name="species" id="speciesRadio1" value="1" checked >
                 <label class="form-check-label" for="speciesRadio1">강아지</label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="species" id="speciesRadio2" value="2">
+            <div class="form-check text-center" style="min-width: 80px">
+                <input class="form-check-input mt-2" type="radio" name="species" id="speciesRadio2" value="2">
                 <label class="form-check-label" for="speciesRadio2">고양이</label>
             </div>
             <select id="changeCategory" name="parentCategory" class="form-select">
