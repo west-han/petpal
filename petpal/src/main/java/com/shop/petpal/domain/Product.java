@@ -27,7 +27,7 @@ public class Product {
 	
 	private long categoryNum;
 	private String categoryName;
-	private Long parentCategory;
+	private long parentCategory;
 	
 	private long fileNum;
 	private String fileName;
@@ -36,13 +36,13 @@ public class Product {
 	private int reviewCount;
 	private int questionCount;
 	
-	private Long optionNum;
+	private long optionNum;
 	private String optionName;
-	private Long detailNum;
+	private long detailNum;
 	private String optionValue;
-	private Long optionNum2;
+	private long optionNum2;
 	private String optionName2;
-	private Long detailNum2;
+	private long detailNum2;
 	private String optionValue2;
 	
 	private int membershipNum;
