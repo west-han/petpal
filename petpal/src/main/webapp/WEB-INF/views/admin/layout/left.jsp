@@ -23,7 +23,7 @@
                     <a href="${pageContext.request.contextPath}/admin/product/list" class="sub_menu--link" data-path="/product/list">상품 관리</a>
                 </li>
                 <li class="sub_menu--item">
-                    <a href="${pageContext.request.contextPath}/admin" class="sub_menu--link" data-path="/product/special">특가 관리</a>
+                    <a href="#" class="sub_menu--link" data-path="/product/special">특가 관리</a>
                 </li>
             </ul>
         </li>
