@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainManageController {
 
 	
-	@GetMapping("/admin")
+	@GetMapping("/admin/main")
 	public String main(Model model) {
 		
 		
-		return ".adminLayout";
+		return ".admin.main.main";
 	}
 
 	@GetMapping("/admin/charts")

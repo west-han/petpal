@@ -99,6 +99,14 @@ public class OnetooneServiceImpl implements OnetooneService {
 		
 		try {
 			dto = mapper.findById(num);
+			
+			String answer = dto.getAnsContent();
+			
+			if (answer != null) {
+				answer = answer.replaceAll("\n", "<br/>");
+				dto.setAnsContent(answer);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
