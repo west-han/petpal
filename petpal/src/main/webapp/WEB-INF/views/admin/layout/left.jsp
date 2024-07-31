@@ -6,6 +6,14 @@
             <div id="current-date" class="date"></div>
             <div class="greeting">안녕하세요! <span class="highlight">ADMIN</span>님<br>오늘도 즐거운 하루 되세요 :)</div>
         </li>
+        
+        <li class="menu--item" data-path="/main">
+            <a href="${pageContext.request.contextPath}/admin/main" class="menu--link" title="매출 현황">
+                <i class="menu--icon fa-solid fa-chart-line"></i>
+                <span class="menu--label">매출 현황</span>
+            </a>
+        </li>
+        
         <li class="menu--item" data-path="/order">
             <a href="${pageContext.request.contextPath}/admin/order/status" class="menu--link" title="주문 / 배송 관리">
                 <i class="menu--icon fa-solid fa-box"></i>
@@ -79,13 +87,7 @@
                 <span class="menu--label">공지 사항</span>
             </a>
         </li>
-
-        <li class="menu--item" data-path="/sales">
-            <a href="#" class="menu--link" title="매출 현황">
-                <i class="menu--icon fa-solid fa-chart-line"></i>
-                <span class="menu--label">매출 현황</span>
-            </a>
-        </li>
+        
     </ul>
 </nav>
 
