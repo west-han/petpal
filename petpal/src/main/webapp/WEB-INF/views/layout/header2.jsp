@@ -118,7 +118,7 @@ window.addEventListener('load', function() {
                 <span style="padding-left: 5px; font-size: 14px"><img src="${pageContext.request.contextPath}/resources/images/customer.png"><p>고객센터</p></span>
             </button>
             <div class="dropdown-content">
-                <a href="${pageContext.request.contextPath}/faq/notice">공지사항</a>
+                
                 <a href="${pageContext.request.contextPath}/onetoone/list">1:1문의</a>
                 <a href="${pageContext.request.contextPath}/faq/faq">FAQ</a>
             </div>
