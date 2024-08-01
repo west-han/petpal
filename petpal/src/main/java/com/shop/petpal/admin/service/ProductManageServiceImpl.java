@@ -178,7 +178,11 @@ public class ProductManageServiceImpl implements ProductManageService {
 		List<ProductStockManage> list = null;
 		
 		try {
-			// 상세 옵션별 재고 현황 -----
+			// 상세 옵션별 재고 현황 -----			
+			int optionCount = mapper.optionCount(map);
+			
+			map.put("optionCount", optionCount);
+			
 			list = mapper.listProductStock(map);
 		} catch (Exception e) {
 			e.printStackTrace();

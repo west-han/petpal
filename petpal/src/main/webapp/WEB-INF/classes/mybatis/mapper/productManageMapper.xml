@@ -120,6 +120,13 @@
 		WHERE stockNum = #{stockNum}
 	</update>
 
+	<select id="optionCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*) optionCount
+	    FROM productOption
+	    WHERE productNum = #{productNum}
+		GROUP BY productNum
+	</select>
+
 	<select id="listProductStock" parameterType="map" resultType="com.shop.petpal.admin.domain.ProductStockManage">
 		SELECT p.productNum, p.productName, 
 			po1.optionNum, po1.optionName,
@@ -137,10 +144,10 @@
         		LEFT OUTER JOIN productStock ps ON p.productNum = ps.productNum
         	</when>
         	<when test="optionCount == 1">
-        		LEFT OUTER JOIN productStock ps ON d1.detailNum = ps.detailNum
+        		LEFT OUTER JOIN productStock ps ON d1.detailNum = ps.detailNum1
         	</when>
         	<otherwise>
-        		LEFT OUTER JOIN productStock ps ON d1.detailNum = ps.detailNum AND d2.detailNum = ps.detailNum2
+        		LEFT OUTER JOIN productStock ps ON d1.detailNum = ps.detailNum1 AND d2.detailNum = ps.detailNum2
         	</otherwise>
         </choose>
 		WHERE p.productNum = #{productNum}
