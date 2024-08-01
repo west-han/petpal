@@ -37,10 +37,10 @@
                         <th>${dto.reviewDate}</th>
                         <th>
                         	<c:choose>
-                        		<c:when test="${empty dto.answerNum}">
+                        		<c:when test="${dto.answerNum == 0}">
 								    미답변
 								</c:when>
-                        		<c:when test="${!empty dto.answerNum}">
+                        		<c:when test="${dto.answerNum != 0}">
                         			답변
                         		</c:when>
                         	</c:choose>
