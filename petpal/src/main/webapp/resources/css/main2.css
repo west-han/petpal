@@ -117,3 +117,13 @@ body {
 	display: block;
 	padding-bottom: 15px;
 }
+
+
+a {
+	text-decoration: none !important;
+	color: #434347 !important;
+}
+
+a:hover {
+	color: #E4B075 !important;
+}
