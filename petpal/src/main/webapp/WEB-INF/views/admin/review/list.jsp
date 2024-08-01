@@ -89,8 +89,8 @@ $.fn.center = function () {
 }
 
 $(document).ready(function() {
-    $('.review-link').on('click', function(e) {
-        e.preventDefault();
+    $('.tab-content').on('click', '.review-link', function(e) {
+        
         var orderDetailNum = $(this).data('order');
         var productName = $(this).data('name');
         var reviewContent = $(this).data('content');

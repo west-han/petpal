@@ -58,7 +58,7 @@ public class ReviewManageController {
 	    System.out.println("pageNo: " + current_page);
 	    System.out.println("gubun: " + gubun);
 
-	    int size = 2;
+	    int size = 15;
 	    int total_page = 0;
 	    int dataCount = 0;
 

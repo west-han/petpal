@@ -53,7 +53,7 @@ public class OnetooneManageController {
 			HttpSession session,
 			Model model) throws Exception{
 		
-		int size = 2;
+		int size = 15;
 		int total_page = 0;
 		int dataCount = 0;
 
