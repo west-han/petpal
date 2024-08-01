@@ -84,7 +84,7 @@ public class OnetooneController {
 	}
 	
 	@GetMapping("write")
-	public String writeFome(Model model) throws Exception {
+	public String writeForm(Model model) throws Exception {
 		model.addAttribute("mode", "write");
 		
 		return ".onetoone.write";

@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -482,9 +480,7 @@ public class ProductController {
 	@ResponseBody
 	public Map<String, Object> insertLike(@RequestParam(name = "productNum") long productNum, 
 			@RequestParam(name = "userLiked") boolean userLiked, 
-			HttpSession session,
-			HttpServletRequest req,
-			HttpServletResponse resp) throws Exception {
+			HttpSession session) throws Exception {
 		String state = "true";
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
