@@ -15,14 +15,14 @@
 	<div class="body-container">	
 
         <div class="row justify-content-md-center mt-5">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="border mt-5 p-4">
-                       <h4 class="text-center fw-bold"><i class="bi bi-exclamation-triangle"></i> 시스템 오류</h4>
+                       <h4 class="text-center fw-bold"><i class="bi bi-exclamation-triangle"></i> 잘못된 접근입니다.</h4>
                        
 	                <div class="d-grid pt-3">
 						<p class="alert alert-primary text-center bg-light fs-6">
-							시스템에 오류가 발생했습니다.<br>
-							잠시후 다시 시도 해보시기 바랍니다.						
+							입력하신 주소가 정확한지 다시 한 번 확인하시거나,<br>
+							펫팔 홈페이지로 이동하여 다른 링크를 이용해 주세요.
 						</p>
 	                </div>
                        

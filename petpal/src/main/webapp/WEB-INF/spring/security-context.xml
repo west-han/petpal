@@ -24,6 +24,7 @@
         
         <!-- 모든 접근자를 항상 승인 -->
         <!-- 상품 조회 화면 접근 제한 해제 -->
+        <intercept-url pattern="/error/**" access="permitAll"/>
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/1" access="permitAll"/>
         <intercept-url pattern="/2" access="permitAll"/>
