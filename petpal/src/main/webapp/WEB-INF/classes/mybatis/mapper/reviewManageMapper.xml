@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.petpal.admin.mapper.ReviewManageMapper">
 	<select id="listReview" resultType="com.shop.petpal.admin.domain.ReviewManage">
-	select rv.orderDetailNum,rv.rating, m2.userName, p.productName, detail.amount,rv.content, rv.reviewDate, rv.answerNum, rv.answerDate, rv.showReview
+	select rv.orderDetailNum,rv.rating, m2.userName, p.productName, detail.amount,rv.content, rv.reviewDate, rv.answer, rv.answerNum, rv.answerDate, rv.showReview
 	from review rv
 	JOIN member1 m1 ON rv.memberNum = m1.memberNum
 	JOIN member2 m2 ON m1.memberNum = m2.memberNum

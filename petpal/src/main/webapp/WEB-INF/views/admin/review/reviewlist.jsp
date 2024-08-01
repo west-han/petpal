@@ -28,7 +28,8 @@
                             <a href="#" class="review-link" 
                             data-order="${dto.orderDetailNum}" 
                             data-name="${dto.productName}" 
-                            data-content="${dto.content}">
+                            data-content="${dto.content}"
+                            data-answer="<c:if test="${not empty dto.answer}">'${dto.answer}'</c:if>">
                                 ${dto.productName}
                             </a>
                         </th>

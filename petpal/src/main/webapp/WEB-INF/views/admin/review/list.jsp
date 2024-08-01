@@ -94,10 +94,12 @@ $(document).ready(function() {
         var orderDetailNum = $(this).data('order');
         var productName = $(this).data('name');
         var reviewContent = $(this).data('content');
+        var reviewResponse = $(this).data('answer');
 
         $('#orderDetailNumHidden').val(orderDetailNum);
         $('#orderDetailNum').val(orderDetailNum + ' - ' + productName);
         $('#reviewContent').val(reviewContent);
+        $('#reviewResponse').text(reviewResponse);
         $('#reviewModal .modal-title').text(productName + ' 리뷰 답변 등록');
         $('#reviewModal').center().modal('show');
     });
