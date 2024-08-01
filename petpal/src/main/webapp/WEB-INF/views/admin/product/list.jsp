@@ -399,7 +399,7 @@ $(function(){
         <table class="table table-borderless">
             <tr>
                 <td width="150">
-                    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/product';"> <i class="bi bi-arrow-clockwise"></i> </button>
+                    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/product/list';"> <i class="bi bi-arrow-clockwise"></i> </button>
                 </td>
                 <td align="center">
                     <form class="row justify-content-center" name="searchForm" action="${pageContext.request.contextPath}/admin/product/" method="post">
