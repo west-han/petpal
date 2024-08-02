@@ -80,7 +80,7 @@ $(function(){
 		            	<div class="form-check form-check-inline">&nbsp;</div>
 					</div>
 		            <div class="col-auto">
-		            	${dataCount}개(${page}/${total_page} 페이지)
+		            	${dataCount}개(${currentPage}/${totalPage} 페이지)
 					</div>
 		        </div>
 				

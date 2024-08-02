@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shop.petpal.admin.domain.OrderDetailManage;
 import com.shop.petpal.admin.domain.OrderManage;
 import com.shop.petpal.admin.service.OrderManageService;
+import com.shop.petpal.common.MyUtil;
 import com.shop.petpal.domain.SessionInfo;
 
 /*
@@ -38,6 +40,9 @@ public class OrderManageController {
 	@Autowired
 	private OrderManageService service;
 	
+	@Autowired
+	private MyUtil myUtil;
+	
 	// NOTE: order - 주문 관리, delivery - 배송 관리
 	@RequestMapping("{orderStatus}")
 	public String status(
@@ -47,6 +52,7 @@ public class OrderManageController {
 			@RequestParam(defaultValue = "orderNum") String schType,
 			@RequestParam(defaultValue = "") String kwd,
 			@RequestParam(defaultValue = "30") int pageSize,
+			HttpServletRequest req,
 			Model model) throws Exception {
 		// NOTE: 필요한 파라미터: 페이지 번호, 검색 대상, 검색어 
 		// NOTE: 주문 상태: 0 - 전체, 1 - 결제완료,  2 - 발송처리 ~ 구매확정 3 - 판매취소/주문취소
@@ -56,17 +62,21 @@ public class OrderManageController {
 			case "canceled": state = 3; break;
 		}
 		
+		String cp = req.getContextPath();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("state", state);
 		map.put("schType", schType);
 		map.put("kwd", kwd);
 		
 		int dataCount = service.countOrder(map);
+		int total_page = myUtil.pageCount(dataCount, pageSize);
+		if(currentPage > total_page) {
+			currentPage = total_page;
+		}
 		
 		int offset = (currentPage - 1) * pageSize;
-		if (offset < 0) {
-			offset = 0;
-		}
+		if(offset < 0) offset = 0;
 		
 		map.put("offset", offset);
 		map.put("size", pageSize);
@@ -74,10 +84,14 @@ public class OrderManageController {
 		List<OrderManage> list = service.listOrder(map);
 		List<Map<String, Object>> deliveryCompanyList = service.listDeliveryCompany();
 		
+		String listUrl = cp + "/admin/order/" + orderStatus;
+		
 		String query = "state=" + state;
 		if (kwd.length() != 0) {
 			query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
 		}
+		
+		String paging = myUtil.pagingUrl(currentPage, total_page, listUrl);
 		
 		model.addAttribute("orderStatus", orderStatus);
 		model.addAttribute("list", list);
@@ -88,8 +102,10 @@ public class OrderManageController {
 		model.addAttribute("kwd", kwd);
 		
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPage", total_page);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("query", query);
+		model.addAttribute("paging", paging);
 		
 		model.addAttribute("deliveryCompanyList", deliveryCompanyList);
 		
