@@ -2,7 +2,7 @@
 
     <div class="header">
         <div class="logo logo-container">
-                   <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
+                   <a href="#"> <img class="mb-4" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
                     <p class="name"><a href="${pageContext.request.contextPath}/"><span class="highlight">PET</span>PAL</a></p>
                 </div>
         
@@ -19,6 +19,5 @@
     </div>
     <div class="header2">
     	<div class="info-header">
-    		<p class="infomation">주문 / 배송 관리 > 상품 등록</p>
     	</div>
     </div>

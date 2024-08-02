@@ -41,7 +41,7 @@ main .category-list > li {
 }
 
 main .product-box {
-    width: calc(20% - 10px);
+    width: 20%;
     margin-bottom: 15px;
 }
 
@@ -53,8 +53,8 @@ main .product-img-box > img {
     width: 100%;
 }
 
-main .product-box:nth-child(5n) {
-    margin-right: 0;
+main .product-box {
+	padding: 5px;
 }
 
 main .page-box {

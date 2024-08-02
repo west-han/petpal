@@ -14,15 +14,16 @@
 
 .date-greeting {
     width: 270px;
-    height: 200px; 
+    height: 142.983px; 
     background-color: #DDC8B1;
-    padding: 50px 0 10px 10px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .date-greeting .date {
     font-size: 20px;
     color: white;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .date-greeting .greeting {
