@@ -179,7 +179,7 @@ public class ProductManageServiceImpl implements ProductManageService {
 		
 		try {
 			// 상세 옵션별 재고 현황 -----			
-			int optionCount = mapper.optionCount(map);
+			Integer optionCount = mapper.optionCount(map);
 			
 			map.put("optionCount", optionCount);
 			

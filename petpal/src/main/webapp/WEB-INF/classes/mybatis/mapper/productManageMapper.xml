@@ -121,7 +121,7 @@
 	</update>
 
 	<select id="optionCount" parameterType="map" resultType="Integer">
-		SELECT COUNT(*) optionCount
+		SELECT NVL(COUNT(*), 0) optionCount
 	    FROM productOption
 	    WHERE productNum = #{productNum}
 		GROUP BY productNum
@@ -140,7 +140,7 @@
         LEFT OUTER JOIN optionDetail d1 ON po1.optionNum = d1.optionNum
         LEFT OUTER JOIN optionDetail d2 ON po2.optionNum = d2.optionNum
         <choose>
-        	<when test="optionCount == 0">
+        	<when test="optionCount == null or optionCount == 0">
         		LEFT OUTER JOIN productStock ps ON p.productNum = ps.productNum
         	</when>
         	<when test="optionCount == 1">

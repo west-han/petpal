@@ -47,6 +47,6 @@ public interface ProductManageMapper {
 	public void updateProductStock(ProductStockManage dto) throws SQLException;
 	public List<ProductStockManage> listProductStock(Map<String, Object> map);
 	
-	public int optionCount(Map<String, Object> map);
+	public Integer optionCount(Map<String, Object> map);
 }
 
