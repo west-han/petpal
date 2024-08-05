@@ -556,6 +556,11 @@ public class MyPageServiceImpl implements MyPageService {
         
         try {
             list = mapper.myReviewListPaged(params);
+            for (Mypage review : list) {
+	            if (review.getReviewFileName() != null) {
+	                review.setReviewFileNameList(Arrays.asList(review.getReviewFileName().split(", ")));
+	            }
+	        }
         } catch (SQLException e) {
             e.printStackTrace();
         }

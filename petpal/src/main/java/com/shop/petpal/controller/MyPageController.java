@@ -780,7 +780,7 @@ public class MyPageController {
             map.put("endDate", endDate);
         }
         
-		// List<myPage> reviews = service.selectReviewList(info.getMemberNum());
+		// List<myPage> reviews2 = service.selectReviewList(info.getMemberNum());
         
         List<Mypage> reviews = service.myReviewListPaged(map);
         
